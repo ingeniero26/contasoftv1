@@ -215,5 +215,45 @@ function Editar_Foto_Empresa() {
 
 
 function Modificar_Empresa() {
-    
+    var NIT =$('#txt_NIT').val();
+    var nombre =$('#txt_nombre').val();
+    var representante =$('#txt_representante').val();
+    var direccion =$('#txt_direccion').val();
+    var telefono =$('#txt_telefono').val();
+    var correo =$('#txt_telefono').val();
+
+    if(nombre.length ==0 || NIT.length == 0 || representante.length ==0 ||direccion.length ==0
+      || telefono.length ==0) {
+      return Swal.fire('Mensaje de error','Debe digitar los campos vacios','warning');
+    }
+    $.ajax({
+      url:'../controlador/empresa/controlador_editar_empresa.php',
+      type:'POST',
+      data:{
+        NIT:NIT,  nombre:nombre,
+         representante:representante,
+        direccion:direccion,
+        telefono:telefono, correo:correo
+      }
+    }).done(function(resp){
+      if(resp > 0) {
+            if(resp==1) {
+                $('#modal_registro').modal('hide');
+                Swal.fire("Mensaje  de confirmaciòn","Empresa registrado exitosamente",
+                    "success")
+                .then((value)=>{
+                    listar_empresa();
+               // LimpiarCampos();
+               t_empresa.ajax.reload();
+                
+                });
+            } else {
+               // LimpiarCampos();
+                return Swal.fire('Mensaje de error', 'Documento ya existe en el sistema, utilice otro', 'warning'
+                  );
+            }
+        }else {
+            return Swal.fire('Mensaje de error','Empresa no insertado','warning');
+        }
+    })
 }

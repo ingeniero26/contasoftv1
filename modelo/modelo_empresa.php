@@ -48,6 +48,17 @@ class Modelo_Empresa {
 				$this->conexion->cerrar();
 			}
 	}
+	function Modificar_Empresa($NIT,$nombre,$representante, $direccion,$telefono,$correo) {
+		$sql = "call  SP_MODIFICAR_EMPRESA('$NIT','$nombre','$representante'
+		,'$direccion','$telefono','$correo')";
+			if($consulta = $this->conexion->conexion->query($sql)){
+				if($row = mysqli_fetch_array($consulta)) {
+					return	$id =trim($row[0]);
+				}
+				 $arreglo;
+				$this->conexion->cerrar();
+			}
+	}
 }
 
 
