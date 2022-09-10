@@ -83,7 +83,44 @@
 </div>
 
 <!--modal editar-->
+<div class="modal fade" id="modal_editar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Registro de Ciudades</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      	<div class="row">
+              <div class="col-lg-6">
+                <input type="text" id="txt_idciudad">
+                <label for=""><b>Nombre Ciudad</b> </label>
+               <input type="text" id="txt_ciudad_actual" class="form-control" placeholder="">
+               <input type="text" id="txt_ciudad_nueva" class="form-control" placeholder="">
 
+            </div>
+      
+      <div class="col-lg-6">
+            <label for=""><b>Departamento</b> </label>
+                <select class="js-example-basic-single" name="state"
+                 style="width: 100%;" id="cmb_departamento_editar"> 
+                       
+            </select> <br> <br>
+        </div>
+
+      
+		</div>
+      </div>
+      <div class="modal-footer">
+      	 <button type="button" class="btn btn-primary" onclick="Registrar_Ciudades()">Grabar</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+       
+      </div>
+    </div>
+  </div>
+</div>
 <!-- Modal registro -->
 
 

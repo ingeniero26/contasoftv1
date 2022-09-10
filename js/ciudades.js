@@ -84,10 +84,7 @@ function listar_ciudades(){
             },
         
       ],
-      "fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
-            $($(nRow).find("td")[1]).css('text-align', 'center' );
-            $($(nRow).find("td")[4]).css('text-align', 'center' );
-        },
+      
         "language":idioma_espanol,
         select: true
     });
@@ -110,18 +107,13 @@ function listar_ciudades(){
             }
         $("#modal_editar").modal({backdrop:'static',keyboard:false})
         $("#modal_editar").modal('show');
-        $("#txt_idproducto").val(data.producto_id);
-        $("#txt_codigo_actual_editar").val(data.producto_codigo);
-        $("#txt_codigo_nuevo_editar").val(data.producto_codigo);
-        $("#txt_nombre_actual_editar").val(data.producto_nombre);
-        $("#txt_nombre_nuevo_editar").val(data.producto_nombre);
-        $("#txt_presentacion_producto_editar").val(data.producto_presentacion);
-        $("#txt_serie_editar").val(data.producto_serie);
-        $("#txt_cant_minima_editar").val(data.cant_minima);
-        $("#cmb_categoria_editar").val(data.id_categoria).trigger("change");
-        $("#cmb_unidad_editar").val(data.id_unidad).trigger("change");
-        $("#txt_precio_compra_editar").val(data.precio_costo);
-        $("#txt_precio_venta_editar").val(data.producto_precioventa);
+        $("#txt_idciudad").val(data.id);
+        $("#txt_ciudad_actual").val(data.nombre_ciudad);
+        $("#txt_ciudad_nueva").val(data.nombre_ciudad);
+       
+        $("#cmb_departamento_editar").val(data.idDepto).trigger("change");
+       
+        
        
 
     });
@@ -147,7 +139,7 @@ function listar_ciudades(){
         idempresa:idempresa
       }
        }).done(function(resp){
-        alert(resp);
+       // alert(resp);
         if(resp > 0) {
             if(resp==1) {
                 $('#modal_registro').modal('hide');
