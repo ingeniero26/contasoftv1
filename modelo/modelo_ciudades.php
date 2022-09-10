@@ -15,15 +15,15 @@ class Modelo_Ciudades {
 
 	function listar_ciudades($id_departamento){
 		$sql = "SELECT     `ciudades`.`id`
-    , `ciudades`.`nombre_ciudad`
-    , ciudades.`estatus`
-    , `ciudades`.`idDepto`
-    , `departamentos`.`nombre_depto`
-	FROM
-    `sistema_pos_v2`.`ciudades`
-    INNER JOIN `sistema_pos_v2`.`departamentos` 
-        ON (`ciudades`.`idDepto` = `departamentos`.`id`)
-        WHERE ciudades.`idDepto` = '$id_departamento'";
+			, `ciudades`.`nombre_ciudad`
+			, ciudades.`estatus`
+			, `ciudades`.`idDepto`
+			, `departamentos`.`nombre_depto`
+				FROM
+				`sistema_pos_v2`.`ciudades`
+				INNER JOIN `sistema_pos_v2`.`departamentos` 
+					ON (`ciudades`.`idDepto` = `departamentos`.`id`)
+					WHERE ciudades.`idDepto` = '$id_departamento'";
 			$arreglo = array();
 			if($consulta = $this->conexion->conexion->query($sql)){
 				while($consulta_vu = mysqli_fetch_assoc($consulta)) {
