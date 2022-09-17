@@ -13,8 +13,21 @@ class Modelo_Arl {
 	}
 
 
-	function listar_arl(){
-		$sql = "call SP_LISTAR_ARL()";
+	function listar_arl($idempresa){
+		$sql = "SELECT
+		`IdARL`
+		, `NitARL`
+		, `NomARL`
+		, `DirARL`
+		, `CiudadARL`
+		, `TelARL`
+		, `EmailArl`
+		, `fregistro`
+		, `estatus`
+		,`idempresa`
+	FROM
+		`arl`
+		WHERE arl.`idempresa` = '$idempresa'";
 			$arreglo = array();
 			if($consulta = $this->conexion->conexion->query($sql)){
 				while($consulta_vu = mysqli_fetch_assoc($consulta)) {

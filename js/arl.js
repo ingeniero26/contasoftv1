@@ -1,7 +1,7 @@
 var t_arl;
 
 function listar_arl() {
-
+    var idempresa =$("#txt_idempresa").val();
     t_arl = $('#tabla_arl').DataTable({
         "ordering": false,
         "pageLength": 10,
@@ -12,6 +12,9 @@ function listar_arl() {
         ajax: {
             method: "POST",
             url: "../controlador/configuracion/control_listar_arl.php",
+            data: {
+                idempresa:idempresa
+            }
         },
 
         "order": [
