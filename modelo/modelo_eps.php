@@ -14,14 +14,16 @@ class Modelo_Eps {
 	}
 
 
-	function listar_eps(){
-		$sql = "SELECT  `IdEPS`    , `NitEPS`
-		    , `NomEPS` , `CiudadEPS`
-		    , `DirEPS`	 , `TelEPS`
-		    , `EmailEps`, `fregistro`
-		    , `estatus`
-		   FROM
-		    `eps`;";
+	function listar_eps($idempresa){
+		$sql = "SELECT
+		`IdEPS`    , `NitEPS`
+	  , `NomEPS` , `CiudadEPS`
+	  , `DirEPS`	 , `TelEPS`
+	   , `EmailEps`, `fregistro`
+	  , `estatus`
+	  FROM
+	  `eps`
+	  WHERE eps.`idempresa` = '$idempresa'";
 			$arreglo = array();
 			if($consulta = $this->conexion->conexion->query($sql)){
 				while($consulta_vu = mysqli_fetch_assoc($consulta)) {

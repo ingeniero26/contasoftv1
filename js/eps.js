@@ -13,7 +13,7 @@ FROM
     `eps`;*/
 
 function listar_eps() {
-
+    var idempresa =$("#txt_idempresa").val();
     t_eps = $("#tabla_eps").DataTable({
         "ordering": false,
         "pageLength": 10,
@@ -24,6 +24,9 @@ function listar_eps() {
         "ajax": {
             "method": "POST",
             "url": "../controlador/configuracion/control_listar_eps.php",
+            data : {
+                idempresa : idempresa
+            }
         },
 
         "order": [
