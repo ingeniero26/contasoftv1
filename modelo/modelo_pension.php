@@ -14,8 +14,21 @@ class Modelo_Pension {
 	}
 
 
-	function listar_pension(){
-		$sql = "SELECT * from pension";
+	function listar_pension($idempresa){
+		$sql = "SELECT
+		`IdPension`
+		, `NitPension`
+		, `NomPension`
+		, `CiudadPension`
+		, `DirPension`
+		, `TelPension`
+		, `EmailPension`
+		, `fregistro`
+		, `estatus`
+		, `idempresa`
+	FROM
+		`pension`
+		WHERE pension.`idempresa` = '$idempresa'";
 			$arreglo = array();
 			if($consulta = $this->conexion->conexion->query($sql)){
 				while($consulta_vu = mysqli_fetch_assoc($consulta)) {

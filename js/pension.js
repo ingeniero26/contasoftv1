@@ -2,7 +2,7 @@ var t_pension;
 
 
 function listar_pension() {
-
+    var idempresa =$("#txt_idempresa").val();
     t_pension = $("#tabla_pension").DataTable({
         "ordering": false,
         "pageLength": 10,
@@ -13,6 +13,9 @@ function listar_pension() {
         "ajax": {
             "method": "POST",
             "url": "../controlador/configuracion/control_listar_pension.php",
+            data : {
+                idempresa:idempresa
+            }
         },
 
         "order": [
