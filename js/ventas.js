@@ -536,7 +536,15 @@ function Registrar_Detalle_Venta(id){
               confirmButtonText: 'Imprimir Reporte'
             }).then((result) => {
               if (result.value) {
-                window.open("../mpdf/ticket.php?codigo="+parseInt(id)+"zoom=100","Reporte de Venta","scrollbards=NO");
+                let tipo_comprobante = document.getElementById('cmb_tipo_comprobante').value;
+                if(tipo_comprobante =="FACTURA") {
+                    window.open("../mpdf/reporte_ventas.php?codigo="+parseInt(id)+"zoom=100","Reporte de Venta","scrollbards=NO");
+
+                } else {
+                    window.open("../mpdf/ticket.php?codigo="+parseInt(id)+"zoom=100","Reporte de Venta","scrollbards=NO");
+
+                }
+
               $("#contenido_principal").load("../vista/ventas/vista_mantenimiento_ventas.php");
               } else {
                  $("#contenido_principal").load("../vista/ventas/vista_mantenimiento_ventas.php");
