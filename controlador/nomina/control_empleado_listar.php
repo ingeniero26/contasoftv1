@@ -2,7 +2,8 @@
  include '../../modelo/modelo_empleados.php';
 
  $MEP = new Modelo_Empleado();
- $consulta =$MEP->listar_empleado();
+  $idempresa = htmlspecialchars($_POST['idempresa'],ENT_QUOTES,'UTF-8');
+ $consulta =$MEP->listar_empleado($idempresa);
 if($consulta) {
 	echo json_encode($consulta);
 } else {

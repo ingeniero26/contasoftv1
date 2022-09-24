@@ -1,6 +1,6 @@
 var t_empleado;
 function listar_empleados(){
-
+    var idempresa =$("#txt_idempresa").val();
      t_empleado = $("#tabla_empleados").DataTable({
 	     	"ordering":false,   
         "pageLength":10,
@@ -11,6 +11,9 @@ function listar_empleados(){
       "ajax":{
         "method":"POST",
 		    "url":"../controlador/nomina/control_empleado_listar.php",
+            data:{
+                idempresa:idempresa
+            }
       },
       
       "order":[[1,'asc']],

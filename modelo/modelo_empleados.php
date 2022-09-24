@@ -10,25 +10,26 @@ function __construct()
 	}
 
 
-	function listar_empleado(){
+	function listar_empleado($idempresa){
 		$sql = "SELECT    `empleados`.`IdEmp`    , `empleados`.`CCEmp`
-    , `empleados`.`NomEmp`    , `empleados`.`DirEmp`
-    , `empleados`.`TelEmp`    , `empleados`.`CelEmp`
-    , `empleados`.`EmailEmp`    ,`empleados`.`fecha_nacimiento`
-    , `empleados`.`IdARL`    , `arl`.`NomARL`
-    , `empleados`.`IdEPS`    , `eps`.`NomEPS`
-    , `empleados`.`IdPension`
-    , `pension`.`NomPension`
-    , `empleados`.`fregistro`
-    , `empleados`.`estatus`
-	FROM
-    `empleados`
-    INNER JOIN `arl` 
-        ON (`empleados`.`IdARL` = `arl`.`IdARL`)
-    INNER JOIN `eps` 
-        ON (`empleados`.`IdEPS` = `eps`.`IdEPS`)
-    INNER JOIN `pension` 
-        ON (`empleados`.`IdPension` = `pension`.`IdPension`);";
+		, `empleados`.`NomEmp`    , `empleados`.`DirEmp`
+		, `empleados`.`TelEmp`    , `empleados`.`CelEmp`
+		, `empleados`.`EmailEmp`    ,`empleados`.`fecha_nacimiento`
+		, `empleados`.`IdARL`    , `arl`.`NomARL`
+		, `empleados`.`IdEPS`    , `eps`.`NomEPS`
+		, `empleados`.`IdPension`
+		, `pension`.`NomPension`
+		, `empleados`.`fregistro`
+		, `empleados`.`estatus`
+		FROM
+		`empleados`
+		INNER JOIN `arl` 
+			ON (`empleados`.`IdARL` = `arl`.`IdARL`)
+		INNER JOIN `eps` 
+			ON (`empleados`.`IdEPS` = `eps`.`IdEPS`)
+		INNER JOIN `pension` 
+			ON (`empleados`.`IdPension` = `pension`.`IdPension`)
+			WHERE empleados.`idempresa` = '$idempresa'";
 			$arreglo = array();
 			if($consulta = $this->conexion->conexion->query($sql)){
 				while($consulta_vu = mysqli_fetch_assoc($consulta)) {
