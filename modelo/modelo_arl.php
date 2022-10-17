@@ -50,8 +50,8 @@ class Modelo_Arl {
 			}
 	}
 
-	function Registrar_Arl($nit,$nombre,$ciudad,$direccion,$telefono,$correo) {
-		$sql = "call  SP_REGISTRAR_ARL('$nit','$nombre','$ciudad','$direccion','$telefono','$correo')";
+	function Registrar_Arl($nit,$nombre,$ciudad,$direccion,$telefono,$correo,$idempresa) {
+		$sql = "call  SP_REGISTRAR_ARL('$nit','$nombre','$ciudad','$direccion','$telefono','$correo','$idempresa')";
 			if($consulta = $this->conexion->conexion->query($sql)){
 				if($row = mysqli_fetch_array($consulta)) {
 					return	$id =trim($row[0]);
