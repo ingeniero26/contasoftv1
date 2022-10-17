@@ -163,16 +163,6 @@ function Modificar_Estatus(IdARL, estatus) {
 
 
 
-
-
-
-
-
-
-
-
-
-
 function AbrirModalRegistro() {
     $("#modal_registro").modal({ backdrop: 'static', keyboard: false })
     $('#modal_registro').modal('show');
@@ -186,6 +176,7 @@ function Registrar_Arl() {
     var direccion = $('#txt_direccion_arl').val();
     var telefono = $('#txt_tel_arl').val();
     var correo = $('#txt_correo_arl').val();
+    var idempresa =$("#txt_idempresa").val();
 
     if (nit.length == 0 || nombre.legth == 0) {
         return Swal.fire('Mensaje de error', 'Digite los campos estan vacios', 'warning');
@@ -200,6 +191,7 @@ function Registrar_Arl() {
             direccion: direccion,
             telefono: telefono,
             correo: correo,
+            idempresa:idempresa
         }
     }).done(function(resp) {
         if (resp > 0) {
