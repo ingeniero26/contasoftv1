@@ -13,12 +13,8 @@ class Modelo_Categoria {
 
 
 	function listar_categoria($idempresa){
-		$sql = "SELECT    `categoria_id`    , `categoria_nombre`
-    , `categoria_fregistro`    , `categoria_estatus`
-    , `idempresa`
-    FROM
-    `categoria`
-    WHERE categoria.`idempresa` = '$idempresa'";
+		$sql = "SELECT `categoria_id`, `categoria_nombre`, `categoria_fregistro`, `categoria_estatus`, `idempresa`
+    			FROM `categoria` WHERE categoria.`idempresa` = '$idempresa'";
 			$arreglo = array();
 			if($consulta = $this->conexion->conexion->query($sql)){
 				while($consulta_vu = mysqli_fetch_assoc($consulta)) {
@@ -61,6 +57,20 @@ class Modelo_Categoria {
 			}else{
 				return 0;
 			}
+	}
+
+	function listar_categoria_tienda(){
+		$sql = "SELECT `categoria_id`, `categoria_nombre`, `categoria_fregistro`, `categoria_estatus`, `idempresa`
+    			FROM `categoria`";
+			$arreglo = array();
+			if($consulta = $this->conexion->conexion->query($sql)){
+				while($consulta_vu = mysqli_fetch_assoc($consulta)) {
+						$arreglo[] =$consulta_vu;
+					
+				}
+				return $arreglo;
+				$this->conexion->cerrar();
+		}
 	}
 }
 

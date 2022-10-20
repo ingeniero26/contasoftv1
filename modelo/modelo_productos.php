@@ -14,22 +14,22 @@ class Modelo_Productos {
 
 	function listar_productos($id_bodega,$id_categoria,$idempresa){
 		$sql = "SELECT
-    `p`.`producto_id`    , `p`.`producto_codigo`
-    , `p`.`producto_nombre`    , `p`.`producto_presentacion`
-    , `p`.`id_bodega`
-    , `b`.`nombre_bodega`      ,`p`.`cant_minima`  
-    ,    `p`.`producto_stock`    , `p`.`id_categoria`    , `c`.`categoria_nombre`
-    , `p`.`id_unidad`    , `u`.`unidad_nombre`
-    , `p`.`producto_foto`    , p.compra,`p`.`producto_precioventa`,  p.producto_precioventa - p.`compra`  AS ganancia,p.idTipoProducto,
-     tp.id, tp.tipo_producto
-    , `p`.`producto_estatus`,p.`idempresa`
-FROM
-    `producto` AS `p`
-    INNER JOIN `bodega` AS `b`     ON (`p`.`id_bodega` = `b`.`id`)
-    INNER JOIN `categoria` AS `c`  ON (`p`.`id_categoria` = `c`.`categoria_id`)
-    INNER JOIN `unidad` AS `u`     ON (`p`.`id_unidad` = `u`.`unidad_id`)
-    INNER JOIN tipo_producto tp ON (p.`idTipoProducto` = tp.`id`)
-    INNER JOIN empresa AS em ON p.`idempresa` = em.`ID`
+			`p`.`producto_id`    , `p`.`producto_codigo`
+			, `p`.`producto_nombre`    , `p`.`producto_presentacion`
+			, `p`.`id_bodega`
+			, `b`.`nombre_bodega`      ,`p`.`cant_minima`  
+			,    `p`.`producto_stock`    , `p`.`id_categoria`    , `c`.`categoria_nombre`
+			, `p`.`id_unidad`    , `u`.`unidad_nombre`
+			, `p`.`producto_foto`    , p.compra,`p`.`producto_precioventa`,  p.producto_precioventa - p.`compra`  AS ganancia,p.idTipoProducto,
+			tp.id, tp.tipo_producto
+			, `p`.`producto_estatus`,p.`idempresa`
+		FROM
+			`producto` AS `p`
+			INNER JOIN `bodega` AS `b`     ON (`p`.`id_bodega` = `b`.`id`)
+			INNER JOIN `categoria` AS `c`  ON (`p`.`id_categoria` = `c`.`categoria_id`)
+			INNER JOIN `unidad` AS `u`     ON (`p`.`id_unidad` = `u`.`unidad_id`)
+			INNER JOIN tipo_producto tp ON (p.`idTipoProducto` = tp.`id`)
+			INNER JOIN empresa AS em ON p.`idempresa` = em.`ID`
        WHERE b.`id` = '$id_bodega'  AND p.`id_categoria` = '$id_categoria' AND p.`idempresa` = '$idempresa'";
 			$arreglo = array();
 			if($consulta = $this->conexion->conexion->query($sql)){
@@ -137,6 +137,36 @@ function listar_combo_tipo() {
 					return	$id =trim($row[0]);
 				}
 				 $arreglo;
+				$this->conexion->cerrar();
+		}
+	}
+
+	function listar_productos_categoria_tienda($id_bodega,$id_categoria){
+		$sql = "SELECT
+			`p`.`producto_id`    , `p`.`producto_codigo`
+			, `p`.`producto_nombre`    , `p`.`producto_presentacion`
+			, `p`.`id_bodega`
+			, `b`.`nombre_bodega`      ,`p`.`cant_minima`  
+			,    `p`.`producto_stock`    , `p`.`id_categoria`    , `c`.`categoria_nombre`
+			, `p`.`id_unidad`    , `u`.`unidad_nombre`
+			, `p`.`producto_foto`    , p.compra,`p`.`producto_precioventa`,  p.producto_precioventa - p.`compra`  AS ganancia,p.idTipoProducto,
+			tp.id, tp.tipo_producto
+			, `p`.`producto_estatus`,p.`idempresa`
+			FROM
+			`producto` AS `p`
+			INNER JOIN `bodega` AS `b`     ON (`p`.`id_bodega` = `b`.`id`)
+			INNER JOIN `categoria` AS `c`  ON (`p`.`id_categoria` = `c`.`categoria_id`)
+			INNER JOIN `unidad` AS `u`     ON (`p`.`id_unidad` = `u`.`unidad_id`)
+			INNER JOIN tipo_producto tp ON (p.`idTipoProducto` = tp.`id`)
+			INNER JOIN empresa AS em ON p.`idempresa` = em.`ID`
+       		WHERE b.`id` = '$id_bodega'  AND p.`id_categoria` = '$id_categoria' ";
+			$arreglo = array();
+			if($consulta = $this->conexion->conexion->query($sql)){
+				while($consulta_vu = mysqli_fetch_assoc($consulta)) {
+						$arreglo[] =$consulta_vu;
+					
+				}
+				return $arreglo;
 				$this->conexion->cerrar();
 		}
 	}
