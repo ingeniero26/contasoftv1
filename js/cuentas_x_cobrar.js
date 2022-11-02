@@ -1,5 +1,5 @@
 var   t_cuentas_x_cobrar;
-alert("aqui");
+///alert("aqui");
 
 function ListarCuenta_Cliente(){
      var idempresa =$("#txt_idempresa").val();
@@ -27,8 +27,6 @@ function ListarCuenta_Cliente(){
             {"data":"persona_nrodocumento"},
             {"data":"tipo"},
             {"data":"credito"},
-           
-            
            
              {
                 "data": "venta_estatus",
