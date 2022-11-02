@@ -75,17 +75,17 @@
       </div>
       <div class="modal-body">
       	<div class="row">
-              <div class="col-lg-6">
+              <div class="col-lg-12">
                 <label for=""><b>Codigo Producto</b> </label>
                <input type="text" id="txt_codigo" class="form-control" placeholder="">
             </div>
-        <div class="col-lg-6">
-            <label for=""><b>Nombre</b> </label>
+        <div class="col-lg-12">
+            <label for=""><b>Descripción</b> </label>
            <input type="text" id="txt_nombre_producto" class="form-control" placeholder="">
         </div>
 
         <div class="col-lg-6">
-          <label for=""><b>Referencia /Marca</b></label>
+          <label for=""><b>Referencia</b></label>
           <input type="text" id="txt_presentacion_producto" class="form-control">
         </div>
      
@@ -168,15 +168,15 @@
         
          
      
-           <div class="col-lg-6">
+           <div class="col-lg-12">
              <input type="text" id="txt_idproducto"  hidden="">
                 <label for=""><b>Codigo Producto</b> </label>
                <input type="text" id="txt_codigo_actual_editar" hidden="" placeholder="">
                <input type="text" id="txt_codigo_nuevo_editar" class="form-control" placeholder="">
             </div>
 
-            <div class="col-lg-6">
-                 <label for=""><b>Nombre</b> </label>
+            <div class="col-lg-12">
+                 <label for=""><b>Descripción</b> </label>
                  <input type="text" id="txt_nombre_actual_editar" hidden="" placeholder="">
                  <input type="text" id="txt_nombre_nuevo_editar" class="form-control" placeholder="">
             </div>
