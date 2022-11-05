@@ -18,6 +18,7 @@ class Modelo_Persona {
     , `persona`.`persona_nombre`
     , `persona`.`persona_apepat`
     , `persona`.`persona_apemat`
+	, `persona`.`tipo_contribuyente`
     , `persona`.`persona_nrodocumento`
     , `persona`.`persona_tipodocumento`
     , `persona`.`persona_sexo`

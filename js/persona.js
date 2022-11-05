@@ -26,6 +26,7 @@ function listar_persona(){
         "columns":[
             {"defaultContent":""},
             {"data":"persona"},
+            {"data":"tipo_contribuyente"},
             {"data":"persona_nrodocumento"},
             {"data":"persona_tipodocumento"},
             {"data":"persona_sexo", 

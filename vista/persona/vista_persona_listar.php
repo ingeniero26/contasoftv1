@@ -13,12 +13,12 @@
                         <tr>
                             <th>#</th>
                             <th style="text-align: center;">Nombre</th>
+                            <th>Tipo Contribuyente</th>
                             <th>Documento</th>
                             <th>Tipo</th>
                             <th style="text-align: center;">Sexo</th>
                             <th>Telefono</th>
                             <th>Direccion</th>
-                      
                             <th>Correo</th>
                             <th>Estatus</th>
                             <th>Acci&oacute;n</th>
