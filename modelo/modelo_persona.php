@@ -44,9 +44,9 @@ FROM
 		}
 	}
 
-	function Registrar_Persona($nombre,$apepat,$apemat,$numero,$tipo_doc,$sexo,$telefono,
-$direccion,$idempresa) {
-		$sql = "call  SP_REGISTRAR_PERSONA('$nombre','$apepat','$apemat','$numero','$tipo_doc','$sexo','$telefono','$direccion','$idempresa')";
+	function Registrar_Persona($nombre,$apepat,$apemat,$tipo_cont,$numero,$tipo_doc,$sexo,$telefono,
+$direccion,$correo,$idempresa) {
+		$sql = "call  SP_REGISTRAR_PERSONA('$nombre','$apepat','$apemat','$tipo_cont','$numero','$tipo_doc','$sexo','$telefono','$direccion','$correo','$idempresa')";
 			if($consulta = $this->conexion->conexion->query($sql)){
 				if($row = mysqli_fetch_array($consulta)) {
 					return	$id =trim($row[0]);
@@ -57,7 +57,7 @@ $direccion,$idempresa) {
 	}
 
 	function Modificar_Persona($id_persona,$nombre,$apepat,$apemat,
- $numero_actual,$numero_nuevo,$tipo_doc,$sexo, $telefono,$direccion, $correo, $estatus) {
+     $numero_actual,$numero_nuevo,$tipo_doc,$sexo, $telefono,$direccion, $correo, $estatus) {
 		$sql = "call  SP_MODIFICAR_PERSONA('$id_persona','$nombre','$apepat','$apemat',
 		'$numero_actual','$numero_nuevo','$tipo_doc','$sexo','$telefono','$direccion', '$correo' , '$estatus')";
 			if($consulta = $this->conexion->conexion->query($sql)){

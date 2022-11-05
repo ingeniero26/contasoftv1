@@ -59,6 +59,13 @@
       	   <label for=""><b>Apellido Materno</b> </label>
            <input type="text" id="txt_apemat" class="form-control" placeholder="" onkeypress="return sololetras(event)"> <br>
       	</div>
+        <div class="col-lg-12">
+      	   <label for=""><b>Tipo Contribuyente</b> </label>
+            <select class="js-example-basic-single" name="state" style="width: 100%;" id="cmb_tipo_contribuyente">
+             <option value="Persona Natural">Natural</option>
+              <option value="Persona Juridica">Jurídica</option>
+             </select>
+      	</div>
 
       	<div class="col-lg-6">
       	   <label for=""><b>Número Documento</b> </label>
@@ -90,6 +97,10 @@
       	<div class="col-lg-12">
       	   <label for=""><b>Dirección</b> </label>
            <input type="text" id="txt_direccion" class="form-control" placeholder="dir ">
+      	</div>
+        <div class="col-lg-12">
+      	   <label for=""><b>Email</b> </label>
+           <input type="text" id="txt_correo" class="form-control" placeholder="Correo Electrónico">
       	</div>
       
      

@@ -252,11 +252,13 @@ function  listar_combo_ciudades(iddepartamento) {
     var nombre =$('#txt_nombre').val();
     var apepat =$('#txt_apepat').val();
     var apemat =$('#txt_apemat').val();
+    var tipo_cont =$('#cmb_tipo_contribuyente').val();
     var numero =$('#txt_numero').val();
     var tipo_doc =$('#cmb_tipodocumento').val();
     var sexo =$('#cmb_sexo').val();
     var telefono =$('#txt_telefono').val();
     var direccion =$('#txt_direccion').val();
+    var correo =$('#txt_correo').val();
     var idempresa =$("#txt_idempresa").val();
 
     if(nombre.length ==0 || apepat.length == 0 || apemat.length ==0 ||numero.length ==0
@@ -267,8 +269,10 @@ function  listar_combo_ciudades(iddepartamento) {
       url:'../controlador/persona/controlador_registro_persona.php',
       type:'POST',
       data:{
-        nombre:nombre,  apepat:apepat, apemat:apemat, numero:numero,
-        tipo_doc:tipo_doc,  sexo:sexo, telefono:telefono, direccion:direccion,
+        nombre:nombre,  apepat:apepat, apemat:apemat,tipo_cont:tipo_cont,
+        numero:numero,
+        tipo_doc:tipo_doc,  sexo:sexo, telefono:telefono,
+         direccion:direccion,correo:correo,
         idempresa:idempresa
       }
     }).done(function(resp){
@@ -280,7 +284,7 @@ function  listar_combo_ciudades(iddepartamento) {
                 .then((value)=>{
                     listar_persona();
                // LimpiarCampos();
-                    table.ajax.reload();
+               t_persona.ajax.reload();
                 
                 });
             } else {
@@ -331,7 +335,7 @@ function  listar_combo_ciudades(iddepartamento) {
                 .then((value)=>{
                     listar_persona();
                // LimpiarCampos();
-                    table.ajax.reload();
+               t_persona.ajax.reload();
                 
                 });
             } else {
