@@ -1,3 +1,5 @@
+/*base mas actual05-11-2022*/
+
 /*
 SQLyog Ultimate v11.11 (64 bit)
 MySQL - 5.5.5-10.4.22-MariaDB : Database - sistema_pos_v2
