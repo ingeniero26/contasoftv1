@@ -1,12 +1,7 @@
-
- 
-
  <div class="col-md-12">
     <div class="box box-warning box-solid">
         <div class="box-header with-border">
             <h3 class="box-title">Abono Clientes </h3>
-
-            
               <!-- /.box-tools -->
             </div>
             <!-- /.box-header -->
@@ -28,9 +23,8 @@
                 <thead>
                   <tr>
                     <th>#</th>
-                    <th>Tipo</th>
-                    <th>Comprobante Factura </th>
-                    <th>Factura Venta</th>
+                    
+                    <th>Credito</th>
                      <th>Cuotas</th>
                     
                     <th>Abonos</th>
@@ -70,10 +64,6 @@
                     <input type="text" id="txt_no_cuota" name="" class="form-control" placeholder="No cuota"><br>
                 </div>
 
-               
-
-                
-
                 <div class="col-lg-3">
                     <label for=""><b>Fecha Pago:</b></label>
                     <input type="date" id="txt_fechaPago" name="" class="form-control" placeholder="fecha pago"><br><br>
@@ -83,8 +73,7 @@
                     <label for=""><b>Valor Abono:</b></label>
                     <input type="text" id="txt_valor_abono" name="" class="form-control" placeholder="Digite el valor del Abono"><br>
                 </div>
-               
-
+              
             </div>
            </div>
             <div class="modal-footer">
@@ -95,10 +84,6 @@
     </div>
   </div>
 </form>
-
-
-
-
 
 
 

@@ -10,6 +10,10 @@ function Listar_Abono_Clientes(){
         "destroy":true,
         "async": false ,
         "processing": true,
+        dom: 'Bfrtip',
+        buttons: [
+        'excel', 'csv', 'pdf', 'print', 'copy',
+        ],
         ajax:{
             url:"../controlador/cuentas_clientes/cntrl_listado_abonos.php",
             type:'POST'
@@ -17,8 +21,8 @@ function Listar_Abono_Clientes(){
         "order":[[1,'asc']],
         "columns":[
             {"data":"defaultContent"},
-            {"data":"comprobante"},
-            {"data":"numero"},
+           
+            // {"data":"numero"},
             {"data":"idventa"},
             {"data":"cuotas"},
             
