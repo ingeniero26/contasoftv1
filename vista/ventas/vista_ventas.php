@@ -93,7 +93,7 @@
                     </div>
                      <div class="col-2">
                         <label for=""><b>Precio</b></label>
-                        <input type="text" onkeypress="return filterfloat(event,this);" min="1" class="form-control" 
+                        <input type="number" onkeypress="return filterfloat(event,this);" min="1" class="form-control" 
                         id="txt_precio" >
                     </div>
                      <div class="col-3">
