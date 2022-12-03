@@ -38,9 +38,9 @@ class Modelo_Cliente {
 		}
 	}
 
-	function Registrar_Cliente($nombre,$apepat,$apemat,$numero,$tipo_doc,$sexo,$telefono,$direccion,
+	function Registrar_Cliente($nombre,$apepat,$apemat,$numero,$tipo_doc,$telefono,$direccion,
     $correo,$idciudad,$idempresa) {
-		$sql = "call  SP_REGISTRAR_CLIENTE2('$nombre','$apepat','$apemat','$numero','$tipo_doc','$sexo','$telefono','$direccion','$correo','$idciudad','$idempresa')";
+		$sql = "call  SP_REGISTRAR_CLIENTE2('$nombre','$apepat','$apemat','$numero','$tipo_doc','$telefono','$direccion','$correo','$idciudad','$idempresa')";
 			if($consulta = $this->conexion->conexion->query($sql)){
 				if($row = mysqli_fetch_array($consulta)) {
 					return	$id =trim($row[0]);

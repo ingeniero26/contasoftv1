@@ -75,14 +75,14 @@
       	</div>
 
       	
-      	<div class="col-lg-6">
+      <!--	<div class="col-lg-6">
       	   <label for=""><b>Sexo</b> </label>
             <select class="js-example-basic-single" name="state" style="width: 100%;" id="cmb_sexo">
              <option value="MASCULINO">MASCULINO</option>
               <option value="FEMENINO">FEMENINO</option>
               
              </select> <br> <br>
-      	</div>
+      	</div>-->
         <div class="col-lg-6">
                 <label for=""><b>Ciudad</b> </label>
                         <select class="js-example-basic-single" name="state" style="width: 100%;" id="cmb_ciudad_ingreso"> 

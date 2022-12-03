@@ -129,7 +129,7 @@ function listar_cliente(){
         var apemat =$('#txt_apemat').val();
         var numero =$('#txt_numero').val();
         var tipo_doc =$('#cmb_tipodocumento').val();
-        var sexo =$('#cmb_sexo').val();
+       // var sexo =$('#cmb_sexo').val();
         var telefono =$('#txt_telefono').val();
         var direccion =$('#txt_direccion').val();
         var correo =$('#txt_correo').val();
@@ -149,7 +149,7 @@ function listar_cliente(){
         apemat:apemat,
         numero:numero,
         tipo_doc:tipo_doc,
-        sexo:sexo,
+        //sexo:sexo,
         telefono:telefono,
         direccion:direccion,
         correo:correo,
