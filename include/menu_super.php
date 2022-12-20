@@ -160,10 +160,11 @@
                         <a href="javascript:;"><i class="sidebar-item-icon fa fa-edit"></i>
                             <span class="nav-label">Salidas</span><i class="fa fa-angle-left arrow"></i></a>
                         <ul class="nav-2-level collapse">
-                                  <li>
+                        <li>
                         <a href="javascript:cargar_contenido('contenido_principal','clientes/vista_mantenimiento_clientes.php')">
                             <span class="nav-label"><i class="fa   fa-list-ul"></i> Clientes</span></a>
                         </li>
+                      
                          
                         <li>
                         <a href="javascript:cargar_contenido('contenido_principal','ventas/vista_mantenimiento_ventas.php')">
@@ -194,32 +195,20 @@
                     </li>
 
 
-                    <!--  <li>
+                 <li>
                         <a href="javascript:;"><i class="sidebar-item-icon fa fa-edit"></i>
-                            <span class="nav-label">Tesoreria</span><i class="fa fa-angle-left arrow"></i></a>
+                            <span class="nav-label">Créditos</span><i class="fa fa-angle-left arrow"></i></a>
                         <ul class="nav-2-level collapse">
+                              
                                   <li>
-                        <a href="javascript:cargar_contenido('contenido_principal','concepto/vista_concepto_salida.php')">
-                            <span class="nav-label"><i class="fa   fa-list-ul"></i> Conceptos</span></a>
-                        </li>
-                         
-                        <li>
-                        <a href="javascript:cargar_contenido('contenido_principal','salidas/mantenimiento_salidas.php')">
-                            <span class="nav-label"><i class="fa   fa-list-ol"></i> Salida de Mercancía</span></a>
-                        </li>
-                          <li>
-                        <a href="javascript:cargar_contenido('contenido_principal','cuentas/cuentas_clientes.php')">
-                            <span class="nav-label"><i class="fa   fa-list-ol"></i> Ajustes</span></a>
-                        </li>
-                         <li>
-                        <a href="javascript:cargar_contenido('contenido_principal','cuentas/abono_clientes.php')">
-                            <span class="nav-label"><i class="fa   fa-list-ol"></i> Reportes</span></a>
+                        <a href="javascript:cargar_contenido('contenido_principal','clientes/vista_mantenimiento_codeudor.php')">
+                            <span class="nav-label"><i class="fa   fa-list-ul"></i> Codeudores</span></a>
                         </li>
 
                           
                            
                         </ul>
-                    </li>-->
+                    </li>
 
                     
                     
