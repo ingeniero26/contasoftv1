@@ -1,7 +1,7 @@
 var t_cuentas_contables;
 function listar_cuentas_contables() {
   var idempresa = $("#txt_idempresa").val();
-  t_cuentas_contables = $("#tabla_categoria").DataTable({
+  t_cuentas_contables = $("#tabla_cuentas_contables").DataTable({
     ordering: false,
     pageLength: 10,
     destroy: true,
@@ -20,20 +20,29 @@ function listar_cuentas_contables() {
     columns: [
       { defaultContent: "" },
       { data: "codigo" },
+      { data: "concepto_nit" },
       { data: "nombre" },
       { data: "tipo" },
+      { data: "usa_bancos" },
+      { data: "usa_base" },
+      { data: "usa_centros" },
+      { data: "usa_nit" },
+      { data: "usa_anticipo" },
+      { data: "categoria" },
+      { data: "clase" },
+      { data: "nivel" },
       { data: "fregistro" },
+   
       {
-        data: "estatus",
-        render: function (data, type, row) {
-          if (data == "ACTIVO") {
-            return "<span class='label label-success'>" + data + "</span>";
-          } else {
-            return "<span class='label label-danger'>" + data + "</span>";
-          }
-        },
+        "data": "estatus",
+        render: function(data, type, row) {
+            if (data == 'ACTIVO') {
+                return "<span class='label label-success'>" + data + "</span>";
+            } else {
+                return "<span class='label label-danger'>" + data + "</span>";
+            }
+        }
       },
-
       {
         data: "estatus",
         render: function (data, type, row) {
@@ -52,7 +61,7 @@ function listar_cuentas_contables() {
     select: true,
   });
   t_cuentas_contables.on("draw.dt", function () {
-    var PageInfo = $("#tabla_categoria").DataTable().page.info();
+    var PageInfo = $("#tabla_cuentas_contables").DataTable().page.info();
     t_cuentas_contables
       .column(0, { page: "current" })
       .nodes()
@@ -63,7 +72,7 @@ function listar_cuentas_contables() {
 }
 
 // modificar datos del procedimiento
-$("#tabla_categoria").on("click", ".editar", function () {
+$("#tabla_cuentas_contables").on("click", ".editar", function () {
   var data = t_cuentas_contables.row($(this).parents("tr")).data();
 
   if (t_cuentas_contables.row(this).child.isShown()) {

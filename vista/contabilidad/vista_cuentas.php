@@ -8,16 +8,25 @@
                 </div>
             </div>
             <div class="ibox-body">
-                <table id="tabla_categoria" class="display table-bordered" style="width:100%">
+                <table id="tabla_cuentas_contables" class="display table-bordered" style="width:100%">
                     <thead>
                         <tr>
                             <th>#</th>
                             <th>Codigo</th>
+                            <th>Concepto Nit</th>
                             <th>Nombre</th>
                             <th>Tipo</th>
+                            <th>Bancos</th>
+                            <th>Base</th>
+                            <th>Centro</th>
+                            <th>Usa Nit</th>
+                            <th>Usa Anticipo</th>
+                            <th>Categoria</th>
+                            <th>Clase</th> 
+                            <th>Nivel</th>
                             <th>Fecha Registro</th>
-                            <th>Estatus</th>
-                            <th>Acci&oacute;n</th>
+                            <th>Estado</th>
+                             <th>Acci&oacute;n</th> 
                         </tr>
                     </thead>
                     <tbody>
@@ -36,17 +45,21 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Registro de Categorias</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">Registro de Cuentas Contables </h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <label for="">Nombre Categoria</label>
-        <input type="text" id="txt_nombre_categoria" class="form-control" placeholder="Nombre categoria">
+        <label for="">Código Cuenta</label>
+        <input type="text" id="txt_codigo" class="form-control" placeholder="Codigo">
+        <label for="">Concepto NIT</label>
+        <input type="text" id="txt_cnit" class="form-control" placeholder="Codigo">
+        <label for="">Nombre</label>
+        <input type="text" id="txt_nombre" class="form-control" placeholder="Nombre">
       </div>
       <div class="modal-footer">
-      	 <button type="button" class="btn btn-primary" onclick="Registrar_Categoria()">Grabar</button>
+      	 <button type="button" class="btn btn-primary" onclick="Registrar_Cuenta()">Grabar</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
        
       </div>

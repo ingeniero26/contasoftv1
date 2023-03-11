@@ -242,16 +242,16 @@
                     </li>
                     
 
-                    <!--   <li>
+                       <li>
                         <a href="javascript:;"><i class="sidebar-item-icon fa fa-edit"></i>
                             <span class="nav-label">Contabilidad</span><i class="fa fa-angle-left arrow"></i></a>
                         <ul class="nav-2-level collapse">
                              <li>
-                                <a href="javascript:cargar_contenido('contenido_principal','pagos/vista_documentos.php')" >
-                                    <span class="nav-label"><i class="fa   fa-outdent"></i> Documentos</span></a>
+                                <a href="javascript:cargar_contenido('contenido_principal','contabilidad/vista_cuentas.php')" >
+                                    <span class="nav-label"><i class="fa   fa-outdent"></i> Plan de Cuentas</span></a>
                                 
                             </li>
-                             <li>
+                             <!-- <li>
                                 <a href="javascript:cargar_contenido('contenido_principal','pagos/listado_gastos.php')" >
                                     <span class="nav-label"><i class="fa   fa-outdent"></i> Plan de cuentas</span></a>
                                 
@@ -281,10 +281,10 @@
                                     <span class="nav-label"><i class="fa   fa-outdent"></i> Conceptos de Ajustes de Inventario</span></a>
                                 
                             </li>
-                            <li>
+                            <li> -->
                            
                         </ul>
-                    </li>-->
+                    </li>
 
 
                      <li>
