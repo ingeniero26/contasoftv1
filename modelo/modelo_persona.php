@@ -51,7 +51,7 @@ $direccion,$correo,$idempresa) {
 				if($row = mysqli_fetch_array($consulta)) {
 					return	$id =trim($row[0]);
 				}
-				 $arreglo;
+				 return $arreglo;
 				$this->conexion->cerrar();
 		}
 	}

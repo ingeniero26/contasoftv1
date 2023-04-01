@@ -38,12 +38,13 @@
                             <th style="text-align:center;">Nombre </th>
                             <th>Referencia</th>
                             <th>Bodega</th>
+                            <th>Marca</th>
                             <th>Cantidad Minima</th>
                             <th>Stock</th>
                             <th>Categoria</th>
                             <th>Medida</th>
                             <th>Tipo</th>
-                            
+                           
                             <th>Compra</th>
                             <th>Venta</th>
                             <th>Ganancia</th>
@@ -120,6 +121,12 @@
          <div class="col-lg-6">
              <label for=""><b>Tipo</b> </label>
               <select class="js-example-basic-single" name="state" style="width: 100%;" id="cmb_tipo"> 
+           
+             </select> <br> <br>
+        </div>
+        <div class="col-lg-6">
+             <label for=""><b>Marca</b> </label>
+              <select class="js-example-basic-single" name="state" style="width: 100%;" id="cmb_marca"> 
            
              </select> <br> <br>
         </div>
@@ -263,6 +270,7 @@ $(document).ready(function() {
  listar_combo_unidad();
  listar_combo_bodega();
  listar_combo_tipo();
+ listar_combo_marcas();
  });
  $('#modal_registro').on('shown.bs.modal', function () {
     $('#txt_codigo').trigger('focus')

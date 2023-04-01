@@ -31,10 +31,9 @@ function listar_productos(){
             {"data":"producto_codigo"},
             {"data":"producto_nombre"},
             {"data":"producto_presentacion"},
-           
             {"data":"nombre_bodega"},
-
-               {
+            {"data":"descripcion"},
+            {
                 "data": "cant_minima",
                 render: function(data, type, row) {
                     if (data == '1') {
@@ -58,6 +57,7 @@ function listar_productos(){
             {"data":"categoria_nombre"},
             {"data":"unidad_nombre"},
             {"data":"tipo_producto"},
+            
             {"data":"compra"},
              {"data":"producto_precioventa"},
              {"data":"ganancia"},
@@ -69,7 +69,6 @@ function listar_productos(){
             	}
         	}, 
             
-           
              {
                 "data": "producto_estatus",
                 render: function(data, type, row) {
@@ -239,6 +238,36 @@ function listar_productos(){
          })
     }
 
+    /*listar marcas*/
+     function listar_combo_marcas() {
+     var idempresa =$("#txt_idempresa").val();
+        $.ajax({
+            url:"../controlador/marcas/control_combo_marcas.php",
+             type:'POST',
+             data:{
+                idempresa:idempresa
+             }
+        }).done(function(resp){
+        //alert(resp);
+            var data = JSON.parse(resp);
+            //console.log(resp);
+           var cadena ="<option value=''>Seleccione...</option>";
+            if(data.length>0) {
+                for (var i = 0; i < data.length; i++) {
+                    cadena+="<option value='"+data[i][0]+"'>"+data[i][1]+"</option>";
+                }
+                $('#cmb_marca').html(cadena);
+             // $('#cmb_categoria_editar').html(cadena);
+             // $('#cmb_categoria_producto').html(cadena);
+            } else {
+                cadena+="<option value=''> No Hay datos</option>";
+               $('#cmb_marca').html(cadena);
+              //  $('#cmb_categoria_editar').html(cadena);
+               // $('#cmb_categoria_producto').html(cadena);
+            }
+         })
+    }
+
 
 function listar_combo_unidad() {
     var idempresa =$("#txt_idempresa").val();
@@ -307,6 +336,7 @@ function listar_combo_unidad() {
     var idcategoria =$('#cmb_categoria').val();
     var idunidad =$('#cmb_unidad').val();
     var tipo_producto =$('#cmb_tipo').val();
+    var id_marca =$('#cmb_marca').val();
 
     var archivo = $('#imagen').val();
     var precio_compra=$('#txt_precio_compra').val();
@@ -338,6 +368,7 @@ function listar_combo_unidad() {
     formData.append('cant_inicial',cant_inicial);
     formData.append('idunidad',idunidad);
     formData.append('tipo_producto',tipo_producto);
+    formData.append('id_marca',id_marca);
     formData.append('foto',foto);
     formData.append('nombrearchivo',nombrearchivo);
     formData.append('precio_compra',precio_compra);
