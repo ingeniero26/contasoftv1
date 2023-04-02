@@ -114,6 +114,12 @@
                                 
                             </li>
 
+                            <li>
+                                <a href="javascript:cargar_contenido('contenido_principal','marcas/vista_marcas.php')">
+                                    <span class="nav-label"><i class="fa   fa-outdent"></i> Marcas</span></a>
+                                
+                            </li>
+
                             
                             <li>
                             <a href="javascript:cargar_contenido('contenido_principal','productos/vista_mantenimiento_productos.php')">

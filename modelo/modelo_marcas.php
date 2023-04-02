@@ -13,11 +13,11 @@ class Modelo_Marcas{
 	}
 
 
-	function listar_bodegas($idempresa){
-		$sql = "SELECT  `id`  , `nombre_bodega`  , `fregistro`  , `estatus`
+	function listar_marcas($idempresa){
+		$sql = "SELECT  `id`  , `descripcion`  , `fregistro`  , `estatus`
   			  , `idempresa` FROM
-  			  `bodega`
-  			  WHERE bodega.`idempresa` ='$idempresa'";
+  			  `marcas`
+  			  WHERE marcas.`idempresa` ='$idempresa'";
 			$arreglo = array();
 			if($consulta = $this->conexion->conexion->query($sql)){
 				while($consulta_vu = mysqli_fetch_assoc($consulta)) {
@@ -30,8 +30,8 @@ class Modelo_Marcas{
 	}
 
 
-	function Registrar_Bodega($nombre_bodega,$idempresa) {
-		$sql = "call  SP_REGISTRAR_BODEGA('$nombre_bodega','$idempresa')";
+	function Registrar_Marca_Producto($descripcion,$idempresa) {
+		$sql = "call  SP_REGISTRAR_MARCAS('$descripcion','$idempresa')";
 			if($consulta = $this->conexion->conexion->query($sql)){
 				if($row = mysqli_fetch_array($consulta)) {
 					return	$id =trim($row[0]);
