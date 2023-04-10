@@ -65,10 +65,10 @@
       <div class="modal-body">
         <div class="row">
           <div class="col-lg-6">
-            <input type="text" id="txt_idcategoria" hidden="">
-              <label for="">Nombre Categoria</label>
-              <input type="text" id="txt_nombre_actual_categoria" hidden="" placeholder="Nombre rol">
-              <input type="text" id="txt_nombre_nuevo_categoria" class="form-control" placeholder="Nombre rol">
+            <input type="text" id="txt_idmarca" hidden="">
+              <label for="">Nombre Marca</label>
+              <input type="text" id="txt_nombre_actual_marca" hidden="" placeholder="Nombre rol">
+              <input type="text" id="txt_nombre_nuevo_marca" class="form-control" placeholder="Marca">
           </div>
           <div class="col-lg-6">
              <label for="estatus">Estatus:</label>
@@ -81,7 +81,7 @@
        
       </div>
       <div class="modal-footer">
-         <button type="button" class="btn btn-primary" onclick="Modificar_Categoria()">Grabar</button>
+         <button type="button" class="btn btn-primary" onclick="Modificar_Marca()">Grabar</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
        
       </div>

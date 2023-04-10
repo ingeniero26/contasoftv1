@@ -44,8 +44,8 @@ class Modelo_Marcas{
 
 
 
-		function Modificar_Estatus_Bodega($id,$estatus){
-		$sql = "call SP_MODIFICAR_ESTATUS_BODEGA('$id','$estatus')";
+		function Modificar_Estatus_Marcas($id,$estatus){
+		$sql = "call SP_MODIFICAR_ESTATUS_MARCA('$id','$estatus')";
 			if ($consulta = $this->conexion->conexion->query($sql)) {
 				//$id_retornado = mysqli_insert_ind($this->conexion->conexion);
 				return 1;

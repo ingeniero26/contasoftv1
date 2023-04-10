@@ -68,10 +68,10 @@ var idempresa =$("#txt_idempresa").val();
             }
         $("#modal_editar").modal({backdrop:'static',keyboard:false})
         $("#modal_editar").modal('show');
-        $("#txt_idtipo_producto").val(data.id);
-        $("#txtabla_marca_actual_editar").val(data.tipo_producto);
-        $("#txtabla_marca_nuevo_editar").val(data.tipo_producto);
-       $("#cmb_estatus_editar").val(data.estatus).trigger("change");
+        $("#txt_idmarca").val(data.id);
+        $("#txt_nombre_actual_marca").val(data.descripcion);
+        $("#txt_nombre_nuevo_marca").val(data.descripcion);
+       $("#cmb_estatus").val(data.estatus).trigger("change");
 
     })
 
@@ -106,7 +106,7 @@ var idempresa =$("#txt_idempresa").val();
         }
         Swal.fire({
             title: 'Está seguro de desactivar la marca?',
-            text: "Una vez desactivado el producto no podrá tener ingresos o ventas",
+            text: "Una vez desactivada el producto no podrá tener ingresos o ventas",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -127,14 +127,14 @@ var idempresa =$("#txt_idempresa").val();
             mensaje = "activo";
         }
         $.ajax({
-            url: "../controlador/marcas/control_modificar_marcas.php",
+            url: "../controlador/marcas/control_modificar_estatus_marcas.php",
             type: 'POST',
             data: {
                 id: id,
                 estatus: estatus,
             }
         }).done(function(resp) {
-           alert(resp);
+          // alert(resp);
             if (resp > 0) {
                 Swal.fire("Mensaje  de confirmaciòn", "Marca " + mensaje + " exitosamente",
                         "success")
