@@ -148,9 +148,6 @@ var idempresa =$("#txt_idempresa").val();
         })
     }
 
-
-
-
   function AbrirModalRegistro() {
         $("#modal_registro").modal({backdrop:'static',keyboard:false})
         $('#modal_registro').modal('show');
@@ -194,44 +191,44 @@ var idempresa =$("#txt_idempresa").val();
     }
 
 
-    function Modificar_Tipo_Producto() {
-      var id = $('#txt_idtipo_producto').val();
-      var tipo_actual = $('#txtabla_marca_actual_editar').val();
-      var tipo_nueva = $('#txtabla_marca_nuevo_editar').val();
+    function Modificar_Marca() {
+      var id = $('#txt_idmarca').val();
+      var desc_actual = $('#txt_nombre_actual_marca').val();
+      var desc_nueva = $('#txt_nombre_nuevo_marca').val();
       var estatus =$("#cmb_estatus").val();
 
-      if(tipo_nueva.length == 0 ) {
+      if(desc_nueva.length == 0 ) {
         Swal.fire('Mensaje de error','Debe digitar los campos vacios','warning');
       }
       $.ajax({
-        url:'../controlador/tipo_producto/control_modificar_tipo_producto.php',
+        url:'../controlador/marcas/control_modificar_marca_producto.php',
         type:'POST',
         data:{
           id:id,
-          tipo_actual:tipo_actual,
-          tipo_nueva:tipo_nueva,
+          desc_actual:desc_actual,
+          desc_nueva:desc_nueva,
           estatus:estatus
         }
       }).done(function(resp){
-        alert(resp);
+        //alert(resp);
          if(resp > 0) {
             if(resp==1) {
                 $('#modal_editar').modal('hide');
-                Swal.fire("Mensaje  de confirmaciòn","Categoria editado exitosamente",
+                Swal.fire("Mensaje  de confirmaciòn","Marca editado exitosamente",
                     "success")
                 .then((value)=>{
-                    listar_tipo_producto();
+                    listar_marcas();
                 LimpiarCampos();
                 t_marcas.ajax.reload();
                 
                 });
             } else {
              LimpiarCampos();
-                return Swal.fire('Mensaje de error', 'Categoria ya existe en el sistema, utilice otro', 'warning'
+                return Swal.fire('Mensaje de error', 'Marca ya existe en el sistema, utilice otro', 'warning'
                   );
             }
         }else {
-            return Swal.fire('Mensaje de error','Categoria no editado','warning');
+            return Swal.fire('Mensaje de error','Marca no editada','warning');
         }
       })
     }
@@ -240,5 +237,5 @@ var idempresa =$("#txt_idempresa").val();
    
  function LimpiarCampos() {
     $('#txt_marca').val("");
-     $('#txt_marca_nuevo_editar').val("");
+     $('#txt_nombre_nuevo_marca').val("");
  }
