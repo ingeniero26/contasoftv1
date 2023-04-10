@@ -55,7 +55,18 @@ class Modelo_Marcas{
 			}
 		}
 
-			function listar_combo_marcas($idempresa) {
+		/*modificar <marcas></marcas>*/
+		function Modificar_Marcas($id,$desc_actual,$desc_nueva, $estatus) {
+			$sql = "call  SP_MODIFICAR_MARCA('$id','$desc_actual','$desc_nueva','$estatus')";
+				if($consulta = $this->conexion->conexion->query($sql)){
+					if($row = mysqli_fetch_array($consulta)) {
+						return	$id =trim($row[0]);
+					}
+					 $arreglo;
+					$this->conexion->cerrar();
+			}
+		}
+		function listar_combo_marcas($idempresa) {
 				$sql = "SELECT id, descripcion
                 FROM marcas
                 WHERE marcas.`idempresa` = '$idempresa'
