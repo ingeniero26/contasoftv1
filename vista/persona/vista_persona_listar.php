@@ -14,8 +14,9 @@
                             <th>#</th>
                             <th style="text-align: center;">Nombre</th>
                             <th>Tipo Contribuyente</th>
-                            <th>Documento</th>
-                            <th>Tipo</th>
+                            <th>Número</th>
+                            <th>Tipo Documento</th>
+                            <th>Tercero</th> 
                             <th style="text-align: center;">Sexo</th>
                             <th>Telefono</th>
                             <th>Direccion</th>

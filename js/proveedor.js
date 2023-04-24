@@ -2,7 +2,7 @@ var t_proveedor;
 function listar_proveedor(){
 var idempresa =$("#txt_idempresa").val();
      t_proveedor = $("#tabla_proveedor").DataTable({
-	     	"ordering":false,   
+	    "ordering":false,   
         "pageLength":10,
         "destroy":true,
         "async": false ,
@@ -26,6 +26,7 @@ var idempresa =$("#txt_idempresa").val();
             {"data":"proveedor"},
             {"data":"persona_nrodocumento"},
             {"data":"persona_tipodocumento"},
+            {"data":"tipo_contribuyente"},
             {"data":"proveedor_razon_social"},
             {"data":"proveedor_num_contacto"},
             {"data":"nombre_ciudad"},
@@ -100,12 +101,44 @@ var idempresa =$("#txt_idempresa").val();
             })
        }
 
+       
+    function listar_combo_tipo_tercero() {
+        var idempresa =$("#txt_idempresa").val();
+           $.ajax({
+               url:"../controlador/proveedor/control_combo_tipo_tercero_listar.php",
+                type:'POST',
+                data:{
+                   idempresa:idempresa
+                }
+           }).done(function(resp){
+           //alert(resp);
+               var data = JSON.parse(resp);
+               //console.log(resp);
+              var cadena ="<option value=''>Seleccione...</option>";
+               if(data.length>0) {
+                   for (var i = 0; i < data.length; i++) {
+                       cadena+="<option value='"+data[i][0]+"'>"+data[i][1]+"</option>";
+                   }
+                   $('#cmb_tipo_tercero').html(cadena);
+                // $('#cmb_ciudad_proveedor').html(cadena);
+               //  $('#cmb_categoria_producto').html(cadena);
+               } else {
+                   cadena+="<option value=''> No Hay datos</option>";
+                   $('#cmb_tipo_tercero').html(cadena);
+                //  $('#cmb_ciudad_proveedor').html(cadena);
+                 //  $('#cmb_categoria_producto').html(cadena);
+               }
+            })
+       }
+
     function  Registrar_Proveedor() {
         var nombre =$('#txt_nombre').val();
         var apepat =$('#txt_apepat').val();
         var apemat =$('#txt_apemat').val();
         var numero =$('#txt_numero').val();
         var tipo_doc =$('#cmb_tipodocumento').val();
+        var tipo_contribuyente =$('#cmb_tipo_contribuyente').val();
+        var id_tipo_tercero =$('#cmb_tipo_tercero').val();
         var sexo =$('#cmb_sexo').val();
         var telefono =$('#txt_telefono').val();
         var direccion =$('#txt_direccion').val();
@@ -127,6 +160,7 @@ var idempresa =$("#txt_idempresa").val();
         apemat:apemat,
         numero:numero,
         tipo_doc:tipo_doc,
+        tipo_contribuyente:tipo_contribuyente,
         sexo:sexo,
         telefono:telefono,
         direccion:direccion,
@@ -134,7 +168,9 @@ var idempresa =$("#txt_idempresa").val();
         razon_social:razon_social,
         num_contacto:num_contacto,
         idciudad:idciudad,
-        idempresa:idempresa
+        idempresa:idempresa,
+        id_tipo_tercero:id_tipo_tercero
+
       }
        }).done(function(resp){
         if(resp > 0) {

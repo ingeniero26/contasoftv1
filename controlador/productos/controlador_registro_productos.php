@@ -7,9 +7,9 @@
  $nombre = htmlspecialchars($_POST['nombre'],ENT_QUOTES,'UTF-8');
  $presentacion = htmlspecialchars($_POST['presentacion'],ENT_QUOTES,'UTF-8');
  
-  $idbodega = htmlspecialchars($_POST['idbodega'],ENT_QUOTES,'UTF-8');
-  $cant_minima = htmlspecialchars($_POST['cant_minima'],ENT_QUOTES,'UTF-8');
-  $cant_inicial = htmlspecialchars($_POST['cant_inicial'],ENT_QUOTES,'UTF-8');
+$idbodega = htmlspecialchars($_POST['idbodega'],ENT_QUOTES,'UTF-8');
+ $cant_minima = htmlspecialchars($_POST['cant_minima'],ENT_QUOTES,'UTF-8');
+ $cant_inicial = htmlspecialchars($_POST['cant_inicial'],ENT_QUOTES,'UTF-8');
  $idcategoria = htmlspecialchars($_POST['idcategoria'],ENT_QUOTES,'UTF-8');
  $idunidad = htmlspecialchars($_POST['idunidad'],ENT_QUOTES,'UTF-8');
  $tipo_producto = htmlspecialchars($_POST['tipo_producto'],ENT_QUOTES,'UTF-8');

@@ -1,4 +1,24 @@
+/*
+SQLyog Ultimate v11.11 (64 bit)
+MySQL - 5.5.5-10.4.22-MariaDB : Database - sistema_pos_v2
+*********************************************************************
+*/
 
+/*!40101 SET NAMES utf8 */;
+
+/*!40101 SET SQL_MODE=''*/;
+
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`sistema_pos_v2` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci */;
+
+USE `sistema_pos_v2`;
+
+/*Table structure for table `arl` */
+
+DROP TABLE IF EXISTS `arl`;
 
 CREATE TABLE `arl` (
   `IdARL` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id de la Administradora de riesgos labolares',
@@ -10,13 +30,19 @@ CREATE TABLE `arl` (
   `EmailArl` varchar(100) DEFAULT NULL,
   `fregistro` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `estatus` enum('ACTIVO','INACTIVO') DEFAULT NULL,
-  PRIMARY KEY (`IdARL`)
+  `idempresa` int(11) DEFAULT NULL COMMENT 'filtro por empresa',
+  PRIMARY KEY (`IdARL`),
+  KEY `idempersa` (`idempresa`),
+  CONSTRAINT `arl_ibfk_1` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
-INSERT INTO arl VALUES("1","800198456","ARL Sura","Cartagena","Calle 49A No. 63-55","4444578","arl@gmail.com","2021-09-14 09:06:26","ACTIVO");
-INSERT INTO arl VALUES("2","911198456","POSITIVA","CALI","CALLE 35","3587777","correo@GMAIL.COM","2021-09-14 08:29:34","ACTIVO");
+/*Data for the table `arl` */
 
+insert  into `arl`(`IdARL`,`NitARL`,`NomARL`,`CiudadARL`,`DirARL`,`TelARL`,`EmailArl`,`fregistro`,`estatus`,`idempresa`) values (1,223132,'ARL DE PRUEBA','CARTAGENA','CARTGENA','43545','EMAIL@GMAIL.COM','2022-09-17 16:24:02','ACTIVO',1),(2,32434,'ARL POSITIVA EJEMPLO','EL CARMEN DE BOLIVAR','NO SE DONDE QUEDA','4545454','NOSE1@GMAIL.COM','2022-10-17 16:07:29','ACTIVO',1);
 
+/*Table structure for table `bodega` */
+
+DROP TABLE IF EXISTS `bodega`;
 
 CREATE TABLE `bodega` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -27,12 +53,34 @@ CREATE TABLE `bodega` (
   PRIMARY KEY (`id`),
   KEY `idempresa` (`idempresa`),
   CONSTRAINT `bodega_ibfk_1` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO bodega VALUES("1","Principal","2021-10-25 15:47:58","ACTIVO","1");
-INSERT INTO bodega VALUES("3","Cartagena","2022-01-21 10:46:49","ACTIVO","");
+/*Data for the table `bodega` */
 
+insert  into `bodega`(`id`,`nombre_bodega`,`fregistro`,`estatus`,`idempresa`) values (1,'PRINCIPAL','2022-07-13 15:44:32','ACTIVO',1);
 
+/*Table structure for table `caja` */
+
+DROP TABLE IF EXISTS `caja`;
+
+CREATE TABLE `caja` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `caja` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `estatus` enum('ACTIVO','INACTIVO') COLLATE utf8_unicode_ci DEFAULT NULL,
+  `fregistro` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `idempresa` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idempresa` (`idempresa`),
+  CONSTRAINT `caja_ibfk_1` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `caja` */
+
+insert  into `caja`(`id`,`caja`,`estatus`,`fregistro`,`idempresa`) values (1,'GENERAL','ACTIVO','2022-07-13 15:20:34',1);
+
+/*Table structure for table `cargos` */
+
+DROP TABLE IF EXISTS `cargos`;
 
 CREATE TABLE `cargos` (
   `IdCargos` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id de los cargos que existen',
@@ -43,13 +91,13 @@ CREATE TABLE `cargos` (
   PRIMARY KEY (`IdCargos`),
   KEY `FK_IdDpto` (`IdDpto`),
   CONSTRAINT `FK_IdDpto` FOREIGN KEY (`IdDpto`) REFERENCES `dpto` (`IdDpto`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO cargos VALUES("1","Jefe de Ventas","1","2021-09-19 20:21:07","ACTIVO");
-INSERT INTO cargos VALUES("2","Presidente","4","2021-09-30 20:43:14","ACTIVO");
-INSERT INTO cargos VALUES("3","Programador","4","2021-10-01 15:56:53","ACTIVO");
+/*Data for the table `cargos` */
 
+/*Table structure for table `categoria` */
 
+DROP TABLE IF EXISTS `categoria`;
 
 CREATE TABLE `categoria` (
   `categoria_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -60,41 +108,15 @@ CREATE TABLE `categoria` (
   PRIMARY KEY (`categoria_id`),
   KEY `idempresa` (`idempresa`),
   CONSTRAINT `categoria_ibfk_1` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO categoria VALUES("1","Licores","2021-08-31","ACTIVO","1");
-INSERT INTO categoria VALUES("2","Aseo Personal","2021-08-31","ACTIVO","1");
-INSERT INTO categoria VALUES("3","Aseo Hogar 2","2021-08-31","ACTIVO","1");
-INSERT INTO categoria VALUES("4","Ferreteria","2021-08-31","ACTIVO","1");
-INSERT INTO categoria VALUES("5","Ninos","2021-08-31","ACTIVO","1");
-INSERT INTO categoria VALUES("6","Interior Masculino","2021-08-31","ACTIVO","1");
-INSERT INTO categoria VALUES("7","Interior Femenino","2021-08-31","ACTIVO","1");
-INSERT INTO categoria VALUES("8","Frutas y Verduras","2021-08-31","ACTIVO","2");
-INSERT INTO categoria VALUES("9","Granos","2021-08-31","ACTIVO","2");
-INSERT INTO categoria VALUES("10","Electrodomesticos","2021-08-31","ACTIVO","");
-INSERT INTO categoria VALUES("11","Farmacia","2021-08-31","ACTIVO","");
-INSERT INTO categoria VALUES("12","Panaderia","2021-08-31","ACTIVO","");
-INSERT INTO categoria VALUES("13","Belleza Mujer","2021-08-31","ACTIVO","");
-INSERT INTO categoria VALUES("14","Jugos Naturales","2021-08-31","ACTIVO","");
-INSERT INTO categoria VALUES("15","Deporte","2021-08-31","ACTIVO","");
-INSERT INTO categoria VALUES("16","Literatura","2021-08-31","ACTIVO","");
-INSERT INTO categoria VALUES("17","Arte","2021-08-31","ACTIVO","");
-INSERT INTO categoria VALUES("18","Lacteos","2021-08-31","ACTIVO","");
-INSERT INTO categoria VALUES("19","Seguridad Personal","2021-08-31","ACTIVO","");
-INSERT INTO categoria VALUES("20","Charcuteria","2021-08-31","ACTIVO","");
-INSERT INTO categoria VALUES("21","Carniceria","2021-08-31","ACTIVO","");
-INSERT INTO categoria VALUES("22","Salsas","2021-08-31","ACTIVO","");
-INSERT INTO categoria VALUES("23","Lacteos","2021-08-31","ACTIVO","");
-INSERT INTO categoria VALUES("24","Carniceria","2021-08-31","ACTIVO","");
-INSERT INTO categoria VALUES("25","Tecnologia","2021-08-31","ACTIVO","1");
-INSERT INTO categoria VALUES("26","Hogar","2021-09-03","ACTIVO","");
-INSERT INTO categoria VALUES("27","Ropa para damas","2021-10-26","ACTIVO","1");
-INSERT INTO categoria VALUES("28","Papeleria","2021-11-13","ACTIVO","1");
-INSERT INTO categoria VALUES("29","Dulceria","2021-11-13","ACTIVO","1");
-INSERT INTO categoria VALUES("30","Servicios","2021-11-20","ACTIVO","1");
-INSERT INTO categoria VALUES("31","Dulces","2022-02-03","ACTIVO","1");
+/*Data for the table `categoria` */
 
+insert  into `categoria`(`categoria_id`,`categoria_nombre`,`categoria_fregistro`,`categoria_estatus`,`idempresa`) values (1,'Tecnologia','2022-07-13','ACTIVO',1),(2,'Libros','2022-07-13','ACTIVO',1),(3,'Papeleria','2022-08-22','ACTIVO',1),(4,'Servicios','2022-08-22','ACTIVO',1),(5,'Soporte','2023-04-13','ACTIVO',1);
 
+/*Table structure for table `categoriaarl` */
+
+DROP TABLE IF EXISTS `categoriaarl`;
 
 CREATE TABLE `categoriaarl` (
   `IdCategoriaARL` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id de la categoria de ARL',
@@ -104,26 +126,90 @@ CREATE TABLE `categoriaarl` (
   PRIMARY KEY (`IdCategoriaARL`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+/*Data for the table `categoriaarl` */
 
+/*Table structure for table `ciudades` */
 
+DROP TABLE IF EXISTS `ciudades`;
+
+CREATE TABLE `ciudades` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre_ciudad` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `idDepto` int(11) DEFAULT NULL,
+  `estatus` enum('ACTIVO','INACTIVO') COLLATE utf8_unicode_ci DEFAULT NULL,
+  `fregistro` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `idempresa` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idDepto` (`idDepto`),
+  KEY `idempresa` (`idempresa`),
+  CONSTRAINT `ciudades_ibfk_1` FOREIGN KEY (`idDepto`) REFERENCES `departamentos` (`id`),
+  CONSTRAINT `ciudades_ibfk_2` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `ciudades` */
+
+insert  into `ciudades`(`id`,`nombre_ciudad`,`idDepto`,`estatus`,`fregistro`,`idempresa`) values (1,'EL CARMEN DE BOLIVAR',1,'ACTIVO','2022-07-13 15:39:37',1),(2,'Cartagena',1,'ACTIVO','2022-09-10 11:00:55',1),(3,'San Jacinto',1,'ACTIVO','2022-09-10 12:04:26',1),(4,'San Juan Nepomuceno',1,'ACTIVO','2022-09-10 12:04:54',1);
+
+/*Table structure for table `cliente` */
+
+DROP TABLE IF EXISTS `cliente`;
 
 CREATE TABLE `cliente` (
   `idcliente` int(11) NOT NULL AUTO_INCREMENT,
   `cliente_fregistro` date DEFAULT NULL,
   `cliente_estatus` enum('ACTIVO','INACTIVO') COLLATE utf8_unicode_ci DEFAULT NULL,
   `persona_id` int(11) NOT NULL,
+  `idciudad` int(11) DEFAULT NULL,
   `idempresa` int(11) DEFAULT NULL,
   PRIMARY KEY (`idcliente`),
   KEY `id_perdosa` (`persona_id`),
   KEY `idempresa` (`idempresa`),
+  KEY `idciudad` (`idciudad`),
   CONSTRAINT `cliente_ibfk_1` FOREIGN KEY (`persona_id`) REFERENCES `persona` (`persona_id`),
-  CONSTRAINT `cliente_ibfk_2` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  CONSTRAINT `cliente_ibfk_2` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`),
+  CONSTRAINT `cliente_ibfk_3` FOREIGN KEY (`idciudad`) REFERENCES `ciudades` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO cliente VALUES("1","2021-11-13","ACTIVO","17","1");
-INSERT INTO cliente VALUES("2","2022-02-03","ACTIVO","18","1");
+/*Data for the table `cliente` */
 
+insert  into `cliente`(`idcliente`,`cliente_fregistro`,`cliente_estatus`,`persona_id`,`idciudad`,`idempresa`) values (1,'2022-07-13','ACTIVO',3,1,1),(2,'2022-08-22','ACTIVO',4,1,1),(3,'2022-12-03','ACTIVO',7,1,1),(4,'2022-12-03','ACTIVO',8,3,1);
 
+/*Table structure for table `codeudor` */
+
+DROP TABLE IF EXISTS `codeudor`;
+
+CREATE TABLE `codeudor` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombres` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `apellido_paterno` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `apellido_materno` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tipo_doc` enum('CEDULA','TI','PASAPORTE') COLLATE utf8_unicode_ci DEFAULT NULL,
+  `documento` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `direccion` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `telefono` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `celular` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `correo` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `nombre_ref1` varchar(512) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `nombre_ref2` varchar(512) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tel_ref1` varchar(512) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tel_ref2` varchar(512) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `dir_ref1` varchar(512) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `dir_ref2` varchar(512) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `id_cliente` int(11) DEFAULT NULL,
+  `fregistro` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `estatus` enum('ACTIVO','INACTIVO') COLLATE utf8_unicode_ci DEFAULT 'ACTIVO',
+  PRIMARY KEY (`id`),
+  KEY `id_cliente` (`id_cliente`),
+  CONSTRAINT `codeudor_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`idcliente`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `codeudor` */
+
+insert  into `codeudor`(`id`,`nombres`,`apellido_paterno`,`apellido_materno`,`tipo_doc`,`documento`,`direccion`,`telefono`,`celular`,`correo`,`nombre_ref1`,`nombre_ref2`,`tel_ref1`,`tel_ref2`,`dir_ref1`,`dir_ref2`,`id_cliente`,`fregistro`,`estatus`) values (1,'KAREN','HERNANDEZ','TORRES','CEDULA','465646','KRA 45','56456','56456','nose@gmail.com','RAMI HERNANDEZ','pedro perez','465465','465878','hjh','k78',3,'2022-12-18 21:16:06','ACTIVO');
+
+/*Table structure for table `compra` */
+
+DROP TABLE IF EXISTS `compra`;
 
 CREATE TABLE `compra` (
   `compra_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -154,20 +240,58 @@ CREATE TABLE `compra` (
   CONSTRAINT `compra_ibfk_4` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `compra` */
 
+/*Table structure for table `concepto` */
 
+DROP TABLE IF EXISTS `concepto`;
 
 CREATE TABLE `concepto` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `fregistro` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `estatus` enum('ACTIVO','INACTIVO') COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`)
+  `idempresa` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idempresa` (`idempresa`),
+  CONSTRAINT `concepto_ibfk_1` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `concepto` */
+
+/*Table structure for table `cuentas` */
+
+DROP TABLE IF EXISTS `cuentas`;
+
+CREATE TABLE `cuentas` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `idEmpresa` int(11) NOT NULL,
+  `codigo` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `concepto_nit` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `nombre` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tipo` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `usa_bancos` int(11) DEFAULT NULL,
+  `usa_base` int(11) DEFAULT NULL,
+  `usa_centros` int(11) DEFAULT NULL,
+  `usa_nit` int(11) DEFAULT NULL,
+  `usa_anticipo` int(11) DEFAULT NULL,
+  `categoria` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `clase` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `nivel` int(11) DEFAULT NULL,
+  `fregistro` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `estatus` enum('ACTIVO','INACTIVO') COLLATE utf8_unicode_ci DEFAULT 'ACTIVO',
+  PRIMARY KEY (`id`),
+  KEY `idEmpresa` (`idEmpresa`),
+  CONSTRAINT `cuentas_ibfk_1` FOREIGN KEY (`idEmpresa`) REFERENCES `empresa` (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO concepto VALUES("1","Salida por Defecto","2021-09-24 11:06:13","ACTIVO");
+/*Data for the table `cuentas` */
 
+insert  into `cuentas`(`id`,`idEmpresa`,`codigo`,`concepto_nit`,`nombre`,`tipo`,`usa_bancos`,`usa_base`,`usa_centros`,`usa_nit`,`usa_anticipo`,`categoria`,`clase`,`nivel`,`fregistro`,`estatus`) values (1,1,'1',NULL,'ACTIVO','CLASE',NULL,0,0,0,0,NULL,NULL,NULL,'2023-02-04 13:52:33','ACTIVO');
 
+/*Table structure for table `cuentas_x_cobrar` */
+
+DROP TABLE IF EXISTS `cuentas_x_cobrar`;
 
 CREATE TABLE `cuentas_x_cobrar` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -179,10 +303,15 @@ CREATE TABLE `cuentas_x_cobrar` (
   PRIMARY KEY (`id`),
   KEY `idventa` (`idventa`),
   CONSTRAINT `cuentas_x_cobrar_ibfk_1` FOREIGN KEY (`idventa`) REFERENCES `venta` (`venta_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `cuentas_x_cobrar` */
 
+insert  into `cuentas_x_cobrar`(`id`,`cuotas_abono`,`valor`,`fecha`,`idventa`,`no_comprobante`) values (1,1,10000,'2022-11-02',6,'11'),(2,1,5000,'2022-11-23',6,'');
 
+/*Table structure for table `cuentas_x_proveedor` */
+
+DROP TABLE IF EXISTS `cuentas_x_proveedor`;
 
 CREATE TABLE `cuentas_x_proveedor` (
   `idCuenta` int(11) NOT NULL AUTO_INCREMENT,
@@ -193,10 +322,13 @@ CREATE TABLE `cuentas_x_proveedor` (
   PRIMARY KEY (`idCuenta`),
   KEY `idCompra` (`idCompra`),
   CONSTRAINT `cuentas_x_proveedor_ibfk_1` FOREIGN KEY (`idCompra`) REFERENCES `compra` (`compra_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `cuentas_x_proveedor` */
 
+/*Table structure for table `deducciones` */
 
+DROP TABLE IF EXISTS `deducciones`;
 
 CREATE TABLE `deducciones` (
   `IdDeducciones` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id de la deduccion',
@@ -211,8 +343,30 @@ CREATE TABLE `deducciones` (
   CONSTRAINT `FK_IdTipoDeducciones` FOREIGN KEY (`IdTipoDeducciones`) REFERENCES `tipodeducciones` (`IdTipoDeducciones`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+/*Data for the table `deducciones` */
 
+/*Table structure for table `departamentos` */
 
+DROP TABLE IF EXISTS `departamentos`;
+
+CREATE TABLE `departamentos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre_depto` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `estatus` enum('ACTIVO','INACTIVO') COLLATE utf8_unicode_ci DEFAULT NULL,
+  `fregistro` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `idempresa` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idempresa` (`idempresa`),
+  CONSTRAINT `departamentos_ibfk_1` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `departamentos` */
+
+insert  into `departamentos`(`id`,`nombre_depto`,`estatus`,`fregistro`,`idempresa`) values (1,'Bolivar','ACTIVO','2022-09-23 19:25:59',1),(2,'Sucre','ACTIVO','2022-09-23 19:26:00',1),(3,'Cordoba','ACTIVO','2022-09-23 19:26:01',1),(4,'Atlantico','ACTIVO','2022-09-23 19:26:02',1),(5,'Cesar','ACTIVO','2022-09-23 19:26:03',1),(6,'Magdalena','ACTIVO','2022-09-23 19:26:04',1),(7,'Antioquia','ACTIVO','2022-09-23 19:26:09',1);
+
+/*Table structure for table `detalle_compra` */
+
+DROP TABLE IF EXISTS `detalle_compra`;
 
 CREATE TABLE `detalle_compra` (
   `detalle_compra_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -229,8 +383,11 @@ CREATE TABLE `detalle_compra` (
   CONSTRAINT `detalle_compra_ibfk_2` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`producto_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `detalle_compra` */
 
+/*Table structure for table `detalle_salida` */
 
+DROP TABLE IF EXISTS `detalle_salida`;
 
 CREATE TABLE `detalle_salida` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -245,8 +402,11 @@ CREATE TABLE `detalle_salida` (
   CONSTRAINT `detalle_salida_ibfk_2` FOREIGN KEY (`idproducto`) REFERENCES `producto` (`producto_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `detalle_salida` */
 
+/*Table structure for table `detalle_venta` */
 
+DROP TABLE IF EXISTS `detalle_venta`;
 
 CREATE TABLE `detalle_venta` (
   `detalle_venta_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -261,19 +421,15 @@ CREATE TABLE `detalle_venta` (
   KEY `idproducto` (`producto_id`),
   CONSTRAINT `detalle_venta_ibfk_1` FOREIGN KEY (`venta_id`) REFERENCES `venta` (`venta_id`),
   CONSTRAINT `detalle_venta_ibfk_2` FOREIGN KEY (`producto_id`) REFERENCES `producto` (`producto_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO detalle_venta VALUES("1","1","1","1.00","400.00","0.00","INGRESADA");
-INSERT INTO detalle_venta VALUES("2","2","2","1.00","500.00","0.00","INGRESADA");
-INSERT INTO detalle_venta VALUES("3","3","3","2.00","500.00","0.00","INGRESADA");
-INSERT INTO detalle_venta VALUES("4","4","4","4.00","500.00","0.00","INGRESADA");
-INSERT INTO detalle_venta VALUES("5","5","4","4.00","500.00","0.00","INGRESADA");
-INSERT INTO detalle_venta VALUES("6","6","5","1.00","15000.00","0.00","INGRESADA");
-INSERT INTO detalle_venta VALUES("7","7","4","2.00","500.00","0.00","INGRESADA");
-INSERT INTO detalle_venta VALUES("8","8","5","6.00","15000.00","1800.00","INGRESADA");
-INSERT INTO detalle_venta VALUES("9","9","1","1.00","400.00","0.00","INGRESADA");
+/*Data for the table `detalle_venta` */
 
+insert  into `detalle_venta`(`detalle_venta_id`,`venta_id`,`producto_id`,`dv_cantidad`,`dv_precio`,`dv_descuento`,`dv_estatus`) values (1,1,5,1.00,17000.00,0.00,'INGRESADA'),(2,2,9,4.00,600.00,0.00,'INGRESADA'),(3,2,8,6.00,200.00,0.00,'INGRESADA'),(4,3,1,1.00,4500.00,0.00,'INGRESADA'),(5,4,4,1.00,4000.00,0.00,'INGRESADA'),(6,5,9,10.00,600.00,0.00,'INGRESADA'),(7,6,3,3.00,5000.00,0.00,'INGRESADA'),(8,7,4,1.00,4000.00,0.00,'INGRESADA'),(9,8,1,1.00,4500.00,0.00,'INGRESADA'),(10,9,8,50.00,200.00,0.00,'INGRESADA'),(11,9,9,12.00,500.00,0.00,'INGRESADA'),(12,10,9,10.00,600.00,0.00,'INGRESADA'),(13,10,8,1.00,300.00,0.00,'INGRESADA'),(14,11,3,1.00,5000.00,0.00,'INGRESADA'),(15,12,4,2.00,4000.00,160.00,'INGRESADA'),(16,13,9,1.00,600.00,0.00,'INGRESADA'),(17,14,11,1.00,3000.00,0.00,'INGRESADA'),(18,14,9,10.00,600.00,0.00,'INGRESADA'),(19,14,8,5.00,300.00,0.00,'INGRESADA'),(20,15,8,50.00,300.00,0.00,'INGRESADA'),(21,15,9,25.00,600.00,0.00,'INGRESADA'),(22,16,1,1.00,4500.00,0.00,'INGRESADA'),(23,17,4,1.00,4000.00,0.00,'INGRESADA');
 
+/*Table structure for table `dpto` */
+
+DROP TABLE IF EXISTS `dpto`;
 
 CREATE TABLE `dpto` (
   `IdDpto` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id del area al que pertenece',
@@ -281,14 +437,15 @@ CREATE TABLE `dpto` (
   `fregistro` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `estatus` enum('ACTIVO','INACTIVO') DEFAULT NULL,
   PRIMARY KEY (`IdDpto`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
-INSERT INTO dpto VALUES("1","Ventas","2021-09-19 20:20:00","ACTIVO");
-INSERT INTO dpto VALUES("2","Contabilidad","2021-09-19 20:20:04","ACTIVO");
-INSERT INTO dpto VALUES("3","facturacion","2021-09-30 14:21:49","ACTIVO");
-INSERT INTO dpto VALUES("4","Recursos Humanos","2021-09-30 14:58:33","ACTIVO");
+/*Data for the table `dpto` */
 
+insert  into `dpto`(`IdDpto`,`DescDpto`,`fregistro`,`estatus`) values (1,'SISTEMA','2022-09-26 20:55:41','ACTIVO');
 
+/*Table structure for table `empleados` */
+
+DROP TABLE IF EXISTS `empleados`;
 
 CREATE TABLE `empleados` (
   `IdEmp` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id del empleado auto-incremental',
@@ -304,6 +461,7 @@ CREATE TABLE `empleados` (
   `IdPension` int(11) DEFAULT NULL COMMENT 'id de la Empresa de pension del empleado como FK',
   `fregistro` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `estatus` enum('ACTIVO','INACTIVO') DEFAULT NULL,
+  `idempresa` int(11) DEFAULT NULL,
   `usuario_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`IdEmp`),
   UNIQUE KEY `CCEmp` (`CCEmp`),
@@ -312,19 +470,26 @@ CREATE TABLE `empleados` (
   KEY `IdEPS` (`IdEPS`),
   KEY `IdPension` (`IdPension`),
   KEY `usuario_id` (`usuario_id`),
+  KEY `idempresa` (`idempresa`),
   CONSTRAINT `empleados_ibfk_2` FOREIGN KEY (`IdARL`) REFERENCES `arl` (`IdARL`),
   CONSTRAINT `empleados_ibfk_3` FOREIGN KEY (`IdEPS`) REFERENCES `eps` (`IdEPS`),
   CONSTRAINT `empleados_ibfk_4` FOREIGN KEY (`IdPension`) REFERENCES `pension` (`IdPension`),
-  CONSTRAINT `empleados_ibfk_5` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`usuario_id`)
+  CONSTRAINT `empleados_ibfk_5` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`usuario_id`),
+  CONSTRAINT `empleados_ibfk_6` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
-INSERT INTO empleados VALUES("1","107081375","JERSON BATISTA","EL CENTRO","3014788","3254777","INGJERSON@GMAIL.COM","1986-06-05","1","1","1","2021-09-29 14:13:17","ACTIVO","1");
+/*Data for the table `empleados` */
 
+insert  into `empleados`(`IdEmp`,`CCEmp`,`NomEmp`,`DirEmp`,`TelEmp`,`CelEmp`,`EmailEmp`,`fecha_nacimiento`,`IdARL`,`IdEPS`,`IdPension`,`fregistro`,`estatus`,`idempresa`,`usuario_id`) values (1,1070813753,'JERSON BATISTA','EL CARMEN','132132','1321','INFO@GMAIL.COM','1989-05-26',1,1,1,'2022-09-23 18:41:24','ACTIVO',1,1);
 
+/*Table structure for table `empresa` */
+
+DROP TABLE IF EXISTS `empresa`;
 
 CREATE TABLE `empresa` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Nit` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `nombre` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Representante` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `Direccion` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Telefono` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -333,12 +498,15 @@ CREATE TABLE `empresa` (
   `fregistro` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `estatus` enum('ACTIVO','INACTIVO') COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO empresa VALUES("1","1070813756","JERSON BATISTA","EL CARMEN DE BOLIVAR","3002158777","INFO@GMAIL.COM","controlador/empresa/img/IMG24102021184629.jpg","2021-10-24 18:46:29","ACTIVO");
-INSERT INTO empresa VALUES("2","102477777","KAREN VEGA","CARTAGENA","2321321321","INFO1@GMAIL.COM","","2021-10-24 19:56:19","ACTIVO");
+/*Data for the table `empresa` */
 
+insert  into `empresa`(`ID`,`Nit`,`nombre`,`Representante`,`Direccion`,`Telefono`,`Correo`,`Logo`,`fregistro`,`estatus`) values (1,'1070813753','JKSYSTEMAS','JERSON BATISTA','MONTE CARMELO','3013794981','INGJERSON2014@GMAIL.COM','controlador/empresa/img/IMG22820221557.jpg','2022-08-22 18:55:08','ACTIVO');
 
+/*Table structure for table `eps` */
+
+DROP TABLE IF EXISTS `eps`;
 
 CREATE TABLE `eps` (
   `IdEPS` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id de la EPS',
@@ -350,28 +518,68 @@ CREATE TABLE `eps` (
   `EmailEps` varchar(100) DEFAULT NULL,
   `fregistro` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `estatus` enum('ACTIVO','INACTIVO') DEFAULT NULL,
-  PRIMARY KEY (`IdEPS`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+  `idempresa` int(11) DEFAULT NULL,
+  PRIMARY KEY (`IdEPS`),
+  KEY `idempresa` (`idempresa`),
+  CONSTRAINT `eps_ibfk_1` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
-INSERT INTO eps VALUES("1","801198451","Famisanar","Bogota","Calle 78 No. 13 A - 07","3078069","nose@gmail.com","2021-09-12 21:05:35","ACTIVO");
-INSERT INTO eps VALUES("2","911198456","SANITAS","ciudad","direccion","telefono","correo","2021-09-12 21:36:35","ACTIVO");
-INSERT INTO eps VALUES("3","911198457","MUTUAL SER","MEDELLIN","centro","343434","info@gmail.com","2021-09-14 10:17:06","ACTIVO");
+/*Data for the table `eps` */
 
+insert  into `eps`(`IdEPS`,`NitEPS`,`NomEPS`,`CiudadEPS`,`DirEPS`,`TelEPS`,`EmailEps`,`fregistro`,`estatus`,`idempresa`) values (1,2313232,'EPS PRUEBA','CARMEN DE BOL','CALLE 25','654654','PRUEBA@GMAIL.COM','2022-09-18 17:15:12','ACTIVO',1);
 
+/*Table structure for table `gastos` */
+
+DROP TABLE IF EXISTS `gastos`;
 
 CREATE TABLE `gastos` (
   `idGasto` int(11) NOT NULL AUTO_INCREMENT,
   `idtipo_gasto` int(11) NOT NULL,
-  `nombre` char(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `fecha_gasto` date DEFAULT NULL,
+  `valor` float DEFAULT NULL,
+  `recibo` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `idcaja` int(11) DEFAULT NULL,
+  `observaciones` text COLLATE utf8_unicode_ci DEFAULT NULL,
   `fregistro` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `estatus` enum('ACTIVO','INACTIVO') COLLATE utf8_unicode_ci DEFAULT NULL,
+  `estatus` enum('ACTIVO','INACTIVO') COLLATE utf8_unicode_ci DEFAULT 'ACTIVO',
+  `idusuario` int(11) DEFAULT NULL,
+  `idempresa` int(11) DEFAULT NULL,
+  `estado` enum('ENTREGADA','CANCELADA','ANULADA') COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`idGasto`),
   KEY `idtipo_gasto` (`idtipo_gasto`),
-  CONSTRAINT `gastos_ibfk_1` FOREIGN KEY (`idtipo_gasto`) REFERENCES `tipo_gasto` (`id`)
+  KEY `idusuario` (`idusuario`),
+  KEY `idempresa` (`idempresa`),
+  KEY `idcaja` (`idcaja`),
+  CONSTRAINT `gastos_ibfk_1` FOREIGN KEY (`idtipo_gasto`) REFERENCES `tipo_gasto` (`id`),
+  CONSTRAINT `gastos_ibfk_2` FOREIGN KEY (`idusuario`) REFERENCES `usuario` (`usuario_id`),
+  CONSTRAINT `gastos_ibfk_3` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`),
+  CONSTRAINT `gastos_ibfk_4` FOREIGN KEY (`idcaja`) REFERENCES `caja` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `gastos` */
 
+/*Table structure for table `marcas` */
 
+DROP TABLE IF EXISTS `marcas`;
+
+CREATE TABLE `marcas` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `descripcion` varchar(512) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `estatus` enum('ACTIVO','INACTIVO') COLLATE utf8_unicode_ci DEFAULT 'ACTIVO',
+  `fregistro` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `idempresa` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idempresa` (`idempresa`),
+  CONSTRAINT `marcas_ibfk_1` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `marcas` */
+
+insert  into `marcas`(`id`,`descripcion`,`estatus`,`fregistro`,`idempresa`) values (1,'HP','ACTIVO','2023-03-31 19:01:55',1),(2,'MARCA GENERAL','ACTIVO','2023-04-10 09:13:39',1),(3,'ACCER','ACTIVO','2023-04-10 08:33:54',1);
+
+/*Table structure for table `pagos` */
+
+DROP TABLE IF EXISTS `pagos`;
 
 CREATE TABLE `pagos` (
   `idpago` int(10) unsigned zerofill NOT NULL AUTO_INCREMENT,
@@ -384,8 +592,11 @@ CREATE TABLE `pagos` (
   CONSTRAINT `pagos_ibfk_1` FOREIGN KEY (`idgasto`) REFERENCES `gastos` (`idGasto`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `pagos` */
 
+/*Table structure for table `pension` */
 
+DROP TABLE IF EXISTS `pension`;
 
 CREATE TABLE `pension` (
   `IdPension` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id de la Pension',
@@ -397,48 +608,52 @@ CREATE TABLE `pension` (
   `EmailPension` varchar(100) DEFAULT NULL,
   `fregistro` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `estatus` enum('ACTIVO','INACTIVO') DEFAULT NULL,
-  PRIMARY KEY (`IdPension`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+  `idempresa` int(11) DEFAULT NULL,
+  PRIMARY KEY (`IdPension`),
+  KEY `idempresa` (`idempresa`),
+  CONSTRAINT `pension_ibfk_1` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
-INSERT INTO pension VALUES("1","901199451","COLFONDOS","CARTAGENA","CALLE 85 C","324444","NOSE@GMAIL.COM","2021-09-13 08:41:40","ACTIVO");
-INSERT INTO pension VALUES("2","902199452","PORVENIR","ciudad","direccion","telefono","correo","2021-09-13 09:23:55","ACTIVO");
+/*Data for the table `pension` */
 
+insert  into `pension`(`IdPension`,`NitPension`,`NomPension`,`CiudadPension`,`DirPension`,`TelPension`,`EmailPension`,`fregistro`,`estatus`,`idempresa`) values (1,5465655,'PRUEBA PENSION','CARMEN DE BOLIVAR','KRA 45','4654654','PRUEBA@GMAIL.COM','2022-09-18 17:33:26','ACTIVO',1);
 
+/*Table structure for table `persona` */
+
+DROP TABLE IF EXISTS `persona`;
 
 CREATE TABLE `persona` (
   `persona_id` int(11) NOT NULL AUTO_INCREMENT,
   `persona_nombre` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   `persona_apepat` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   `persona_apemat` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tipo_contribuyente` enum('Persona Natural','Persona Juridica') COLLATE utf8_unicode_ci DEFAULT NULL,
   `persona_nrodocumento` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `persona_tipodocumento` enum('CEDULA','NIT','PASAPORTE','TI') COLLATE utf8_unicode_ci DEFAULT NULL,
-  `persona_sexo` enum('MASCULINO','FEMENINO') COLLATE utf8_unicode_ci DEFAULT NULL,
+  `persona_sexo` enum('MASCULINO','FEMENINO','NULL') COLLATE utf8_unicode_ci DEFAULT 'NULL',
   `persona_telefono` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   `persona_direccion` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
   `persona_correo` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `persona_fregistro` date DEFAULT NULL,
   `persona_estatus` enum('ACTIVO','INACTIVO') COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`persona_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `idempresa` int(11) DEFAULT NULL,
+  `id_tipo_tercero` int(11) DEFAULT NULL,
+  `estatus` enum('ACTIVO','INACTIVO') COLLATE utf8_unicode_ci DEFAULT NULL,
+  `fregistro` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`persona_id`),
+  KEY `idempresa` (`idempresa`),
+  KEY `id_tipo_tercero` (`id_tipo_tercero`),
+  CONSTRAINT `persona_ibfk_3` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`),
+  CONSTRAINT `persona_ibfk_4` FOREIGN KEY (`id_tipo_tercero`) REFERENCES `tipo_tercero` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO persona VALUES("1","jerson","batista","vega","1070813753","CEDULA","MASCULINO","3254777","el carmen","prueba@gmail.com","2021-08-26","ACTIVO");
-INSERT INTO persona VALUES("4","Daniela","Meza","Rocha","1212121","CEDULA","FEMENINO","123132132132","BOGOTA","prueba4444444@gmail.com","2021-09-03","ACTIVO");
-INSERT INTO persona VALUES("5","YELENIS","VEGA","GEURRA","800177119","CEDULA","MASCULINO","30000000","BOGOTA","prueba@gmail.com","2021-09-03","ACTIVO");
-INSERT INTO persona VALUES("6","PROVEEDOR","CORVEETA","CORVEETA","8909009431","NIT","MASCULINO","30000000","BOGOTA","prueba4444444@gmail.com","2021-09-03","ACTIVO");
-INSERT INTO persona VALUES("7","YELENIS","hernandez","VEGA","1047378360","CEDULA","FEMENINO","36241111","BOGOTA","prueba@gmail.com","2021-09-21","ACTIVO");
-INSERT INTO persona VALUES("8","KAREN","hernandez","VEGA","1047378369","CEDULA","FEMENINO","30178999","BOGOTA","prueba@gmail.com","2021-09-28","ACTIVO");
-INSERT INTO persona VALUES("9","FEDERICO","VEGA","GEURRA","543534345","NIT","MASCULINO","5646546","KRA 23","prueba@gmail.com","2021-10-29","ACTIVO");
-INSERT INTO persona VALUES("10","RADAMEL","FALCAO","GARCIA","13213215465","CEDULA","MASCULINO","321321321","EL CARMEN DE BOLIVAR","prueba@gmail.com","2021-10-29","ACTIVO");
-INSERT INTO persona VALUES("11","Juan","GUERRA","DDD","54545","CEDULA","MASCULINO","565","YTYT","prueba@gmail.com","2021-10-29","ACTIVO");
-INSERT INTO persona VALUES("12","PROVEEDOR","BATISTA","VEGA","453453453453","CEDULA","MASCULINO","30178999","EL CARMEN DE BOLIVAR","prueba12121@gmail.com","2021-10-29","ACTIVO");
-INSERT INTO persona VALUES("13","Daniela","Rocha","Meza","1002343563","CEDULA","FEMENINO","3014561359","calle 33 #49-50","","2021-11-07","ACTIVO");
-INSERT INTO persona VALUES("14","LAURA","ACOSTA","REYES","1002442958","CEDULA","FEMENINO","3208976219","EL CENTRO","","2021-11-09","ACTIVO");
-INSERT INTO persona VALUES("15","CLIENTE","POR MOSTRADOR","DE PRUEBA","00000001","CEDULA","MASCULINO","30000000","EL CARMEN DE BOLIVAR","","2021-11-11","ACTIVO");
-INSERT INTO persona VALUES("16","PROVEEDOR ","DE ","MOSTRADOR","00001","NIT","MASCULINO","30000000","EL CARMEN DE BOLIVAR","","2021-11-13","ACTIVO");
-INSERT INTO persona VALUES("17","CLIENTE","DE ","MOSTRADOR","000001","CEDULA","MASCULINO","123132132132","EL CARMEN DE BOLIVAR","prueba@gmail.com","2021-11-13","ACTIVO");
-INSERT INTO persona VALUES("18","KAREN","VEGA","RAMIREZ","4555656565","CEDULA","FEMENINO","65567567","YRY","KAREN123@GMAIL.COM","2022-02-03","ACTIVO");
+/*Data for the table `persona` */
 
+insert  into `persona`(`persona_id`,`persona_nombre`,`persona_apepat`,`persona_apemat`,`tipo_contribuyente`,`persona_nrodocumento`,`persona_tipodocumento`,`persona_sexo`,`persona_telefono`,`persona_direccion`,`persona_correo`,`persona_fregistro`,`persona_estatus`,`idempresa`,`id_tipo_tercero`,`estatus`,`fregistro`) values (1,'JERSON','BATISTA','VEGA','Persona Natural','1070813753','CEDULA','MASCULINO','30045454545','el centro','ingjerson@gmail.com','2022-07-13','ACTIVO',1,1,'ACTIVO','2023-03-10 18:56:43'),(2,'PROVEEDOR','DE MOSTRADOR','MOSTRADOR','Persona Natural','000000001','NIT','MASCULINO','011111111','EL CENTRO','info@gmail.com','2022-07-13','ACTIVO',1,2,'ACTIVO','2023-03-10 18:56:46'),(3,'CLIENTE','DE ','MOSTRADOR','Persona Natural','000000000001','CEDULA','MASCULINO','56456456','EL CENTRO','DEPRUEBA@GMAIL.COM','2022-07-13','ACTIVO',1,3,'ACTIVO','2023-03-10 18:57:23'),(4,'AGROPECUARIA','CAÑA ','FLECHA','Persona Juridica','900312662','NIT','MASCULINO','3013794981','EL CARMEN DE BOLIVAR','info2022@gmail.com','2022-08-22','ACTIVO',1,1,'ACTIVO','2023-03-10 18:57:26'),(6,'PRUEBAS','PRUEBA','PRUEBA','Persona Juridica','55646456','CEDULA','MASCULINO','56757','EL CENTRO','jerson564564@gmail.com','2022-11-05','ACTIVO',1,5,'ACTIVO','2023-03-10 18:57:29'),(7,'JUAN','PEDRO','PEDRO',NULL,'465465','CEDULA','','3013794981','EL CARMEN DE BOLIVAR','unitec13213@gmail.com','2022-12-03','ACTIVO',1,3,'ACTIVO','2023-03-10 18:57:35'),(8,'PRUEBAS','PRUEBA','PRUEBA',NULL,'4534534','CEDULA','NULL','56757','MONTE CARMELO','jerson@gmail.com','2022-12-03','ACTIVO',1,3,NULL,'2023-03-10 18:57:21');
 
+/*Table structure for table `prestacionsocial` */
+
+DROP TABLE IF EXISTS `prestacionsocial`;
 
 CREATE TABLE `prestacionsocial` (
   `IdPrestacionSocial` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id de la prestacion social',
@@ -453,8 +668,11 @@ CREATE TABLE `prestacionsocial` (
   CONSTRAINT `FK_IdTipoPrestacion` FOREIGN KEY (`IdTipoPrestacion`) REFERENCES `tipoprestaciones` (`IdTipoPrestaciones`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+/*Data for the table `prestacionsocial` */
 
+/*Table structure for table `producto` */
 
+DROP TABLE IF EXISTS `producto`;
 
 CREATE TABLE `producto` (
   `producto_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -462,12 +680,14 @@ CREATE TABLE `producto` (
   `producto_nombre` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `producto_presentacion` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `id_bodega` int(11) DEFAULT NULL,
-  `producto_serie` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
   `cant_minima` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `producto_stock` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `id_categoria` int(11) DEFAULT NULL,
   `id_unidad` int(11) DEFAULT NULL,
+  `idTipoProducto` int(11) DEFAULT NULL,
+  `id_marca` int(11) DEFAULT NULL,
   `producto_foto` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `compra` decimal(10,2) DEFAULT NULL,
   `producto_precioventa` decimal(10,2) DEFAULT NULL,
   `producto_estatus` enum('ACTIVO','INACTIVO') COLLATE utf8_unicode_ci DEFAULT NULL,
   `fregistro` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
@@ -477,20 +697,23 @@ CREATE TABLE `producto` (
   KEY `producto_ibfk_1` (`id_categoria`),
   KEY `id_bodega` (`id_bodega`),
   KEY `idempresa` (`idempresa`),
+  KEY `idTipoProducto` (`idTipoProducto`),
+  KEY `id_marca` (`id_marca`),
   CONSTRAINT `producto_ibfk_1` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`categoria_id`),
   CONSTRAINT `producto_ibfk_2` FOREIGN KEY (`id_unidad`) REFERENCES `unidad` (`unidad_id`),
   CONSTRAINT `producto_ibfk_3` FOREIGN KEY (`id_bodega`) REFERENCES `bodega` (`id`),
-  CONSTRAINT `producto_ibfk_4` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  CONSTRAINT `producto_ibfk_4` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`),
+  CONSTRAINT `producto_ibfk_5` FOREIGN KEY (`idTipoProducto`) REFERENCES `tipo_producto` (`id`),
+  CONSTRAINT `producto_ibfk_6` FOREIGN KEY (`id_marca`) REFERENCES `marcas` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO producto VALUES("1","01","Galletas Muu","01","1","5465465","1","4","29","6","controlador/productos/img/default.png","400.00","ACTIVO","2022-02-04 09:12:25","1");
-INSERT INTO producto VALUES("2","002","Sobre de manila carta","002","1","2455","1","2","28","6","controlador/productos/img/default.png","500.00","ACTIVO","2022-02-04 09:12:28","1");
-INSERT INTO producto VALUES("3","003","SERVICIO DE INTERNET","003","1","4545","003","38","30","6","controlador/productos/img/default.png","500.00","ACTIVO","2022-02-04 09:12:37","1");
-INSERT INTO producto VALUES("4","004","IMPRESIONES","004","1","54555","1","490","30","6","controlador/productos/img/default.png","500.00","ACTIVO","2022-02-04 09:12:42","1");
-INSERT INTO producto VALUES("5","005","TUTORIAS","005","1","455","1","13","30","6","controlador/productos/img/default.png","15000.00","ACTIVO","2022-02-04 09:12:39","1");
-INSERT INTO producto VALUES("6","4454545454545","GALLETA mu roja azucarada","56565","1","0001","2","0","29","6","controlador/productos/img/default.png","2300.00","ACTIVO","2022-02-04 10:37:43","1");
+/*Data for the table `producto` */
 
+insert  into `producto`(`producto_id`,`producto_codigo`,`producto_nombre`,`producto_presentacion`,`id_bodega`,`cant_minima`,`producto_stock`,`id_categoria`,`id_unidad`,`idTipoProducto`,`id_marca`,`producto_foto`,`compra`,`producto_precioventa`,`producto_estatus`,`fregistro`,`idempresa`) values (1,'9789588464466','AMALIA JOSE MARMOL(1)','ADITORIAL ATENEA',1,'1','1',2,1,1,1,'controlador/productos/img/default.png',3000.00,4500.00,'ACTIVO','2023-04-13 15:39:39',1),(2,'9789589761694','ALICIA EN EL PAIS DE LAS MARAVILLAS(2)','ATENEA',1,'1','1',2,1,1,1,'controlador/productos/img/default.png',3000.00,4500.00,'ACTIVO','2022-12-01 20:42:37',1),(3,'9789587230321','APOLOGIA DESOCRATES(3)','SKLA EDITORIAL',1,'1','0',2,1,1,1,'controlador/productos/img/default.png',4000.00,5000.00,'ACTIVO','2023-01-03 18:56:44',1),(4,'9789589825785','AZUL RUBEN DARIO(4)','ATENEA',1,'1','7',2,1,1,1,'controlador/productos/img/default.png',3000.00,4000.00,'ACTIVO','2023-04-13 15:40:19',1),(5,'9789585783010','BAJO LA MISMA ESTRELLA(5)','NUBE DE TINTA',1,'1','3',2,1,1,1,'controlador/productos/img/default.png',14000.00,17000.00,'ACTIVO','2022-12-01 20:42:47',1),(6,'9789588464282','BODAS DE SANGRE(6)','ATENEA',1,'1','7',2,1,1,1,'controlador/productos/img/default.png',3000.00,4000.00,'ACTIVO','2022-12-01 20:42:50',1),(7,'7707187092929','CARTA AL PADRE(7)','UNION',1,'1','9',2,1,1,1,'controlador/productos/img/default.png',3000.00,4000.00,'ACTIVO','2022-12-01 20:42:52',1),(8,'00003','COPIAS BLANCO Y NEGRO','COPIAS',1,'10','388',4,1,1,1,'controlador/productos/img/default.png',100.00,300.00,'ACTIVO','2023-03-24 13:23:01',1),(9,'0004','IMPRESIONES BLANCO Y NEGRO','NEGRO',1,'10','428',4,1,1,1,'controlador/productos/img/default.png',400.00,600.00,'ACTIVO','2023-03-24 13:23:01',1),(10,'0006','IMPRESIONES A COLOR','GEN',1,'10','500',4,1,1,NULL,'controlador/productos/img/default.png',300.00,1500.00,'ACTIVO','2022-09-26 13:19:40',1),(11,'7700394','LIBRETA DE 100 HOJAS','FAMA',1,'1','4',3,1,1,NULL,'controlador/productos/img/default.png',2000.00,3000.00,'ACTIVO','2023-01-22 11:31:48',1),(12,'4534','pruebas','general',1,'1','5',1,1,1,1,'controlador/productos/img/default.png',5.00,55.00,'ACTIVO','2023-03-31 19:36:58',1);
 
+/*Table structure for table `proveedor` */
+
+DROP TABLE IF EXISTS `proveedor`;
 
 CREATE TABLE `proveedor` (
   `proveedor_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -499,17 +722,24 @@ CREATE TABLE `proveedor` (
   `proveedor_estatus` enum('ACTIVO','INACTIVO') COLLATE utf8_unicode_ci DEFAULT NULL,
   `persona_id` int(11) DEFAULT NULL,
   `proveedor_razon_social` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `idciudad` int(11) DEFAULT NULL,
   `idempresa` int(11) DEFAULT NULL,
   PRIMARY KEY (`proveedor_id`),
   KEY `persona_id` (`persona_id`),
   KEY `idempresa` (`idempresa`),
+  KEY `idciudad` (`idciudad`),
   CONSTRAINT `proveedor_ibfk_1` FOREIGN KEY (`persona_id`) REFERENCES `persona` (`persona_id`),
-  CONSTRAINT `proveedor_ibfk_2` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`)
+  CONSTRAINT `proveedor_ibfk_2` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`),
+  CONSTRAINT `proveedor_ibfk_3` FOREIGN KEY (`idciudad`) REFERENCES `ciudades` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO proveedor VALUES("1","2021-11-13","3201111","ACTIVO","16","MOSTRADOR","1");
+/*Data for the table `proveedor` */
 
+insert  into `proveedor`(`proveedor_id`,`proveedor_fregistro`,`proveedor_num_contacto`,`proveedor_estatus`,`persona_id`,`proveedor_razon_social`,`idciudad`,`idempresa`) values (1,'2022-07-13','000001','ACTIVO',2,'MOSTRADOR ',1,1);
 
+/*Table structure for table `registrohe` */
+
+DROP TABLE IF EXISTS `registrohe`;
 
 CREATE TABLE `registrohe` (
   `IdRegistroHE` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id del registro de horas extra',
@@ -525,8 +755,11 @@ CREATE TABLE `registrohe` (
   CONSTRAINT `FK_IdTipoHE` FOREIGN KEY (`IdTipoHE`) REFERENCES `tipohe` (`IdTipoHE`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+/*Data for the table `registrohe` */
 
+/*Table structure for table `rol` */
 
+DROP TABLE IF EXISTS `rol`;
 
 CREATE TABLE `rol` (
   `rol_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -537,15 +770,15 @@ CREATE TABLE `rol` (
   PRIMARY KEY (`rol_id`),
   KEY `idempresa` (`idempresa`),
   CONSTRAINT `rol_ibfk_1` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO rol VALUES("1","Administrador","2021-08-31","ACTIVO","1");
-INSERT INTO rol VALUES("2","Vendedor","2021-08-17","ACTIVO","1");
-INSERT INTO rol VALUES("3","Invitado","2021-10-21","ACTIVO","2");
-INSERT INTO rol VALUES("4","PRUEBA","2021-10-26","ACTIVO","1");
-INSERT INTO rol VALUES("5","Gerente de Inventario","2021-10-26","ACTIVO","1");
+/*Data for the table `rol` */
 
+insert  into `rol`(`rol_id`,`rol_nombre`,`rol_fregistro`,`rol_estatus`,`idempresa`) values (1,'Administrador','2022-07-13','ACTIVO',1),(2,'Empleado','2022-09-23','ACTIVO',1),(3,'Test','2022-09-23','ACTIVO',1);
 
+/*Table structure for table `salarios` */
+
+DROP TABLE IF EXISTS `salarios`;
 
 CREATE TABLE `salarios` (
   `IdSalarios` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id del salario',
@@ -569,8 +802,11 @@ CREATE TABLE `salarios` (
   CONSTRAINT `FK_IdTipoSalario` FOREIGN KEY (`IdTipoSalario`) REFERENCES `tiposalario` (`IdTipoSalario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+/*Data for the table `salarios` */
 
+/*Table structure for table `salida` */
 
+DROP TABLE IF EXISTS `salida`;
 
 CREATE TABLE `salida` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -587,36 +823,77 @@ CREATE TABLE `salida` (
   CONSTRAINT `salida_ibfk_3` FOREIGN KEY (`idusuario`) REFERENCES `usuario` (`usuario_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `salida` */
 
+/*Table structure for table `tipo_gasto` */
 
+DROP TABLE IF EXISTS `tipo_gasto`;
 
 CREATE TABLE `tipo_gasto` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `fregistro` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `estatus` enum('ACTIVO','INACTIVO') COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `idempresa` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idempresa` (`idempresa`),
+  CONSTRAINT `tipo_gasto_ibfk_1` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `tipo_gasto` */
 
+/*Table structure for table `tipo_producto` */
 
+DROP TABLE IF EXISTS `tipo_producto`;
+
+CREATE TABLE `tipo_producto` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `tipo_producto` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `estatus` enum('ACTIVO','INACTIVO') COLLATE utf8_unicode_ci DEFAULT NULL,
+  `fregistro` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `idEmpresa` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_tp_emp` (`idEmpresa`),
+  CONSTRAINT `fk_tp_emp` FOREIGN KEY (`idEmpresa`) REFERENCES `empresa` (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `tipo_producto` */
+
+insert  into `tipo_producto`(`id`,`tipo_producto`,`estatus`,`fregistro`,`idEmpresa`) values (1,'PRODUCTO','ACTIVO','2022-07-13 15:56:42',1),(2,'CONSUMO','ACTIVO','2022-07-13 15:56:49',1),(3,'COMBO','ACTIVO','2022-07-13 15:56:57',1);
+
+/*Table structure for table `tipo_tercero` */
+
+DROP TABLE IF EXISTS `tipo_tercero`;
+
+CREATE TABLE `tipo_tercero` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `tipo` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `idempresa` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idempresa` (`idempresa`),
+  CONSTRAINT `tipo_tercero_ibfk_1` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `tipo_tercero` */
+
+insert  into `tipo_tercero`(`id`,`tipo`,`idempresa`) values (1,'PROVEEDOR',1),(2,'CLIENTE',1),(3,'CODEUDOR',1),(4,'EMPRESA',1),(5,'EMPLEADO',1);
+
+/*Table structure for table `tipodeducciones` */
+
+DROP TABLE IF EXISTS `tipodeducciones`;
 
 CREATE TABLE `tipodeducciones` (
   `IdTipoDeducciones` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id del tipo de deduccion',
   `DescTipoDeducciones` varchar(80) NOT NULL COMMENT 'Descripcion del tipo de deduccion',
   `Observaciones` text DEFAULT NULL COMMENT 'Observaiones del tipo de deduccion',
   PRIMARY KEY (`IdTipoDeducciones`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO tipodeducciones VALUES("1","Aportes Salud","");
-INSERT INTO tipodeducciones VALUES("2","Aportes Pensiones","");
-INSERT INTO tipodeducciones VALUES("3","Aportes Fondo Solidario","");
-INSERT INTO tipodeducciones VALUES("4","Otros","");
-INSERT INTO tipodeducciones VALUES("5","Embargos judiciales","Los embargos ordenados por autoridad judicial
- competente contra los empleados, deben ser descontados de la nómina 
- por la empresa y consignarlos en la cuenta que el juez haya ordenado");
+/*Data for the table `tipodeducciones` */
 
+/*Table structure for table `tipohe` */
 
+DROP TABLE IF EXISTS `tipohe`;
 
 CREATE TABLE `tipohe` (
   `IdTipoHE` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id del tipo de hora extra',
@@ -625,8 +902,11 @@ CREATE TABLE `tipohe` (
   PRIMARY KEY (`IdTipoHE`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+/*Data for the table `tipohe` */
 
+/*Table structure for table `tipoprestaciones` */
 
+DROP TABLE IF EXISTS `tipoprestaciones`;
 
 CREATE TABLE `tipoprestaciones` (
   `IdTipoPrestaciones` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id del tipo de prestacion',
@@ -634,15 +914,13 @@ CREATE TABLE `tipoprestaciones` (
   `Porcentaje` double NOT NULL COMMENT 'Porcentaje',
   `Observaciones` text DEFAULT NULL COMMENT 'Observaiones del tipo de prestacion',
   PRIMARY KEY (`IdTipoPrestaciones`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO tipoprestaciones VALUES("1","Cesantias","8.33","");
-INSERT INTO tipoprestaciones VALUES("2","Int./Cesancias","1","");
-INSERT INTO tipoprestaciones VALUES("3","Vacaciones","4.16","");
-INSERT INTO tipoprestaciones VALUES("4","Prima","8.33","");
-INSERT INTO tipoprestaciones VALUES("5","Subsidios","5","");
+/*Data for the table `tipoprestaciones` */
 
+/*Table structure for table `tiposalario` */
 
+DROP TABLE IF EXISTS `tiposalario`;
 
 CREATE TABLE `tiposalario` (
   `IdTipoSalario` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id del tipo del salario del empleado',
@@ -650,8 +928,11 @@ CREATE TABLE `tiposalario` (
   PRIMARY KEY (`IdTipoSalario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+/*Data for the table `tiposalario` */
 
+/*Table structure for table `unidad` */
 
+DROP TABLE IF EXISTS `unidad`;
 
 CREATE TABLE `unidad` (
   `unidad_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -663,17 +944,15 @@ CREATE TABLE `unidad` (
   PRIMARY KEY (`unidad_id`),
   KEY `idempresa` (`idempresa`),
   CONSTRAINT `unidad_ibfk_1` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO unidad VALUES("1","Gramos","GR","2021-08-31","ACTIVO","1");
-INSERT INTO unidad VALUES("2","Kilogramo","KG","2021-08-31","ACTIVO","1");
-INSERT INTO unidad VALUES("3","Litro","LT","2021-08-31","ACTIVO","1");
-INSERT INTO unidad VALUES("4","Metro","MT","2021-08-31","ACTIVO","2");
-INSERT INTO unidad VALUES("5","Onza","ON","2021-08-31","ACTIVO","2");
-INSERT INTO unidad VALUES("6","Unidad","UN","2021-08-31","ACTIVO","2");
-INSERT INTO unidad VALUES("7","Por Metros","UN","2021-10-26","ACTIVO","1");
+/*Data for the table `unidad` */
 
+insert  into `unidad`(`unidad_id`,`unidad_nombre`,`unidad_abreviatura`,`unidad_fregistro`,`unidad_estatus`,`idempresa`) values (1,'UNIDAD','UN','2022-07-13','ACTIVO',1),(2,'KILOGRAMO','KG','2022-07-13','ACTIVO',1),(3,'ONZA','ON','2022-07-13','ACTIVO',1);
 
+/*Table structure for table `usuario` */
+
+DROP TABLE IF EXISTS `usuario`;
 
 CREATE TABLE `usuario` (
   `usuario_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -686,20 +965,27 @@ CREATE TABLE `usuario` (
   `usuario_imagen` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `persona_id` int(11) DEFAULT NULL,
   `idempresa` int(11) DEFAULT NULL,
+  `idcaja` int(11) DEFAULT NULL,
   PRIMARY KEY (`usuario_id`) USING BTREE,
   UNIQUE KEY `usuario_nombre_2` (`usuario_nombre`),
   UNIQUE KEY `usuario_nombre_3` (`usuario_nombre`),
   KEY `persona_id` (`persona_id`),
   KEY `usuario_ibfk_1` (`rol_id`),
   KEY `idempresa` (`idempresa`),
+  KEY `idcaja` (`idcaja`),
   CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`rol_id`) REFERENCES `rol` (`rol_id`),
   CONSTRAINT `usuario_ibfk_2` FOREIGN KEY (`persona_id`) REFERENCES `persona` (`persona_id`),
-  CONSTRAINT `usuario_ibfk_3` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  CONSTRAINT `usuario_ibfk_3` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`),
+  CONSTRAINT `usuario_ibfk_4` FOREIGN KEY (`idcaja`) REFERENCES `caja` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO usuario VALUES("1","admin","$2y$10$fT0BNUP3Solt7M2BMx8Iwu6aFF8OHVQ3vb5PUoWHqac2Y4ZUcO.F.","ingjerson2014@gmail.com","0","ACTIVO","1","controlador/usuario/img/IMG1792021201135.jpg","1","1");
+/*Data for the table `usuario` */
 
+insert  into `usuario`(`usuario_id`,`usuario_nombre`,`usuario_password`,`usuario_email`,`usuario_intento`,`usuario_estatus`,`rol_id`,`usuario_imagen`,`persona_id`,`idempresa`,`idcaja`) values (1,'admin','$2y$10$h9K.V8WbN3pebBNwmqn/zOd2ozDzhgcNgyT317cPmJMMTBmyBVYRu','ingjerson2014@gmail.com',NULL,'ACTIVO',1,'controlador/usuario/img/IMG317202213118.jpg',1,1,1);
 
+/*Table structure for table `venta` */
+
+DROP TABLE IF EXISTS `venta`;
 
 CREATE TABLE `venta` (
   `venta_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -718,24 +1004,1989 @@ CREATE TABLE `venta` (
   `venta_total_dcto` decimal(10,2) DEFAULT NULL,
   `fecha_vencimiento` date DEFAULT NULL,
   `idempresa` int(11) DEFAULT NULL,
+  `idcaja` int(11) DEFAULT NULL,
   PRIMARY KEY (`venta_id`),
   KEY `cliente_id` (`cliente_id`),
   KEY `usuario_id` (`usuario_id`),
   KEY `bodega_id` (`bodega_id`),
   KEY `idempresa` (`idempresa`),
+  KEY `idcaja` (`idcaja`),
   CONSTRAINT `venta_ibfk_1` FOREIGN KEY (`cliente_id`) REFERENCES `cliente` (`idcliente`),
   CONSTRAINT `venta_ibfk_2` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`usuario_id`),
   CONSTRAINT `venta_ibfk_3` FOREIGN KEY (`bodega_id`) REFERENCES `bodega` (`id`),
-  CONSTRAINT `venta_ibfk_4` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  CONSTRAINT `venta_ibfk_4` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`),
+  CONSTRAINT `venta_ibfk_5` FOREIGN KEY (`idcaja`) REFERENCES `caja` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO venta VALUES("1","1","1","1","FACTURA","FV","001","CONTADO","2021-11-13","0.00","400.00","REGISTRADA","0.00","0.00","2021-11-13","1");
-INSERT INTO venta VALUES("2","1","1","1","FACTURA","FV","002","CONTADO","2021-11-13","0.00","500.00","REGISTRADA","0.00","0.00","2021-11-13","1");
-INSERT INTO venta VALUES("3","1","1","1","TICKET","FV","0001","CONTADO","2021-11-20","0.00","1000.00","REGISTRADA","0.00","0.00","2021-11-20","1");
-INSERT INTO venta VALUES("4","1","1","1","TICKET","FV","0001","CONTADO","2021-11-22","0.00","2000.00","REGISTRADA","0.00","0.00","2021-11-22","1");
-INSERT INTO venta VALUES("5","1","1","1","TICKET","FV","0002","CONTADO","2021-11-22","0.00","2000.00","REGISTRADA","0.00","0.00","2021-11-22","1");
-INSERT INTO venta VALUES("6","1","1","1","TICKET","FV","0003","CONTADO","2021-11-22","0.00","15000.00","REGISTRADA","0.00","0.00","2021-11-22","1");
-INSERT INTO venta VALUES("7","1","1","1","COTIZACION","FV","0012","CONTADO","2021-12-07","0.00","1000.00","REGISTRADA","0.00","0.00","2021-12-07","1");
-INSERT INTO venta VALUES("8","1","1","1","FACTURA","FV","546546565","CONTADO","2022-01-08","16758.00","104958.00","REGISTRADA","0.19","1800.00","2022-01-08","1");
-INSERT INTO venta VALUES("9","1","1","1","COTIZACION","FV","232323","CONTADO","2022-02-03","0.00","400.00","REGISTRADA","0.00","0.00","2022-02-03","1");
+/*Data for the table `venta` */
 
+insert  into `venta`(`venta_id`,`cliente_id`,`bodega_id`,`usuario_id`,`venta_tipocomprobante`,`venta_serie`,`venta_numcomprobante`,`tipo_pago`,`venta_fecha`,`venta_impuesto`,`venta_total`,`venta_estatus`,`venta_porcentaje`,`venta_total_dcto`,`fecha_vencimiento`,`idempresa`,`idcaja`) values (1,1,1,1,'TICKET','FV',NULL,'CONTADO','2022-07-31',0.00,17000.00,'REGISTRADA',0.00,0.00,'2022-07-30',1,1),(2,2,1,1,'FACTURA','FV',NULL,'CONTADO','2022-08-22',0.00,3600.00,'REGISTRADA',0.00,0.00,'2022-08-22',1,1),(3,1,1,1,'TICKET','FV',NULL,'CONTADO','2022-09-22',0.00,4500.00,'REGISTRADA',0.00,0.00,'0000-00-00',1,1),(4,1,1,1,'FACTURA','FV',NULL,'CONTADO','2022-09-22',0.00,4000.00,'REGISTRADA',0.00,0.00,'0000-00-00',1,1),(5,2,1,1,'FACTURA','FV',NULL,'CONTADO','2022-09-26',0.00,6000.00,'REGISTRADA',0.00,0.00,'2022-09-26',1,1),(6,2,1,1,'TICKET','FV',NULL,'CREDITO','2022-11-02',0.00,15000.00,'CANCELADA',0.00,0.00,'0000-00-00',1,1),(7,1,1,1,'TICKET','FV',NULL,'CONTADO','2022-11-05',0.00,4000.00,'REGISTRADA',0.00,0.00,'2022-11-05',1,1),(8,1,1,1,'TICKET','FV',NULL,'CONTADO','2022-11-16',0.00,4500.00,'REGISTRADA',0.00,0.00,'0000-00-00',1,1),(9,2,1,1,'TICKET','FV',NULL,'CONTADO','2022-11-21',0.00,16000.00,'REGISTRADA',0.00,0.00,'2022-11-21',1,1),(10,2,1,1,'TICKET','FV',NULL,'CONTADO','2022-12-09',0.00,6300.00,'REGISTRADA',0.00,0.00,'2022-12-09',1,1),(11,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-01-03',0.00,5000.00,'REGISTRADA',0.00,0.00,'0000-00-00',1,1),(12,1,1,1,'FACTURA','FV',NULL,'CONTADO','2023-01-03',0.00,7840.00,'REGISTRADA',0.00,160.00,'2023-01-03',1,1),(13,2,1,1,'COTIZACION','FV',NULL,'CONTADO','2023-01-22',0.00,600.00,'REGISTRADA',0.00,0.00,'0000-00-00',1,1),(14,2,1,1,'FACTURA','FV',NULL,'CONTADO','2023-01-22',0.00,10500.00,'REGISTRADA',0.00,0.00,'0000-00-00',1,1),(15,2,1,1,'TICKET','FV',NULL,'CONTADO','2023-03-24',0.00,30000.00,'REGISTRADA',0.00,0.00,'2023-03-24',1,1),(16,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-04-13',0.00,4500.00,'REGISTRADA',0.00,0.00,'2023-04-13',1,1),(17,1,1,1,'FACTURA','FV',NULL,'CONTADO','2023-04-13',0.00,4000.00,'REGISTRADA',0.00,0.00,'0000-00-00',1,1);
+
+/* Trigger structure for table `detalle_compra` */
+
+DELIMITER $$
+
+/*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `tr_updStockIngreso` */$$
+
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `tr_updStockIngreso` AFTER INSERT ON `detalle_compra` FOR EACH ROW BEGIN
+UPDATE producto SET producto_stock=producto_stock + NEW.dc_cantidad
+WHERE `producto`.`producto_id` = NEW.id_producto;
+END */$$
+
+
+DELIMITER ;
+
+/* Trigger structure for table `detalle_venta` */
+
+DELIMITER $$
+
+/*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `tr_updStockVenta` */$$
+
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `tr_updStockVenta` AFTER INSERT ON `detalle_venta` FOR EACH ROW BEGIN
+UPDATE producto SET producto_stock=producto_stock - NEW.dv_cantidad
+WHERE `producto`.`producto_id` = NEW.producto_id;
+END */$$
+
+
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_ACTUALIZAR_DATOS_PERSONA` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_ACTUALIZAR_DATOS_PERSONA` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ACTUALIZAR_DATOS_PERSONA`(IN IDUSUARIO INT, IN NOMBRE VARCHAR(50),IN APEPAT VARCHAR(50),IN APEMAT VARCHAR(50),
+IN NRO_DOCUMENTO VARCHAR(50), IN TIPO_DOC VARCHAR(50), IN SEXO VARCHAR(15),
+IN TELEFONO VARCHAR(50), IN DIRECCION VARCHAR(50))
+BEGIN
+DECLARE  cantidad INT;
+DECLARE IDPERSONA INT;
+DECLARE DOCMENTOACTUAL INT;
+SET @IDPERSONA:=(SELECT persona_id from usuario where usuario_id =IDUSUARIO);
+SET @DOCMENTOACTUAL:=(SELECT persona_nrodocumento from persona where persona_id =@IDPERSONA);
+IF @DOCMENTOACTUAL =  NRO_DOCUMENTO then
+UPDATE  persona set 
+persona_nombre=NOMBRE,
+persona_apepat=APEPAT,
+persona_apemat=APEMAT,
+persona_tipodocumento=TIPO_DOC,
+persona_sexo=SEXO,
+persona_telefono=TELEFONO,
+persona_direccion=DIRECCION
+WHERE persona_id =@IDPERSONA;
+SELECT 1;
+ELSE
+SET @cantidad:=( SELECT COUNT(*) FROM persona WHERE persona_nrodocumento =NRO_DOCUMENTO);
+IF @cantidad = 0 THEN
+	UPDATE  persona set 
+	persona_nombre=NOMBRE,
+	persona_apepat=APEPAT,
+	persona_apemat=APEMAT,
+	persona_nrodocumento=NRO_DOCUMENTO,
+	persona_tipodocumento=TIPO_DOC,
+	persona_sexo=SEXO,
+	persona_telefono=TELEFONO,
+	persona_direccion=DIRECCION
+	WHERE persona_id =@IDPERSONA;
+	SELECT 1;
+	ELSE 
+	SELECT 2;
+END IF;
+END IF;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_ANULAR_COMPRA` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_ANULAR_COMPRA` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ANULAR_COMPRA`(IN `IDCOMPRA` INT)
+BEGIN 
+DECLARE CANTIDAD INT;
+DECLARE IDPRODUCTO INT;
+DECLARE STOCKACTUAL DECIMAL(10,2);
+DECLARE DETALLEID INT;
+UPDATE compra SET 
+`compra_estatus` ='ANULADA'
+WHERE `compra_id` =IDCOMPRA;
+SET @CANTIDAD:=(SELECT COUNT(*) FROM `detalle_compra` WHERE `detalle_compra`.`dc_estatus`='INGRESADA' AND  `id_compra` =IDCOMPRA);
+  WHILE @CANTIDAD > 0 DO
+	SET @IDPRODUCTO:=(SELECT `id_producto` FROM `detalle_compra` 
+	WHERE `detalle_compra`.`dc_estatus` ='INGRESADA' AND  `id_compra` =IDCOMPRA  LIMIT 1);
+	
+	SET @DETALLEID:=(SELECT `detalle_compra_id` FROM `detalle_compra` WHERE `detalle_compra`.`dc_estatus`='INGRESADA' 
+	AND  `id_compra` =IDCOMPRA  LIMIT 1);
+	
+	SET @STOCKACTUAL:=(SELECT `producto_stock` FROM producto WHERE `producto_id` = @IDPRODUCTO);
+	
+	UPDATE producto SET 
+	`producto_stock`=@STOCKACTUAL-(SELECT `detalle_compra`.`dc_cantidad` FROM `detalle_compra` 
+	WHERE `detalle_compra`.`dc_estatus` ='INGRESADA' AND  `id_compra` =IDCOMPRA  LIMIT 1)
+	WHERE `producto_id`=@IDPRODUCTO;
+	UPDATE `detalle_compra` SET 
+	`detalle_compra`.`dc_estatus` ='ANULADA'
+	WHERE `detalle_compra_id` =@DETALLEID;
+	
+      SET @CANTIDAD:= @CANTIDAD - 1;
+    
+  END WHILE;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_ANULAR_VENTA` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_ANULAR_VENTA` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ANULAR_VENTA`(IN `IDVENTA` INT)
+BEGIN 
+DECLARE CANTIDAD INT;
+DECLARE IDPRODUCTO INT;
+DECLARE STOCKACTUAL DECIMAL(10,2);
+DECLARE DETALLEID INT;
+UPDATE venta SET 
+`venta_estatus` ='ANULADA'
+WHERE `venta_id` =IDVENTA;
+SET @CANTIDAD:=(SELECT COUNT(*) FROM `detalle_venta` WHERE `detalle_venta`.`dv_estatus`='INGRESADA' AND  `venta_id` =IDVENTA);
+  WHILE @CANTIDAD > 0 DO
+	SET @IDPRODUCTO:=(SELECT `producto_id` FROM `detalle_venta` 
+	WHERE `detalle_venta`.`dv_estatus` ='INGRESADA' AND  `venta_id` =IDVENTA  LIMIT 1);
+	
+	SET @DETALLEID:=(SELECT `detalle_venta_id` FROM `detalle_venta` WHERE `detalle_venta`.`dv_estatus`='INGRESADA' 
+	AND  `venta_id` =IDVENTA  LIMIT 1);
+	
+	SET @STOCKACTUAL:=(SELECT `producto_stock` FROM producto WHERE `producto_id` = @IDPRODUCTO);
+	
+	UPDATE producto SET 
+	`producto_stock`=@STOCKACTUAL+(SELECT `detalle_venta`.`dv_cantidad` FROM `detalle_venta` 
+	WHERE `detalle_venta`.`dv_estatus` ='INGRESADA' AND  `venta_id` =IDVENTA  LIMIT 1)
+	WHERE `producto_id`=@IDPRODUCTO;
+	UPDATE `detalle_venta` SET 
+	`detalle_venta`.`dv_estatus` ='ANULADA'
+	WHERE `detalle_venta_id` =@DETALLEID;
+	
+      SET @CANTIDAD:= @CANTIDAD - 1;
+    
+  END WHILE;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_LISTAR_ABONOS_PROVEEDOR` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_LISTAR_ABONOS_PROVEEDOR` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_ABONOS_PROVEEDOR`()
+SELECT
+    `cuentas_x_proveedor`.`idCuenta`
+    , `proveedor`.`proveedor_razon_social` AS proveedor
+    ,`compra`.`compra_tipo_comprobante`
+    ,   compra.`compra_num_comprobante` AS nofactura
+    , `cuentas_x_proveedor`.`noCuota`
+    , `cuentas_x_proveedor`.`fecha_pago`
+     , `compra`.`compra_total` AS credito
+    ,SUM( `cuentas_x_proveedor`.`valorAbono`) AS totalAbonos
+    , `cuentas_x_proveedor`.`idCompra`
+   
+    ,    `compra`.`compra_total` - SUM(`cuentas_x_proveedor`.`valorAbono`) AS saldo
+FROM
+    `sistema_pos`.`cuentas_x_proveedor`
+    INNER JOIN `sistema_pos`.`compra` 
+        ON (`cuentas_x_proveedor`.`idCompra` = `compra`.`compra_id`)
+    INNER JOIN `sistema_pos`.`proveedor` 
+        ON (`compra`.`proveedor_id` = `proveedor`.`proveedor_id`)
+        GROUP BY idCompra */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_LISTAR_BODEGAS` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_LISTAR_BODEGAS` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_BODEGAS`()
+select id,`nombre_bodega`,fregistro,estatus from bodega */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_LISTAR_CATEGORIA` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_LISTAR_CATEGORIA` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_CATEGORIA`()
+select `categoria_id`,`categoria_nombre`,`categoria_fregistro`,`categoria_estatus`
+from `categoria` */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_LISTAR_CLIENTE` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_LISTAR_CLIENTE` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_CLIENTE`()
+SELECT
+    `persona`.`persona_id`
+    ,   concat_ws(' ', `persona`.`persona_nombre`    , `persona`.`persona_apepat`    , `persona`.`persona_apemat`) as cliente
+    , `persona`.`persona_nrodocumento`
+    , `persona`.`persona_tipodocumento`
+    , `persona`.`persona_sexo`
+    , `persona`.`persona_telefono`
+    , `persona`.`persona_direccion`
+    , `cliente`.`cliente_fregistro`
+    , `cliente`.`cliente_estatus`
+    , `cliente`.`idcliente`
+FROM
+    `sistema_pos`.`cliente`
+    INNER JOIN `sistema_pos`.`persona` 
+        ON (`cliente`.`persona_id` = `persona`.`persona_id`) */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_LISTAR_COMBO_CATEGORIA` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_LISTAR_COMBO_CATEGORIA` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_COMBO_CATEGORIA`()
+SELECT
+	categoria_id, 
+	categoria_nombre
+FROM
+	categoria
+	where categoria_estatus='ACTIVO' */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_LISTAR_COMBO_PERSONA` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_LISTAR_COMBO_PERSONA` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_COMBO_PERSONA`()
+SELECT
+    `persona_id`
+    , concat_ws(' ', `persona_nombre`, `persona_apepat`, `persona_apemat`) 
+FROM
+    `persona`
+    WHERE persona.persona_estatus ='ACTIVO' */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_LISTAR_COMBO_PRODUCTO` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_LISTAR_COMBO_PRODUCTO` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_COMBO_PRODUCTO`()
+SELECT `producto_id`,`producto_nombre`,
+`producto_stock`,`producto_precioventa`, producto.producto_foto, producto.producto_codigo
+FROM `producto`
+WHERE `producto`.`producto_estatus` ='ACTIVO' */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_LISTAR_COMBO_PROVEEDOR` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_LISTAR_COMBO_PROVEEDOR` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_COMBO_PROVEEDOR`()
+SELECT
+    `proveedor`.`proveedor_id`
+    , `proveedor`.`proveedor_razon_social`
+    , `persona`.`persona_nrodocumento`
+FROM
+    `proveedor`
+    INNER JOIN `persona` 
+        ON (`proveedor`.`persona_id` = `persona`.`persona_id`)
+        WHERE `proveedor_estatus` = 'ACTIVO' */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_LISTAR_COMBO_ROL` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_LISTAR_COMBO_ROL` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_COMBO_ROL`()
+SELECT
+    `rol_id`
+    , `rol_nombre`
+FROM
+    `rol`
+    where rol.rol_estatus='ACTIVO' */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_LISTAR_COMBO_UNIDAD` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_LISTAR_COMBO_UNIDAD` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_COMBO_UNIDAD`()
+SELECT
+	unidad_id, 
+	unidad_nombre
+FROM
+	unidad
+	where unidad_estatus='ACTIVO' */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_LISTAR_COMPRAS` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_LISTAR_COMPRAS` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_COMPRAS`(IN `INICIO` DATE, IN `FIN` DATE)
+SELECT
+    `compra`.`compra_id`
+    , `compra`.`proveedor_id`
+    ,`compra`.`id_bodega`
+    ,`bodega`.`nombre_bodega`
+    , `compra`.`usuario_id`
+    , `compra`.`compra_tipo_comprobante`
+    , `compra`.`compra_serie_comprobante`
+    , `compra`.`compra_num_comprobante`
+    , `compra`.`compra_tipo_pago`
+    , `compra`.`compra_fecha`
+    , `compra`.`compra_impuesto`
+    , `compra`.`compra_total`
+    , `compra`.`compra_estatus`
+    , `usuario`.`usuario_nombre`
+    , CONCAT_WS(' ', `persona`.`persona_nombre`  , `persona`.`persona_apepat` , `persona`.`persona_apemat` ) AS proveedor,
+    compra.compra_total_decto, compra.fecha_vencimiento
+    
+FROM
+    `sistema_pos`.`compra`
+    INNER JOIN `sistema_pos`.`usuario` 
+        ON (`compra`.`usuario_id` = `usuario`.`usuario_id`)
+    INNER JOIN `sistema_pos`.`proveedor` 
+        ON (`compra`.`proveedor_id` = `proveedor`.`proveedor_id`)
+    INNER JOIN `sistema_pos`.`persona` 
+        ON (`proveedor`.`persona_id` = `persona`.`persona_id`)
+     INNER JOIN `bodega`  ON  `compra`.`id_bodega`  = `bodega`.`id`  
+        where compra.compra_fecha BETWEEN INICIO AND FIN */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_LISTAR_PENSION` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_LISTAR_PENSION` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_PENSION`(IN IDEMPRESA INT)
+SELECT
+    `IdPension`
+    , `NitPension`
+    , `NomPension`
+    , `CiudadPension`
+    , `DirPension`
+    , `TelPension`
+    , `EmailPension`
+    , `fregistro`
+    , `estatus`
+    , `idempresa`
+FROM
+    `pension`
+    where pension.`idempresa` = 1 */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_LISTAR_PERSONA` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_LISTAR_PERSONA` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_PERSONA`()
+SELECT
+    `persona_id`, concat_ws(' ',`persona_nombre`  , `persona_apepat`  , `persona_apemat`) as persona,
+    persona.persona_nombre,persona.persona_apepat,
+    persona.persona_apemat
+     ,`persona_nrodocumento`
+    , `persona_tipodocumento`
+    , `persona_sexo`
+    , `persona_telefono`
+    , `persona_direccion`
+    , persona_correo
+    , `persona_fregistro`
+    , `persona_estatus`
+FROM
+    `persona` */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_LISTAR_PRODUCTOS` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_LISTAR_PRODUCTOS` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_PRODUCTOS`(IN `IDBODEGA` INT)
+SELECT
+    `p`.`producto_id`    , `p`.`producto_codigo`
+    , `p`.`producto_nombre`    , `p`.`producto_presentacion`
+    
+    , `p`.`id_bodega`
+    , `b`.`nombre_bodega`  
+    ,`p`.`cant_minima`  
+    ,    `p`.`producto_stock`
+    , `p`.`id_categoria`    , `c`.`categoria_nombre`
+    , `p`.`id_unidad`    , `u`.`unidad_nombre`
+    , `p`.`producto_foto`    , `p`.`producto_precioventa`
+    , `p`.`producto_estatus`
+FROM
+    `sistema_pos`.`producto` AS `p`
+    INNER JOIN `sistema_pos`.`bodega` AS `b` 
+        ON (`p`.`id_bodega` = `b`.`id`)
+    INNER JOIN `sistema_pos`.`categoria` AS `c`
+        ON (`p`.`id_categoria` = `c`.`categoria_id`)
+    INNER JOIN `sistema_pos`.`unidad` AS `u`
+        ON (`p`.`id_unidad` = `u`.`unidad_id`)
+       where b.`id` = IDBODEGA */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_LISTAR_PROVEEDOR` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_LISTAR_PROVEEDOR` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_PROVEEDOR`()
+SELECT
+    `persona`.`persona_id`
+    , concat_ws(' ', `persona`.`persona_nombre`    , `persona`.`persona_apepat`    , `persona`.`persona_apemat`) as proveedor
+    , `persona`.`persona_nrodocumento`
+    , `persona`.`persona_tipodocumento`
+    , `persona`.`persona_sexo`
+    , `persona`.`persona_telefono`
+    , `persona`.`persona_direccion`
+    , `proveedor`.`proveedor_id`
+    ,proveedor.proveedor_num_contacto
+    , `proveedor`.`proveedor_fregistro`
+    , `proveedor`.`proveedor_estatus`
+    ,	proveedor.proveedor_razon_social
+ 
+FROM
+    `sistema_pos`.`proveedor`
+    INNER JOIN `sistema_pos`.`persona` 
+        ON (`proveedor`.`persona_id` = `persona`.`persona_id`) */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_LISTAR_ROL` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_LISTAR_ROL` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_ROL`()
+SELECT * FROM  rol */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_LISTAR_UNIDAD` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_LISTAR_UNIDAD` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_UNIDAD`()
+SELECT
+	u.unidad_id, 
+	u.unidad_nombre, 
+    u.unidad_abreviatura,
+	u.unidad_fregistro, 
+	u.unidad_estatus
+FROM
+	unidad AS u */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_LISTAR_USUARIO2` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_LISTAR_USUARIO2` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_USUARIO2`(IN `IDEMPRESA` INT)
+SELECT
+    `usuario`.`usuario_id`    , `usuario`.`usuario_nombre`
+    , `usuario`.`usuario_email`    , `usuario`.`usuario_estatus`
+    , `usuario`.`usuario_imagen`    , `usuario`.`rol_id`
+    , `usuario`.`persona_id`    , `rol`.`rol_nombre`,
+    concat_ws(' ', `persona`.`persona_nombre` , `persona`.`persona_apepat`, `persona`.`persona_apemat`) AS persona
+    , `persona`.`persona_nombre`    , `persona`.`persona_apepat`
+    , `persona`.`persona_apemat`, `usuario`.`idempresa`
+    FROM
+    `usuario`
+    LEFT JOIN `persona` 
+        ON (`usuario`.`persona_id` = `persona`.`persona_id`)
+    INNER JOIN `rol` 
+        ON (`usuario`.`rol_id` = `rol`.`rol_id`)
+        inner join empresa on `usuario`.`idempresa` = empresa.`ID`
+        where usuario.`idempresa` = IDEMPRESA */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_LISTAR_VENTAS` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_LISTAR_VENTAS` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_VENTAS`(IN `FINICIO` DATE, IN `FFIN` DATE)
+SELECT
+    `venta`.`venta_id`
+    , `venta`.`cliente_id`
+    , `venta`.`bodega_id`
+    , `bodega`.`nombre_bodega`
+    , `venta`.`usuario_id`
+    , `usuario`.`usuario_nombre`
+    , `venta`.`venta_tipocomprobante`
+    , `venta`.`venta_serie`
+    , `venta`.`venta_numcomprobante`
+    , `venta`.`tipo_pago`
+    , `venta`.`venta_fecha`
+    , `venta`.`venta_impuesto`
+    , `venta`.`venta_total`
+    , `venta`.`venta_estatus`
+    , `venta`.`venta_porcentaje`
+    , `venta`.`venta_total_dcto`
+    , venta.fecha_vencimiento
+    , concat_ws(' ',`persona`.`persona_nombre`    , `persona`.`persona_apepat`    , `persona`.`persona_apemat`) as cliente
+   
+FROM
+    `bodega`, 
+    `venta`
+    INNER JOIN `usuario` 
+        ON (`venta`.`usuario_id` = `usuario`.`usuario_id`)
+    INNER JOIN `cliente` 
+        ON (`venta`.`cliente_id` = `cliente`.`idcliente`)
+    INNER JOIN `persona` 
+        ON (`cliente`.`persona_id` = `persona`.`persona_id`)
+        WHERE `venta`.`venta_fecha` between FINICIO AND FFIN */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_MODIFICAR_ARL` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_MODIFICAR_ARL` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_ARL`(IN ID int, 
+    IN NIT_ACTUAL VARCHAR(250), IN NIT_NUEVO VARCHAR(250),
+     IN NOMBRE VARCHAR(100), IN CIUDAD VARCHAR(100), IN DIRECCION VARCHAR(200),
+     IN TELEFONO VARCHAR(100),IN CORREO VARCHAR(100))
+BEGIN
+DECLARE CANTIDAD INT;
+IF NIT_ACTUAL = NIT_NUEVO THEN
+    UPDATE arl set
+    NomARL=NOMBRE,
+    CiudadARL=CIUDAD,
+    DirARL=DIRECCION,
+    TelARL=TELEFONO,
+    EmailArl=CORREO
+    where IdARL = ID;
+select 1;
+ELSE 
+SET @CANTIDAD:=(SELECT COUNT(*) FROM arl WHERE NitARL=NIT_NUEVO);
+if  @CANTIDAD = 0 THEN
+ UPDATE arl set
+    NitARL=NIT_NUEVO,
+    NomARL=NOMBRE,
+    CiudadARL=CIUDAD,
+    DirARL=DIRECCION,
+    TelARL=TELEFONO,
+    EmailArl=CORREO
+    where IdARL = ID;
+select 1;
+ELSE 
+select 2;
+END IF;
+END IF;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_MODIFICAR_CATEGORIA` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_MODIFICAR_CATEGORIA` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_CATEGORIA`(IN ID int, IN NOMBRE_ACTUAL VARCHAR(250), IN NOMBRE_NUEVO VARCHAR(250), IN ESTATUS VARCHAR(15))
+BEGIN
+DECLARE CANTIDAD INT;
+IF NOMBRE_ACTUAL = NOMBRE_NUEVO THEN
+	UPDATE categoria set
+	categoria_estatus=ESTATUS
+	where categoria_id = ID;
+select 1;
+ELSE 
+SET @CANTIDAD:=(SELECT COUNT(*) FROM categoria WHERE categoria_nombre=NOMBRE_NUEVO);
+if  @CANTIDAD = 0 THEN
+UPDATE categoria set
+categoria_estatus=ESTATUS,
+categoria_nombre=NOMBRE_NUEVO
+where categoria_id = ID;
+select 1;
+ELSE 
+select 2;
+END IF;
+END IF;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_MODIFICAR_CONTRASENA_USUARIO` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_MODIFICAR_CONTRASENA_USUARIO` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_CONTRASENA_USUARIO`(in ID INT,in CONTRA VARCHAR(250))
+UPDATE usuario set 
+`usuario_password` =CONTRA where 
+`usuario_id` = ID */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_MODIFICAR_DEPARTAMENTO` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_MODIFICAR_DEPARTAMENTO` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_DEPARTAMENTO`(IN IDDEP int,
+ IN NOMBRE_ACTUAL VARCHAR(250), IN NOMBRE_NUEVO VARCHAR(250), IN ESTATUSDEP VARCHAR(15))
+BEGIN
+DECLARE CANTIDAD INT;
+IF NOMBRE_ACTUAL = NOMBRE_NUEVO THEN
+	UPDATE departamentos set
+	estatus=ESTATUSDEP
+	where id = IDDEP;
+select 1;
+ELSE 
+SET @CANTIDAD:=(SELECT COUNT(*) FROM departamentos WHERE nombre_depto=NOMBRE_NUEVO);
+if  @CANTIDAD = 0 THEN
+UPDATE departamentos set
+estatus=ESTATUSDEP,
+nombre_depto=NOMBRE_NUEVO
+where  id = IDDEP;
+select 1;
+ELSE 
+select 2;
+END IF;
+END IF;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_MODIFICAR_DEPTO` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_MODIFICAR_DEPTO` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_DEPTO`(IN ID INT, 
+    IN DESC_ACTUAL VARCHAR(250), IN DESC_NUEVO VARCHAR(250))
+BEGIN
+DECLARE CANTIDAD INT;
+IF DESC_ACTUAL = DESC_NUEVO THEN
+    UPDATE dpto SET
+    `DescDpto`=DESC_ACTUAL
+    WHERE `IdDpto` = ID;
+SELECT 1;
+ELSE 
+SET @CANTIDAD:=(SELECT COUNT(*) FROM dpto WHERE `DescDpto`=DESC_NUEVO);
+IF  @CANTIDAD = 0 THEN
+     UPDATE dpto SET
+    `DescDpto`=DESC_NUEVO
+    WHERE `IdDpto` = ID;
+SELECT 1;
+ELSE 
+SELECT 2;
+END IF;
+END IF;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_MODIFICAR_EPS` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_MODIFICAR_EPS` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_EPS`(IN `ID` INT, IN `NIT_ACTUAL` VARCHAR(250), IN `NIT_NUEVO` VARCHAR(250), IN `NOMBRE` VARCHAR(100), IN `CIUDAD` VARCHAR(100), IN `DIRECCION` VARCHAR(200), IN `TELEFONO` VARCHAR(100), IN `CORREO` VARCHAR(100))
+BEGIN
+DECLARE CANTIDAD INT;
+IF NIT_ACTUAL = NIT_NUEVO THEN
+    UPDATE eps set
+    NomEPS=NOMBRE,
+    CiudadEPS=CIUDAD,
+    DirEPS=DIRECCION,
+    TelEPS=TELEFONO,
+    EmailEps=CORREO
+    where IdEPS = ID;
+select 1;
+ELSE 
+SET @CANTIDAD:=(SELECT COUNT(*) FROM eps WHERE NitEPS=NIT_NUEVO);
+if  @CANTIDAD = 0 THEN
+ UPDATE eps set
+    NitEPS=NIT_NUEVO,
+    NomEPS=NOMBRE,
+    CiudadEPS=CIUDAD,
+    DirEPS=DIRECCION,
+    TelEPS=TELEFONO,
+    EmailEps=CORREO
+    where IdEPS = ID;
+select 1;
+ELSE 
+select 2;
+END IF;
+END IF;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_MODIFICAR_ESTATUS_ARL` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_MODIFICAR_ESTATUS_ARL` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_ESTATUS_ARL`(IN `ID` INT, IN `ESTATUS_ARL` VARCHAR(20))
+UPDATE arl SET 
+`estatus` = ESTATUS_ARL 
+WHERE `IdARL` = ID */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_MODIFICAR_ESTATUS_BODEGA` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_MODIFICAR_ESTATUS_BODEGA` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_ESTATUS_BODEGA`(IN IDBODEGA INT,
+    IN ESTATUS VARCHAR(20))
+UPDATE bodega set 
+estatus = ESTATUS 
+where id = IDBODEGA */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_MODIFICAR_ESTATUS_CARGO` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_MODIFICAR_ESTATUS_CARGO` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_ESTATUS_CARGO`(IN IDCARGO INT,
+    IN ESTATUS VARCHAR(20))
+UPDATE cargos set 
+estatus = ESTATUS 
+where IdCargos = IDCARGO */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_MODIFICAR_ESTATUS_CATEGORIA` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_MODIFICAR_ESTATUS_CATEGORIA` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_ESTATUS_CATEGORIA`(IN `IDCATEGORIA` INT, IN `ESTATUS` VARCHAR(20))
+UPDATE categoria set 
+categoria_estatus = ESTATUS 
+where categoria_id = IDCATEGORIA */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_MODIFICAR_ESTATUS_CLIENTE` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_MODIFICAR_ESTATUS_CLIENTE` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_ESTATUS_CLIENTE`(IN `CLIENTE_ID` INT, IN `ESTATUS` VARCHAR(20))
+UPDATE cliente set 
+cliente_estatus = ESTATUS 
+where idcliente = CLIENTE_ID */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_MODIFICAR_ESTATUS_DEPTO` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_MODIFICAR_ESTATUS_DEPTO` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_ESTATUS_DEPTO`(IN IDDEPTO INT,
+    IN ESTATUS VARCHAR(20))
+UPDATE dpto set 
+estatus = ESTATUS 
+where IdDpto = IDDEPTO */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_MODIFICAR_ESTATUS_EMPLEADO` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_MODIFICAR_ESTATUS_EMPLEADO` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_ESTATUS_EMPLEADO`(IN IDEMP INT,
+    IN ESTATUS VARCHAR(20))
+UPDATE empleados set 
+estatus = ESTATUS 
+where IdEmp = IDEMP */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_MODIFICAR_ESTATUS_EPS` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_MODIFICAR_ESTATUS_EPS` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_ESTATUS_EPS`(IN ID INT,
+    IN ESTATUS_EPS VARCHAR(20))
+UPDATE eps set 
+estatus = ESTATUS_EPS 
+where IdEPS = ID */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_MODIFICAR_ESTATUS_MARCA` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_MODIFICAR_ESTATUS_MARCA` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_ESTATUS_MARCA`(IN IDMARCA INT,
+    IN ESTATUS VARCHAR(20))
+UPDATE marcas SET 
+estatus = ESTATUS 
+WHERE id = IDMARCA */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_MODIFICAR_ESTATUS_PERSONA` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_MODIFICAR_ESTATUS_PERSONA` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_ESTATUS_PERSONA`(IN IDPERSONA INT,
+    IN ESTATUS VARCHAR(20))
+UPDATE persona set 
+persona_estatus = ESTATUS 
+where persona_id = IDPERSONA */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_MODIFICAR_ESTATUS_PRODUCTO` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_MODIFICAR_ESTATUS_PRODUCTO` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_ESTATUS_PRODUCTO`(IN IDPRODUCTO INT, IN ESTATUS VARCHAR(20))
+UPDATE producto set producto_estatus = ESTATUS
+where producto_id = IDPRODUCTO */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_MODIFICAR_ESTATUS_PROVEEDOR` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_MODIFICAR_ESTATUS_PROVEEDOR` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_ESTATUS_PROVEEDOR`(IN PROVEEDOR_ID INT, IN ESTATUS VARCHAR(20))
+UPDATE proveedor set 
+proveedor_estatus = ESTATUS 
+where proveedor_id = PROVEEDOR_ID */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_MODIFICAR_ESTATUS_ROL` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_MODIFICAR_ESTATUS_ROL` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_ESTATUS_ROL`(IN IDROL INT,
+    IN ESTATUS VARCHAR(20))
+UPDATE rol set 
+rol_estatus = ESTATUS 
+where rol_id = IDROL */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_MODIFICAR_ESTATUS_UNIDAD` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_MODIFICAR_ESTATUS_UNIDAD` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_ESTATUS_UNIDAD`(IN IDUNIDAD INT,
+    IN ESTATUS VARCHAR(20))
+UPDATE unidad set 
+unidad_estatus = ESTATUS 
+where unidad_id = IDUNIDAD */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_MODIFICAR_ESTATUS_USUARIO` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_MODIFICAR_ESTATUS_USUARIO` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_ESTATUS_USUARIO`(IN IDUSUARIO INT, IN ESTATUS VARCHAR(20))
+UPDATE usuario set 
+usuario_estatus = ESTATUS 
+where usuario_id = IDUSUARIO */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_MODIFICAR_ESTATUS_VENTA` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_MODIFICAR_ESTATUS_VENTA` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_ESTATUS_VENTA`(IN IDVENTA INT,
+    IN ESTATUS VARCHAR(20))
+UPDATE `venta` SET 
+`venta_estatus` = ESTATUS 
+WHERE `venta_id` = IDVENTA */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_MODIFICAR_FOTO_EMPRESA` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_MODIFICAR_FOTO_EMPRESA` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_FOTO_EMPRESA`(IN idempresa INT, IN foto VARCHAR(250))
+BEGIN 
+UPDATE empresa SET 
+logo =foto
+WHERE ID =idempresa;
+SELECT 1;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_MODIFICAR_FOTO_PRODUCTO` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_MODIFICAR_FOTO_PRODUCTO` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_FOTO_PRODUCTO`(IN IDPRODUCTO INT, IN foto VARCHAR(250))
+BEGIN 
+UPDATE `producto` SET 
+`producto_foto` =foto
+WHERE `producto_id` =IDPRODUCTO;
+SELECT 1;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_MODIFICAR_FOTO_USUARIO` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_MODIFICAR_FOTO_USUARIO` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_FOTO_USUARIO`(in idusuario int, in foto VARCHAR(250))
+begin 
+update usuario set 
+usuario_imagen =foto
+where usuario_id =idusuario;
+select 1;
+end */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_MODIFICAR_MARCA` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_MODIFICAR_MARCA` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_MARCA`(IN `IDMARCA` INT, IN `DESC_ACTUAL` VARCHAR(250), IN `DESC_NUEVO` VARCHAR(250), IN `ESTATUS_MARCA` VARCHAR(15))
+BEGIN
+DECLARE CANTIDAD INT;
+IF DESC_ACTUAL = DESC_NUEVO THEN
+	UPDATE marcas SET
+	estatus=ESTATUS_MARCA
+	WHERE id = ID;
+SELECT 1;
+ELSE 
+SET @CANTIDAD:=(SELECT COUNT(*) FROM marcas WHERE descripcion=DESC_NUEVO);
+IF  @CANTIDAD = 0 THEN
+UPDATE marcas SET
+estatus=ESTATUS_MARCA,
+descripcion=DESC_NUEVO
+WHERE id = IDMARCA;
+SELECT 1;
+ELSE 
+SELECT 2;
+END IF;
+END IF;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_MODIFICAR_PERSONA` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_MODIFICAR_PERSONA` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_PERSONA`(IN `IDPERSONA` INT, IN `NOMBRE` VARCHAR(50), IN `APEPAT` VARCHAR(50),
+IN `APEMAT` VARCHAR(50), IN `NRO_DOCUMENTO_ACTUAL` VARCHAR(50), IN `NRO_DOCUMENTO_NUEVO` VARCHAR(50),
+ IN `TIPO_DOC` VARCHAR(50), IN `SEXO` VARCHAR(15), IN `TELEFONO` VARCHAR(50), IN `DIRECCION` VARCHAR(50),IN CORREO VARCHAR(100), IN `ESTATUS` VARCHAR(20))
+BEGIN
+DECLARE CANTIDAD INT;
+IF NRO_DOCUMENTO_ACTUAL= NRO_DOCUMENTO_NUEVO THEN
+		UPDATE persona SET 
+		persona_nombre= NOMBRE,`persona_apepat`=APEPAT,`persona_apemat`=APEMAT,
+		`persona_tipodocumento`=TIPO_DOC,`persona_sexo`=SEXO,`persona_telefono`=TELEFONO,
+		`persona_direccion`=DIRECCION,
+		persona_correo =CORREO,
+		 `persona_estatus`=ESTATUS
+		WHERE `persona_id`=IDPERSONA;
+SELECT 1;
+ ELSE
+  SET @CANTIDAD:=(SELECT COUNT(*) FROM persona WHERE `persona_nrodocumento` =NRO_DOCUMENTO_NUEVO);
+	
+	IF @CANTIDAD = 0 THEN 
+		 UPDATE persona SET 
+			persona_nombre= NOMBRE,`persona_apepat`=APEPAT,`persona_apemat`=APEMAT,
+			`persona_nrodocumento`=NRO_DOCUMENTO_NUEVO,
+		`persona_tipodocumento`=TIPO_DOC,`persona_sexo`=SEXO,`persona_telefono`=TELEFONO,
+		`persona_direccion`=DIRECCION,
+		persona_correo = CORREO,
+		 `persona_estatus`=ESTATUS
+		WHERE `persona_id`=IDPERSONA;
+		SELECT 1;
+	ELSE
+	SELECT 2;
+	
+	END IF;
+ 
+ END IF;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_MODIFICAR_PRODUCTO` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_MODIFICAR_PRODUCTO` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_PRODUCTO`(IN `IDPRODUCTO` INT,
+ IN `CODIGO_ACTUAL` VARCHAR(100), IN `CODIGO_NUEVO` VARCHAR(100), IN `NOMBRE_ACTUAL` VARCHAR(50),
+  IN `NOMBRE_NUEVO` VARCHAR(50), IN `PRESENTACION` VARCHAR(50),  IN `CANTIDAD_MIN` VARCHAR(100), 
+  IN `IDCATEGORIA` INT, IN `IDUNIDAD` INT, IN `PRECIO_COMPRA` DECIMAL(10,2),IN `PRECIO_VENTA` DECIMAL(10,2))
+BEGIN
+DECLARE CANTIDAD INT;
+IF CODIGO_ACTUAL = CODIGO_NUEVO  THEN
+ 
+   UPDATE producto SET 
+   `producto_nombre` =NOMBRE_NUEVO,
+   producto_presentacion =PRESENTACION,
+   cant_minima=CANTIDAD_MIN,
+   id_categoria=IDCATEGORIA,
+   id_unidad=IDUNIDAD,
+   `precio_costo`=PRECIO_COMPRA,
+   producto_precioventa=PRECIO_VENTA
+  
+   WHERE producto_id=IDPRODUCTO;
+   SELECT 1;
+ELSE 
+SET @CANTIDAD:=(SELECT COUNT(*) FROM producto WHERE producto_codigo =CODIGO_NUEVO
+   OR producto_nombre =NOMBRE_NUEVO);
+   IF @CANTIDAD = 0 THEN 
+  
+   UPDATE producto SET 
+   producto_codigo=CODIGO_NUEVO,
+   producto_nombre=NOMBRE_NUEVO,
+   producto_presentacion =PRESENTACION,
+    cant_minima=CANTIDAD_MIN,
+   id_categoria=IDCATEGORIA,
+   id_unidad=IDUNIDAD,
+    `precio_costo`=PRECIO_COMPRA,
+   producto_precioventa=PRECIO_VENTA
+  
+    WHERE producto_id=IDPRODUCTO;
+   SELECT 1;
+   ELSE 
+   SELECT 2;
+END IF;
+END IF;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_MODIFICAR_PRODUCTO2` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_MODIFICAR_PRODUCTO2` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_PRODUCTO2`(IN `IDPRODUCTO` INT,
+ IN `CODIGO_ACTUAL` VARCHAR(100), IN `CODIGO_NUEVO` VARCHAR(100), IN `NOMBRE_ACTUAL` VARCHAR(50),
+  IN `NOMBRE_NUEVO` VARCHAR(50), IN `PRESENTACION` VARCHAR(50),  IN `CANTIDAD_MIN` VARCHAR(100), 
+  IN `IDCATEGORIA` INT, IN `IDUNIDAD` INT, IN IDTIPO_PRODUCTO INT, IN `PRECIO_COMPRA` DECIMAL(10,2),IN `PRECIO_VENTA` DECIMAL(10,2))
+BEGIN
+DECLARE CANTIDAD INT;
+IF CODIGO_ACTUAL = CODIGO_NUEVO  THEN
+ 
+   UPDATE producto SET 
+   `producto_nombre` =NOMBRE_NUEVO,
+   producto_presentacion =PRESENTACION,
+   cant_minima=CANTIDAD_MIN,
+   id_categoria=IDCATEGORIA,
+   id_unidad=IDUNIDAD,
+   idTipoProducto =IDTIPO_PRODUCTO,
+   `compra`=PRECIO_COMPRA,
+   producto_precioventa=PRECIO_VENTA
+  
+   WHERE producto_id=IDPRODUCTO;
+   SELECT 1;
+ELSE 
+SET @CANTIDAD:=(SELECT COUNT(*) FROM producto WHERE producto_codigo =CODIGO_NUEVO
+   OR producto_nombre =NOMBRE_NUEVO);
+   IF @CANTIDAD = 0 THEN 
+  
+   UPDATE producto SET 
+   producto_codigo=CODIGO_NUEVO,
+   producto_nombre=NOMBRE_NUEVO,
+   producto_presentacion =PRESENTACION,
+    cant_minima=CANTIDAD_MIN,
+   id_categoria=IDCATEGORIA,
+   id_unidad=IDUNIDAD,
+   idTipoProducto =IDTIPO_PRODUCTO,
+    `compra`=PRECIO_COMPRA,
+   producto_precioventa=PRECIO_VENTA
+  
+    WHERE producto_id=IDPRODUCTO;
+   SELECT 1;
+   ELSE 
+   SELECT 2;
+END IF;
+END IF;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_MODIFICAR_ROL` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_MODIFICAR_ROL` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_ROL`(IN `ID` INT, IN `ROL_ACTUAL` VARCHAR(250), IN `ROL_NUEVO` VARCHAR(250), IN `ESTATUS` VARCHAR(15))
+BEGIN
+DECLARE CANTIDAD INT;
+IF ROL_ACTUAL = ROL_NUEVO THEN
+	UPDATE rol SET
+	rol_estatus=ESTATUS
+	WHERE rol_id = ID;
+SELECT 1;
+ELSE 
+SET @CANTIDAD:=(SELECT COUNT(*) FROM rol WHERE rol_nombre=ROL_NUEVO);
+IF  @CANTIDAD = 0 THEN
+UPDATE rol SET
+rol_estatus=ESTATUS,
+rol_nombre=ROL_NUEVO
+WHERE rol_id = ID;
+SELECT 1;
+ELSE 
+SELECT 2;
+END IF;
+END IF;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_MODIFICAR_TIPO_PRODUCTO` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_MODIFICAR_TIPO_PRODUCTO` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_TIPO_PRODUCTO`(IN IDTIPO INT, IN NOMBRE_ACTUAL VARCHAR(250), IN NOMBRE_NUEVO VARCHAR(250), IN ESTATUSTIPO VARCHAR(15))
+BEGIN
+
+DECLARE CANTIDAD INT;
+
+IF NOMBRE_ACTUAL = NOMBRE_NUEVO THEN
+
+	UPDATE `tipo_producto` SET
+
+	estatus=ESTATUSTIPO
+
+	WHERE id = IDTIPO;
+
+SELECT 1;
+
+ELSE 
+
+SET @CANTIDAD:=(SELECT COUNT(*) FROM `tipo_producto` WHERE tipo_producto=NOMBRE_NUEVO);
+
+IF  @CANTIDAD = 0 THEN
+
+UPDATE tipo_producto SET
+
+estatus=ESTATUSTIPO,
+
+`tipo_producto`=NOMBRE_NUEVO
+
+WHERE id = IDTIPO;
+
+SELECT 1;
+
+ELSE 
+
+SELECT 2;
+
+END IF;
+
+END IF;
+
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_MODIFICAR_UNIDAD` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_MODIFICAR_UNIDAD` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_UNIDAD`(IN ID int,
+ IN NOMBRE_ACTUAL VARCHAR(250), IN NOMBRE_NUEVO VARCHAR(250), IN ABREVIATURA char(20), IN ESTATUS VARCHAR(15))
+BEGIN
+DECLARE CANTIDAD INT;
+IF NOMBRE_ACTUAL = NOMBRE_NUEVO THEN
+	UPDATE unidad set
+    unidad_abreviatura=ABREVIATURA,
+	unidad_estatus=ESTATUS
+	where unidad_id = ID;
+select 1;
+ELSE 
+SET @CANTIDAD:=(SELECT COUNT(*) FROM unidad WHERE unidad_nombre=NOMBRE_NUEVO);
+if  @CANTIDAD = 0 THEN
+UPDATE unidad set
+unidad_estatus=ESTATUS,
+unidad_nombre=NOMBRE_NUEVO,
+ unidad_abreviatura=ABREVIATURA
+where unidad_id = ID;
+select 1;
+ELSE 
+select 2;
+END IF;
+END IF;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_MODIFICAR_USUARIO` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_MODIFICAR_USUARIO` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_USUARIO`( IN IDUSUARIO INT, IN CORREONUEVO VARCHAR(100),IN IDROL INT,  in IDPERSONA INT,IN ESTATUS VARCHAR(20))
+BEGIN 
+DECLARE CANTIDAD INT;
+DECLARE CORREOACTUAL VARCHAR(250);
+SET @CORREOACTUAL:=(SELECT usuario_email from usuario where usuario_id =IDUSUARIO);
+IF  @CORREOACTUAL = CORREONUEVO THEN
+UPDATE usuario set 
+rol_id =IDROL,
+persona_id =IDPERSONA,
+usuario_estatus =ESTATUS
+where usuario_id =IDUSUARIO;
+SELECT 1;
+ELSE
+SET @CANTIDAD:=(SELECT  COUNT(*) from usuario where usuario_email =CORREONUEVO);
+IF @CANTIDAD = 0 THEN 
+UPDATE usuario set 
+usuario_email=CORREONUEVO,
+rol_id =IDROL,
+persona_id =IDPERSONA,
+usuario_estatus =ESTATUS
+where usuario_id =IDUSUARIO;
+select 1;
+ELSE 
+select 2;
+END IF;
+END IF;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_REGISTRAR_ABONO` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_REGISTRAR_ABONO` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_ABONO`(IN `IDCOMPRA` INT, IN `CUOTA` INT, 
+IN  `FECHA_ABONO` DATE, IN `VALOR_PAGO`  DECIMAL(10,2))
+BEGIN
+ INSERT INTO `cuentas_x_proveedor`(`idCompra`,`noCuota`,`fecha_pago`,
+ `valorAbono`) VALUES 
+ (IDCOMPRA,CUOTA,FECHA_ABONO,VALOR_PAGO);
+ 
+ END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_REGISTRAR_ABONO_CLIENTE` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_REGISTRAR_ABONO_CLIENTE` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_ABONO_CLIENTE`(IN `IDVENTA` INT, IN `CUOTA` INT, IN NO_COMPROBANTE VARCHAR(100),
+IN  `FECHA_ABONO` DATE, IN `VALOR_PAGO`  DECIMAL(10,2))
+BEGIN
+ INSERT INTO `cuentas_x_cobrar`(`idventa`,`cuotas_abono`,`no_comprobante`,`fecha`,
+ `valor`) VALUES 
+ (IDVENTA,CUOTA, NO_COMPROBANTE,FECHA_ABONO,VALOR_PAGO);
+ 
+ END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_REGISTRAR_arl` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_REGISTRAR_arl` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_arl`(IN NIT_ARL BIGINT(20),IN NOMBRE_ARL VARCHAR(100), IN CIUDAD_ARL  VARCHAR(100),
+IN DIRECCION VARCHAR(100), IN TELEFONO_ARL VARCHAR(100),
+IN CORREO_ARL VARCHAR(200), IN IDEMPRESA INT )
+BEGIN 
+DECLARE CANTIDAD INT;
+SET @CANTIDAD:=(SELECT COUNT(*) FROM arl WHERE arl.`NitARL`=NIT_ARL);
+IF @CANTIDAD = 0 THEN
+INSERT INTO arl (`NitARL`, `NomARL`,`CiudadARL`,`DirARL`,`TelARL`,`EmailArl`,
+ `estatus`, `idempresa`)
+VALUES (NIT_ARL,NOMBRE_ARL, CIUDAD_ARL,DIRECCION,TELEFONO_ARL ,CORREO_ARL  ,'ACTIVO',IDEMPRESA);
+SELECT 1;
+ELSE
+SELECT 2;
+END IF;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_REGISTRAR_BODEGA` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_REGISTRAR_BODEGA` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_BODEGA`(IN `NOMBRE` VARCHAR(50), IN `IDEMPRESA` INT)
+BEGIN
+DECLARE CANTIDAD INT;
+SET @CANTIDAD:=(SELECT COUNT(*) FROM bodega WHERE `nombre_bodega`=NOMBRE);
+IF @CANTIDAD= 0 THEN 
+INSERT INTO bodega(`nombre_bodega`,estatus,idempresa)
+VALUES (NOMBRE,'ACTIVO',IDEMPRESA);
+SELECT 1;
+ ELSE 
+ SELECT 2;
+ END IF;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_REGISTRAR_CARGO` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_REGISTRAR_CARGO` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_CARGO`(IN `DESCRIPCION` VARCHAR(50), IN IDDEPTO INT)
+BEGIN
+DECLARE CANTIDAD INT;
+SET @CANTIDAD:=(SELECT COUNT(*) FROM `cargos` WHERE `cargos`.`DescCargos`=DESCRIPCION);
+IF @CANTIDAD= 0 THEN 
+INSERT INTO cargos(`DescCargos`,`IdDpto`,estatus)
+VALUES (DESCRIPCION, IDDEPTO,'ACTIVO');
+SELECT 1;
+ ELSE 
+ SELECT 2;
+ END IF;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_REGISTRAR_CATEGORIA` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_REGISTRAR_CATEGORIA` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_CATEGORIA`(IN NOMBRE VARCHAR(200),IN IDEMPRESA INT)
+BEGIN 
+DECLARE CANTIDAD INT;
+SET @CANTIDAD:=(SELECT COUNT(*) FROM categoria WHERE `categoria_nombre` = NOMBRE);
+IF @CANTIDAD = 0 THEN
+INSERT INTO categoria (categoria_nombre, categoria_fregistro, categoria_estatus,`idempresa`)
+VALUES (NOMBRE,CURDATE(),'ACTIVO',IDEMPRESA);
+SELECT 1;
+ELSE
+SELECT 2;
+END IF;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_REGISTRAR_CIUDADES` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_REGISTRAR_CIUDADES` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_CIUDADES`(IN NOMBRE VARCHAR(200), IN IDDEPARTAMENTO INT,IN IDEMPRESA INT)
+BEGIN 
+DECLARE CANTIDAD INT;
+SET @CANTIDAD:=(SELECT COUNT(*) FROM ciudades WHERE `nombre_ciudad` = NOMBRE);
+IF @CANTIDAD = 0 THEN
+INSERT INTO ciudades (nombre_ciudad, idDepto, estatus,`idempresa`)
+VALUES (NOMBRE,IDDEPARTAMENTO,'ACTIVO',IDEMPRESA);
+SELECT 1;
+ELSE
+SELECT 2;
+END IF;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_REGISTRAR_CLIENTE2` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_REGISTRAR_CLIENTE2` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_CLIENTE2`(IN `NOMBRE` VARCHAR(50), IN `APEPAT` VARCHAR(50), IN `APEMAT` VARCHAR(50), IN `NRO_DOCUMENTO` VARCHAR(50), IN `TIPO_DOC` VARCHAR(50), IN `TELEFONO` VARCHAR(50), IN `DIRECCION` VARCHAR(50), IN `CORREO` VARCHAR(100), IN `IDCIUDAD` INT, IN `IDEMPRESA` INT)
+BEGIN
+DECLARE  cantidad INT;
+SET @cantidad:=( SELECT COUNT(*) FROM persona WHERE persona_nrodocumento =NRO_DOCUMENTO);
+IF @cantidad = 0 THEN
+INSERT INTO `persona`(`persona_nombre`,`persona_apepat`,`persona_apemat`,
+`persona_nrodocumento`,`persona_tipodocumento`,`persona_telefono`,`persona_direccion`,`persona_correo`,  `persona_fregistro`,
+`persona_estatus`, idempresa)VALUES (NOMBRE,APEPAT,APEMAT,NRO_DOCUMENTO,TIPO_DOC,TELEFONO,DIRECCION,CORREO,CURDATE(),'ACTIVO',IDEMPRESA);
+INSERT INTO cliente(`cliente_fregistro`,`cliente_estatus`,`persona_id`,idciudad, idempresa) VALUES (CURDATE(),'ACTIVO',LAST_INSERT_ID(),IDCIUDAD,  IDEMPRESA);
+SELECT 1;
+ELSE 
+SELECT 2;
+END IF;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_REGISTRAR_COMPRA` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_REGISTRAR_COMPRA` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_COMPRA`(IN `IDPROVEEDOR` INT, IN `IDBODEGA` INT, IN `IDUSUARIO` INT, 
+IN `TIPO_COMPROBANTE` VARCHAR(50), IN `SERIE_COMPROBANTE` VARCHAR(50), IN `NUM_COMPROBANTE` VARCHAR(50),
+ IN `TIPO_PAGO` VARCHAR(50), IN `FECHA_COMPRA` DATE, IN `IMPUESTO` DECIMAL(10,2), IN `TOTAL` DECIMAL(10,2),
+  IN `ESTADO` VARCHAR(50), IN `PORCENTAJE` DECIMAL(10,2), IN `DCTO_TOTAL` DECIMAL(10,2), IN FECHA_VENCIMIENTO DATE,IN IDEMPRESA INT)
+BEGIN
+ INSERT INTO compra(proveedor_id,id_bodega, usuario_id,compra_tipo_comprobante,
+ compra_serie_comprobante,compra_num_comprobante,
+ compra_tipo_pago,compra_fecha ,
+ compra_impuesto,compra_total,compra_estatus,compra_porcentaje,compra_total_decto, `fecha_vencimiento`,`idempresa`) VALUES 
+ (IDPROVEEDOR,IDBODEGA,IDUSUARIO,TIPO_COMPROBANTE,SERIE_COMPROBANTE,NUM_COMPROBANTE,
+     TIPO_PAGO,FECHA_COMPRA,
+   IMPUESTO,TOTAL,ESTADO,PORCENTAJE,DCTO_TOTAL,FECHA_VENCIMIENTO,IDEMPRESA
+ );
+ SELECT LAST_INSERT_ID();
+ END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_REGISTRAR_COMPRA_DETALLE` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_REGISTRAR_COMPRA_DETALLE` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_COMPRA_DETALLE`(IN `ID` INT, IN `IDPRODUCTO` INT, IN `CANTIDAD` DECIMAL(10,2), IN `PRECIO` DECIMAL(10,2), IN `DCTO` DECIMAL(10,2))
+INSERT INTO `detalle_compra`(`id_compra`,`id_producto`,`dc_cantidad`,`dc_precio`,`dc_descto`,`dc_estatus`)
+ VALUES(ID,IDPRODUCTO,CANTIDAD,PRECIO,DCTO,'INGRESADA') */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_REGISTRAR_CONCEPTO` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_REGISTRAR_CONCEPTO` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_CONCEPTO`(IN `NOMBRE` VARCHAR(200), IN `IDEMPRESA` INT)
+BEGIN 
+DECLARE CANTIDAD INT;
+SET @CANTIDAD:=(SELECT COUNT(*) FROM concepto WHERE `descripcion` = NOMBRE);
+IF @CANTIDAD = 0 THEN
+INSERT INTO concepto (descripcion,  estatus,`idempresa`)
+VALUES (NOMBRE,'ACTIVO',IDEMPRESA);
+SELECT 1;
+ELSE
+SELECT 2;
+END IF;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_REGISTRAR_DEPARTAMENTO` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_REGISTRAR_DEPARTAMENTO` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_DEPARTAMENTO`(IN `NOMBRE` VARCHAR(200))
+BEGIN
+DECLARE CANTIDAD INT;
+SET @CANTIDAD:=(SELECT COUNT(*) FROM departamentos WHERE nombre_depto =NOMBRE);
+IF @CANTIDAD= 0 THEN 
+INSERT INTO departamentos(`nombre_depto`,estatus)
+VALUES (NOMBRE,'ACTIVO');
+SELECT 1;
+ ELSE 
+ SELECT 2;
+ END IF;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_REGISTRAR_DEPTO` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_REGISTRAR_DEPTO` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_DEPTO`(IN `DESCRIPCION` VARCHAR(50))
+BEGIN
+DECLARE CANTIDAD INT;
+SET @CANTIDAD:=(SELECT COUNT(*) FROM dpto WHERE DescDpto=DESCRIPCION);
+IF @CANTIDAD= 0 THEN 
+INSERT INTO `dpto`(`DescDpto`,estatus)
+VALUES (DESCRIPCION,'ACTIVO');
+SELECT 1;
+ ELSE 
+ SELECT 2;
+ END IF;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_REGISTRAR_EMPLEADO2` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_REGISTRAR_EMPLEADO2` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_EMPLEADO2`(IN `DOCUMENTO` VARCHAR(50),
+ IN `NOMBRE` VARCHAR(150), IN `DIRECCION` VARCHAR(200),
+ IN `MOVIL` CHAR(50), IN `CELULAR` CHAR(50), 
+ IN `CORREO` VARCHAR(100), IN `FECHANAC` DATE, IN `IDARL` INT, IN `IDEPS` INT, IN `IDPENSION` INT,
+    IN `USUARIO` VARCHAR(20), IN `CONTRASENA` VARCHAR(250), IN `ROL` INT)
+BEGIN
+DECLARE  CANTIDADU INT;
+DECLARE CANTIDADME INT;
+SET @CANTIDADU :=(SELECT COUNT(*) FROM usuario WHERE usuario_nombre =USUARIO);
+IF @CANTIDADU = 0 THEN
+    SET @CANTIDADME:=(SELECT COUNT(*) FROM `empleados` WHERE `empleados`.`CCEmp` =DOCUMENTO);
+    IF @CANTIDADME = 0 THEN
+        INSERT INTO usuario(`usuario_nombre`,`usuario_password`, `usuario_intento`,usuario_estatus,
+            `rol_id`)
+        VALUES(USUARIO,CONTRASENA,0,'INACTIVO',rol);
+       INSERT INTO `empleados` (`CCEmp`,`NomEmp`,`DirEmp`,`TelEmp`,
+        `CelEmp`, `EmailEmp`, `fecha_nacimiento`,`IdARL`,`IdEPS`,
+        `IdPension`,`estatus`,
+        usuario_id)
+         VALUES(DOCUMENTO,NOMBRE,DIRECCION,MOVIL,CELULAR, CORREO, FECHANAC,IDARL,IDEPS,
+        IDPENSION,'ACTIVO',
+        (SELECT MAX(usuario_id) FROM usuario));
+        SELECT 1;
+    ELSE
+    SELECT 2;
+    END IF;
+    ELSE 
+    SELECT 2;
+END IF;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_REGISTRAR_EPS` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_REGISTRAR_EPS` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_EPS`(IN `NIT_EPS` BIGINT(20), IN `NOMBRE_EPS` VARCHAR(100), IN `CIUDAD_EPS` VARCHAR(100), IN `DIRECCION` VARCHAR(100), IN `TELEFONO_EPS` VARCHAR(100), IN `CORREO_EPS` VARCHAR(200))
+BEGIN 
+DECLARE CANTIDAD INT;
+SET @CANTIDAD:=(SELECT COUNT(*) FROM eps WHERE `NitEPS`=NIT_EPS);
+IF @CANTIDAD = 0 THEN
+INSERT INTO eps (`NitEPS`, `NomEPS`,`CiudadEPS`,`DirEPS`,`TelEPS`,`EmailEps`,
+ `estatus`)
+VALUES (NIT_EPS,NOMBRE_EPS, CIUDAD_EPS,DIRECCION,TELEFONO_EPS ,CORREO_EPS  ,'ACTIVO');
+SELECT 1;
+ELSE
+SELECT 2;
+END IF;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_REGISTRAR_MARCAS` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_REGISTRAR_MARCAS` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_MARCAS`(IN DESCP VARCHAR(200),IN IDEMPRESA INT)
+BEGIN 
+DECLARE CANTIDAD INT;
+SET @CANTIDAD:=(SELECT COUNT(*) FROM marcas WHERE `descripcion` = DESCP);
+IF @CANTIDAD = 0 THEN
+INSERT INTO marcas (descripcion, fregistro, estatus,`idempresa`)
+VALUES (DESCP,CURDATE(),'ACTIVO',IDEMPRESA);
+SELECT 1;
+ELSE
+SELECT 2;
+END IF;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_REGISTRAR_PENSION` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_REGISTRAR_PENSION` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_PENSION`(IN `NIT_Pension` BIGINT(20), IN `NOMBRE_Pension` VARCHAR(100), IN `CIUDAD_Pension` VARCHAR(100), IN `DIRECCION` VARCHAR(100), IN `TELEFONO_Pension` VARCHAR(100), IN `CORREO_Pension` VARCHAR(200))
+BEGIN 
+DECLARE CANTIDAD INT;
+SET @CANTIDAD:=(SELECT COUNT(*) FROM pension WHERE pension.`NitPension`=NIT_Pension);
+IF @CANTIDAD = 0 THEN
+INSERT INTO pension (`NitPension`, `NomPension`,`CiudadPension`,`DirPension`,
+`TelPension`,`EmailPension`,
+ `estatus`)
+VALUES (NIT_Pension,NOMBRE_Pension, CIUDAD_Pension,DIRECCION,TELEFONO_Pension ,CORREO_Pension  ,'ACTIVO');
+SELECT 1;
+ELSE
+SELECT 2;
+END IF;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_REGISTRAR_PERSONA` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_REGISTRAR_PERSONA` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_PERSONA`(IN `NOMBRE` VARCHAR(50), IN `APEPAT` VARCHAR(50), IN `APEMAT` VARCHAR(50), IN `TIPO_CONT` VARCHAR(50), IN `NRO_DOCUMENTO` VARCHAR(50), IN `TIPO_DOC` VARCHAR(50), IN `TELEFONO` VARCHAR(50), IN `DIRECCION` VARCHAR(50), IN `CORREO` VARCHAR(250), IN `IDEMPRESA` INT)
+BEGIN
+DECLARE  cantidad INT;
+SET @cantidad:=( SELECT COUNT(*) FROM persona WHERE persona_nrodocumento =NRO_DOCUMENTO);
+IF @cantidad = 0 THEN
+INSERT INTO `persona`(`persona_nombre`,`persona_apepat`,`persona_apemat`,`tipo_contribuyente`,
+`persona_nrodocumento`,`persona_tipodocumento`,`persona_telefono`,`persona_direccion`, `persona_correo`, `persona_fregistro`,
+`persona_estatus`,idempresa)VALUES (NOMBRE,APEPAT,APEMAT,TIPO_CONT,NRO_DOCUMENTO,TIPO_DOC,TELEFONO,DIRECCION,CORREO, CURDATE(),'ACTIVO',IDEMPRESA);
+SELECT 1;
+ELSE 
+SELECT 2;
+END IF;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_REGISTRAR_PRODUCTO` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_REGISTRAR_PRODUCTO` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_PRODUCTO`(IN `CODIGO` VARCHAR(100),
+ IN `NOMBRE` VARCHAR(100), 
+ IN `PRESENTACION` VARCHAR(250),
+  IN `IDBODEGA` INT, IN `CANTIDAD_MIN` VARCHAR(100),
+   IN `CANTIDAD_INICIAL` VARCHAR(100),
+    IN `IDCATEGORIA` VARCHAR(100), 
+    IN `IDUNIDAD` INT, IN `IDTIPO` INT, IN IDMARCA INT,
+    IN `RUTA` VARCHAR(255), IN `PRECIO_COMPRA` DOUBLE, IN `PRECIO_VENTA` DOUBLE, IN `IDEMPRESA` INT)
+BEGIN 
+DECLARE CANTIDAD INT;
+SET @CANTIDAD:=(SELECT COUNT(*) FROM producto WHERE producto_codigo =CODIGO OR producto_nombre =NOMBRE);
+IF @CANTIDAD =0 THEN
+INSERT INTO `producto` (`producto_codigo`,`producto_nombre`,`producto_presentacion`,`id_bodega`,
+                        cant_minima,`producto_stock`,
+	
+`id_categoria`, `id_unidad`, `idTipoProducto`,`id_marca`, `producto_foto`, `compra`, `producto_precioventa`, 
+`producto_estatus`,producto.`idempresa`) VALUES(CODIGO,NOMBRE,PRESENTACION,IDBODEGA, 
+CANTIDAD_MIN, CANTIDAD_INICIAL,IDCATEGORIA,IDUNIDAD, IDTIPO,IDMARCA,RUTA,PRECIO_COMPRA,  PRECIO_VENTA,'ACTIVO',IDEMPRESA);
+SELECT 1;
+ELSE 
+SELECT 2;
+END IF;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_REGISTRAR_PROVEEDOR` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_REGISTRAR_PROVEEDOR` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_PROVEEDOR`(IN `NOMBRE` VARCHAR(50), IN `APEPAT` VARCHAR(50), IN `APEMAT` VARCHAR(50), IN `NRO_DOCUMENTO` VARCHAR(50), IN `TIPO_DOC` VARCHAR(50), IN `SEXO` VARCHAR(15), IN `TELEFONO` VARCHAR(50), IN `DIRECCION` VARCHAR(50), IN `CORREO` VARCHAR(100), IN `RAZON_SOCIAL` VARCHAR(255), IN `NUM_PROVEEDOR` VARCHAR(255), IN `IDEMPRESA` INT)
+BEGIN
+DECLARE  cantidad INT;
+SET @cantidad:=( SELECT COUNT(*) FROM persona WHERE persona_nrodocumento =NRO_DOCUMENTO);
+IF @cantidad = 0 THEN
+INSERT INTO `persona`(`persona_nombre`,`persona_apepat`,`persona_apemat`,
+`persona_nrodocumento`,`persona_tipodocumento`,`persona_sexo`,`persona_telefono`,`persona_direccion`,`persona_correo`,   `persona_fregistro`,
+`persona_estatus`)VALUES (NOMBRE,APEPAT,APEMAT,NRO_DOCUMENTO,TIPO_DOC,SEXO,TELEFONO,DIRECCION, CORREO,  CURDATE(),'ACTIVO');
+INSERT INTO proveedor(`proveedor_fregistro`,`proveedor_estatus`,`persona_id`,`proveedor_razon_social`,proveedor_num_contacto,`idempresa`) 
+VALUES (CURDATE(),'ACTIVO',LAST_INSERT_ID(),RAZON_SOCIAL,NUM_PROVEEDOR,IDEMPRESA);
+SELECT 1;
+ELSE 
+SELECT 2;
+END IF;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_REGISTRAR_PROVEEDOR2` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_REGISTRAR_PROVEEDOR2` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_PROVEEDOR2`(IN `NOMBRE` VARCHAR(50), IN `APEPAT` VARCHAR(50), IN `APEMAT` VARCHAR(50), IN `NRO_DOCUMENTO` VARCHAR(50), IN `TIPO_DOC` VARCHAR(50), IN `SEXO` VARCHAR(15), IN `TELEFONO` VARCHAR(50), IN `DIRECCION` VARCHAR(50), IN `CORREO` VARCHAR(100), IN `RAZON_SOCIAL` VARCHAR(255), IN `NUM_PROVEEDOR` VARCHAR(255), IN `IDCIUDAD` INT, IN `IDEMPRESA` INT)
+BEGIN
+DECLARE  cantidad INT;
+SET @cantidad:=( SELECT COUNT(*) FROM persona WHERE persona_nrodocumento =NRO_DOCUMENTO);
+IF @cantidad = 0 THEN
+INSERT INTO `persona`(`persona_nombre`,`persona_apepat`,`persona_apemat`,
+`persona_nrodocumento`,`persona_tipodocumento`,`persona_sexo`,`persona_telefono`,`persona_direccion`,`persona_correo`,   `persona_fregistro`,
+`persona_estatus`,idempresa)VALUES (NOMBRE,APEPAT,APEMAT,NRO_DOCUMENTO,TIPO_DOC,SEXO,TELEFONO,DIRECCION, CORREO,  CURDATE(),'ACTIVO',IDEMPRESA);
+INSERT INTO  proveedor(`proveedor_fregistro`,`proveedor_estatus`,`persona_id`,`proveedor_razon_social`,proveedor_num_contacto,idciudad, `idempresa`) 
+VALUES (CURDATE(),'ACTIVO',LAST_INSERT_ID(),RAZON_SOCIAL,NUM_PROVEEDOR,IDCIUDAD, IDEMPRESA);
+SELECT 1;
+ELSE 
+SELECT 2;
+END IF;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_REGISTRAR_ROL` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_REGISTRAR_ROL` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_ROL`(IN NOMBRE VARCHAR(50),IN IDEMPRESA INT)
+BEGIN
+DECLARE CANTIDAD INT;
+SET @CANTIDAD:=(SELECT COUNT(*) FROM rol WHERE `rol_nombre`=NOMBRE);
+IF @CANTIDAD= 0 THEN 
+INSERT INTO rol(`rol_nombre`,rol_fregistro,rol_estatus,`idempresa`)
+VALUES (NOMBRE,CURDATE(),'ACTIVO',IDEMPRESA);
+SELECT 1;
+ ELSE 
+ SELECT 2;
+ END IF;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_REGISTRAR_TIPO_GASTO` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_REGISTRAR_TIPO_GASTO` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_TIPO_GASTO`(IN NOMBRE VARCHAR(200),IN IDEMPRESA INT)
+BEGIN 
+DECLARE CANTIDAD INT;
+SET @CANTIDAD:=(SELECT COUNT(*) FROM tipo_gasto WHERE `descripcion` = NOMBRE);
+IF @CANTIDAD = 0 THEN
+INSERT INTO tipo_gasto (descripcion,  estatus,`idempresa`)
+VALUES (NOMBRE,'ACTIVO',IDEMPRESA);
+SELECT 1;
+ELSE
+SELECT 2;
+END IF;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_REGISTRAR_TIPO_PRODUCTO` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_REGISTRAR_TIPO_PRODUCTO` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_TIPO_PRODUCTO`(IN NOMBRE VARCHAR(200),IN IDEMPRESA INT)
+BEGIN 
+DECLARE CANTIDAD INT;
+SET @CANTIDAD:=(SELECT COUNT(*) FROM `tipo_producto` WHERE `tipo_producto` = NOMBRE);
+IF @CANTIDAD = 0 THEN
+INSERT INTO tipo_producto (tipo_producto,  estatus,`idEmpresa`)
+VALUES (NOMBRE,'ACTIVO',IDEMPRESA);
+SELECT 1;
+ELSE
+SELECT 2;
+END IF;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_REGISTRAR_UNIDAD` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_REGISTRAR_UNIDAD` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_UNIDAD`(IN `NOMBRE` VARCHAR(50), IN ABREVIATURA CHAR(20),IN IDEMPRESA INT)
+BEGIN
+DECLARE CANTIDAD INT;
+SET @CANTIDAD:=(SELECT COUNT(*) FROM unidad WHERE unidad_nombre=NOMBRE);
+IF @CANTIDAD= 0 THEN 
+INSERT INTO unidad(unidad_nombre,unidad_abreviatura,unidad_fregistro,unidad_estatus,`idempresa`)
+VALUES (NOMBRE, ABREVIATURA, CURDATE(),'ACTIVO',IDEMPRESA);
+SELECT 1;
+ ELSE 
+ SELECT 2;
+ END IF;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_REGISTRAR_USUARIO` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_REGISTRAR_USUARIO` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_USUARIO`(IN USUARIO VARCHAR(100), IN PASS VARCHAR(250), IN CORREO VARCHAR(100),
+IN IDROL INT, IN RUTA VARCHAR(255), IN IDPERSONA INT, IN IDEMPRESA INT)
+BEGIN 
+DECLARE CANTIDAD INT;
+SET @CANTIDAD:=(SELECT COUNT(*) FROM usuario WHERE usuario_nombre =USUARIO 
+OR usuario_email =CORREO);
+IF @CANTIDAD =0 THEN
+INSERT INTO `usuario` (`usuario_nombre`,`usuario_password`,`usuario_email`, `usuario_intento`, `usuario_estatus`, `rol_id`, 
+`usuario_imagen`, `persona_id`,`idempresa`) VALUES(USUARIO,PASS,CORREO,1,'ACTIVO',IDROL,RUTA,IDPERSONA,IDEMPRESA);
+SELECT 1;
+ELSE 
+SELECT 2;
+END IF;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_REGISTRAR_VENTA` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_REGISTRAR_VENTA` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_VENTA`(IN `IDCLIENTE` INT, IN `IDBODEGA` INT, IN `IDUSUARIO` INT, IN `TIPO_COMPROBANTE` VARCHAR(50), IN `SERIE_COMPROBANTE` VARCHAR(50), IN `TIPO_PAGO` VARCHAR(50), IN `IMPUESTO` DECIMAL(10,2), IN `TOTAL` DECIMAL(10,2), IN `ESTADO` VARCHAR(50), IN `PORCENTAJE` DECIMAL(10,2), IN `DCTO_TOTAL` DECIMAL(10,2), IN `FECHA_VENCIMIENTO` DATE, IN `IDEMPRESA` INT, IN `IDCAJA` INT)
+BEGIN
+ INSERT INTO venta(`cliente_id`,`bodega_id`, usuario_id,`venta_tipocomprobante`,
+ `venta_serie`, tipo_pago,`venta_fecha` ,
+ `venta_impuesto`,`venta_total`,venta_estatus,venta_porcentaje,venta_total_dcto, `fecha_vencimiento`,`idempresa`,idcaja) VALUES 
+ (IDCLIENTE,IDBODEGA,IDUSUARIO,TIPO_COMPROBANTE,SERIE_COMPROBANTE,
+     TIPO_PAGO,CURDATE(), IMPUESTO,TOTAL,ESTADO,PORCENTAJE,DCTO_TOTAL,FECHA_VENCIMIENTO,IDEMPRESA,IDCAJA
+ );
+ SELECT LAST_INSERT_ID();
+ END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_REGISTRAR_VENTA_DETALLE` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_REGISTRAR_VENTA_DETALLE` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_VENTA_DETALLE`(IN `ID` INT, IN `IDPRODUCTO` INT,
+IN `CANTIDAD` DECIMAL(10,2), IN `PRECIO` DECIMAL(10,2), IN `DCTO` DECIMAL(10,2))
+INSERT INTO `detalle_venta`(`venta_id`,`producto_id`,`dv_cantidad`,`dv_precio`,`dv_descuento`,`dv_estatus`)
+ VALUES(ID,IDPRODUCTO,CANTIDAD,PRECIO,DCTO,'INGRESADA') */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_TRAER_DATOS_USUARIO` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_TRAER_DATOS_USUARIO` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_TRAER_DATOS_USUARIO`(IN ID INT)
+SELECT
+	u.usuario_id, 	u.usuario_nombre, 
+	u.usuario_password, 	u.usuario_email, 
+	u.usuario_intento, 	u.usuario_estatus, 
+	u.rol_id, 	u.usuario_imagen, 
+	r.rol_nombre, 	u.persona_id, 
+	p.persona_nombre, 	p.persona_apepat, 
+	p.persona_apemat, 	p.persona_nrodocumento, 
+	p.persona_tipodocumento, 	p.persona_sexo, 
+	p.persona_telefono, 	p.persona_direccion, 
+	p.persona_fregistro
+FROM
+	usuario AS u
+	INNER JOIN	rol AS r	ON 		u.rol_id = r.rol_id
+	INNER JOIN	persona AS p	ON 		u.persona_id = p.persona_id
+	WHERE usuario_id =ID */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_VERIFICAR_USUARIO` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_VERIFICAR_USUARIO` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_VERIFICAR_USUARIO`(IN USUARIO varchar(30))
+select * from usuario 
+where usuario_nombre =USUARIO */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `TraerDatosGraficoWidgets` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `TraerDatosGraficoWidgets` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `TraerDatosGraficoWidgets`(IN INICIO DATE,IN FIN DATE)
+SELECT `producto`.`producto_nombre`,
+    SUM( `detalle_venta`.`dv_cantidad`)
+    
+FROM
+    `detalle_venta`
+    INNER JOIN `producto` 
+        ON (`detalle_venta`.`producto_id` = `producto`.`producto_id`)
+    INNER JOIN `venta` 
+        ON (`detalle_venta`.`venta_id` = `venta`.`venta_id`)
+        WHERE `venta`.`venta_fecha` BETWEEN INICIO AND FIN
+          GROUP BY  `detalle_venta`.`producto_id`
+         
+          ORDER BY  `dv_cantidad` desc limit 5 */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `TraerDatosGrafico_Compras_Widgets` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `TraerDatosGrafico_Compras_Widgets` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `TraerDatosGrafico_Compras_Widgets`(IN `INICIO` DATE, IN `FIN` DATE)
+SELECT `producto`.`producto_nombre`,
+    SUM( `detalle_compra`.`dc_cantidad`)   as cantidad
+FROM
+  `detalle_compra`
+  INNER JOIN `producto` 
+  ON (`detalle_compra`.`id_producto` = `producto`.`producto_id`)
+    INNER JOIN `compra` 
+   ON (`detalle_compra`.`id_compra` = `compra`.`compra_id`)
+    WHERE `compra`.`compra_fecha` BETWEEN INICIO AND FIN
+    GROUP BY  `detalle_compra`.`id_producto`
+     ORDER BY  `dc_cantidad` DESC LIMIT 5 */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `TraerDatosWidgets` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `TraerDatosWidgets` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `TraerDatosWidgets`(IN `INICIO` DATE, IN `FIN` DATE)
+SELECT  
+IFNULL(SUM(venta.`venta_total`),0),
+(SELECT IFNULL(SUM( `compra`.`compra_total`), 0)
+ FROM `compra` WHERE `compra_fecha`
+BETWEEN INICIO AND FIN),
+(SELECT COUNT(*) FROM venta WHERE venta.`venta_fecha` BETWEEN INICIO AND FIN),
+(SELECT COUNT(*) FROM compra WHERE compra.`compra_fecha` BETWEEN INICIO AND FIN)
+FROM venta
+WHERE venta.`venta_fecha` BETWEEN INICIO AND FIN */$$
+DELIMITER ;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;

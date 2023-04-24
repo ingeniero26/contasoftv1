@@ -25,10 +25,11 @@ function listar_persona(){
       "order":[[1,'asc']],
         "columns":[
             {"defaultContent":""},
-            {"data":"persona"},
+            {"data":"tercero"},
             {"data":"tipo_contribuyente"},
             {"data":"persona_nrodocumento"},
             {"data":"persona_tipodocumento"},
+            {"data":"tipo"},
             {"data":"persona_sexo", 
             render: function (data, type, row ) {
                 if(data=='MASCULINO'){

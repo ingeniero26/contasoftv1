@@ -13,8 +13,9 @@
                         <tr>
                             <th>#</th>
                             <th>Nombre</th>
-                            <th>Documento</th>
-                            <th>Tipo</th>
+                            <th>Número</th>
+                            <th>Tipo Documento</th>
+                            <th>Tipo Contribuyente</th>
                             <th>Razón Social</th>
                             <th>No Contacto </th>
                             <th>Ciudad</th>
@@ -61,18 +62,31 @@
            <input type="text" id="txt_apemat" class="form-control" placeholder="" onkeypress="return sololetras(event)"> <br>
       	</div>
 
-      	<div class="col-lg-6">
-      	   <label for=""><b>Número Documento</b> </label>
-           <input type="number" id="txt_numero" class="form-control" placeholder=" " onkeypress="return soloNumeros(event)">
-      	</div>
-      	<div class="col-lg-6">
-      	   <label for=""><b>Tipo Documento</b> </label>
+        <div class="col-lg-6">
+           <label for=""><b>Tipo Documento</b> </label>
             <select class="form-control select2_demo_1 " name="state" style="width: 100%;" id="cmb_tipodocumento">
              <option value="CEDULA">CEDULA</option>
               <option value="NIT">NIT</option>
               <option value="PASAPORTE">PASAPORTE</option>
               <option value="TI">TI</option>
              </select> <br> <br>
+        </div>
+      	<div class="col-lg-6">
+      	   <label for=""><b>Número Documento</b> </label>
+           <input type="number" id="txt_numero" class="form-control" placeholder=" " onkeypress="return soloNumeros(event)">
+      	</div>
+        <div class="col-lg-6">
+      	   <label for=""><b>Tipo Contribuyente</b> </label>
+            <select class="js-example-basic-single" name="state" style="width: 100%;" id="cmb_tipo_contribuyente">
+             <option value="Persona Natural">Natural</option>
+              <option value="Persona Juridica">Jurídica</option>
+             </select>
+      	</div>
+        <div class="col-lg-6">
+      	   <label for=""><b>Tipo</b> </label>
+            <select class="js-example-basic-single" name="state" style="width: 100%;" id="cmb_tipo_tercero">
+        
+             </select>
       	</div>
 
       	<div class="col-lg-6">
@@ -135,6 +149,7 @@
 $(document).ready(function() {
     listar_proveedor();
     listar_combo_ciudad();
+    listar_combo_tipo_tercero();
       $('.js-example-basic-single').select2();
 });
 

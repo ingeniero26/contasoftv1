@@ -13,24 +13,27 @@ class Modelo_Persona {
 
 	function listar_persona($idempresa){
 		$sql = "SELECT
-    `persona`.`persona_id`
-    , CONCAT_WS(' ',`persona_nombre`  , `persona_apepat`  , `persona_apemat`) AS persona
-    , `persona`.`persona_nombre`
-    , `persona`.`persona_apepat`
-    , `persona`.`persona_apemat`
-	, `persona`.`tipo_contribuyente`
-    , `persona`.`persona_nrodocumento`
-    , `persona`.`persona_tipodocumento`
-    , `persona`.`persona_sexo`
-    , `persona`.`persona_telefono`
-    , `persona`.`persona_direccion`
-   
-    , `persona`.`persona_correo`
-    , `persona`.`persona_fregistro`
-    , `persona`.`persona_estatus`
-    , `persona`.`idempresa`
-FROM
-    `persona`
+		`persona`.`persona_id`
+		, CONCAT_WS(' ',`persona_nombre`  , `persona_apepat`  , `persona_apemat`) AS tercero
+		, `persona`.`persona_nombre`
+		, `persona`.`persona_apepat`
+		, `persona`.`persona_apemat`
+		, `persona`.`tipo_contribuyente`
+		, `persona`.`persona_nrodocumento`
+		, `persona`.`persona_tipodocumento`
+		, `persona`.`persona_sexo`
+		, `persona`.`persona_telefono`
+		, `persona`.`persona_direccion`
+	   
+		, `persona`.`persona_correo`
+		, `persona`.`persona_fregistro`
+		, `persona`.`persona_estatus`
+		, `persona`.`idempresa`
+		, persona.`id_tipo_tercero`
+		, `tipo_tercero`.`tipo`
+	FROM
+		`persona`
+		INNER JOIN `tipo_tercero` ON (persona.`id_tipo_tercero` = `tipo_tercero`.`id`)
    
         WHERE persona.`idempresa` = '$idempresa'";
 			$arreglo = array();
