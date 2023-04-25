@@ -3,14 +3,12 @@ function listar_cliente(){
  var idempresa =$("#txt_idempresa").val();
 
      t_cliente = $("#tabla_cliente").DataTable({
-	     "ordering":false,
-        "bLengthChange":true,
-        "searching": { "regex": false },
-        "lengthMenu": [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "All"] ],
-        "pageLength": 10,
+	    "ordering":false,   
+        "pageLength":10,
         "destroy":true,
         "async": false ,
-        "processing": true,
+        "responsive": true,
+        "autoWidth": false,
            dom: 'Bfrtip',
         buttons: [
         'excel', 'csv', 'pdf', 'print', 'copy',
@@ -29,6 +27,7 @@ function listar_cliente(){
             {"data":"cliente"},
             {"data":"persona_nrodocumento"},
             {"data":"persona_tipodocumento"},
+             {"data":"tipo_contribuyente"},
             {"data":"persona_sexo", 
             render: function (data, type, row ) {
                 if(data=='MASCULINO'){
@@ -129,6 +128,7 @@ function listar_cliente(){
         var apemat =$('#txt_apemat').val();
         var numero =$('#txt_numero').val();
         var tipo_doc =$('#cmb_tipodocumento').val();
+        var tipo_contribuyente =$('#cmb_tipo_contribuyente').val();
        // var sexo =$('#cmb_sexo').val();
         var telefono =$('#txt_telefono').val();
         var direccion =$('#txt_direccion').val();
@@ -149,6 +149,7 @@ function listar_cliente(){
         apemat:apemat,
         numero:numero,
         tipo_doc:tipo_doc,
+        tipo_contribuyente:tipo_contribuyente,
         //sexo:sexo,
         telefono:telefono,
         direccion:direccion,
@@ -158,7 +159,7 @@ function listar_cliente(){
        
       }
        }).done(function(resp){
-        alert(resp);
+       // alert(resp);
         if(resp > 0) {
             if(resp==1) {
                 $('#modal_registro').modal('hide');
@@ -176,7 +177,7 @@ function listar_cliente(){
                   );
             }
         }else {
-            return Swal.fire('Mensaje de error','Persona no insertado','warning');
+            return Swal.fire('Mensaje de error','Cliente no insertado','warning');
         }
     })
   }

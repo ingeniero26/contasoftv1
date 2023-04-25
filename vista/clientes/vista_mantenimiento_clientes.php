@@ -13,8 +13,9 @@
                         <tr>
                             <th>#</th>
                             <th>Nombre</th>
-                            <th>Documento</th>
-                            <th>Tipo</th>
+                            <th>Número</th>
+                            <th>Tipo Documento</th>
+                            <th>Tipo Contribuyente</th>
                             <th style="text-align: center;">Sexo</th>
                             <th>Ciudad</th>
                             <th>Telefono</th>
@@ -73,7 +74,13 @@
               <option value="TI">TI</option>
              </select> <br> <br>
       	</div>
-
+        <div class="col-lg-6">
+           <label for=""><b>Tipo Contribuyente</b> </label>
+            <select class="js-example-basic-single" name="state" style="width: 100%;" id="cmb_tipo_contribuyente">
+             <option value="Persona Natural">Natural</option>
+              <option value="Persona Juridica">Jurídica</option>
+             </select>
+        </div>
       	
       <!--	<div class="col-lg-6">
       	   <label for=""><b>Sexo</b> </label>

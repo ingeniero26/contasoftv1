@@ -16,7 +16,7 @@ class Modelo_Cliente {
 	function listar_cliente($idempresa){
 		$sql = " SELECT     `persona`.`persona_id`
 		,   CONCAT_WS(' ', `persona`.`persona_nombre`    , `persona`.`persona_apepat`    , `persona`.`persona_apemat`) AS cliente    , `persona`.`persona_nrodocumento`
-		, `persona`.`persona_tipodocumento`    , `persona`.`persona_sexo`
+		, `persona`.`persona_tipodocumento`,persona.tipo_contribuyente , `persona`.`persona_sexo`
 		, `persona`.`persona_telefono`    ,cliente.`idciudad`, ciudades.`nombre_ciudad`, `persona`.persona_direccion,persona.persona_correo
 		, `cliente`.`cliente_fregistro`
 		, `cliente`.`cliente_estatus`    , `cliente`.`idcliente`
@@ -38,9 +38,9 @@ class Modelo_Cliente {
 		}
 	}
 
-	function Registrar_Cliente($nombre,$apepat,$apemat,$numero,$tipo_doc,$telefono,$direccion,
+	function Registrar_Cliente($nombre,$apepat,$apemat,$numero,$tipo_doc,$tipo_contribuyente,$telefono,$direccion,
     $correo,$idciudad,$idempresa) {
-		$sql = "call  SP_REGISTRAR_CLIENTE2('$nombre','$apepat','$apemat','$numero','$tipo_doc','$telefono','$direccion','$correo','$idciudad','$idempresa')";
+		$sql = "call  SP_REGISTRAR_CLIENTE2('$nombre','$apepat','$apemat','$numero','$tipo_doc','$tipo_contribuyente', '$telefono','$direccion','$correo','$idciudad','$idempresa')";
 			if($consulta = $this->conexion->conexion->query($sql)){
 				if($row = mysqli_fetch_array($consulta)) {
 					return	$id =trim($row[0]);
