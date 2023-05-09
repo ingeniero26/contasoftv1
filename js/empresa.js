@@ -22,6 +22,7 @@ var idempresa =$("#txt_idempresa").val();
             {"data":"Nit"},
             {"data":"nombre"},
             {"data":"Representante"},
+            {"data":"descripcion"},
             {"data":"Direccion"},
             {"data":"Telefono"},
             {"data":"Correo"},

@@ -15,18 +15,22 @@ class Modelo_Empresa {
 
 	function listar_empresa($idempresa) {
 		$sql = "SELECT
-			    `ID`
-			    , `Nit`
-			    , nombre
-			    , `Representante`
-			    , `Direccion`
-			    , `Telefono`
-			    ,`Correo`
-			    , `Logo`
-			    , `fregistro`
-			    , `estatus`
-			FROM
-			    `empresa` WHERE empresa.`ID` ='$idempresa'";
+		`empresa`.`ID`
+		, `empresa`.`Nit`
+		, `empresa`.`nombre`
+		, `empresa`.`Representante`
+		, `empresa`.`Direccion`
+		, `empresa`.`Telefono`
+		, `empresa`.`Correo`
+		, `empresa`.`Logo`
+		, `empresa`.`id_tipo_regimen`
+		, `tipo_regimen`.`descripcion`
+		, `empresa`.`fregistro`
+		, `empresa`.`estatus`
+	FROM
+		`empresa`
+		INNER JOIN `tipo_regimen` 
+			ON (`empresa`.`id_tipo_regimen` = `tipo_regimen`.`id`) WHERE empresa.`ID` ='$idempresa'";
 			$arreglo = array();
 			if($consulta = $this->conexion->conexion->query($sql)){
 				while($consulta_vu = mysqli_fetch_assoc($consulta)) {

@@ -262,6 +262,6 @@ function limpiar_campos(){
         $('#txt_numero').val();
         $('#cmb_tipodocumento').val();
         $('#cmb_sexo').val();
-          $('#txt_telefono').val();
-       $('#txt_direccion').val();
+        $('#txt_telefono').val();
+        $('#txt_direccion').val();
 }

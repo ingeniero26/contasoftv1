@@ -78,6 +78,7 @@ $html ='<!DOCTYPE html>
           <tr>
             <th class="service">ITEM</th>
             <th class="desc">DESCRIPCIÓN</th>
+            <th class="desc">SERIAL</th>
             <th>PRECIO</th>
             <th>CANTIDAD</th>
             <th>SUBTOTAL</th>
@@ -85,7 +86,7 @@ $html ='<!DOCTYPE html>
           </tr>
         </thead>
         <tbody>';
-        $sql2 = "        SELECT    `producto`.`producto_nombre`
+        $sql2 = "        SELECT    `producto`.`producto_nombre`,  `producto`.`producto_presentacion`
     , `detalle_venta`.`dv_cantidad`    , `detalle_venta`.`dv_precio`, `detalle_venta`.`dv_descuento`,
      `detalle_venta`.`dv_cantidad` *  `detalle_venta`.`dv_precio` AS subtotal
      FROM
@@ -100,6 +101,7 @@ $html ='<!DOCTYPE html>
           <tr>
             <td class="service">'.$contador.'</td>
             <td class="desc">'.$row2['producto_nombre'].'</td>
+            <td class="desc">'.$row2['producto_presentacion'].'</td>
             <td class="unit">'.$row2['dv_precio'].'</td>
             <td class="qty">'.$row2['dv_cantidad'].'</td>
             <td class="total">'.round($row2['subtotal'],2).'</td>
@@ -107,10 +109,7 @@ $html ='<!DOCTYPE html>
             </tr>';
           }
           if($row1['venta_tipocomprobante']=="FACTURA") {
-             $html.='
-            
-           
-           
+             $html.='         
 
            <tr>
             <td colspan="4" style="background:#fff;">IVA '.($row1['venta_porcentaje']*100).' %</td>
