@@ -45,7 +45,7 @@ if(!isset($_SESSION['S_IDUSUARIO'])){
                     <span class="brand">CONTA
                         <span class="brand-tip">SOFT</span>
                     </span>
-                    <span class="brand-mini">S.A.S</span>
+                    <span class="brand-mini">JD</span>
                 </a>
             </div>
             <div class="flexbox flex-1">
