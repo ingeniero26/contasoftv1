@@ -10,19 +10,19 @@
             <div class="ibox-body">
                 <div class="row">
                        <div class="col-5">
-                        
+
                          <label for=""><b>Seleccione una Bodega</b></label>
-                          <select class="js-example-basic-single" 
+                          <select class="js-example-basic-single"
                           name="state" style="width: 100%;" id="cmb_bodega">
-                            
+
                              </select> <br> <br>
                     </div>
                        <div class="col-5">
-                        
+
                          <label for=""><b>Seleccione una Categoria</b></label>
-                          <select class="js-example-basic-single" 
+                          <select class="js-example-basic-single"
                           name="state" style="width: 100%;" id="cmb_categoria_producto">
-                            
+
                              </select> <br> <br>
                     </div>
                       <div class="col-2">
@@ -44,9 +44,10 @@
                             <th>Categoria</th>
                             <th>Medida</th>
                             <th>Tipo</th>
-                           
+
                             <th>Compra</th>
-                            <th>Venta</th>
+                            <th>Precio Venta 1</th>
+                            <th>Precio Venta 2</th>
                             <th>Ganancia</th>
                             <th>Foto</th>
                             <th>Estatus</th>
@@ -55,7 +56,7 @@
                     </thead>
                     <tbody>
                     </tbody>
-                   
+
                 </table>
             </div>
         </div>
@@ -89,12 +90,12 @@
           <label for=""><b>Referencia</b></label>
           <input type="text" id="txt_presentacion_producto" class="form-control">
         </div>
-     
+
 
       <div class="col-lg-6">
             <label for=""><b>Bodega</b> </label>
-                <select class="js-example-basic-single" name="state" style="width: 100%;" id="cmb_bodega_producto"> 
-                       
+                <select class="js-example-basic-single" name="state" style="width: 100%;" id="cmb_bodega_producto">
+
             </select> <br> <br>
         </div>
 
@@ -108,26 +109,26 @@
         </div>
          <div class="col-lg-4">
       	   <label for=""><b>Categoria</b> </label>
-            <select class="js-example-basic-single" name="state" style="width: 100%;" id="cmb_categoria"> 
-           
+            <select class="js-example-basic-single" name="state" style="width: 100%;" id="cmb_categoria">
+
              </select> <br> <br>
       	</div>
       	  <div class="col-lg-6">
       	     <label for=""><b>Unidad</b> </label>
-              <select class="js-example-basic-single" name="state" style="width: 100%;" id="cmb_unidad"> 
-           
+              <select class="js-example-basic-single" name="state" style="width: 100%;" id="cmb_unidad">
+
              </select> <br> <br>
       	</div>
          <div class="col-lg-6">
              <label for=""><b>Tipo</b> </label>
-              <select class="js-example-basic-single" name="state" style="width: 100%;" id="cmb_tipo"> 
-           
+              <select class="js-example-basic-single" name="state" style="width: 100%;" id="cmb_tipo">
+
              </select> <br> <br>
         </div>
         <div class="col-lg-6">
              <label for=""><b>Marca</b> </label>
-              <select class="js-example-basic-single" name="state" style="width: 100%;" id="cmb_marca"> 
-           
+              <select class="js-example-basic-single" name="state" style="width: 100%;" id="cmb_marca">
+
              </select> <br> <br>
         </div>
          <div class="col-lg-6">
@@ -136,23 +137,27 @@
         </div>
 
          <div class="col-lg-6">
-          <label for=""><b>Precio Venta</b></label>
+          <label for=""><b>Precio Minorista</b></label>
           <input type="number" id="txt_precio_venta" class="form-control"  onkeypress="return soloNumeros(event)">
+        </div>
+        <div class="col-lg-6">
+          <label for=""><b>Precio Mayorista</b></label>
+          <input type="number" id="txt_precio_venta2" class="form-control"  onkeypress="return soloNumeros(event)">
         </div>
 
       	<div class="col-lg-6">
 	     	<label for="">Subir Imagen</label>
 	     	<input type="file" id="imagen" accept="imagen/*">
 	     </div>
-    
 
-	      
+
+
 		</div>
       </div>
       <div class="modal-footer">
       	 <button type="button" class="btn btn-primary" onclick="Registrar_Producto()">Grabar</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-       
+
       </div>
     </div>
   </div>
@@ -172,9 +177,9 @@
       </div>
       <div class="modal-body">
         <div class="row">
-        
-         
-     
+
+
+
            <div class="col-lg-12">
              <input type="text" id="txt_idproducto"  hidden="">
                 <label for=""><b>Codigo Producto</b> </label>
@@ -187,35 +192,35 @@
                  <input type="text" id="txt_nombre_actual_editar" hidden="" placeholder="">
                  <input type="text" id="txt_nombre_nuevo_editar" class="form-control" placeholder="">
             </div>
-           
-     
+
+
 
         <div class="col-lg-6">
           <label for=""><b>Referencia</b></label>
-          <input type="text"  class="form-control" 
+          <input type="text"  class="form-control"
           id="txt_presentacion_producto_editar">
         </div>
 
-       
+
         <div class="col-lg-4">
           <label for=""><b>Cantidad Minima</b></label>
           <input type="text" id="txt_cant_minima_editar" class="form-control">
         </div>
-   
+
 
          <div class="col-lg-4">
            <label for=""><b>Categoria</b> </label>
-            <select class="js-example-basic-single" name="state" style="width: 100%;" 
-            id="cmb_categoria_editar"> 
-           
-             </select> <br> 
+            <select class="js-example-basic-single" name="state" style="width: 100%;"
+            id="cmb_categoria_editar">
+
+             </select> <br>
         </div>
           <div class="col-lg-4">
              <label for=""><b>Unidad</b> </label>
-              <select class="js-example-basic-single" name="state" style="width: 100%;" 
-              id="cmb_unidad_editar"> 
-           
-             </select> <br> 
+              <select class="js-example-basic-single" name="state" style="width: 100%;"
+              id="cmb_unidad_editar">
+
+             </select> <br>
            </div>
            <div class="col-lg-6">
               <label for=""><b>Precio compra</b></label>
@@ -223,16 +228,16 @@
             </div>
             <div class="col-lg-6">
              <label for=""><b>Tipo</b> </label>
-              <select class="js-example-basic-single" name="state" style="width: 100%;" id="cmb_tipo_editar"> 
-           
+              <select class="js-example-basic-single" name="state" style="width: 100%;" id="cmb_tipo_editar">
+
              </select> <br> <br>
         </div>
            <div class="col-lg-6">
               <label for=""><b>Precio venta</b></label>
               <input type="number" id="txt_precio_venta_editar" class="form-control"  onkeypress="return soloNumeros(event)">
             </div>
-           
-            
+
+
               <div class="col-lg-6">
                 <label for="">Subir Imagen</label>
                 <input type="file" id="imagen_editar" accept="imagen/*">
@@ -249,7 +254,7 @@
       <div class="modal-footer">
          <button type="button" class="btn btn-danger" onclick="Modificar_Producto()">Editar</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-       
+
       </div>
     </div>
   </div>
@@ -263,7 +268,7 @@
 <script type="text/javascript" src="../js/productos.js"></script>
 <script>
 $(document).ready(function() {
-   
+
   $('.js-example-basic-single').select2();
  listar_productos();
  listar_combo_categoria();
@@ -279,31 +284,31 @@ $(document).ready(function() {
 
 
 document.getElementById("imagen").addEventListener("change", () => {
-     var fileName = document.getElementById("imagen").value; 
-     var idxDot = fileName.lastIndexOf(".") + 1; 
-     var extFile = fileName.substr(idxDot, fileName.length).toLowerCase(); 
-     if (extFile=="jpg" || extFile=="jpeg" || extFile=="png"){ 
-      //TO DO 
-     }else{ 
+     var fileName = document.getElementById("imagen").value;
+     var idxDot = fileName.lastIndexOf(".") + 1;
+     var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
+     if (extFile=="jpg" || extFile=="jpeg" || extFile=="png"){
+      //TO DO
+     }else{
       Swal.fire("MENSAJE DE ADVERTENCIA","DEBE SELECCIONAR SOLO IMAGENES","warning");
        document.getElementById("imagen").value="";
-     } 
+     }
     });
 
 
 document.getElementById("imagen_editar").addEventListener("change", () => {
-     var fileName = document.getElementById("imagen_editar").value; 
-     var idxDot = fileName.lastIndexOf(".") + 1; 
-     var extFile = fileName.substr(idxDot, fileName.length).toLowerCase(); 
-     if (extFile=="jpg" || extFile=="jpeg" || extFile=="png"){ 
-      //TO DO 
-     }else{ 
+     var fileName = document.getElementById("imagen_editar").value;
+     var idxDot = fileName.lastIndexOf(".") + 1;
+     var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
+     if (extFile=="jpg" || extFile=="jpeg" || extFile=="png"){
+      //TO DO
+     }else{
       Swal.fire("MENSAJE DE ADVERTENCIA","DEBE SELECCIONAR SOLO IMAGENES","warning");
        document.getElementById("imagen_editar").value="";
-     } 
+     }
     });
 
 
- 
+
 
 </script>
