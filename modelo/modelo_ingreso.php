@@ -61,7 +61,7 @@ class Modelo_Ingreso
     public function listar_combo_producto($idempresa)
     {
         $sql = "SELECT `producto_id`,`producto_nombre`,
-	`producto_stock`,`producto_precioventa`,producto_precio_mayor, producto.producto_foto, producto.producto_codigo
+	`producto_stock`,`producto_precioventa`, producto.producto_foto, producto.producto_codigo
 	FROM `producto`
 	WHERE  producto.`idempresa` = '$idempresa' AND    `producto`.`producto_estatus` ='ACTIVO'";
         $arreglo = array();

@@ -23,7 +23,7 @@ class Modelo_Productos
 		, `p`.`idTipoProducto`    , `tp`.`tipo_producto`
 		, `p`.`id_marca`    , `m`.`descripcion`
 		, `p`.`producto_foto`    , `p`.`compra`
-		, `p`.`producto_precioventa` ,p.producto_precio_mayor, `p`.`producto_estatus`
+		, `p`.`producto_precioventa` , `p`.`producto_estatus`
 		, `p`.`fregistro`    , `p`.`idempresa`
 		,   p.producto_precioventa - p.`compra` AS ganancia
 	FROM

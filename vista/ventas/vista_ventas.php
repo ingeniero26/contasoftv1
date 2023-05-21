@@ -92,15 +92,15 @@
                         <input type="number" onkeypress="return filterfloat(event,this);" min="1" class="form-control" id="txt_stock" disabled="">
                     </div>
                      <div class="col-2">
-                        <label for=""><b>Precio 1</b></label>
+                        <label for=""><b>Precio Venta</b></label>
                         <input type="number" onkeypress="return filterfloat(event,this);" min="1" class="form-control"
                         id="txt_precio" >
                     </div>
-                    <div class="col-2">
+                    <!-- <div class="col-2">
                         <label for=""><b>Precio 2</b></label>
                         <input type="number" onkeypress="return filterfloat(event,this);" min="1" class="form-control"
                         id="txt_precio2" >
-                    </div>
+                    </div> -->
                      <div class="col-3">
                         <label for=""><b>Cantidad</b></label>
                         <input type="number"  class="form-control"
