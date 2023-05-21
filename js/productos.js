@@ -60,6 +60,7 @@ function listar_productos(){
             
             {"data":"compra"},
              {"data":"producto_precioventa"},
+             {"data":"producto_precio_mayor"},
              {"data":"ganancia"},
 
             {"data":"producto_foto",
