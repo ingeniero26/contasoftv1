@@ -31,24 +31,7 @@
                                     <span class="nav-label"><i class="fa   fa-outdent"></i> ARL</span></a>
 
                             </li>
-                            <li>
-                            <a href="javascript:cargar_contenido('contenido_principal','configuracion/vista_eps.php')">
-                                <span class="nav-label"><i class="fa   fa-list-ol"></i> EPS</span></a>
-                            </li>
-                            <li>
-                            <a href="javascript:cargar_contenido('contenido_principal','configuracion/vista_pension.php')">
-                                <span class="nav-label"><i class="fa   fa-list-ol"></i> PENSIÓN</span></a>
-                            </li>
 
-                               <li>
-                            <a href="javascript:cargar_contenido('contenido_principal','nomina/vista_dptos.php')">
-                                <span class="nav-label"><i class="fa   fa-list-ol"></i> Secciones</span></a>
-                            </li>
-
-                            <li>
-                            <a href="javascript:cargar_contenido('contenido_principal','nomina/vista_cargos.php')">
-                                <span class="nav-label"><i class="fa   fa-list-ol"></i> Cargos</span></a>
-                            </li>
 
 
                             <!--<li>
@@ -224,6 +207,24 @@
                         <a href="javascript:;"><i class="sidebar-item-icon fa fa-edit"></i>
                             <span class="nav-label">Nomina</span><i class="fa fa-angle-left arrow"></i></a>
                         <ul class="nav-2-level collapse">
+                        <li>
+                            <a href="javascript:cargar_contenido('contenido_principal','configuracion/vista_eps.php')">
+                                <span class="nav-label"><i class="fa   fa-list-ol"></i> EPS</span></a>
+                            </li>
+                            <li>
+                            <a href="javascript:cargar_contenido('contenido_principal','configuracion/vista_pension.php')">
+                                <span class="nav-label"><i class="fa   fa-list-ol"></i> PENSIÓN</span></a>
+                            </li>
+
+                               <li>
+                            <a href="javascript:cargar_contenido('contenido_principal','nomina/vista_dptos.php')">
+                                <span class="nav-label"><i class="fa   fa-list-ol"></i> Secciones</span></a>
+                            </li>
+
+                            <li>
+                            <a href="javascript:cargar_contenido('contenido_principal','nomina/vista_cargos.php')">
+                                <span class="nav-label"><i class="fa   fa-list-ol"></i> Cargos</span></a>
+                            </li>
                              <li>
                                 <a href="javascript:cargar_contenido('contenido_principal','nomina/vista_empleados.php')">
                                     <span class="nav-label"><i class="fa   fa-outdent"></i> Empleados</span></a>
