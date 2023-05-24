@@ -2,7 +2,7 @@
     <div class="col-md-12">
         <div class="ibox ibox-default">
             <div class="ibox-head">
-                <div class="ibox-title">MANTENIMIENTO PROVEEDOR</div>
+                <div class="ibox-title">MANTENIMIENTO TERCERO</div>
                 <div class="ibox-tools">
                    <button class="btn btn-primary" style="width: 100%" onclick="AbrirModalRegistro()"><i class="fa fa-plus">Nuevo Registro</i></button>
                 </div>
@@ -28,7 +28,7 @@
                     </thead>
                     <tbody>
                     </tbody>
-                 
+
                 </table>
             </div>
         </div>
@@ -42,7 +42,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Registro de Proveedor</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">Registro de Tercero</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -85,10 +85,9 @@
         <div class="col-lg-6">
       	   <label for=""><b>Tipo</b> </label>
             <select class="js-example-basic-single" name="state" style="width: 100%;" id="cmb_tipo_tercero">
-        
+
              </select>
       	</div>
-
       	<div class="col-lg-6">
            <label for=""><b>Razón Social</b> </label>
            <input type="text" id="txt_razon_social" class="form-control" placeholder=" " onkeypress="return sololetras(event)">
@@ -102,15 +101,15 @@
             <select class="js-example-basic-single" name="state" style="width: 100%;" id="cmb_sexo">
              <option value="MASCULINO">MASCULINO</option>
               <option value="FEMENINO">FEMENINO</option>
-              
+
              </select> <br> <br>
       	</div>
-           <div class="col-lg-6">
-                <label for=""><b>Ciudad</b> </label>
-                        <select class="js-example-basic-single" name="state" style="width: 100%;" id="cmb_ciudad_proveedor"> 
-                       
-                         </select> <br> <br>
-                    </div>
+        <div class="col-lg-6">
+          <label for=""><b>Ciudad</b> </label>
+              <select class="js-example-basic-single" name="state" style="width: 100%;" id="cmb_ciudad_proveedor">
+
+                </select> <br> <br>
+        </div>
       	<div class="col-lg-6">
       	   <label for=""><b>Teléfono</b> </label>
            <input type="text" id="txt_telefono" class="form-control" placeholder="tel " onkeypress="return soloNumeros(event)">
@@ -120,7 +119,7 @@
            <input type="text" id="txt_direccion" class="form-control" placeholder="dir ">
       	</div>
 
-            <div class="col-lg-6">
+          <div class="col-lg-6">
            <label for=""><b>Correo</b> </label>
            <input type="text" id="txt_correo" class="form-control" placeholder="Correo ">
         </div>
@@ -129,20 +128,17 @@
       		<div class="alert alert-danger alert-bordered" style="display: none;"></div>
       	</div>
       	</div>
-      	
-       
+
+
       </div>
       <div class="modal-footer">
       	 <button type="button" class="btn btn-primary" onclick="Registrar_Proveedor()">Grabar</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-       
+
       </div>
     </div>
   </div>
 </div>
-
-
-
 
 <script type="text/javascript" src="../js/proveedor.js?rev=<?php echo time(); ?>"></script>
 <script>
@@ -155,6 +151,6 @@ $(document).ready(function() {
 
 
 	$('#modal_registro').on('shown.bs.modal', function () {
-	  $('#txt_nombre_rol').trigger('focus')
+	  $('#txt_nombre').trigger('focus')
 	})
 </script>
