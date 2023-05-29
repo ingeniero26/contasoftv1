@@ -91,9 +91,11 @@ CREATE TABLE `cargos` (
   PRIMARY KEY (`IdCargos`),
   KEY `FK_IdDpto` (`IdDpto`),
   CONSTRAINT `FK_IdDpto` FOREIGN KEY (`IdDpto`) REFERENCES `dpto` (`IdDpto`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 /*Data for the table `cargos` */
+
+insert  into `cargos`(`IdCargos`,`DescCargos`,`IdDpto`,`fregistro`,`estatus`) values (1,'INGENIERO DE SISTEMAS',1,'2023-05-24 19:56:27','ACTIVO');
 
 /*Table structure for table `categoria` */
 
@@ -108,11 +110,11 @@ CREATE TABLE `categoria` (
   PRIMARY KEY (`categoria_id`),
   KEY `idempresa` (`idempresa`),
   CONSTRAINT `categoria_ibfk_1` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `categoria` */
 
-insert  into `categoria`(`categoria_id`,`categoria_nombre`,`categoria_fregistro`,`categoria_estatus`,`idempresa`) values (1,'Tecnologia','2022-07-13','ACTIVO',1),(2,'Libros','2022-07-13','ACTIVO',1),(3,'Papeleria','2022-08-22','ACTIVO',1),(4,'Servicios','2022-08-22','ACTIVO',1),(5,'Soporte','2023-04-13','ACTIVO',1);
+insert  into `categoria`(`categoria_id`,`categoria_nombre`,`categoria_fregistro`,`categoria_estatus`,`idempresa`) values (1,'Tecnologia','2022-07-13','ACTIVO',1),(2,'Libros','2022-07-13','ACTIVO',1),(3,'Papeleria','2022-08-22','ACTIVO',1),(4,'Servicios','2022-08-22','ACTIVO',1),(5,'Soporte','2023-04-13','ACTIVO',1),(6,'Dulces','2023-05-18','ACTIVO',1);
 
 /*Table structure for table `categoriaarl` */
 
@@ -138,17 +140,14 @@ CREATE TABLE `ciudades` (
   `idDepto` int(11) DEFAULT NULL,
   `estatus` enum('ACTIVO','INACTIVO') COLLATE utf8_unicode_ci DEFAULT NULL,
   `fregistro` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `idempresa` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idDepto` (`idDepto`),
-  KEY `idempresa` (`idempresa`),
-  CONSTRAINT `ciudades_ibfk_1` FOREIGN KEY (`idDepto`) REFERENCES `departamentos` (`id`),
-  CONSTRAINT `ciudades_ibfk_2` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`)
+  CONSTRAINT `ciudades_ibfk_1` FOREIGN KEY (`idDepto`) REFERENCES `departamentos` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `ciudades` */
 
-insert  into `ciudades`(`id`,`nombre_ciudad`,`idDepto`,`estatus`,`fregistro`,`idempresa`) values (1,'EL CARMEN DE BOLIVAR',1,'ACTIVO','2022-07-13 15:39:37',1),(2,'Cartagena',1,'ACTIVO','2022-09-10 11:00:55',1),(3,'San Jacinto',1,'ACTIVO','2022-09-10 12:04:26',1),(4,'San Juan Nepomuceno',1,'ACTIVO','2022-09-10 12:04:54',1);
+insert  into `ciudades`(`id`,`nombre_ciudad`,`idDepto`,`estatus`,`fregistro`) values (1,'EL CARMEN DE BOLIVAR',1,'ACTIVO','2022-07-13 15:39:37'),(2,'Cartagena',1,'ACTIVO','2022-09-10 11:00:55'),(3,'San Jacinto',1,'ACTIVO','2022-09-10 12:04:26'),(4,'San Juan Nepomuceno',1,'ACTIVO','2022-09-10 12:04:54');
 
 /*Table structure for table `cliente` */
 
@@ -168,11 +167,11 @@ CREATE TABLE `cliente` (
   CONSTRAINT `cliente_ibfk_1` FOREIGN KEY (`persona_id`) REFERENCES `persona` (`persona_id`),
   CONSTRAINT `cliente_ibfk_2` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`),
   CONSTRAINT `cliente_ibfk_3` FOREIGN KEY (`idciudad`) REFERENCES `ciudades` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `cliente` */
 
-insert  into `cliente`(`idcliente`,`cliente_fregistro`,`cliente_estatus`,`persona_id`,`idciudad`,`idempresa`) values (1,'2022-07-13','ACTIVO',3,1,1),(2,'2022-08-22','ACTIVO',4,1,1),(3,'2022-12-03','ACTIVO',7,1,1),(4,'2022-12-03','ACTIVO',8,3,1),(5,'2023-04-24','ACTIVO',10,1,1);
+insert  into `cliente`(`idcliente`,`cliente_fregistro`,`cliente_estatus`,`persona_id`,`idciudad`,`idempresa`) values (1,'2022-07-13','ACTIVO',3,1,1),(2,'2022-08-22','ACTIVO',4,1,1),(3,'2022-12-03','ACTIVO',7,1,1),(4,'2022-12-03','ACTIVO',8,3,1),(5,'2023-04-24','ACTIVO',10,1,1),(6,'2023-05-02','ACTIVO',11,3,1);
 
 /*Table structure for table `codeudor` */
 
@@ -421,11 +420,11 @@ CREATE TABLE `detalle_venta` (
   KEY `idproducto` (`producto_id`),
   CONSTRAINT `detalle_venta_ibfk_1` FOREIGN KEY (`venta_id`) REFERENCES `venta` (`venta_id`),
   CONSTRAINT `detalle_venta_ibfk_2` FOREIGN KEY (`producto_id`) REFERENCES `producto` (`producto_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `detalle_venta` */
 
-insert  into `detalle_venta`(`detalle_venta_id`,`venta_id`,`producto_id`,`dv_cantidad`,`dv_precio`,`dv_descuento`,`dv_estatus`) values (1,1,5,1.00,17000.00,0.00,'INGRESADA'),(2,2,9,4.00,600.00,0.00,'INGRESADA'),(3,2,8,6.00,200.00,0.00,'INGRESADA'),(4,3,1,1.00,4500.00,0.00,'INGRESADA'),(5,4,4,1.00,4000.00,0.00,'INGRESADA'),(6,5,9,10.00,600.00,0.00,'INGRESADA'),(7,6,3,3.00,5000.00,0.00,'INGRESADA'),(8,7,4,1.00,4000.00,0.00,'INGRESADA'),(9,8,1,1.00,4500.00,0.00,'INGRESADA'),(10,9,8,50.00,200.00,0.00,'INGRESADA'),(11,9,9,12.00,500.00,0.00,'INGRESADA'),(12,10,9,10.00,600.00,0.00,'INGRESADA'),(13,10,8,1.00,300.00,0.00,'INGRESADA'),(14,11,3,1.00,5000.00,0.00,'INGRESADA'),(15,12,4,2.00,4000.00,160.00,'INGRESADA'),(16,13,9,1.00,600.00,0.00,'INGRESADA'),(17,14,11,1.00,3000.00,0.00,'INGRESADA'),(18,14,9,10.00,600.00,0.00,'INGRESADA'),(19,14,8,5.00,300.00,0.00,'INGRESADA'),(20,15,8,50.00,300.00,0.00,'INGRESADA'),(21,15,9,25.00,600.00,0.00,'INGRESADA'),(22,16,1,1.00,4500.00,0.00,'INGRESADA'),(23,17,4,1.00,4000.00,0.00,'INGRESADA'),(24,18,4,1.00,4000.00,0.00,'INGRESADA');
+insert  into `detalle_venta`(`detalle_venta_id`,`venta_id`,`producto_id`,`dv_cantidad`,`dv_precio`,`dv_descuento`,`dv_estatus`) values (1,1,5,1.00,17000.00,0.00,'INGRESADA'),(2,2,9,4.00,600.00,0.00,'INGRESADA'),(3,2,8,6.00,200.00,0.00,'INGRESADA'),(4,3,1,1.00,4500.00,0.00,'INGRESADA'),(5,4,4,1.00,4000.00,0.00,'INGRESADA'),(6,5,9,10.00,600.00,0.00,'INGRESADA'),(7,6,3,3.00,5000.00,0.00,'INGRESADA'),(8,7,4,1.00,4000.00,0.00,'INGRESADA'),(9,8,1,1.00,4500.00,0.00,'INGRESADA'),(10,9,8,50.00,200.00,0.00,'INGRESADA'),(11,9,9,12.00,500.00,0.00,'INGRESADA'),(12,10,9,10.00,600.00,0.00,'INGRESADA'),(13,10,8,1.00,300.00,0.00,'INGRESADA'),(14,11,3,1.00,5000.00,0.00,'INGRESADA'),(15,12,4,2.00,4000.00,160.00,'INGRESADA'),(16,13,9,1.00,600.00,0.00,'INGRESADA'),(17,14,11,1.00,3000.00,0.00,'INGRESADA'),(18,14,9,10.00,600.00,0.00,'INGRESADA'),(19,14,8,5.00,300.00,0.00,'INGRESADA'),(20,15,8,50.00,300.00,0.00,'INGRESADA'),(21,15,9,25.00,600.00,0.00,'INGRESADA'),(22,16,1,1.00,4500.00,0.00,'INGRESADA'),(23,17,4,1.00,4000.00,0.00,'INGRESADA'),(24,18,4,1.00,4000.00,0.00,'INGRESADA'),(25,19,9,5.00,600.00,0.00,'INGRESADA'),(26,20,9,7.00,600.00,0.00,'INGRESADA'),(27,21,8,6.00,300.00,0.00,'INGRESADA'),(28,21,8,1.00,300.00,0.00,'INGRESADA'),(29,22,8,2.00,300.00,0.00,'INGRESADA'),(30,23,13,1.00,1800.00,0.00,'INGRESADA'),(31,24,14,5.00,200.00,0.00,'INGRESADA'),(32,25,10,1.00,1000.00,0.00,'INGRESADA'),(33,25,15,1.00,500.00,0.00,'INGRESADA'),(34,26,9,8.00,600.00,0.00,'INGRESADA'),(35,27,9,6.00,600.00,0.00,'INGRESADA'),(36,28,16,1.00,3500.00,0.00,'INGRESADA'),(37,29,9,3.00,600.00,0.00,'INGRESADA'),(38,30,16,1.00,3500.00,0.00,'INGRESADA'),(39,31,9,1.00,600.00,0.00,'INGRESADA'),(40,32,8,10.00,300.00,0.00,'INGRESADA'),(41,32,16,1.00,3500.00,0.00,'INGRESADA'),(42,33,8,3.00,300.00,0.00,'INGRESADA'),(43,34,9,5.00,600.00,0.00,'INGRESADA'),(44,34,9,1.00,600.00,0.00,'INGRESADA'),(45,35,8,2.00,300.00,0.00,'INGRESADA'),(46,35,8,2.00,300.00,0.00,'INGRESADA'),(47,36,9,6.00,600.00,0.00,'INGRESADA'),(48,37,8,4.00,300.00,0.00,'INGRESADA'),(49,37,9,3.00,600.00,0.00,'INGRESADA'),(50,37,8,4.00,300.00,0.00,'INGRESADA'),(51,37,8,3.00,300.00,0.00,'INGRESADA'),(52,38,2,1.00,4500.00,0.00,'INGRESADA');
 
 /*Table structure for table `dpto` */
 
@@ -459,6 +458,8 @@ CREATE TABLE `empleados` (
   `IdARL` int(11) DEFAULT NULL COMMENT 'Id de la Administradora de Riesgos laborales del empleado como FK',
   `IdEPS` int(11) DEFAULT NULL COMMENT 'id de la EPS del empleado como FK',
   `IdPension` int(11) DEFAULT NULL COMMENT 'id de la Empresa de pension del empleado como FK',
+  `id_tipo_contrato` int(11) DEFAULT NULL,
+  `fecha_ingreso` date DEFAULT NULL,
   `fregistro` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `estatus` enum('ACTIVO','INACTIVO') DEFAULT NULL,
   `idempresa` int(11) DEFAULT NULL,
@@ -480,7 +481,7 @@ CREATE TABLE `empleados` (
 
 /*Data for the table `empleados` */
 
-insert  into `empleados`(`IdEmp`,`CCEmp`,`NomEmp`,`DirEmp`,`TelEmp`,`CelEmp`,`EmailEmp`,`fecha_nacimiento`,`IdARL`,`IdEPS`,`IdPension`,`fregistro`,`estatus`,`idempresa`,`usuario_id`) values (1,1070813753,'JERSON BATISTA','EL CARMEN','132132','1321','INFO@GMAIL.COM','1989-05-26',1,1,1,'2022-09-23 18:41:24','ACTIVO',1,1);
+insert  into `empleados`(`IdEmp`,`CCEmp`,`NomEmp`,`DirEmp`,`TelEmp`,`CelEmp`,`EmailEmp`,`fecha_nacimiento`,`IdARL`,`IdEPS`,`IdPension`,`id_tipo_contrato`,`fecha_ingreso`,`fregistro`,`estatus`,`idempresa`,`usuario_id`) values (1,1070813753,'JERSON BATISTA','EL CARMEN','132132','1321','INFO@GMAIL.COM','1989-05-26',1,1,1,NULL,NULL,'2022-09-23 18:41:24','ACTIVO',1,1);
 
 /*Table structure for table `empresa` */
 
@@ -495,14 +496,20 @@ CREATE TABLE `empresa` (
   `Telefono` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Correo` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Logo` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `id_tipo_regimen` int(11) DEFAULT NULL,
+  `idCiudad` int(11) DEFAULT NULL,
   `fregistro` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `estatus` enum('ACTIVO','INACTIVO') COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`ID`)
+  PRIMARY KEY (`ID`),
+  KEY `id_tipo_regimen` (`id_tipo_regimen`),
+  KEY `idCiudad` (`idCiudad`),
+  CONSTRAINT `empresa_ibfk_1` FOREIGN KEY (`id_tipo_regimen`) REFERENCES `tipo_regimen` (`id`),
+  CONSTRAINT `empresa_ibfk_2` FOREIGN KEY (`idCiudad`) REFERENCES `ciudades` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `empresa` */
 
-insert  into `empresa`(`ID`,`Nit`,`nombre`,`Representante`,`Direccion`,`Telefono`,`Correo`,`Logo`,`fregistro`,`estatus`) values (1,'1070813753','JKSYSTEMAS','JERSON BATISTA','MONTE CARMELO','3013794981','INGJERSON2014@GMAIL.COM','controlador/empresa/img/IMG22820221557.jpg','2022-08-22 18:55:08','ACTIVO');
+insert  into `empresa`(`ID`,`Nit`,`nombre`,`Representante`,`Direccion`,`Telefono`,`Correo`,`Logo`,`id_tipo_regimen`,`idCiudad`,`fregistro`,`estatus`) values (1,'1070813753','JKSYSTEMAS','JERSON BATISTA','MONTE CARMELO','3013794981','INGJERSON2014@GMAIL.COM','controlador/empresa/img/IMG22820221557.jpg',2,1,'2023-05-11 11:41:14','ACTIVO');
 
 /*Table structure for table `eps` */
 
@@ -554,9 +561,11 @@ CREATE TABLE `gastos` (
   CONSTRAINT `gastos_ibfk_2` FOREIGN KEY (`idusuario`) REFERENCES `usuario` (`usuario_id`),
   CONSTRAINT `gastos_ibfk_3` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`),
   CONSTRAINT `gastos_ibfk_4` FOREIGN KEY (`idcaja`) REFERENCES `caja` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `gastos` */
+
+insert  into `gastos`(`idGasto`,`idtipo_gasto`,`fecha_gasto`,`valor`,`recibo`,`idcaja`,`observaciones`,`fregistro`,`estatus`,`idusuario`,`idempresa`,`estado`) values (1,3,'2023-05-23',119600,'001',1,'','2023-05-23 11:20:03','ACTIVO',1,1,'CANCELADA');
 
 /*Table structure for table `marcas` */
 
@@ -645,11 +654,11 @@ CREATE TABLE `persona` (
   KEY `id_tipo_tercero` (`id_tipo_tercero`),
   CONSTRAINT `persona_ibfk_3` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`),
   CONSTRAINT `persona_ibfk_4` FOREIGN KEY (`id_tipo_tercero`) REFERENCES `tipo_tercero` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `persona` */
 
-insert  into `persona`(`persona_id`,`persona_nombre`,`persona_apepat`,`persona_apemat`,`tipo_contribuyente`,`persona_nrodocumento`,`persona_tipodocumento`,`persona_sexo`,`persona_telefono`,`persona_direccion`,`persona_correo`,`persona_fregistro`,`persona_estatus`,`idempresa`,`id_tipo_tercero`,`estatus`,`fregistro`) values (1,'JERSON','BATISTA','VEGA','Persona Natural','1070813753','CEDULA','MASCULINO','30045454545','el centro','ingjerson@gmail.com','2022-07-13','ACTIVO',1,1,'ACTIVO','2023-03-10 18:56:43'),(2,'PROVEEDOR','DE MOSTRADOR','MOSTRADOR','Persona Natural','000000001','NIT','MASCULINO','011111111','EL CENTRO','info@gmail.com','2022-07-13','ACTIVO',1,2,'ACTIVO','2023-03-10 18:56:46'),(3,'CLIENTE','DE ','MOSTRADOR','Persona Natural','000000000001','CEDULA','MASCULINO','56456456','EL CENTRO','DEPRUEBA@GMAIL.COM','2022-07-13','ACTIVO',1,3,'ACTIVO','2023-03-10 18:57:23'),(4,'AGROPECUARIA','CAÑA ','FLECHA','Persona Juridica','900312662','NIT','MASCULINO','3013794981','EL CARMEN DE BOLIVAR','info2022@gmail.com','2022-08-22','ACTIVO',1,1,'ACTIVO','2023-03-10 18:57:26'),(6,'PRUEBAS','PRUEBA','PRUEBA','Persona Juridica','55646456','CEDULA','MASCULINO','56757','EL CENTRO','jerson564564@gmail.com','2022-11-05','ACTIVO',1,5,'ACTIVO','2023-03-10 18:57:29'),(7,'JUAN','PEDRO','PEDRO','Persona Juridica','465465','CEDULA','','3013794981','EL CARMEN DE BOLIVAR','unitec13213@gmail.com','2022-12-03','ACTIVO',1,3,'ACTIVO','2023-04-24 20:03:58'),(8,'PRUEBAS','PRUEBA','PRUEBA','Persona Juridica','4534534','CEDULA','NULL','56757','MONTE CARMELO','jerson@gmail.com','2022-12-03','ACTIVO',1,3,NULL,'2023-04-24 20:04:02'),(9,'PRUEBAS','PRUEBA','PRUEBA','Persona Natural','675675','NIT','MASCULINO','3013794981','EL CARMEN DE BOLIVAR','jerson2@gmail.com','2023-04-24','ACTIVO',1,1,NULL,'2023-04-24 13:20:31'),(10,'JAMEZ','RODRIGUEZ','UNICARMEN','Persona Natural','56456456','NIT','NULL','3226165766','kra 45','unitec12165662@gmail.com','2023-04-24','ACTIVO',1,NULL,NULL,'2023-04-24 20:21:33');
+insert  into `persona`(`persona_id`,`persona_nombre`,`persona_apepat`,`persona_apemat`,`tipo_contribuyente`,`persona_nrodocumento`,`persona_tipodocumento`,`persona_sexo`,`persona_telefono`,`persona_direccion`,`persona_correo`,`persona_fregistro`,`persona_estatus`,`idempresa`,`id_tipo_tercero`,`estatus`,`fregistro`) values (1,'JERSON','BATISTA','VEGA','Persona Natural','1070813753','CEDULA','MASCULINO','30045454545','el centro','ingjerson@gmail.com','2022-07-13','ACTIVO',1,1,'ACTIVO','2023-03-10 18:56:43'),(2,'PROVEEDOR','DE MOSTRADOR','MOSTRADOR','Persona Natural','000000001','NIT','MASCULINO','011111111','EL CENTRO','info@gmail.com','2022-07-13','ACTIVO',1,2,'ACTIVO','2023-03-10 18:56:46'),(3,'CLIENTE','DE ','MOSTRADOR','Persona Natural','000000000001','CEDULA','MASCULINO','56456456','EL CENTRO','DEPRUEBA@GMAIL.COM','2022-07-13','ACTIVO',1,3,'ACTIVO','2023-03-10 18:57:23'),(4,'AGROPECUARIA','CAÑA ','FLECHA','Persona Juridica','900312662','NIT','MASCULINO','3013794981','EL CARMEN DE BOLIVAR','info2022@gmail.com','2022-08-22','ACTIVO',1,1,'ACTIVO','2023-03-10 18:57:26'),(6,'PRUEBAS','PRUEBA','PRUEBA','Persona Juridica','55646456','CEDULA','MASCULINO','56757','EL CENTRO','jerson564564@gmail.com','2022-11-05','ACTIVO',1,5,'ACTIVO','2023-03-10 18:57:29'),(7,'JUAN','PEDRO','PEDRO','Persona Juridica','465465','CEDULA','','3013794981','EL CARMEN DE BOLIVAR','unitec13213@gmail.com','2022-12-03','ACTIVO',1,3,'ACTIVO','2023-04-24 20:03:58'),(8,'PRUEBAS','PRUEBA','PRUEBA','Persona Juridica','4534534','CEDULA','NULL','56757','MONTE CARMELO','jerson@gmail.com','2022-12-03','ACTIVO',1,3,NULL,'2023-04-24 20:04:02'),(9,'PRUEBAS','PRUEBA','PRUEBA','Persona Natural','675675','NIT','MASCULINO','3013794981','EL CARMEN DE BOLIVAR','jerson2@gmail.com','2023-04-24','ACTIVO',1,1,NULL,'2023-04-24 13:20:31'),(10,'JAMEZ','RODRIGUEZ','UNICARMEN','Persona Natural','56456456','NIT','NULL','3226165766','kra 45','unitec12165662@gmail.com','2023-04-24','ACTIVO',1,NULL,NULL,'2023-04-24 20:21:33'),(11,'UNICARMEN','PRUEBA','PRUEBA','Persona Natural','1','NIT','NULL','3226165766','3423423424234','unitec121212@gmail.com','2023-05-02','ACTIVO',1,NULL,NULL,'2023-05-02 20:28:33'),(12,'JAMEZ','RODRIGUEZ','VEGA','Persona Natural','78678678','NIT','MASCULINO','3226165766','EL CARMEN DE BOLIVAR','jamez@hotmail.com','2023-05-24','ACTIVO',1,1,NULL,'2023-05-24 14:37:21');
 
 /*Table structure for table `prestacionsocial` */
 
@@ -693,6 +702,7 @@ CREATE TABLE `producto` (
   `fregistro` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `idempresa` int(11) DEFAULT NULL,
   PRIMARY KEY (`producto_id`),
+  UNIQUE KEY `codigo` (`producto_codigo`),
   KEY `id_unidad` (`id_unidad`),
   KEY `producto_ibfk_1` (`id_categoria`),
   KEY `id_bodega` (`id_bodega`),
@@ -705,11 +715,11 @@ CREATE TABLE `producto` (
   CONSTRAINT `producto_ibfk_4` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`),
   CONSTRAINT `producto_ibfk_5` FOREIGN KEY (`idTipoProducto`) REFERENCES `tipo_producto` (`id`),
   CONSTRAINT `producto_ibfk_6` FOREIGN KEY (`id_marca`) REFERENCES `marcas` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `producto` */
 
-insert  into `producto`(`producto_id`,`producto_codigo`,`producto_nombre`,`producto_presentacion`,`id_bodega`,`cant_minima`,`producto_stock`,`id_categoria`,`id_unidad`,`idTipoProducto`,`id_marca`,`producto_foto`,`compra`,`producto_precioventa`,`producto_estatus`,`fregistro`,`idempresa`) values (1,'9789588464466','AMALIA JOSE MARMOL(1)','ADITORIAL ATENEA',1,'1','1',2,1,1,1,'controlador/productos/img/default.png',3000.00,4500.00,'ACTIVO','2023-04-13 15:39:39',1),(2,'9789589761694','ALICIA EN EL PAIS DE LAS MARAVILLAS(2)','ATENEA',1,'1','1',2,1,1,1,'controlador/productos/img/default.png',3000.00,4500.00,'ACTIVO','2022-12-01 20:42:37',1),(3,'9789587230321','APOLOGIA DESOCRATES(3)','SKLA EDITORIAL',1,'1','0',2,1,1,1,'controlador/productos/img/default.png',4000.00,5000.00,'ACTIVO','2023-01-03 18:56:44',1),(4,'9789589825785','AZUL RUBEN DARIO(4)','ATENEA',1,'1','6',2,1,1,1,'controlador/productos/img/default.png',3000.00,4000.00,'ACTIVO','2023-04-27 08:57:19',1),(5,'9789585783010','BAJO LA MISMA ESTRELLA(5)','NUBE DE TINTA',1,'1','3',2,1,1,1,'controlador/productos/img/default.png',14000.00,17000.00,'ACTIVO','2022-12-01 20:42:47',1),(6,'9789588464282','BODAS DE SANGRE(6)','ATENEA',1,'1','7',2,1,1,1,'controlador/productos/img/default.png',3000.00,4000.00,'ACTIVO','2022-12-01 20:42:50',1),(7,'7707187092929','CARTA AL PADRE(7)','UNION',1,'1','9',2,1,1,1,'controlador/productos/img/default.png',3000.00,4000.00,'ACTIVO','2022-12-01 20:42:52',1),(8,'00003','COPIAS BLANCO Y NEGRO','COPIAS',1,'10','388',4,1,1,1,'controlador/productos/img/default.png',100.00,300.00,'ACTIVO','2023-03-24 13:23:01',1),(9,'0004','IMPRESIONES BLANCO Y NEGRO','NEGRO',1,'10','428',4,1,1,1,'controlador/productos/img/default.png',400.00,600.00,'ACTIVO','2023-03-24 13:23:01',1),(10,'0006','IMPRESIONES A COLOR','GEN',1,'10','500',4,1,1,NULL,'controlador/productos/img/default.png',300.00,1500.00,'ACTIVO','2022-09-26 13:19:40',1),(11,'7700394','LIBRETA DE 100 HOJAS','FAMA',1,'1','4',3,1,1,NULL,'controlador/productos/img/default.png',2000.00,3000.00,'ACTIVO','2023-01-22 11:31:48',1),(12,'4534','pruebas','general',1,'1','5',1,1,1,1,'controlador/productos/img/default.png',5.00,55.00,'ACTIVO','2023-03-31 19:36:58',1);
+insert  into `producto`(`producto_id`,`producto_codigo`,`producto_nombre`,`producto_presentacion`,`id_bodega`,`cant_minima`,`producto_stock`,`id_categoria`,`id_unidad`,`idTipoProducto`,`id_marca`,`producto_foto`,`compra`,`producto_precioventa`,`producto_estatus`,`fregistro`,`idempresa`) values (1,'9789588464466','AMALIA JOSE MARMOL(1)','ADITORIAL ATENEA',1,'1','1',2,1,1,1,'controlador/productos/img/default.png',3000.00,4500.00,'ACTIVO','2023-05-21 13:34:35',1),(2,'9789589761694','ALICIA EN EL PAIS DE LAS MARAVILLAS(2)','ATENEA',1,'1','0',2,1,1,1,'controlador/productos/img/default.png',3000.00,4500.00,'ACTIVO','2023-05-24 14:38:17',1),(3,'9789587230321','APOLOGIA DESOCRATES(3)','SKLA EDITORIAL',1,'1','0',2,1,1,1,'controlador/productos/img/default.png',4000.00,5000.00,'ACTIVO','2023-05-21 13:34:53',1),(4,'9789589825785','AZUL RUBEN DARIO(4)','ATENEA',1,'1','6',2,1,1,1,'controlador/productos/img/default.png',3000.00,4000.00,'ACTIVO','2023-05-21 13:34:57',1),(5,'9789585783010','BAJO LA MISMA ESTRELLA(5)','NUBE DE TINTA',1,'1','3',2,1,1,1,'controlador/productos/img/default.png',14000.00,17000.00,'ACTIVO','2023-05-21 13:35:05',1),(6,'9789588464282','BODAS DE SANGRE(6)','ATENEA',1,'1','7',2,1,1,1,'controlador/productos/img/default.png',3000.00,4000.00,'ACTIVO','2023-05-21 13:35:08',1),(7,'7707187092929','CARTA AL PADRE(7)','UNION',1,'1','9',2,1,1,1,'controlador/productos/img/default.png',3000.00,4000.00,'ACTIVO','2023-05-21 13:35:11',1),(8,'00003','COPIAS BLANCO Y NEGRO','COPIAS',1,'10','351',4,1,1,1,'controlador/productos/img/default.png',100.00,300.00,'ACTIVO','2023-05-24 11:59:56',1),(9,'0004','IMPRESIONES BLANCO Y NEGRO','NEGRO',1,'10','383',4,1,1,1,'controlador/productos/img/default.png',400.00,600.00,'ACTIVO','2023-05-24 11:59:55',1),(10,'0006','IMPRESIONES A COLOR','GEN',1,'10','499',4,1,1,NULL,'controlador/productos/img/default.png',300.00,1500.00,'ACTIVO','2023-05-22 13:48:56',1),(11,'7700394','LIBRETA DE 100 HOJAS','FAMA',1,'1','4',3,1,1,NULL,'controlador/productos/img/default.png',2000.00,3000.00,'ACTIVO','2023-05-21 13:35:25',1),(12,'4534','pruebas','general',1,'1','5',1,1,1,1,'controlador/productos/img/default.png',5.00,55.00,'ACTIVO','2023-05-21 13:35:31',1),(13,'10003','CARTULINAS','general',1,'10','4',3,1,1,2,'controlador/productos/img/default.png',1500.00,1800.00,'ACTIVO','2023-05-21 13:35:34',1),(14,'1000004','DULCES  TRULULU','general',1,'1','5',6,1,1,2,'controlador/productos/img/default.png',100.00,200.00,'ACTIVO','2023-05-21 13:35:37',1),(15,'1000002','1/8 CARTULINA BLANCO','general',1,'5','9',3,1,1,2,'controlador/productos/img/default.png',400.00,500.00,'ACTIVO','2023-05-22 13:48:57',1),(16,'7707294371795','CUADERNO COSIDO DE 100 HOJAS RAYADO','FAMA',1,'1','2',3,1,1,2,'controlador/productos/img/default.png',2500.00,3500.00,'ACTIVO','2023-05-23 13:26:38',1);
 
 /*Table structure for table `proveedor` */
 
@@ -731,11 +741,11 @@ CREATE TABLE `proveedor` (
   CONSTRAINT `proveedor_ibfk_1` FOREIGN KEY (`persona_id`) REFERENCES `persona` (`persona_id`),
   CONSTRAINT `proveedor_ibfk_2` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`),
   CONSTRAINT `proveedor_ibfk_3` FOREIGN KEY (`idciudad`) REFERENCES `ciudades` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `proveedor` */
 
-insert  into `proveedor`(`proveedor_id`,`proveedor_fregistro`,`proveedor_num_contacto`,`proveedor_estatus`,`persona_id`,`proveedor_razon_social`,`idciudad`,`idempresa`) values (1,'2022-07-13','000001','ACTIVO',2,'MOSTRADOR ',1,1),(2,'2023-04-24','67567567','ACTIVO',9,'probando ando ANDO',1,1);
+insert  into `proveedor`(`proveedor_id`,`proveedor_fregistro`,`proveedor_num_contacto`,`proveedor_estatus`,`persona_id`,`proveedor_razon_social`,`idciudad`,`idempresa`) values (1,'2022-07-13','000001','ACTIVO',2,'MOSTRADOR ',1,1),(2,'2023-04-24','67567567','ACTIVO',9,'probando ando ANDO',1,1),(3,'2023-05-24','45435345','ACTIVO',12,'JAMEZ PROBANDO',2,1);
 
 /*Table structure for table `registrohe` */
 
@@ -825,6 +835,20 @@ CREATE TABLE `salida` (
 
 /*Data for the table `salida` */
 
+/*Table structure for table `tipo_contrato` */
+
+DROP TABLE IF EXISTS `tipo_contrato`;
+
+CREATE TABLE `tipo_contrato` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `descripcion` varchar(512) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `fregistro` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `estatus` enum('ACTIVO','INACTIVO') COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `tipo_contrato` */
+
 /*Table structure for table `tipo_gasto` */
 
 DROP TABLE IF EXISTS `tipo_gasto`;
@@ -838,9 +862,11 @@ CREATE TABLE `tipo_gasto` (
   PRIMARY KEY (`id`),
   KEY `idempresa` (`idempresa`),
   CONSTRAINT `tipo_gasto_ibfk_1` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `tipo_gasto` */
+
+insert  into `tipo_gasto`(`id`,`descripcion`,`fregistro`,`estatus`,`idempresa`) values (2,'PAGO SERVICIOS','2023-05-08 16:52:32','ACTIVO',1),(3,'SERVICIO DE ENERGIA','2023-05-23 11:19:34','ACTIVO',1);
 
 /*Table structure for table `tipo_producto` */
 
@@ -860,6 +886,22 @@ CREATE TABLE `tipo_producto` (
 /*Data for the table `tipo_producto` */
 
 insert  into `tipo_producto`(`id`,`tipo_producto`,`estatus`,`fregistro`,`idEmpresa`) values (1,'PRODUCTO','ACTIVO','2022-07-13 15:56:42',1),(2,'CONSUMO','ACTIVO','2022-07-13 15:56:49',1),(3,'COMBO','ACTIVO','2022-07-13 15:56:57',1);
+
+/*Table structure for table `tipo_regimen` */
+
+DROP TABLE IF EXISTS `tipo_regimen`;
+
+CREATE TABLE `tipo_regimen` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `descripcion` varchar(512) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `estatus` enum('ACTIVO','INACTIVO') COLLATE utf8_unicode_ci DEFAULT NULL,
+  `fregistro` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `tipo_regimen` */
+
+insert  into `tipo_regimen`(`id`,`descripcion`,`estatus`,`fregistro`) values (1,'Simplificado','ACTIVO','2023-05-08 16:49:07'),(2,'Comun','ACTIVO','2023-05-08 16:49:13'),(3,'Otro','ACTIVO','2023-05-08 16:49:21');
 
 /*Table structure for table `tipo_tercero` */
 
@@ -1016,11 +1058,11 @@ CREATE TABLE `venta` (
   CONSTRAINT `venta_ibfk_3` FOREIGN KEY (`bodega_id`) REFERENCES `bodega` (`id`),
   CONSTRAINT `venta_ibfk_4` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`),
   CONSTRAINT `venta_ibfk_5` FOREIGN KEY (`idcaja`) REFERENCES `caja` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `venta` */
 
-insert  into `venta`(`venta_id`,`cliente_id`,`bodega_id`,`usuario_id`,`venta_tipocomprobante`,`venta_serie`,`venta_numcomprobante`,`tipo_pago`,`venta_fecha`,`venta_impuesto`,`venta_total`,`venta_estatus`,`venta_porcentaje`,`venta_total_dcto`,`fecha_vencimiento`,`idempresa`,`idcaja`) values (1,1,1,1,'TICKET','FV',NULL,'CONTADO','2022-07-31',0.00,17000.00,'REGISTRADA',0.00,0.00,'2022-07-30',1,1),(2,2,1,1,'FACTURA','FV',NULL,'CONTADO','2022-08-22',0.00,3600.00,'REGISTRADA',0.00,0.00,'2022-08-22',1,1),(3,1,1,1,'TICKET','FV',NULL,'CONTADO','2022-09-22',0.00,4500.00,'REGISTRADA',0.00,0.00,'0000-00-00',1,1),(4,1,1,1,'FACTURA','FV',NULL,'CONTADO','2022-09-22',0.00,4000.00,'REGISTRADA',0.00,0.00,'0000-00-00',1,1),(5,2,1,1,'FACTURA','FV',NULL,'CONTADO','2022-09-26',0.00,6000.00,'REGISTRADA',0.00,0.00,'2022-09-26',1,1),(6,2,1,1,'TICKET','FV',NULL,'CREDITO','2022-11-02',0.00,15000.00,'CANCELADA',0.00,0.00,'0000-00-00',1,1),(7,1,1,1,'TICKET','FV',NULL,'CONTADO','2022-11-05',0.00,4000.00,'REGISTRADA',0.00,0.00,'2022-11-05',1,1),(8,1,1,1,'TICKET','FV',NULL,'CONTADO','2022-11-16',0.00,4500.00,'REGISTRADA',0.00,0.00,'0000-00-00',1,1),(9,2,1,1,'TICKET','FV',NULL,'CONTADO','2022-11-21',0.00,16000.00,'REGISTRADA',0.00,0.00,'2022-11-21',1,1),(10,2,1,1,'TICKET','FV',NULL,'CONTADO','2022-12-09',0.00,6300.00,'REGISTRADA',0.00,0.00,'2022-12-09',1,1),(11,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-01-03',0.00,5000.00,'REGISTRADA',0.00,0.00,'0000-00-00',1,1),(12,1,1,1,'FACTURA','FV',NULL,'CONTADO','2023-01-03',0.00,7840.00,'REGISTRADA',0.00,160.00,'2023-01-03',1,1),(13,2,1,1,'COTIZACION','FV',NULL,'CONTADO','2023-01-22',0.00,600.00,'REGISTRADA',0.00,0.00,'0000-00-00',1,1),(14,2,1,1,'FACTURA','FV',NULL,'CONTADO','2023-01-22',0.00,10500.00,'REGISTRADA',0.00,0.00,'0000-00-00',1,1),(15,2,1,1,'TICKET','FV',NULL,'CONTADO','2023-03-24',0.00,30000.00,'REGISTRADA',0.00,0.00,'2023-03-24',1,1),(16,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-04-13',0.00,4500.00,'REGISTRADA',0.00,0.00,'2023-04-13',1,1),(17,1,1,1,'FACTURA','FV',NULL,'CONTADO','2023-04-13',0.00,4000.00,'REGISTRADA',0.00,0.00,'0000-00-00',1,1),(18,1,1,1,'FACTURA','FV',NULL,'CONTADO','2023-04-27',0.00,4000.00,'REGISTRADA',0.00,0.00,'0000-00-00',1,1);
+insert  into `venta`(`venta_id`,`cliente_id`,`bodega_id`,`usuario_id`,`venta_tipocomprobante`,`venta_serie`,`venta_numcomprobante`,`tipo_pago`,`venta_fecha`,`venta_impuesto`,`venta_total`,`venta_estatus`,`venta_porcentaje`,`venta_total_dcto`,`fecha_vencimiento`,`idempresa`,`idcaja`) values (1,1,1,1,'TICKET','FV',NULL,'CONTADO','2022-07-31',0.00,17000.00,'REGISTRADA',0.00,0.00,'2022-07-30',1,1),(2,2,1,1,'FACTURA','FV',NULL,'CONTADO','2022-08-22',0.00,3600.00,'REGISTRADA',0.00,0.00,'2022-08-22',1,1),(3,1,1,1,'TICKET','FV',NULL,'CONTADO','2022-09-22',0.00,4500.00,'REGISTRADA',0.00,0.00,'0000-00-00',1,1),(4,1,1,1,'FACTURA','FV',NULL,'CONTADO','2022-09-22',0.00,4000.00,'REGISTRADA',0.00,0.00,'0000-00-00',1,1),(5,2,1,1,'FACTURA','FV',NULL,'CONTADO','2022-09-26',0.00,6000.00,'REGISTRADA',0.00,0.00,'2022-09-26',1,1),(6,2,1,1,'TICKET','FV',NULL,'CREDITO','2022-11-02',0.00,15000.00,'CANCELADA',0.00,0.00,'0000-00-00',1,1),(7,1,1,1,'TICKET','FV',NULL,'CONTADO','2022-11-05',0.00,4000.00,'REGISTRADA',0.00,0.00,'2022-11-05',1,1),(8,1,1,1,'TICKET','FV',NULL,'CONTADO','2022-11-16',0.00,4500.00,'REGISTRADA',0.00,0.00,'0000-00-00',1,1),(9,2,1,1,'TICKET','FV',NULL,'CONTADO','2022-11-21',0.00,16000.00,'REGISTRADA',0.00,0.00,'2022-11-21',1,1),(10,2,1,1,'TICKET','FV',NULL,'CONTADO','2022-12-09',0.00,6300.00,'REGISTRADA',0.00,0.00,'2022-12-09',1,1),(11,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-01-03',0.00,5000.00,'REGISTRADA',0.00,0.00,'0000-00-00',1,1),(12,1,1,1,'FACTURA','FV',NULL,'CONTADO','2023-01-03',0.00,7840.00,'REGISTRADA',0.00,160.00,'2023-01-03',1,1),(13,2,1,1,'COTIZACION','FV',NULL,'CONTADO','2023-01-22',0.00,600.00,'REGISTRADA',0.00,0.00,'0000-00-00',1,1),(14,2,1,1,'FACTURA','FV',NULL,'CONTADO','2023-01-22',0.00,10500.00,'REGISTRADA',0.00,0.00,'0000-00-00',1,1),(15,2,1,1,'TICKET','FV',NULL,'CONTADO','2023-03-24',0.00,30000.00,'REGISTRADA',0.00,0.00,'2023-03-24',1,1),(16,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-04-13',0.00,4500.00,'REGISTRADA',0.00,0.00,'2023-04-13',1,1),(17,1,1,1,'FACTURA','FV',NULL,'CONTADO','2023-04-13',0.00,4000.00,'REGISTRADA',0.00,0.00,'0000-00-00',1,1),(18,1,1,1,'FACTURA','FV',NULL,'CONTADO','2023-04-27',0.00,4000.00,'REGISTRADA',0.00,0.00,'0000-00-00',1,1),(19,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-05-18',0.00,3000.00,'REGISTRADA',0.00,0.00,'2023-05-18',1,1),(20,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-05-18',0.00,4200.00,'REGISTRADA',0.00,0.00,'2023-05-18',1,1),(21,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-05-18',0.00,2100.00,'REGISTRADA',0.00,0.00,'2023-05-18',1,1),(22,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-05-18',0.00,600.00,'REGISTRADA',0.00,0.00,'2023-05-18',1,1),(23,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-05-18',0.00,1800.00,'REGISTRADA',0.00,0.00,'0000-00-00',1,1),(24,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-05-18',0.00,1000.00,'REGISTRADA',0.00,0.00,'2023-05-18',1,1),(25,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-05-22',0.00,1500.00,'REGISTRADA',0.00,0.00,'2023-05-22',1,1),(26,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-05-22',0.00,4800.00,'REGISTRADA',0.00,0.00,'2023-05-22',1,1),(27,1,1,1,'COTIZACION','FV',NULL,'CONTADO','2023-05-22',0.00,3600.00,'REGISTRADA',0.00,0.00,'0000-00-00',1,1),(28,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-05-23',0.00,3500.00,'REGISTRADA',0.00,0.00,'2023-05-23',1,1),(29,2,1,1,'TICKET','FV',NULL,'CONTADO','2023-05-23',0.00,1800.00,'REGISTRADA',0.00,0.00,'0000-00-00',1,1),(30,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-05-23',0.00,3500.00,'REGISTRADA',0.00,0.00,'2023-05-23',1,1),(31,1,1,1,'COTIZACION','FV',NULL,'CONTADO','2023-05-23',0.00,600.00,'REGISTRADA',0.00,0.00,'0000-00-00',1,1),(32,1,1,1,'COTIZACION','FV',NULL,'CONTADO','2023-05-23',0.00,6500.00,'REGISTRADA',0.00,0.00,'2023-05-23',1,1),(33,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-05-23',0.00,900.00,'REGISTRADA',0.00,0.00,'2023-05-23',1,1),(34,1,1,1,'COTIZACION','FV',NULL,'CONTADO','2023-05-23',0.00,3600.00,'REGISTRADA',0.00,0.00,'2023-05-23',1,1),(35,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-05-23',0.00,1200.00,'REGISTRADA',0.00,0.00,'2023-05-23',1,1),(36,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-05-23',0.00,3600.00,'REGISTRADA',0.00,0.00,'2023-05-23',1,1),(37,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-05-24',0.00,5100.00,'REGISTRADA',0.00,0.00,'2023-05-24',1,1),(38,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-05-24',0.00,4500.00,'REGISTRADA',0.00,0.00,'0000-00-00',1,1);
 
 /* Trigger structure for table `detalle_compra` */
 
