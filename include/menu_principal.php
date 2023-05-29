@@ -26,11 +26,6 @@
                                     <span class="nav-label"><i class="fa   fa-outdent"></i> EMPRESA</span></a>
 
                             </li>
-                             <li>
-                                <a href="javascript:cargar_contenido('contenido_principal','configuracion/vista_arl.php')">
-                                    <span class="nav-label"><i class="fa   fa-outdent"></i> ARL</span></a>
-
-                            </li>
 
 
 
@@ -79,7 +74,6 @@
                              <li>
                                 <a href="javascript:cargar_contenido('contenido_principal','bodegas/mantenimiento_bodegas.php')">
                                     <span class="nav-label"><i class="fa   fa-outdent"></i> Bodegas</span></a>
-
                             </li>
                             <li>
                             <a href="javascript:cargar_contenido('contenido_principal','medida/mantenimiento_unidad.php')">
@@ -94,28 +88,18 @@
                               <li>
                                 <a href="javascript:cargar_contenido('contenido_principal','tipo_producto/vista_tipo_producto.php')">
                                     <span class="nav-label"><i class="fa   fa-outdent"></i> Tipo Producto</span></a>
-
                             </li>
 
                             <li>
                                 <a href="javascript:cargar_contenido('contenido_principal','marcas/vista_marcas.php')">
                                     <span class="nav-label"><i class="fa   fa-outdent"></i> Marcas</span></a>
-
                             </li>
-
-
                             <li>
                             <a href="javascript:cargar_contenido('contenido_principal','productos/vista_mantenimiento_productos.php')">
                                 <span class="nav-label"><i class="fa   fa-th-list"></i> Productos</span></a>
                             </li>
-
-
-
                         </ul>
                     </li>
-
-
-
                     <li>
                         <a href="javascript:;"><i class="sidebar-item-icon fa fa-edit"></i>
                             <span class="nav-label">Ingresos</span><i class="fa fa-angle-left arrow"></i></a>
@@ -142,9 +126,6 @@
                            -->
                         </ul>
                     </li>
-
-
-
                     <li>
                         <a href="javascript:;"><i class="sidebar-item-icon fa fa-edit"></i>
                             <span class="nav-label">Salidas</span><i class="fa fa-angle-left arrow"></i></a>
@@ -170,10 +151,6 @@
                         <a href="javascript:cargar_contenido('contenido_principal','cuentas/abono_clientes.php')">
                             <span class="nav-label"><i class="fa   fa-list-ol"></i> Abono Clientes</span></a>
                         </li>
-
-
-
-
                         </ul>
                     </li>
 
@@ -207,6 +184,12 @@
                         <a href="javascript:;"><i class="sidebar-item-icon fa fa-edit"></i>
                             <span class="nav-label">Nomina</span><i class="fa fa-angle-left arrow"></i></a>
                         <ul class="nav-2-level collapse">
+                                     <li>
+                                <a href="javascript:cargar_contenido('contenido_principal','configuracion/vista_arl.php')">
+                                    <span class="nav-label"><i class="fa   fa-outdent"></i> ARL</span></a>
+
+                            </li>
+
                         <li>
                             <a href="javascript:cargar_contenido('contenido_principal','configuracion/vista_eps.php')">
                                 <span class="nav-label"><i class="fa   fa-list-ol"></i> EPS</span></a>

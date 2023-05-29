@@ -107,12 +107,12 @@ function listar_cliente(){
                        cadena+="<option value='"+data[i][0]+"'>"+data[i][1]+"</option>";
                    }
                    $('#cmb_ciudad_ingreso').html(cadena);
-               //  $('#cmb_categoria_editar').html(cadena);
+                  $('#cmb_ciudad_empresa').html(cadena);
                //  $('#cmb_categoria_producto').html(cadena);
                } else {
                    cadena+="<option value=''> No Hay datos</option>";
                    $('#cmb_ciudad_ingreso').html(cadena);
-                 //  $('#cmb_categoria_editar').html(cadena);
+                   $('#cmb_ciudad_empresa').html(cadena);
                  //  $('#cmb_categoria_producto').html(cadena);
                }
             })

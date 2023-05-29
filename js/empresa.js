@@ -87,8 +87,8 @@ var idempresa =$("#txt_idempresa").val();
         $("#txt_direccion").val(data.Direccion);
         $("#txt_telefono").val(data.Telefono);
         $("#txt_correo").val(data.Correo);
-        //$("#cmb_persona_editar").val(data.persona_id).trigger("change");
-       // $("#cmb_estatus_editar").val(data.usuario_estatus).trigger("change");
+        $("#cmb_ciudad_empresa").val(data.idCiudad).trigger("change");
+        $("#cmb_tipo_regimen").val(data.id_tipo_regimen).trigger("change");
 
     });
 
@@ -172,6 +172,38 @@ var idempresa =$("#txt_idempresa").val();
         $('#modal_registro').modal('show');
     }
 
+/*combo regimen*/
+function listar_combo_tipo_regimen() {
+    var idempresa =$("#txt_idempresa").val();
+       $.ajax({
+           url:"../controlador/configuracion/control_combo_tipo_regimen.php",
+            type:'GET',
+            // data:{
+            //    idempresa:idempresa
+            // }
+       }).done(function(resp){
+       //alert(resp);
+           var data = JSON.parse(resp);
+           //console.log(resp);
+          var cadena ="<option value=''>Seleccione...</option>";
+           if(data.length>0) {
+               for (var i = 0; i < data.length; i++) {
+                   cadena+="<option value='"+data[i][0]+"'>"+data[i][1]+"</option>";
+               }
+               $('#cmb_tipo_regimen').html(cadena);
+             // $('#cmb_ciudad_empresa').html(cadena);
+           //  $('#cmb_categoria_producto').html(cadena);
+           } else {
+               cadena+="<option value=''> No Hay datos</option>";
+               $('#cmb_tipo_regimen').html(cadena);
+              // $('#cmb_ciudad_empresa').html(cadena);
+             //  $('#cmb_categoria_producto').html(cadena);
+           }
+        })
+   }
+
+
+
 
 function Editar_Foto_Empresa() {
 
@@ -217,5 +249,51 @@ function Editar_Foto_Empresa() {
 
 
 function Modificar_Empresa() {
-    
+    var id_empresa= $('#txt_idempresa').val();
+    var nombre =$('#txt_nombre_editar').val();
+    var apepat =$('#txt_apepat_editar').val();
+    var apemat =$('#txt_apemat_editar').val();
+    var numero_actual =$('#txt_numero_actual_editar').val();
+    var numero_nuevo =$('#txt_numero_nuevo_editar').val();
+    var tipo_doc =$('#cmb_tipodocumento_editar').val();
+    var sexo =$('#cmb_sexo_editar').val();
+    var telefono =$('#txt_telefono_editar').val();
+    var direccion =$('#txt_direccion_editar').val();
+    var correo =$('#txt_correo_editar').val();
+    var estatus =$('#cmb_estatus_editar').val();
+     if(nombre.length ==0 || apepat.length == 0 || apemat.length ==0 || 
+      numero_nuevo.length ==0    || tipo_doc.length ==0) {
+      return Swal.fire('Mensaje de error','Debe digitar los campos vacios','warning');
+    }
+    $.ajax({
+      url:'../controlador/persona/controlador_modificar_persona.php',
+      type:'POST',
+      data:{
+        id_persona:id_persona,  nombre:nombre, apepat:apepat, apemat:apemat,
+        numero_actual:numero_actual, numero_nuevo:numero_nuevo, tipo_doc:tipo_doc,
+        sexo:sexo, telefono:telefono,  direccion:direccion, 
+        correo:correo,  estatus:estatus
+      }
+    }).done(function(resp){
+   
+      if(resp > 0) {
+            if(resp==1) {
+                $('#modal_editar').modal('hide');
+                Swal.fire("Mensaje  de confirmaciòn","Persona editado exitosamente",
+                    "success")
+                .then((value)=>{
+                    listar_persona();
+               // LimpiarCampos();
+               t_persona.ajax.reload();
+                
+                });
+            } else {
+               // LimpiarCampos();
+                return Swal.fire('Mensaje de error', 'Documento ya existe en el sistema, utilice otro', 'warning'
+                  );
+            }
+        }else {
+            return Swal.fire('Mensaje de error','Persona no insertado','warning');
+        }
+    })
 }

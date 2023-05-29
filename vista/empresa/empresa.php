@@ -34,7 +34,7 @@
         </div>
     </div>
 </div>
-
+<!--
 <div class="modal fade" id="modal_registro" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -126,7 +126,7 @@
   </div>
 </div>
 
-<!-- Modal registro -->
+ Modal registro -->
 <div class="modal fade" id="modal_editar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
@@ -139,12 +139,13 @@
       <div class="modal-body">
     <form method="POST" action="#"  enctype="multipart/form-data" onsubmit="return false">
       	<div class="row">
-      	<div class="col-lg-8">
+        <input type="text" id="txt_idempresa" >
+      	<div class="col-lg-6">
 
       	   <label for=""><b>Nit</b> </label>
            <input type="text" id="txt_NIT" class="form-control" placeholder="nit" > <br>
       	</div>
-        <div class="col-lg-8">
+        <div class="col-lg-6">
 
            <label for=""><b>Nombre</b> </label>
            <input type="text" id="txt_nombre" class="form-control" placeholder="Nombre empresa" > <br>
@@ -169,7 +170,17 @@
            <label for="" id="emailOk" style="color:red;"></label>
             <input type="text" id="validar_email" hidden="">
         </div>
+        <div class="col-lg-6">
+            <label for=""><b>Ciudad</b> </label>
+                <select class="js-example-basic-single" name="state" style="width: 100%;" id="cmb_ciudad_empresa">
+                </select> <br> <br>
+          </div>
+          <div class="col-lg-6">
+      	   <label for=""><b>Tipo Regimen</b> </label>
+            <select class="js-example-basic-single" name="state" style="width: 100%;" id="cmb_tipo_regimen">
 
+             </select>
+      	</div>
 
 	   <div class="col-lg-10">
         <label for="">Subir Imagen</label>
@@ -200,14 +211,13 @@
 
 
 
-
-
 <script type="text/javascript" src="../js/empresa.js?rev=<?php echo time(); ?>"></script>
 <script type="text/javascript" src="../js/cliente.js"></script>
 <script>
 $(document).ready(function() {
   listar_empresa();
   listar_combo_ciudad();
+  listar_combo_tipo_regimen();
   $('.js-example-basic-single').select2();
 });
 

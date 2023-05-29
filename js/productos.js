@@ -269,7 +269,7 @@ function listar_productos(){
     }
 
 
-function listar_combo_unidad() {
+    function listar_combo_unidad() {
     var idempresa =$("#txt_idempresa").val();
         $.ajax({
             url:"../controlador/unidad_medida/control_listar_combo_unidad.php",
