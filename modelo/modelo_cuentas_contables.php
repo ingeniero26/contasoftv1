@@ -4,32 +4,23 @@ class Modelo_Cuentas_Contable
 {
     private $conexion;
 
-
-    function __construct()
+    public function __construct()
     {
         require_once 'modelo_conexion.php';
         $this->conexion = new conexion();
         $this->conexion->conectar();
     }
 
-
-    function listar_cuentas_contables($idempresa)
+    public function listar_cuentas_contables($idempresa)
     {
         $sql = "SELECT
-        `id`
-        , `idEmpresa`
-        , `codigo`
-        , `concepto_nit`
-        , `nombre`
-        , `tipo`
-        , `usa_bancos`
-        , `usa_base`
-        , `usa_centros`
-        , `usa_nit`
-        , `usa_anticipo`
-        , `categoria`
-        , `clase`
-        , `nivel`
+        `id`        , `idEmpresa`
+        , `codigo`        , `concepto_nit`
+        , `nombre`        , `tipo`
+        , `usa_bancos`        , `usa_base`
+        , `usa_centros`        , `usa_nit`
+        , `usa_anticipo`        , `categoria`
+        , `clase`        , `nivel`
         , `fregistro`
         , `estatus`
     FROM
@@ -43,5 +34,20 @@ class Modelo_Cuentas_Contable
             return $arreglo;
             $this->conexion->cerrar();
         }
+    }
+    public function Registrar_Cuenta_Contable($idempresa, $cod_cuenta, $cuenta_nit, $nombre_cuenta,
+        $tipo_cuenta, $usa_banco, $usa_base, $usa_centro, $usa_nit, $usa_anticipo,
+        $categoria, $clase, $nivel, ) {
+        $sql = "call  SP_REGISTRAR_CUENTA_CONTABLE('$idempresa','$cod_cuenta','$cuenta_nit',
+            '$nombre_cuenta','$tipo_cuenta','$usa_banco','$usa_base',
+            '$usa_centro','$usa_nit','$usa_anticipo','$categoria','$clase','$nivel')";
+        if ($consulta = $this->conexion->conexion->query($sql)) {
+            if ($row = mysqli_fetch_array($consulta)) {
+                return $id = trim($row[0]);
+            }
+            $arreglo;
+            $this->conexion->cerrar();
+        }
+
     }
 }
