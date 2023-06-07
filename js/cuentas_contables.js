@@ -163,10 +163,23 @@ function AbrirModalRegistro() {
   $("#modal_registro").modal("show");
 }
 
-function Registrar_Categoria() {
-  var categoria = $("#txt_nombre_categoria").val();
+function Registrar_Cuenta() {
   var idempresa = $("#txt_idempresa").val();
-  if (categoria.length == 0) {
+  var cod_cuenta = $("#txt_codigo").val();
+  var cuenta_nit = $("#txt_nit_cuenta").val();
+  var nombre_cuenta = $("#txt_nombre_cuenta").val();
+  var tipo_cuenta = $("#txt_tipo").val();
+  var usa_banco = $("#cmb_usa_banco").val();
+  var usa_base = $("#cmb_usa_base").val();
+  var usa_centro = $("#cmb_usa_centro").val();
+  var usa_nit = $("#cmb_usa_nit").val();
+  var usa_anticipo = $("#cmb_usa_anticipo").val();
+  var categoria = $("#txt_categoria").val();
+  var clase = $("#txt_clase").val();
+  var nivel = $("#txt_nivel").val();
+  //var usa_deposito = $("#cmb_usa_deposito").val();
+  
+  if (cod_cuenta.length == 0) {
     return Swal.fire(
       "Mensaje de error",
       "Digite los campos estan vacios",
@@ -174,11 +187,23 @@ function Registrar_Categoria() {
     );
   }
   $.ajax({
-    url: "../controlador/categoria/control_categoria_registro.php",
+    url: "../controlador/cuentas_contables/control_cuentas_contables_registro.php",
     type: "POST",
     data: {
-      categoria: categoria,
-      idempresa: idempresa,
+        idempresa: idempresa,
+        cod_cuenta: cod_cuenta,
+      cuenta_nit:cuenta_nit,
+      nombre_cuenta:nombre_cuenta,
+      tipo_cuenta:tipo_cuenta,
+      usa_banco:usa_banco,
+      usa_base:usa_base,
+      usa_centro:usa_centro,
+      usa_nit:usa_nit,
+      usa_anticipo:usa_anticipo,
+      categoria:categoria,
+      clase:clase,
+      nivel:nivel
+    
     },
   }).done(function (resp) {
     if (resp > 0) {
@@ -186,10 +211,10 @@ function Registrar_Categoria() {
         $("#modal_registro").modal("hide");
         Swal.fire(
           "Mensaje  de confirmaciòn",
-          "Categoria registrada exitosamente",
+          "Cuenta registrada exitosamente",
           "success"
         ).then((value) => {
-          listar_categoria();
+          listar_cuentas_contables();
           LimpiarCampos();
           t_cuentas_contables.ajax.reload();
         });
@@ -197,12 +222,12 @@ function Registrar_Categoria() {
         // LimpiarCampos();
         return Swal.fire(
           "Mensaje de error",
-          "Categoria ya existe en el sistema, utilice otro",
+          "Cuenta ya existe en el sistema, utilice otro",
           "warning"
         );
       }
     } else {
-      return Swal.fire("Mensaje de error", "Categoria no insertada", "warning");
+      return Swal.fire("Mensaje de error", "Cuenta no insertada", "warning");
     }
   });
 }

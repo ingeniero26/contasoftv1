@@ -61,55 +61,77 @@
         </div>
         <div class="col-6">
           <label for="">Concepto NIT</label>
-          <input type="text" id="txt_cnit" class="form-control" placeholder="Concepto">
+          <input type="text" id="txt_nit_cuenta" class="form-control" placeholder="Concepto">
         </div>
         <div class="col-6">
           <label for="">Nombre</label>
-          <input type="text" id="txt_nombre" class="form-control" placeholder="Nombre">
+          <input type="text" id="txt_nombre_cuenta" class="form-control" placeholder="Nombre">
+        </div>
+        <div class="col-6">
+        <label for="">Tipo</label>
+          <input type="text" id="txt_tipo" class="form-control" placeholder="Tipo">
         </div>
         <div class="col-6">
         <label for=""><b>Usa Bancos</b> </label>
           <select class="js-example-basic-single" name="state"
-              style="width: 100%;" id="cmb_estado">
+              style="width: 100%;" id="cmb_usa_banco">
                   <option value="1">Si</option>
-
-                    <option value="0">No</option>
+                  <option value="0">No</option>
             </select> <br> <br>
-          <label for="">Tipo</label>
-          <input type="text" id="txt_nombre" class="form-control" placeholder="Nombre">
-        </div>
-        <div class="col-lg-6">
-          <label for="">Bancos</label>
-          <input type="text" id="txt_nombre" class="form-control" placeholder="Nombre">
+
         </div>
         <div class="col-lg-6">
           <label for="">Usa Base</label>
-          <input type="text" id="txt_nombre" class="form-control" placeholder="Nombre">
+          <select class="js-example-basic-single" name="state"
+              style="width: 100%;" id="cmb_usa_base">
+                  <option value="1">Si</option>
+                  <option value="0">No</option>
+            </select> <br> <br>
         </div>
         <div class="col-lg-6">
-          <label for="">Usa Centros</label>
-          <input type="text" id="txt_nombre" class="form-control" placeholder="Nombre">
+          <label for="">Usa Centro</label>
+          <select class="js-example-basic-single" name="state"
+              style="width: 100%;" id="cmb_usa_centro">
+                  <option value="1">Si</option>
+                  <option value="0">No</option>
+            </select> <br> <br>
         </div>
         <div class="col-lg-6">
-          <label for="">Usa Nit</label>
-          <input type="text" id="txt_nombre" class="form-control" placeholder="Nombre">
+        <label for="">Usa Nit</label>
+          <select class="js-example-basic-single" name="state"
+              style="width: 100%;" id="cmb_usa_nit">
+                  <option value="1">Si</option>
+                  <option value="0">No</option>
+            </select> <br> <br>
         </div>
         <div class="col-lg-6">
-          <label for="">Anticipo</label>
-          <input type="text" id="txt_nombre" class="form-control" placeholder="Nombre">
+        <label for="">Usa Anticipo</label>
+          <select class="js-example-basic-single" name="state"
+              style="width: 100%;" id="cmb_usa_anticipo">
+                  <option value="1">Si</option>
+                  <option value="0">No</option>
+            </select> <br> <br>
+        </div>
+        <div class="col-lg-6">
+          <label for="">Categoria</label>
+          <input type="text" id="txt_categoria" class="form-control" placeholder="Categoria">
         </div>
         <div class="col-lg-6">
           <label for="">Clase</label>
-          <input type="text" id="txt_nombre" class="form-control" placeholder="Nombre">
+          <input type="text" id="txt_clase" class="form-control" placeholder="Nombre">
         </div>
         <div class="col-lg-6">
           <label for="">Nivel</label>
-          <input type="text" id="txt_nombre" class="form-control" placeholder="Nombre">
+          <input type="text" id="txt_nivel" class="form-control" placeholder="Nombre">
         </div>
-        <div class="col-lg-6">
-          <label for="">Usa Depòsito</label>
-          <input type="text" id="txt_nombre" class="form-control" placeholder="Nombre">
-        </div>
+        <!-- <div class="col-lg-6">
+        <label for="">Usa Deposito</label>
+          <select class="js-example-basic-single" name="state"
+              style="width: 100%;" id="cmb_usa_deposito">
+                  <option value="1">Si</option>
+                  <option value="0">No</option>
+            </select> <br> <br>
+        </div> -->
         </div>
 
       </div>
@@ -123,11 +145,6 @@
 </div>
 
 <!--modal editar-->
-
-
-
-
-
 
 
 <script type="text/javascript" src="../js/cuentas_contables.js"></script>
