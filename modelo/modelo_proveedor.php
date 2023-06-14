@@ -75,6 +75,19 @@ class Modelo_Proveedor {
 					$this->conexion->cerrar();
 			}
 	}
+	function listar_combo_tipo_tercero_persona($idempresa) {
+		$sql = " SELECT  id,tipo FROM tipo_tercero where
+		 tipo_tercero.`idempresa` = '$idempresa'";
+					$arreglo = array();
+				if($consulta = $this->conexion->conexion->query($sql)){
+					while($consulta_vu = mysqli_fetch_array($consulta)) {
+							$arreglo[] =$consulta_vu;
+						
+					}
+					return $arreglo;
+					$this->conexion->cerrar();
+			}
+	}
 }
 
 

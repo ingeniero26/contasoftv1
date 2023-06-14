@@ -1,6 +1,7 @@
 var t_persona;
 function listar_persona(){
  var idempresa =$("#txt_idempresa").val();
+ var idtipo_tercero = document.getElementById('cmb_tipo_tercero_persona').value;
      t_persona = $("#tabla_persona").DataTable({
 	     	"ordering":false,   
         "pageLength":10,
@@ -17,7 +18,8 @@ function listar_persona(){
 		    "url":"../controlador/persona/control_persona_listar.php",
              data:{
               
-                idempresa:idempresa
+                idempresa:idempresa,
+                idtipo_tercero:idtipo_tercero
                 
             }
       },
@@ -182,7 +184,34 @@ function listar_persona(){
 
         })
     }
-
+    function listar_combo_tipo_tercero_persona() {
+        var idempresa =$("#txt_idempresa").val();
+           $.ajax({
+               url:"../controlador/proveedor/control_combo_tipo_tercero_persona.php",
+                type:'POST',
+                data:{
+                   idempresa:idempresa
+                }
+           }).done(function(resp){
+           //alert(resp);
+               var data = JSON.parse(resp);
+               //console.log(resp);
+              var cadena ="<option value=''>Seleccione...</option>";
+               if(data.length>0) {
+                   for (var i = 0; i < data.length; i++) {
+                       cadena+="<option value='"+data[i][0]+"'>"+data[i][1]+"</option>";
+                   }
+                   $('#cmb_tipo_tercero_persona').html(cadena);
+                // $('#cmb_ciudad_proveedor').html(cadena);
+               //  $('#cmb_categoria_producto').html(cadena);
+               } else {
+                   cadena+="<option value=''> No Hay datos</option>";
+                   $('#cmb_tipo_tercero_persona').html(cadena);
+                //  $('#cmb_ciudad_proveedor').html(cadena);
+                 //  $('#cmb_categoria_producto').html(cadena);
+               }
+            })
+       }
 
  function listar_combo_departamentos() {
     
