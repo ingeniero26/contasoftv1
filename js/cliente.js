@@ -28,15 +28,15 @@ function listar_cliente(){
             {"data":"persona_nrodocumento"},
             {"data":"persona_tipodocumento"},
              {"data":"tipo_contribuyente"},
-            {"data":"persona_sexo", 
-            render: function (data, type, row ) {
-                if(data=='MASCULINO'){
-                    return "<i class='fa fa-male'></i>";                   
-                }else{
-                  return "<i class='fa fa-female'></i>";               
-                }
-              }
-            },
+            // {"data":"persona_sexo", 
+            // render: function (data, type, row ) {
+            //     if(data=='MASCULINO'){
+            //         return "<i class='fa fa-male'></i>";                   
+            //     }else{
+            //       return "<i class='fa fa-female'></i>";               
+            //     }
+            //   }
+            // },
             {"data":"nombre_ciudad"},
             {"data":"persona_telefono"},
             
@@ -135,6 +135,7 @@ function listar_cliente(){
         var correo =$('#txt_correo').val();
          var idciudad =$("#cmb_ciudad_ingreso").val();
         var idempresa =$("#txt_idempresa").val();
+        var id_tipo_tercero =$("#cmb_tipo_tercero_cliente").val();
        
       if(nombre.length ==0 || apepat.length == 0 || apemat.length ==0 ||numero.length ==0
       || tipo_doc.length ==0) {
@@ -155,7 +156,8 @@ function listar_cliente(){
         direccion:direccion,
         correo:correo,
          idciudad:idciudad,
-        idempresa:idempresa
+        idempresa:idempresa,
+        id_tipo_tercero:id_tipo_tercero
        
       }
        }).done(function(resp){
@@ -254,6 +256,7 @@ function listar_cliente(){
         })
     }
 
+  
 
 function limpiar_campos(){
         $('#txt_nombre').val();

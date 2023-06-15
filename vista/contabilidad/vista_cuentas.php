@@ -145,7 +145,107 @@
 </div>
 
 <!--modal editar-->
+<div class="modal fade" id="modal_editar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Registro de Cuentas Contables </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+        <div class="col-6">
+          <input type="text" id="txt_idcuenta" hidden>
+          <label for="">Código Cuenta</label>
+          <input type="text" id="txt_codigo_actual_editar" class="form-control" placeholder="Codigo" hidden>
+          <input type="text" id="txt_codigo_nuevo_editar" class="form-control" placeholder="Codigo">
+        </div>
+        <div class="col-6">
+          <label for="">Concepto NIT</label>
+          <input type="text" id="txt_nit_cuenta_editar" class="form-control" placeholder="Concepto">
+        </div>
+        <div class="col-6">
+          <label for="">Nombre</label>
+          <input type="text" id="txt_nombre_cuenta_editar" class="form-control" placeholder="Nombre">
+        </div>
+        <div class="col-6">
+        <label for="">Tipo</label>
+          <input type="text" id="txt_tipo_editar" class="form-control" placeholder="Tipo">
+        </div>
+        <div class="col-6">
+        <label for=""><b>Usa Bancos</b> </label>
+          <select class="js-example-basic-single" name="state"
+              style="width: 100%;" id="cmb_usa_banco_editar">
+                  <option value="1">Si</option>
+                  <option value="0">No</option>
+            </select> <br> <br>
 
+        </div>
+        <div class="col-lg-6">
+          <label for="">Usa Base</label>
+          <select class="js-example-basic-single" name="state"
+              style="width: 100%;" id="cmb_usa_base_editar">
+                  <option value="1">Si</option>
+                  <option value="0">No</option>
+            </select> <br> <br>
+        </div>
+        <div class="col-lg-6">
+          <label for="">Usa Centro</label>
+          <select class="js-example-basic-single" name="state"
+              style="width: 100%;" id="cmb_usa_centro_editar">
+                  <option value="1">Si</option>
+                  <option value="0">No</option>
+            </select> <br> <br>
+        </div>
+        <div class="col-lg-6">
+        <label for="">Usa Nit</label>
+          <select class="js-example-basic-single" name="state"
+              style="width: 100%;" id="cmb_usa_nit_editar">
+                  <option value="1">Si</option>
+                  <option value="0">No</option>
+            </select> <br> <br>
+        </div>
+        <div class="col-lg-6">
+        <label for="">Usa Anticipo</label>
+          <select class="js-example-basic-single" name="state"
+              style="width: 100%;" id="cmb_usa_anticipo_editar">
+                  <option value="1">Si</option>
+                  <option value="0">No</option>
+            </select> <br> <br>
+        </div>
+        <div class="col-lg-6">
+          <label for="">Categoria</label>
+          <input type="text" id="txt_categoria_editar" class="form-control" placeholder="Categoria">
+        </div>
+        <div class="col-lg-6">
+          <label for="">Clase</label>
+          <input type="text" id="txt_clase_editar" class="form-control" placeholder="Nombre">
+        </div>
+        <div class="col-lg-6">
+          <label for="">Nivel</label>
+          <input type="text" id="txt_nivel_editar" class="form-control" placeholder="Nombre">
+        </div>
+        <!-- <div class="col-lg-6">
+        <label for="">Usa Deposito</label>
+          <select class="js-example-basic-single" name="state"
+              style="width: 100%;" id="cmb_usa_deposito">
+                  <option value="1">Si</option>
+                  <option value="0">No</option>
+            </select> <br> <br>
+        </div> -->
+        </div>
+
+      </div>
+      <div class="modal-footer">
+      	 <button type="button" class="btn btn-warning" onclick="Modificar_Cuenta()">Modificar</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+
+      </div>
+    </div>
+  </div>
+</div>
 
 <script type="text/javascript" src="../js/cuentas_contables.js"></script>
 <script>

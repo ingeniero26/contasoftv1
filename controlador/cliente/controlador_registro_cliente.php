@@ -14,8 +14,9 @@ $direccion = htmlspecialchars($_POST['direccion'],ENT_QUOTES,'UTF-8');
 $correo = htmlspecialchars($_POST['correo'],ENT_QUOTES,'UTF-8');
  $idciudad = htmlspecialchars($_POST['idciudad'],ENT_QUOTES,'UTF-8');
  $idempresa = htmlspecialchars($_POST['idempresa'],ENT_QUOTES,'UTF-8');
+ $id_tipo_tercero = htmlspecialchars($_POST['id_tipo_tercero'],ENT_QUOTES,'UTF-8');
 $consulta =$MCT->Registrar_Cliente($nombre,$apepat,$apemat,$numero,$tipo_doc,$tipo_contribuyente, $telefono,$direccion,
-    $correo,$idciudad,$idempresa);
+    $correo,$idciudad,$idempresa,$id_tipo_tercero);
 echo $consulta;
 
 

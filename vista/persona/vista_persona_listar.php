@@ -31,7 +31,7 @@
                             <th>Número</th>
                             <th>Tipo Documento</th>
                             <th>Tercero</th>
-                            <th style="text-align: center;">Sexo</th>
+                            <!-- <th style="text-align: center;">Sexo</th> -->
                             <th>Telefono</th>
                             <th>Direccion</th>
                             <th>Correo</th>
@@ -74,11 +74,17 @@
       	   <label for=""><b>Apellido Materno</b> </label>
            <input type="text" id="txt_apemat" class="form-control" placeholder="" onkeypress="return sololetras(event)"> <br>
       	</div>
-        <div class="col-lg-12">
+        <div class="col-lg-6">
       	   <label for=""><b>Tipo Contribuyente</b> </label>
             <select class="js-example-basic-single" name="state" style="width: 100%;" id="cmb_tipo_contribuyente">
              <option value="Persona Natural">Natural</option>
               <option value="Persona Juridica">Jurídica</option>
+             </select>
+      	</div>
+        <div class="col-lg-6">
+      	   <label for=""><b>Tipo</b> </label>
+            <select class="js-example-basic-single" name="state" style="width: 100%;" id="cmb_tipo_tercero_registro">
+
              </select>
       	</div>
 
@@ -97,14 +103,14 @@
       	</div>
 
 
-      	<div class="col-lg-6">
+      	<!-- <div class="col-lg-6">
       	   <label for=""><b>Sexo</b> </label>
             <select class="js-example-basic-single" name="state" style="width: 100%;" id="cmb_sexo">
              <option value="MASCULINO">MASCULINO</option>
               <option value="FEMENINO">FEMENINO</option>
 
              </select> <br> <br>
-      	</div>
+      	</div> -->
       	<div class="col-lg-6">
       	   <label for=""><b>Teléfono</b> </label>
            <input type="text" id="txt_telefono" class="form-control" placeholder="tel " onkeypress="return soloNumeros(event)">
@@ -179,14 +185,14 @@
       	</div>
 
 
-      	<div class="col-lg-6">
+      	<!-- <div class="col-lg-6">
       	   <label for=""><b>Sexo</b> </label>
             <select class="js-example-basic-single" name="state" style="width: 100%;" id="cmb_sexo_editar">
              <option value="MASCULINO">MASCULINO</option>
               <option value="FEMENINO">FEMENINO</option>
 
              </select> <br> <br>
-      	</div>
+      	</div> -->
       	<div class="col-lg-6">
       	   <label for=""><b>Teléfono</b> </label>
            <input type="number" id="txt_telefono_editar" class="form-control" placeholder="dir ">

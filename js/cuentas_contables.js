@@ -80,22 +80,30 @@ $("#tabla_cuentas_contables").on("click", ".editar", function () {
   }
   $("#modal_editar").modal({ backdrop: "static", keyboard: false });
   $("#modal_editar").modal("show");
-  $("#txt_idcategoria").val(data.categoria_id);
-  $("#txt_nombre_actual_categoria")
-    .val(data.categoria_nombre)
-    .trigger("change");
-  $("#txt_nombre_nuevo_categoria").val(data.categoria_nombre);
-  $("#cmb_estatus_editar").val(data.categoria_estatus).trigger("change");
+  $("#txt_idcuenta").val(data.id);
+  $("#txt_codigo_actual_editar").val(data.codigo)
+  $("#txt_codigo_nuevo_editar").val(data.codigo)
+  $("#txt_nit_cuenta_editar").val(data.concepto_nit);
+  $("#txt_nombre_cuenta_editar").val(data.nombre);
+  $("#txt_tipo_editar").val(data.tipo);
+  $("#cmb_usa_banco_editar").val(data.usa_bancos).trigger("change");
+  $("#cmb_usa_base_editar").val(data.usa_base).trigger("change");
+  $("#cmb_usa_centro_editar").val(data.usa_centros).trigger("change");
+  $("#cmb_usa_nit_editar").val(data.usa_nit).trigger("change");
+  $("#cmb_usa_anticipo_editar").val(data.usa_anticipo).trigger("change");
+  $("#txt_categoria_editar").val(data.categoria);
+  $("#txt_clase_editar").val(data.clase);
+  $("#txt_nivel_editar").val(data.nivel);
 });
 
 /*desactivar y activar categoria*/
-$("#tabla_categoria").on("click", ".activar", function () {
+$("#tabla_cuentas_contables").on("click", ".activar", function () {
   var data = t_cuentas_contables.row($(this).parents("tr")).data();
   if (t_cuentas_contables.row(this).child.isShown()) {
     var data = t_cuentas_contables.row(this).data();
   }
   Swal.fire({
-    title: "Está seguro de activar  la categoria?",
+    title: "Está seguro de activar  la cuenta contable?",
     text: "Activacion",
     icon: "warning",
     showCancelButton: true,
@@ -104,19 +112,19 @@ $("#tabla_categoria").on("click", ".activar", function () {
     confirmButtonText: "Si",
   }).then((result) => {
     if (result.isConfirmed) {
-      Modificar_Estatus(data.categoria_id, "ACTIVO");
+      Modificar_Estatus(data.id, "ACTIVO");
     }
   });
 });
 // function activar usuario
-$("#tabla_categoria").on("click", ".desactivar", function () {
+$("#tabla_cuentas_contables").on("click", ".desactivar", function () {
   var data = t_cuentas_contables.row($(this).parents("tr")).data();
   if (t_cuentas_contables.row(this).child.isShown()) {
     var data = t_cuentas_contables.row(this).data();
   }
   Swal.fire({
-    title: "Está seguro de desactivar la categoria?",
-    text: "Una vez desactivado el producto no podrá tener ingresos o ventas",
+    title: "Está seguro de desactivar la cuenta?",
+    text: "Una vez desactivado podra activarla nuevamente",
     icon: "warning",
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
@@ -124,12 +132,12 @@ $("#tabla_categoria").on("click", ".desactivar", function () {
     confirmButtonText: "Si",
   }).then((result) => {
     if (result.isConfirmed) {
-      Modificar_Estatus(data.categoria_id, "INACTIVO");
+      Modificar_Estatus(data.id, "INACTIVO");
     }
   });
 });
 
-function Modificar_Estatus(categoria_id, estatus) {
+function Modificar_Estatus(id, estatus) {
   var mensaje = "";
   if (estatus == "INACTIVO") {
     mensaje = "desactivado";
@@ -137,10 +145,10 @@ function Modificar_Estatus(categoria_id, estatus) {
     mensaje = "activo";
   }
   $.ajax({
-    url: "../controlador/categoria/control_modificar_estatus.php",
+    url: "../controlador/cuentas_contables/control_modificar_estatus.php",
     type: "POST",
     data: {
-      categoria_id: categoria_id,
+      id: id,
       estatus: estatus,
     },
   }).done(function (resp) {
@@ -148,7 +156,7 @@ function Modificar_Estatus(categoria_id, estatus) {
     if (resp > 0) {
       Swal.fire(
         "Mensaje  de confirmaciòn",
-        "Categoria " + mensaje + " exitosamente",
+        "Cuenta " + mensaje + " exitosamente",
         "success"
       ).then((value) => {
         //LimpiarRegistro();

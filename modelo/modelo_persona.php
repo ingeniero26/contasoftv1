@@ -21,7 +21,6 @@ class Modelo_Persona
 		, `persona`.`tipo_contribuyente`
 		, `persona`.`persona_nrodocumento`
 		, `persona`.`persona_tipodocumento`
-		, `persona`.`persona_sexo`
 		, `persona`.`persona_telefono`
 		, `persona`.`persona_direccion`
 
@@ -47,9 +46,11 @@ class Modelo_Persona
         }
     }
 
-    public function Registrar_Persona($nombre, $apepat, $apemat, $tipo_cont, $numero, $tipo_doc, $sexo, $telefono,
-        $direccion, $correo, $idempresa) {
-        $sql = "call  SP_REGISTRAR_PERSONA('$nombre','$apepat','$apemat','$tipo_cont','$numero','$tipo_doc','$sexo','$telefono','$direccion','$correo','$idempresa')";
+    public function Registrar_Persona($nombre, $apepat, $apemat, $tipo_cont, $numero,
+	 $tipo_doc, $telefono,
+        $direccion, $correo, $idempresa,$idtipo_tercero) {
+        $sql = "call  SP_REGISTRAR_PERSONA('$nombre','$apepat','$apemat','$tipo_cont',
+		'$numero','$tipo_doc','$telefono','$direccion','$correo','$idempresa','$idtipo_tercero')";
         if ($consulta = $this->conexion->conexion->query($sql)) {
             if ($row = mysqli_fetch_array($consulta)) {
                 return $id = trim($row[0]);
@@ -60,9 +61,9 @@ class Modelo_Persona
     }
 
     public function Modificar_Persona($id_persona, $nombre, $apepat, $apemat,
-        $numero_actual, $numero_nuevo, $tipo_doc, $sexo, $telefono, $direccion, $correo, $estatus) {
+        $numero_actual, $numero_nuevo, $tipo_doc, $telefono, $direccion, $correo, $estatus) {
         $sql = "call  SP_MODIFICAR_PERSONA('$id_persona','$nombre','$apepat','$apemat',
-		'$numero_actual','$numero_nuevo','$tipo_doc','$sexo','$telefono','$direccion', '$correo' , '$estatus')";
+		'$numero_actual','$numero_nuevo','$tipo_doc','$telefono','$direccion', '$correo' , '$estatus')";
         if ($consulta = $this->conexion->conexion->query($sql)) {
             if ($row = mysqli_fetch_array($consulta)) {
                 return $id = trim($row[0]);

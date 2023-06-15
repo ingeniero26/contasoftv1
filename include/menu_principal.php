@@ -242,12 +242,12 @@
                                     <span class="nav-label"><i class="fa   fa-outdent"></i> Plan de Cuentas</span></a>
 
                             </li>
-                             <!-- <li>
-                                <a href="javascript:cargar_contenido('contenido_principal','pagos/listado_gastos.php')" >
-                                    <span class="nav-label"><i class="fa   fa-outdent"></i> Plan de cuentas</span></a>
+                             <li>
+                                <a href="javascript:cargar_contenido('contenido_principal','contabilidad/vista_centro_costos.php')" >
+                                    <span class="nav-label"><i class="fa   fa-outdent"></i> Centro de Costos</span></a>
 
                             </li>
-                              <li>
+                              <!-- <li>
                                 <a href="javascript:cargar_contenido('contenido_principal','pagos/listado_gastos.php')" >
                                     <span class="nav-label"><i class="fa   fa-outdent"></i> Plan de cuentas NIFF</span></a>
 

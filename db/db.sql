@@ -1,6 +1,6 @@
 /*
 SQLyog Ultimate v11.11 (64 bit)
-MySQL - 5.5.5-10.4.24-MariaDB : Database - sistema_pos_v2
+MySQL - 5.5.5-10.4.22-MariaDB : Database - sistema_pos_v2
 *********************************************************************
 */
 
@@ -30,10 +30,15 @@ CREATE TABLE `arl` (
   `EmailArl` varchar(100) DEFAULT NULL,
   `fregistro` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `estatus` enum('ACTIVO','INACTIVO') DEFAULT NULL,
-  PRIMARY KEY (`IdARL`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `idempresa` int(11) DEFAULT NULL COMMENT 'filtro por empresa',
+  PRIMARY KEY (`IdARL`),
+  KEY `idempersa` (`idempresa`),
+  CONSTRAINT `arl_ibfk_1` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 /*Data for the table `arl` */
+
+insert  into `arl`(`IdARL`,`NitARL`,`NomARL`,`CiudadARL`,`DirARL`,`TelARL`,`EmailArl`,`fregistro`,`estatus`,`idempresa`) values (1,223132,'ARL DE PRUEBA','CARTAGENA','CARTGENA','43545','EMAIL@GMAIL.COM','2022-09-17 16:24:02','ACTIVO',1),(2,32434,'ARL POSITIVA EJEMPLO','EL CARMEN DE BOLIVAR','NO SE DONDE QUEDA','4545454','NOSE1@GMAIL.COM','2022-10-17 16:07:29','ACTIVO',1);
 
 /*Table structure for table `bodega` */
 
@@ -86,9 +91,11 @@ CREATE TABLE `cargos` (
   PRIMARY KEY (`IdCargos`),
   KEY `FK_IdDpto` (`IdDpto`),
   CONSTRAINT `FK_IdDpto` FOREIGN KEY (`IdDpto`) REFERENCES `dpto` (`IdDpto`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 /*Data for the table `cargos` */
+
+insert  into `cargos`(`IdCargos`,`DescCargos`,`IdDpto`,`fregistro`,`estatus`) values (1,'INGENIERO DE SISTEMAS',1,'2023-05-24 19:56:27','ACTIVO');
 
 /*Table structure for table `categoria` */
 
@@ -103,11 +110,11 @@ CREATE TABLE `categoria` (
   PRIMARY KEY (`categoria_id`),
   KEY `idempresa` (`idempresa`),
   CONSTRAINT `categoria_ibfk_1` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `categoria` */
 
-insert  into `categoria`(`categoria_id`,`categoria_nombre`,`categoria_fregistro`,`categoria_estatus`,`idempresa`) values (1,'Tecnologia','2022-07-13','ACTIVO',1),(2,'Libros','2022-07-13','ACTIVO',1);
+insert  into `categoria`(`categoria_id`,`categoria_nombre`,`categoria_fregistro`,`categoria_estatus`,`idempresa`) values (1,'Tecnologia','2022-07-13','ACTIVO',1),(2,'Libros','2022-07-13','ACTIVO',1),(3,'Papeleria','2022-08-22','ACTIVO',1),(4,'Servicios','2022-08-22','ACTIVO',1),(5,'Soporte','2023-04-13','ACTIVO',1),(6,'Dulces','2023-05-18','ACTIVO',1);
 
 /*Table structure for table `categoriaarl` */
 
@@ -123,6 +130,24 @@ CREATE TABLE `categoriaarl` (
 
 /*Data for the table `categoriaarl` */
 
+/*Table structure for table `centro_costos` */
+
+DROP TABLE IF EXISTS `centro_costos`;
+
+CREATE TABLE `centro_costos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `idempresa` int(11) DEFAULT NULL,
+  `codigo` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `nombre` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `estatus` enum('ACTIVO') COLLATE utf8_unicode_ci DEFAULT NULL,
+  `fregistro` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `idempresa` (`idempresa`),
+  CONSTRAINT `centro_costos_ibfk_1` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `centro_costos` */
+
 /*Table structure for table `ciudades` */
 
 DROP TABLE IF EXISTS `ciudades`;
@@ -133,17 +158,14 @@ CREATE TABLE `ciudades` (
   `idDepto` int(11) DEFAULT NULL,
   `estatus` enum('ACTIVO','INACTIVO') COLLATE utf8_unicode_ci DEFAULT NULL,
   `fregistro` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `idempresa` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idDepto` (`idDepto`),
-  KEY `idempresa` (`idempresa`),
-  CONSTRAINT `ciudades_ibfk_1` FOREIGN KEY (`idDepto`) REFERENCES `departamentos` (`id`),
-  CONSTRAINT `ciudades_ibfk_2` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  CONSTRAINT `ciudades_ibfk_1` FOREIGN KEY (`idDepto`) REFERENCES `departamentos` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `ciudades` */
 
-insert  into `ciudades`(`id`,`nombre_ciudad`,`idDepto`,`estatus`,`fregistro`,`idempresa`) values (1,'EL CARMEN DE BOLIVAR',1,'ACTIVO','2022-07-13 15:39:37',1);
+insert  into `ciudades`(`id`,`nombre_ciudad`,`idDepto`,`estatus`,`fregistro`) values (1,'EL CARMEN DE BOLIVAR',1,'ACTIVO','2022-07-13 15:39:37'),(2,'Cartagena',1,'ACTIVO','2022-09-10 11:00:55'),(3,'San Jacinto',1,'ACTIVO','2022-09-10 12:04:26'),(4,'San Juan Nepomuceno',1,'ACTIVO','2022-09-10 12:04:54');
 
 /*Table structure for table `cliente` */
 
@@ -163,11 +185,44 @@ CREATE TABLE `cliente` (
   CONSTRAINT `cliente_ibfk_1` FOREIGN KEY (`persona_id`) REFERENCES `persona` (`persona_id`),
   CONSTRAINT `cliente_ibfk_2` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`),
   CONSTRAINT `cliente_ibfk_3` FOREIGN KEY (`idciudad`) REFERENCES `ciudades` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `cliente` */
 
-insert  into `cliente`(`idcliente`,`cliente_fregistro`,`cliente_estatus`,`persona_id`,`idciudad`,`idempresa`) values (1,'2022-07-13','ACTIVO',3,1,1);
+insert  into `cliente`(`idcliente`,`cliente_fregistro`,`cliente_estatus`,`persona_id`,`idciudad`,`idempresa`) values (1,'2022-07-13','ACTIVO',3,1,1),(2,'2022-08-22','ACTIVO',4,1,1),(3,'2022-12-03','ACTIVO',7,1,1),(4,'2022-12-03','ACTIVO',8,3,1),(5,'2023-04-24','ACTIVO',10,1,1),(6,'2023-05-02','ACTIVO',11,3,1),(7,'2023-06-14','ACTIVO',17,4,1),(8,'2023-06-14','ACTIVO',18,4,1),(9,'2023-06-14','ACTIVO',19,2,1);
+
+/*Table structure for table `codeudor` */
+
+DROP TABLE IF EXISTS `codeudor`;
+
+CREATE TABLE `codeudor` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombres` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `apellido_paterno` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `apellido_materno` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tipo_doc` enum('CEDULA','TI','PASAPORTE') COLLATE utf8_unicode_ci DEFAULT NULL,
+  `documento` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `direccion` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `telefono` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `celular` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `correo` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `nombre_ref1` varchar(512) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `nombre_ref2` varchar(512) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tel_ref1` varchar(512) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tel_ref2` varchar(512) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `dir_ref1` varchar(512) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `dir_ref2` varchar(512) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `id_cliente` int(11) DEFAULT NULL,
+  `fregistro` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `estatus` enum('ACTIVO','INACTIVO') COLLATE utf8_unicode_ci DEFAULT 'ACTIVO',
+  PRIMARY KEY (`id`),
+  KEY `id_cliente` (`id_cliente`),
+  CONSTRAINT `codeudor_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`idcliente`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `codeudor` */
+
+insert  into `codeudor`(`id`,`nombres`,`apellido_paterno`,`apellido_materno`,`tipo_doc`,`documento`,`direccion`,`telefono`,`celular`,`correo`,`nombre_ref1`,`nombre_ref2`,`tel_ref1`,`tel_ref2`,`dir_ref1`,`dir_ref2`,`id_cliente`,`fregistro`,`estatus`) values (1,'KAREN','HERNANDEZ','TORRES','CEDULA','465646','KRA 45','56456','56456','nose@gmail.com','RAMI HERNANDEZ','pedro perez','465465','465878','hjh','k78',3,'2022-12-18 21:16:06','ACTIVO');
 
 /*Table structure for table `compra` */
 
@@ -221,6 +276,36 @@ CREATE TABLE `concepto` (
 
 /*Data for the table `concepto` */
 
+/*Table structure for table `cuentas` */
+
+DROP TABLE IF EXISTS `cuentas`;
+
+CREATE TABLE `cuentas` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `idEmpresa` int(11) NOT NULL,
+  `codigo` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `concepto_nit` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `nombre` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tipo` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `usa_bancos` int(11) DEFAULT NULL,
+  `usa_base` int(11) DEFAULT NULL,
+  `usa_centros` int(11) DEFAULT NULL,
+  `usa_nit` int(11) DEFAULT NULL,
+  `usa_anticipo` int(11) DEFAULT NULL,
+  `categoria` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `clase` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `nivel` int(11) DEFAULT NULL,
+  `fregistro` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `estatus` enum('ACTIVO','INACTIVO') COLLATE utf8_unicode_ci DEFAULT 'ACTIVO',
+  PRIMARY KEY (`id`),
+  KEY `idEmpresa` (`idEmpresa`),
+  CONSTRAINT `cuentas_ibfk_1` FOREIGN KEY (`idEmpresa`) REFERENCES `empresa` (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `cuentas` */
+
+insert  into `cuentas`(`id`,`idEmpresa`,`codigo`,`concepto_nit`,`nombre`,`tipo`,`usa_bancos`,`usa_base`,`usa_centros`,`usa_nit`,`usa_anticipo`,`categoria`,`clase`,`nivel`,`fregistro`,`estatus`) values (1,1,'1',NULL,'ACTIVO','CLASE',0,0,0,0,0,NULL,NULL,NULL,'2023-05-29 12:24:53','ACTIVO'),(3,1,'11','','DISPONIBLE','GRUPO',0,0,0,0,0,'','',0,'2023-06-07 00:00:00','ACTIVO');
+
 /*Table structure for table `cuentas_x_cobrar` */
 
 DROP TABLE IF EXISTS `cuentas_x_cobrar`;
@@ -235,9 +320,11 @@ CREATE TABLE `cuentas_x_cobrar` (
   PRIMARY KEY (`id`),
   KEY `idventa` (`idventa`),
   CONSTRAINT `cuentas_x_cobrar_ibfk_1` FOREIGN KEY (`idventa`) REFERENCES `venta` (`venta_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `cuentas_x_cobrar` */
+
+insert  into `cuentas_x_cobrar`(`id`,`cuotas_abono`,`valor`,`fecha`,`idventa`,`no_comprobante`) values (1,1,10000,'2022-11-02',6,'11'),(2,1,5000,'2022-11-23',6,'');
 
 /*Table structure for table `cuentas_x_proveedor` */
 
@@ -284,12 +371,15 @@ CREATE TABLE `departamentos` (
   `nombre_depto` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `estatus` enum('ACTIVO','INACTIVO') COLLATE utf8_unicode_ci DEFAULT NULL,
   `fregistro` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  PRIMARY KEY (`id`)
+  `idempresa` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idempresa` (`idempresa`),
+  CONSTRAINT `departamentos_ibfk_1` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `departamentos` */
 
-insert  into `departamentos`(`id`,`nombre_depto`,`estatus`,`fregistro`) values (1,'Bolivar','ACTIVO','2022-07-13 15:38:45'),(2,'Sucre','ACTIVO','2022-07-13 15:38:48'),(3,'Cordoba','ACTIVO','2022-07-13 15:38:50'),(4,'Atlantico','ACTIVO','2022-07-13 15:38:53'),(5,'Cesar','ACTIVO','2022-07-13 15:38:56'),(6,'Magdalena','ACTIVO','2022-07-13 15:39:00'),(7,'Antioquia','ACTIVO','2022-07-13 15:39:04');
+insert  into `departamentos`(`id`,`nombre_depto`,`estatus`,`fregistro`,`idempresa`) values (1,'Bolivar','ACTIVO','2022-09-23 19:25:59',1),(2,'Sucre','ACTIVO','2022-09-23 19:26:00',1),(3,'Cordoba','ACTIVO','2022-09-23 19:26:01',1),(4,'Atlantico','ACTIVO','2022-09-23 19:26:02',1),(5,'Cesar','ACTIVO','2022-09-23 19:26:03',1),(6,'Magdalena','ACTIVO','2022-09-23 19:26:04',1),(7,'Antioquia','ACTIVO','2022-09-23 19:26:09',1);
 
 /*Table structure for table `detalle_compra` */
 
@@ -348,9 +438,11 @@ CREATE TABLE `detalle_venta` (
   KEY `idproducto` (`producto_id`),
   CONSTRAINT `detalle_venta_ibfk_1` FOREIGN KEY (`venta_id`) REFERENCES `venta` (`venta_id`),
   CONSTRAINT `detalle_venta_ibfk_2` FOREIGN KEY (`producto_id`) REFERENCES `producto` (`producto_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=82 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `detalle_venta` */
+
+insert  into `detalle_venta`(`detalle_venta_id`,`venta_id`,`producto_id`,`dv_cantidad`,`dv_precio`,`dv_descuento`,`dv_estatus`) values (1,1,5,1.00,17000.00,0.00,'INGRESADA'),(2,2,9,4.00,600.00,0.00,'INGRESADA'),(3,2,8,6.00,200.00,0.00,'INGRESADA'),(4,3,1,1.00,4500.00,0.00,'INGRESADA'),(5,4,4,1.00,4000.00,0.00,'INGRESADA'),(6,5,9,10.00,600.00,0.00,'INGRESADA'),(7,6,3,3.00,5000.00,0.00,'INGRESADA'),(8,7,4,1.00,4000.00,0.00,'INGRESADA'),(9,8,1,1.00,4500.00,0.00,'INGRESADA'),(10,9,8,50.00,200.00,0.00,'INGRESADA'),(11,9,9,12.00,500.00,0.00,'INGRESADA'),(12,10,9,10.00,600.00,0.00,'INGRESADA'),(13,10,8,1.00,300.00,0.00,'INGRESADA'),(14,11,3,1.00,5000.00,0.00,'INGRESADA'),(15,12,4,2.00,4000.00,160.00,'INGRESADA'),(16,13,9,1.00,600.00,0.00,'INGRESADA'),(17,14,11,1.00,3000.00,0.00,'INGRESADA'),(18,14,9,10.00,600.00,0.00,'INGRESADA'),(19,14,8,5.00,300.00,0.00,'INGRESADA'),(20,15,8,50.00,300.00,0.00,'INGRESADA'),(21,15,9,25.00,600.00,0.00,'INGRESADA'),(22,16,1,1.00,4500.00,0.00,'INGRESADA'),(23,17,4,1.00,4000.00,0.00,'INGRESADA'),(24,18,4,1.00,4000.00,0.00,'INGRESADA'),(25,19,9,5.00,600.00,0.00,'INGRESADA'),(26,20,9,7.00,600.00,0.00,'INGRESADA'),(27,21,8,6.00,300.00,0.00,'INGRESADA'),(28,21,8,1.00,300.00,0.00,'INGRESADA'),(29,22,8,2.00,300.00,0.00,'INGRESADA'),(30,23,13,1.00,1800.00,0.00,'INGRESADA'),(31,24,14,5.00,200.00,0.00,'INGRESADA'),(32,25,10,1.00,1000.00,0.00,'INGRESADA'),(33,25,15,1.00,500.00,0.00,'INGRESADA'),(34,26,9,8.00,600.00,0.00,'INGRESADA'),(35,27,9,6.00,600.00,0.00,'INGRESADA'),(36,28,16,1.00,3500.00,0.00,'INGRESADA'),(37,29,9,3.00,600.00,0.00,'INGRESADA'),(38,30,16,1.00,3500.00,0.00,'INGRESADA'),(39,31,9,1.00,600.00,0.00,'INGRESADA'),(40,32,8,10.00,300.00,0.00,'INGRESADA'),(41,32,16,1.00,3500.00,0.00,'INGRESADA'),(42,33,8,3.00,300.00,0.00,'INGRESADA'),(43,34,9,5.00,600.00,0.00,'INGRESADA'),(44,34,9,1.00,600.00,0.00,'INGRESADA'),(45,35,8,2.00,300.00,0.00,'INGRESADA'),(46,35,8,2.00,300.00,0.00,'INGRESADA'),(47,36,9,6.00,600.00,0.00,'INGRESADA'),(48,37,8,4.00,300.00,0.00,'INGRESADA'),(49,37,9,3.00,600.00,0.00,'INGRESADA'),(50,37,8,4.00,300.00,0.00,'INGRESADA'),(51,37,8,3.00,300.00,0.00,'INGRESADA'),(52,38,2,1.00,4500.00,0.00,'INGRESADA'),(53,39,8,5.00,300.00,0.00,'INGRESADA'),(54,40,9,16.00,600.00,0.00,'INGRESADA'),(55,41,17,2.00,1000.00,0.00,'INGRESADA'),(56,42,9,2.00,600.00,0.00,'INGRESADA'),(57,42,8,6.00,300.00,0.00,'INGRESADA'),(58,43,9,4.00,600.00,0.00,'INGRESADA'),(59,44,9,2.00,600.00,0.00,'INGRESADA'),(60,45,16,1.00,3500.00,0.00,'INGRESADA'),(61,45,9,3.00,600.00,0.00,'INGRESADA'),(62,46,9,15.00,600.00,0.00,'INGRESADA'),(63,47,8,5.00,300.00,0.00,'INGRESADA'),(64,47,9,5.00,600.00,0.00,'INGRESADA'),(65,48,9,5.00,600.00,0.00,'INGRESADA'),(66,49,8,2.00,300.00,0.00,'INGRESADA'),(67,50,9,20.00,600.00,0.00,'INGRESADA'),(68,51,19,1.00,1000.00,0.00,'INGRESADA'),(69,51,18,1.00,3000.00,0.00,'INGRESADA'),(70,52,9,1.00,600.00,0.00,'INGRESADA'),(71,53,9,1.00,600.00,0.00,'INGRESADA'),(72,54,10,1.00,1000.00,0.00,'INGRESADA'),(73,55,8,2.00,300.00,0.00,'INGRESADA'),(74,56,20,1.00,800.00,0.00,'INGRESADA'),(75,57,9,1.00,600.00,0.00,'INGRESADA'),(76,58,9,1.00,600.00,0.00,'INGRESADA'),(77,58,10,1.00,1000.00,0.00,'INGRESADA'),(78,59,8,5.00,300.00,0.00,'INGRESADA'),(79,59,9,2.00,600.00,0.00,'INGRESADA'),(80,60,9,2.00,600.00,0.00,'INGRESADA'),(81,60,8,2.00,300.00,0.00,'INGRESADA');
 
 /*Table structure for table `dpto` */
 
@@ -362,9 +454,11 @@ CREATE TABLE `dpto` (
   `fregistro` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `estatus` enum('ACTIVO','INACTIVO') DEFAULT NULL,
   PRIMARY KEY (`IdDpto`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 /*Data for the table `dpto` */
+
+insert  into `dpto`(`IdDpto`,`DescDpto`,`fregistro`,`estatus`) values (1,'SISTEMA','2022-09-26 20:55:41','ACTIVO');
 
 /*Table structure for table `empleados` */
 
@@ -382,8 +476,11 @@ CREATE TABLE `empleados` (
   `IdARL` int(11) DEFAULT NULL COMMENT 'Id de la Administradora de Riesgos laborales del empleado como FK',
   `IdEPS` int(11) DEFAULT NULL COMMENT 'id de la EPS del empleado como FK',
   `IdPension` int(11) DEFAULT NULL COMMENT 'id de la Empresa de pension del empleado como FK',
+  `id_tipo_contrato` int(11) DEFAULT NULL,
+  `fecha_ingreso` date DEFAULT NULL,
   `fregistro` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `estatus` enum('ACTIVO','INACTIVO') DEFAULT NULL,
+  `idempresa` int(11) DEFAULT NULL,
   `usuario_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`IdEmp`),
   UNIQUE KEY `CCEmp` (`CCEmp`),
@@ -392,13 +489,17 @@ CREATE TABLE `empleados` (
   KEY `IdEPS` (`IdEPS`),
   KEY `IdPension` (`IdPension`),
   KEY `usuario_id` (`usuario_id`),
+  KEY `idempresa` (`idempresa`),
   CONSTRAINT `empleados_ibfk_2` FOREIGN KEY (`IdARL`) REFERENCES `arl` (`IdARL`),
   CONSTRAINT `empleados_ibfk_3` FOREIGN KEY (`IdEPS`) REFERENCES `eps` (`IdEPS`),
   CONSTRAINT `empleados_ibfk_4` FOREIGN KEY (`IdPension`) REFERENCES `pension` (`IdPension`),
-  CONSTRAINT `empleados_ibfk_5` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`usuario_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  CONSTRAINT `empleados_ibfk_5` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`usuario_id`),
+  CONSTRAINT `empleados_ibfk_6` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 /*Data for the table `empleados` */
+
+insert  into `empleados`(`IdEmp`,`CCEmp`,`NomEmp`,`DirEmp`,`TelEmp`,`CelEmp`,`EmailEmp`,`fecha_nacimiento`,`IdARL`,`IdEPS`,`IdPension`,`id_tipo_contrato`,`fecha_ingreso`,`fregistro`,`estatus`,`idempresa`,`usuario_id`) values (1,1070813753,'JERSON BATISTA','EL CARMEN','132132','1321','INFO@GMAIL.COM','1989-05-26',1,1,1,NULL,NULL,'2022-09-23 18:41:24','ACTIVO',1,1);
 
 /*Table structure for table `empresa` */
 
@@ -407,19 +508,26 @@ DROP TABLE IF EXISTS `empresa`;
 CREATE TABLE `empresa` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Nit` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `nombre` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Representante` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `Direccion` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Telefono` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Correo` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Logo` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `id_tipo_regimen` int(11) DEFAULT NULL,
+  `idCiudad` int(11) DEFAULT NULL,
   `fregistro` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `estatus` enum('ACTIVO','INACTIVO') COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`ID`)
+  PRIMARY KEY (`ID`),
+  KEY `id_tipo_regimen` (`id_tipo_regimen`),
+  KEY `idCiudad` (`idCiudad`),
+  CONSTRAINT `empresa_ibfk_1` FOREIGN KEY (`id_tipo_regimen`) REFERENCES `tipo_regimen` (`id`),
+  CONSTRAINT `empresa_ibfk_2` FOREIGN KEY (`idCiudad`) REFERENCES `ciudades` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `empresa` */
 
-insert  into `empresa`(`ID`,`Nit`,`Representante`,`Direccion`,`Telefono`,`Correo`,`Logo`,`fregistro`,`estatus`) values (1,'45580472','ZAIDA TAPIA','EL CENTRO',NULL,NULL,'dobleclictt@hotmail.com','2022-07-13 15:19:18','ACTIVO');
+insert  into `empresa`(`ID`,`Nit`,`nombre`,`Representante`,`Direccion`,`Telefono`,`Correo`,`Logo`,`id_tipo_regimen`,`idCiudad`,`fregistro`,`estatus`) values (1,'1070813753','JKSYSTEMAS','JERSON BATISTA','MONTE CARMELO','3013794981','INGJERSON2014@GMAIL.COM','controlador/empresa/img/IMG22820221557.jpg',2,1,'2023-05-11 11:41:14','ACTIVO');
 
 /*Table structure for table `eps` */
 
@@ -435,10 +543,15 @@ CREATE TABLE `eps` (
   `EmailEps` varchar(100) DEFAULT NULL,
   `fregistro` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `estatus` enum('ACTIVO','INACTIVO') DEFAULT NULL,
-  PRIMARY KEY (`IdEPS`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `idempresa` int(11) DEFAULT NULL,
+  PRIMARY KEY (`IdEPS`),
+  KEY `idempresa` (`idempresa`),
+  CONSTRAINT `eps_ibfk_1` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 /*Data for the table `eps` */
+
+insert  into `eps`(`IdEPS`,`NitEPS`,`NomEPS`,`CiudadEPS`,`DirEPS`,`TelEPS`,`EmailEps`,`fregistro`,`estatus`,`idempresa`) values (1,2313232,'EPS PRUEBA','CARMEN DE BOL','CALLE 25','654654','PRUEBA@GMAIL.COM','2022-09-18 17:15:12','ACTIVO',1);
 
 /*Table structure for table `gastos` */
 
@@ -466,9 +579,30 @@ CREATE TABLE `gastos` (
   CONSTRAINT `gastos_ibfk_2` FOREIGN KEY (`idusuario`) REFERENCES `usuario` (`usuario_id`),
   CONSTRAINT `gastos_ibfk_3` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`),
   CONSTRAINT `gastos_ibfk_4` FOREIGN KEY (`idcaja`) REFERENCES `caja` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `gastos` */
+
+insert  into `gastos`(`idGasto`,`idtipo_gasto`,`fecha_gasto`,`valor`,`recibo`,`idcaja`,`observaciones`,`fregistro`,`estatus`,`idusuario`,`idempresa`,`estado`) values (1,3,'2023-05-23',119600,'001',1,'','2023-05-23 11:20:03','ACTIVO',1,1,'CANCELADA');
+
+/*Table structure for table `marcas` */
+
+DROP TABLE IF EXISTS `marcas`;
+
+CREATE TABLE `marcas` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `descripcion` varchar(512) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `estatus` enum('ACTIVO','INACTIVO') COLLATE utf8_unicode_ci DEFAULT 'ACTIVO',
+  `fregistro` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `idempresa` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idempresa` (`idempresa`),
+  CONSTRAINT `marcas_ibfk_1` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `marcas` */
+
+insert  into `marcas`(`id`,`descripcion`,`estatus`,`fregistro`,`idempresa`) values (1,'HP','ACTIVO','2023-03-31 19:01:55',1),(2,'MARCA GENERAL','ACTIVO','2023-04-10 09:13:39',1),(3,'ACCER','ACTIVO','2023-04-10 08:33:54',1);
 
 /*Table structure for table `pagos` */
 
@@ -501,10 +635,15 @@ CREATE TABLE `pension` (
   `EmailPension` varchar(100) DEFAULT NULL,
   `fregistro` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `estatus` enum('ACTIVO','INACTIVO') DEFAULT NULL,
-  PRIMARY KEY (`IdPension`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `idempresa` int(11) DEFAULT NULL,
+  PRIMARY KEY (`IdPension`),
+  KEY `idempresa` (`idempresa`),
+  CONSTRAINT `pension_ibfk_1` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 /*Data for the table `pension` */
+
+insert  into `pension`(`IdPension`,`NitPension`,`NomPension`,`CiudadPension`,`DirPension`,`TelPension`,`EmailPension`,`fregistro`,`estatus`,`idempresa`) values (1,5465655,'PRUEBA PENSION','CARMEN DE BOLIVAR','KRA 45','4654654','PRUEBA@GMAIL.COM','2022-09-18 17:33:26','ACTIVO',1);
 
 /*Table structure for table `persona` */
 
@@ -515,23 +654,28 @@ CREATE TABLE `persona` (
   `persona_nombre` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   `persona_apepat` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   `persona_apemat` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tipo_contribuyente` enum('Persona Natural','Persona Juridica') COLLATE utf8_unicode_ci DEFAULT NULL,
   `persona_nrodocumento` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `persona_tipodocumento` enum('CEDULA','NIT','PASAPORTE','TI') COLLATE utf8_unicode_ci DEFAULT NULL,
-  `persona_sexo` enum('MASCULINO','FEMENINO') COLLATE utf8_unicode_ci DEFAULT NULL,
   `persona_telefono` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   `persona_direccion` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
   `persona_correo` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `persona_fregistro` date DEFAULT NULL,
   `persona_estatus` enum('ACTIVO','INACTIVO') COLLATE utf8_unicode_ci DEFAULT NULL,
   `idempresa` int(11) DEFAULT NULL,
+  `id_tipo_tercero` int(11) DEFAULT NULL,
+  `estatus` enum('ACTIVO','INACTIVO') COLLATE utf8_unicode_ci DEFAULT NULL,
+  `fregistro` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`persona_id`),
   KEY `idempresa` (`idempresa`),
-  CONSTRAINT `persona_ibfk_3` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  KEY `id_tipo_tercero` (`id_tipo_tercero`),
+  CONSTRAINT `persona_ibfk_3` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`),
+  CONSTRAINT `persona_ibfk_4` FOREIGN KEY (`id_tipo_tercero`) REFERENCES `tipo_tercero` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `persona` */
 
-insert  into `persona`(`persona_id`,`persona_nombre`,`persona_apepat`,`persona_apemat`,`persona_nrodocumento`,`persona_tipodocumento`,`persona_sexo`,`persona_telefono`,`persona_direccion`,`persona_correo`,`persona_fregistro`,`persona_estatus`,`idempresa`) values (1,'JERSON','BATISTA','VEGA','1070813753','CEDULA','MASCULINO','30045454545','el centro','ingjerson@gmail.com','2022-07-13','ACTIVO',1),(2,'PROVEEDOR','DE MOSTRADOR','MOSTRADOR','000000001','NIT','MASCULINO','011111111','EL CENTRO','info@gmail.com','2022-07-13','ACTIVO',1),(3,'CLIENTE','DE ','MOSTRADOR','000000000001','CEDULA','MASCULINO','56456456','EL CENTRO','DEPRUEBA@GMAIL.COM','2022-07-13','ACTIVO',1);
+insert  into `persona`(`persona_id`,`persona_nombre`,`persona_apepat`,`persona_apemat`,`tipo_contribuyente`,`persona_nrodocumento`,`persona_tipodocumento`,`persona_telefono`,`persona_direccion`,`persona_correo`,`persona_fregistro`,`persona_estatus`,`idempresa`,`id_tipo_tercero`,`estatus`,`fregistro`) values (1,'JERSON','BATISTA','VEGA','Persona Natural','1070813753','CEDULA','30045454545','el centro','ingjerson@gmail.com','2022-07-13','ACTIVO',1,1,'ACTIVO','2023-03-10 18:56:43'),(2,'PROVEEDOR','DE MOSTRADOR','MOSTRADOR','Persona Natural','000000001','NIT','011111111','EL CENTRO','info@gmail.com','2022-07-13','ACTIVO',1,1,'ACTIVO','2023-06-14 16:58:42'),(3,'CLIENTE','DE ','MOSTRADOR','Persona Natural','000000000001','CEDULA','56456456','EL CENTRO','DEPRUEBA@GMAIL.COM','2022-07-13','ACTIVO',1,3,'ACTIVO','2023-03-10 18:57:23'),(4,'AGROPECUARIA','CAÑA ','FLECHA','Persona Juridica','900312662','NIT','3013794981','EL CARMEN DE BOLIVAR','info20221@gmail.com','2022-08-22','ACTIVO',1,1,'ACTIVO','2023-06-14 15:40:56'),(6,'PRUEBAS','PRUEBA','PRUEBA','Persona Juridica','55646456','CEDULA','56757','EL CENTRO','jerson564564@gmail.com','2022-11-05','ACTIVO',1,5,'ACTIVO','2023-03-10 18:57:29'),(7,'JUAN','PEDRO','PEDRO','Persona Juridica','465465','CEDULA','3013794981','EL CARMEN DE BOLIVAR','unitec13213@gmail.com','2022-12-03','ACTIVO',1,3,'ACTIVO','2023-04-24 20:03:58'),(8,'PRUEBAS','PRUEBA','PRUEBA','Persona Juridica','4534534','CEDULA','56757','MONTE CARMELO','jerson@gmail.com','2022-12-03','ACTIVO',1,3,NULL,'2023-04-24 20:04:02'),(9,'PRUEBAS','PRUEBA','PRUEBA','Persona Natural','675675','NIT','3013794981','EL CARMEN DE BOLIVAR','jerson2@gmail.com','2023-04-24','ACTIVO',1,1,NULL,'2023-04-24 13:20:31'),(10,'JAMEZ','RODRIGUEZ','UNICARMEN','Persona Natural','56456456','NIT','3226165766','kra 45','unitec12165662@gmail.com','2023-04-24','ACTIVO',1,1,NULL,'2023-06-14 16:51:17'),(11,'UNICARMEN','PRUEBA','PRUEBA','Persona Natural','1','NIT','3226165766','3423423424234','unitec121212@gmail.com','2023-05-02','ACTIVO',1,1,NULL,'2023-06-14 16:51:18'),(12,'JAMEZ','RODRIGUEZ','VEGA','Persona Natural','78678678','NIT','3226165766','EL CARMEN DE BOLIVAR','jamez@hotmail.com','2023-05-24','ACTIVO',1,2,NULL,'2023-06-14 17:15:33'),(13,'SIIGO','PRUEBAS','PRUEBA','Persona Natural','6465465','NIT','3013794981','SIIGO@GMAIL.COM','jersonsiigo@gmail.com','2023-06-14','ACTIVO',1,1,NULL,'2023-06-14 16:59:46'),(16,'JUAN','GUILLERMO','cuadrado','Persona Natural','87896666','NIT','3013794981','MONTE CARMELO','juanguillermo@gmail.com','2023-06-14','ACTIVO',1,2,NULL,'2023-06-14 19:31:47'),(17,'federico','RODRIGUEZ','FLECHA','Persona Natural','6756756756','CEDULA','75675','EL CARMEN','unitec15656456@gmail.com','2023-06-14','ACTIVO',1,NULL,NULL,'2023-06-14 18:47:22'),(18,'PEDRO','BATISTA','VILLEGAS','Persona Natural','6657567567567','CEDULA','75675','kra 45','pedrobatista@gmail.com','2023-06-14','ACTIVO',1,2,NULL,'2023-06-14 19:20:49'),(19,'DENIS','BATISTA','ARROYO','Persona Natural','67567567','CEDULA','675675','MONTE CARMELO','DENISBATISTA@GMAIL.COM','2023-06-14','ACTIVO',1,3,NULL,'2023-06-14 19:29:56');
 
 /*Table structure for table `prestacionsocial` */
 
@@ -567,6 +711,7 @@ CREATE TABLE `producto` (
   `id_categoria` int(11) DEFAULT NULL,
   `id_unidad` int(11) DEFAULT NULL,
   `idTipoProducto` int(11) DEFAULT NULL,
+  `id_marca` int(11) DEFAULT NULL,
   `producto_foto` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `compra` decimal(10,2) DEFAULT NULL,
   `producto_precioventa` decimal(10,2) DEFAULT NULL,
@@ -574,21 +719,24 @@ CREATE TABLE `producto` (
   `fregistro` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `idempresa` int(11) DEFAULT NULL,
   PRIMARY KEY (`producto_id`),
+  UNIQUE KEY `codigo` (`producto_codigo`),
   KEY `id_unidad` (`id_unidad`),
   KEY `producto_ibfk_1` (`id_categoria`),
   KEY `id_bodega` (`id_bodega`),
   KEY `idempresa` (`idempresa`),
   KEY `idTipoProducto` (`idTipoProducto`),
+  KEY `id_marca` (`id_marca`),
   CONSTRAINT `producto_ibfk_1` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`categoria_id`),
   CONSTRAINT `producto_ibfk_2` FOREIGN KEY (`id_unidad`) REFERENCES `unidad` (`unidad_id`),
   CONSTRAINT `producto_ibfk_3` FOREIGN KEY (`id_bodega`) REFERENCES `bodega` (`id`),
   CONSTRAINT `producto_ibfk_4` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`),
-  CONSTRAINT `producto_ibfk_5` FOREIGN KEY (`idTipoProducto`) REFERENCES `tipo_producto` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  CONSTRAINT `producto_ibfk_5` FOREIGN KEY (`idTipoProducto`) REFERENCES `tipo_producto` (`id`),
+  CONSTRAINT `producto_ibfk_6` FOREIGN KEY (`id_marca`) REFERENCES `marcas` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `producto` */
 
-insert  into `producto`(`producto_id`,`producto_codigo`,`producto_nombre`,`producto_presentacion`,`id_bodega`,`cant_minima`,`producto_stock`,`id_categoria`,`id_unidad`,`idTipoProducto`,`producto_foto`,`compra`,`producto_precioventa`,`producto_estatus`,`fregistro`,`idempresa`) values (1,'9789588464466','AMALIA JOSE MARMOL(1)','ADITORIAL ATENEA',1,'1','4',2,1,1,'controlador/productos/img/default.png',3000.00,4500.00,'ACTIVO','2022-07-14 08:19:26',1),(2,'9789589761694','ALICIA EN EL PAIS DE LAS MARAVILLAS(2)','ATENEA',1,'1','1',2,1,1,'controlador/productos/img/default.png',3000.00,4500.00,'ACTIVO','2022-07-14 08:26:56',1),(3,'9789587230321','APOLOGIA DESOCRATES(3)','SKLA EDITORIAL',1,'1','4',2,1,1,'controlador/productos/img/default.png',4000.00,5000.00,'ACTIVO','2022-07-14 08:32:21',1),(4,'9789589825785','AZUL RUBEN DARIO(4)','ATENEA',1,'1','12',2,1,1,'controlador/productos/img/default.png',3000.00,4000.00,'ACTIVO','2022-07-14 08:45:17',1),(5,'9789585783010','BAJO LA MISMA ESTRELLA(5)','NUBE DE TINTA',1,'1','4',2,1,1,'controlador/productos/img/default.png',14000.00,17000.00,'ACTIVO','2022-07-14 09:30:42',1),(6,'9789588464282','BODAS DE SANGRE(6)','ATENEA',1,'1','7',2,1,1,'controlador/productos/img/default.png',3000.00,4000.00,'ACTIVO','2022-07-14 09:43:07',1),(7,'7707187092929','CARTA AL PADRE(7)','UNION',1,'1','9',2,1,1,'controlador/productos/img/default.png',3000.00,4000.00,'ACTIVO','2022-07-14 11:03:40',1);
+insert  into `producto`(`producto_id`,`producto_codigo`,`producto_nombre`,`producto_presentacion`,`id_bodega`,`cant_minima`,`producto_stock`,`id_categoria`,`id_unidad`,`idTipoProducto`,`id_marca`,`producto_foto`,`compra`,`producto_precioventa`,`producto_estatus`,`fregistro`,`idempresa`) values (1,'9789588464466','AMALIA JOSE MARMOL(1)','ADITORIAL ATENEA',1,'1','1',2,1,1,1,'controlador/productos/img/default.png',3000.00,4500.00,'ACTIVO','2023-05-21 13:34:35',1),(2,'9789589761694','ALICIA EN EL PAIS DE LAS MARAVILLAS(2)','ATENEA',1,'1','0',2,1,1,1,'controlador/productos/img/default.png',3000.00,4500.00,'ACTIVO','2023-05-24 14:38:17',1),(3,'9789587230321','APOLOGIA DESOCRATES(3)','SKLA EDITORIAL',1,'1','0',2,1,1,1,'controlador/productos/img/default.png',4000.00,5000.00,'ACTIVO','2023-05-21 13:34:53',1),(4,'9789589825785','AZUL RUBEN DARIO(4)','ATENEA',1,'1','6',2,1,1,1,'controlador/productos/img/default.png',3000.00,4000.00,'ACTIVO','2023-05-21 13:34:57',1),(5,'9789585783010','BAJO LA MISMA ESTRELLA(5)','NUBE DE TINTA',1,'1','3',2,1,1,1,'controlador/productos/img/default.png',14000.00,17000.00,'ACTIVO','2023-05-21 13:35:05',1),(6,'9789588464282','BODAS DE SANGRE(6)','ATENEA',1,'1','7',2,1,1,1,'controlador/productos/img/default.png',3000.00,4000.00,'ACTIVO','2023-05-21 13:35:08',1),(7,'7707187092929','CARTA AL PADRE(7)','UNION',1,'1','9',2,1,1,1,'controlador/productos/img/default.png',3000.00,4000.00,'ACTIVO','2023-05-21 13:35:11',1),(8,'00003','COPIAS BLANCO Y NEGRO','COPIAS',1,'10','324',4,1,1,1,'controlador/productos/img/default.png',100.00,300.00,'ACTIVO','2023-06-08 12:04:13',1),(9,'0004','IMPRESIONES BLANCO Y NEGRO','NEGRO',1,'10','303',4,1,1,1,'controlador/productos/img/default.png',400.00,600.00,'ACTIVO','2023-06-08 12:04:13',1),(10,'0006','IMPRESIONES A COLOR','GEN',1,'10','497',4,1,1,NULL,'controlador/productos/img/default.png',300.00,1500.00,'ACTIVO','2023-06-07 10:57:38',1),(11,'7700394','LIBRETA DE 100 HOJAS','FAMA',1,'1','4',3,1,1,NULL,'controlador/productos/img/default.png',2000.00,3000.00,'ACTIVO','2023-05-21 13:35:25',1),(12,'4534','pruebas','general',1,'1','5',1,1,1,1,'controlador/productos/img/default.png',5.00,55.00,'ACTIVO','2023-05-21 13:35:31',1),(13,'10003','CARTULINAS','general',1,'10','4',3,1,1,2,'controlador/productos/img/default.png',1500.00,1800.00,'ACTIVO','2023-05-21 13:35:34',1),(14,'1000004','DULCES  TRULULU','general',1,'1','5',6,1,1,2,'controlador/productos/img/default.png',100.00,200.00,'ACTIVO','2023-05-21 13:35:37',1),(15,'1000002','1/8 CARTULINA BLANCO','general',1,'5','9',3,1,1,2,'controlador/productos/img/default.png',400.00,500.00,'ACTIVO','2023-05-22 13:48:57',1),(16,'7707294371795','CUADERNO COSIDO DE 100 HOJAS RAYADO','FAMA',1,'1','1',3,1,1,2,'controlador/productos/img/default.png',2500.00,3500.00,'ACTIVO','2023-05-31 08:17:32',1),(17,'0123655','CARPETA DE HOJA DE VIDA','general',1,'1','8',3,1,1,2,'controlador/productos/img/default.png',800.00,1000.00,'ACTIVO','2023-05-29 13:50:57',1),(18,'2300001','CARPETA OFICIO','general',1,'1','4',3,1,1,2,'controlador/productos/img/default.png',2500.00,3000.00,'ACTIVO','2023-06-05 20:24:51',1),(19,'2300002','EXACTO','general',1,'1','2',3,1,1,2,'controlador/productos/img/default.png',800.00,1000.00,'ACTIVO','2023-06-05 20:24:50',1),(20,'7800001','LAPICERO NEGRO','NORMA',1,'1','4',3,1,1,2,'controlador/productos/img/default.png',600.00,800.00,'ACTIVO','2023-06-06 15:33:43',1);
 
 /*Table structure for table `proveedor` */
 
@@ -610,11 +758,11 @@ CREATE TABLE `proveedor` (
   CONSTRAINT `proveedor_ibfk_1` FOREIGN KEY (`persona_id`) REFERENCES `persona` (`persona_id`),
   CONSTRAINT `proveedor_ibfk_2` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`),
   CONSTRAINT `proveedor_ibfk_3` FOREIGN KEY (`idciudad`) REFERENCES `ciudades` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `proveedor` */
 
-insert  into `proveedor`(`proveedor_id`,`proveedor_fregistro`,`proveedor_num_contacto`,`proveedor_estatus`,`persona_id`,`proveedor_razon_social`,`idciudad`,`idempresa`) values (1,'2022-07-13','000001','ACTIVO',2,'MOSTRADOR ',1,1);
+insert  into `proveedor`(`proveedor_id`,`proveedor_fregistro`,`proveedor_num_contacto`,`proveedor_estatus`,`persona_id`,`proveedor_razon_social`,`idciudad`,`idempresa`) values (1,'2022-07-13','000001','ACTIVO',2,'MOSTRADOR ',1,1),(2,'2023-04-24','67567567','ACTIVO',9,'probando ando ANDO',1,1),(3,'2023-05-24','45435345','ACTIVO',12,'JAMEZ PROBANDO',2,1),(4,'2023-06-14','67567567','ACTIVO',13,'SIIGO PRUEBAS',1,1);
 
 /*Table structure for table `registrohe` */
 
@@ -649,11 +797,11 @@ CREATE TABLE `rol` (
   PRIMARY KEY (`rol_id`),
   KEY `idempresa` (`idempresa`),
   CONSTRAINT `rol_ibfk_1` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `rol` */
 
-insert  into `rol`(`rol_id`,`rol_nombre`,`rol_fregistro`,`rol_estatus`,`idempresa`) values (1,'Administrador','2022-07-13','ACTIVO',1);
+insert  into `rol`(`rol_id`,`rol_nombre`,`rol_fregistro`,`rol_estatus`,`idempresa`) values (1,'Administrador','2022-07-13','ACTIVO',1),(2,'Empleado','2022-09-23','ACTIVO',1),(3,'Test','2022-09-23','ACTIVO',1);
 
 /*Table structure for table `salarios` */
 
@@ -704,6 +852,20 @@ CREATE TABLE `salida` (
 
 /*Data for the table `salida` */
 
+/*Table structure for table `tipo_contrato` */
+
+DROP TABLE IF EXISTS `tipo_contrato`;
+
+CREATE TABLE `tipo_contrato` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `descripcion` varchar(512) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `fregistro` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `estatus` enum('ACTIVO','INACTIVO') COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `tipo_contrato` */
+
 /*Table structure for table `tipo_gasto` */
 
 DROP TABLE IF EXISTS `tipo_gasto`;
@@ -717,9 +879,11 @@ CREATE TABLE `tipo_gasto` (
   PRIMARY KEY (`id`),
   KEY `idempresa` (`idempresa`),
   CONSTRAINT `tipo_gasto_ibfk_1` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `tipo_gasto` */
+
+insert  into `tipo_gasto`(`id`,`descripcion`,`fregistro`,`estatus`,`idempresa`) values (2,'PAGO SERVICIOS','2023-05-08 16:52:32','ACTIVO',1),(3,'SERVICIO DE ENERGIA','2023-05-23 11:19:34','ACTIVO',1);
 
 /*Table structure for table `tipo_producto` */
 
@@ -739,6 +903,39 @@ CREATE TABLE `tipo_producto` (
 /*Data for the table `tipo_producto` */
 
 insert  into `tipo_producto`(`id`,`tipo_producto`,`estatus`,`fregistro`,`idEmpresa`) values (1,'PRODUCTO','ACTIVO','2022-07-13 15:56:42',1),(2,'CONSUMO','ACTIVO','2022-07-13 15:56:49',1),(3,'COMBO','ACTIVO','2022-07-13 15:56:57',1);
+
+/*Table structure for table `tipo_regimen` */
+
+DROP TABLE IF EXISTS `tipo_regimen`;
+
+CREATE TABLE `tipo_regimen` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `descripcion` varchar(512) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `estatus` enum('ACTIVO','INACTIVO') COLLATE utf8_unicode_ci DEFAULT NULL,
+  `fregistro` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `tipo_regimen` */
+
+insert  into `tipo_regimen`(`id`,`descripcion`,`estatus`,`fregistro`) values (1,'Simplificado','ACTIVO','2023-05-08 16:49:07'),(2,'Comun','ACTIVO','2023-05-08 16:49:13'),(3,'Otro','ACTIVO','2023-05-08 16:49:21');
+
+/*Table structure for table `tipo_tercero` */
+
+DROP TABLE IF EXISTS `tipo_tercero`;
+
+CREATE TABLE `tipo_tercero` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `tipo` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `idempresa` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idempresa` (`idempresa`),
+  CONSTRAINT `tipo_tercero_ibfk_1` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `tipo_tercero` */
+
+insert  into `tipo_tercero`(`id`,`tipo`,`idempresa`) values (1,'PROVEEDOR',1),(2,'CLIENTE',1),(3,'CODEUDOR',1),(4,'EMPRESA',1),(5,'EMPLEADO',1);
 
 /*Table structure for table `tipodeducciones` */
 
@@ -843,7 +1040,7 @@ CREATE TABLE `usuario` (
 
 /*Data for the table `usuario` */
 
-insert  into `usuario`(`usuario_id`,`usuario_nombre`,`usuario_password`,`usuario_email`,`usuario_intento`,`usuario_estatus`,`rol_id`,`usuario_imagen`,`persona_id`,`idempresa`,`idcaja`) values (1,'admin','$2y$10$h9K.V8WbN3pebBNwmqn/zOd2ozDzhgcNgyT317cPmJMMTBmyBVYRu','ingjerson2014@gmail.com',NULL,'ACTIVO',1,'controlador/usuario/img/IMG1372022152736.jpg',1,1,1);
+insert  into `usuario`(`usuario_id`,`usuario_nombre`,`usuario_password`,`usuario_email`,`usuario_intento`,`usuario_estatus`,`rol_id`,`usuario_imagen`,`persona_id`,`idempresa`,`idcaja`) values (1,'admin','$2y$10$h9K.V8WbN3pebBNwmqn/zOd2ozDzhgcNgyT317cPmJMMTBmyBVYRu','ingjerson2014@gmail.com',NULL,'ACTIVO',1,'controlador/usuario/img/IMG317202213118.jpg',1,1,1);
 
 /*Table structure for table `venta` */
 
@@ -878,9 +1075,11 @@ CREATE TABLE `venta` (
   CONSTRAINT `venta_ibfk_3` FOREIGN KEY (`bodega_id`) REFERENCES `bodega` (`id`),
   CONSTRAINT `venta_ibfk_4` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`),
   CONSTRAINT `venta_ibfk_5` FOREIGN KEY (`idcaja`) REFERENCES `caja` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `venta` */
+
+insert  into `venta`(`venta_id`,`cliente_id`,`bodega_id`,`usuario_id`,`venta_tipocomprobante`,`venta_serie`,`venta_numcomprobante`,`tipo_pago`,`venta_fecha`,`venta_impuesto`,`venta_total`,`venta_estatus`,`venta_porcentaje`,`venta_total_dcto`,`fecha_vencimiento`,`idempresa`,`idcaja`) values (1,1,1,1,'TICKET','FV',NULL,'CONTADO','2022-07-31',0.00,17000.00,'REGISTRADA',0.00,0.00,'2022-07-30',1,1),(2,2,1,1,'FACTURA','FV',NULL,'CONTADO','2022-08-22',0.00,3600.00,'REGISTRADA',0.00,0.00,'2022-08-22',1,1),(3,1,1,1,'TICKET','FV',NULL,'CONTADO','2022-09-22',0.00,4500.00,'REGISTRADA',0.00,0.00,'0000-00-00',1,1),(4,1,1,1,'FACTURA','FV',NULL,'CONTADO','2022-09-22',0.00,4000.00,'REGISTRADA',0.00,0.00,'0000-00-00',1,1),(5,2,1,1,'FACTURA','FV',NULL,'CONTADO','2022-09-26',0.00,6000.00,'REGISTRADA',0.00,0.00,'2022-09-26',1,1),(6,2,1,1,'TICKET','FV',NULL,'CREDITO','2022-11-02',0.00,15000.00,'CANCELADA',0.00,0.00,'0000-00-00',1,1),(7,1,1,1,'TICKET','FV',NULL,'CONTADO','2022-11-05',0.00,4000.00,'REGISTRADA',0.00,0.00,'2022-11-05',1,1),(8,1,1,1,'TICKET','FV',NULL,'CONTADO','2022-11-16',0.00,4500.00,'REGISTRADA',0.00,0.00,'0000-00-00',1,1),(9,2,1,1,'TICKET','FV',NULL,'CONTADO','2022-11-21',0.00,16000.00,'REGISTRADA',0.00,0.00,'2022-11-21',1,1),(10,2,1,1,'TICKET','FV',NULL,'CONTADO','2022-12-09',0.00,6300.00,'REGISTRADA',0.00,0.00,'2022-12-09',1,1),(11,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-01-03',0.00,5000.00,'REGISTRADA',0.00,0.00,'0000-00-00',1,1),(12,1,1,1,'FACTURA','FV',NULL,'CONTADO','2023-01-03',0.00,7840.00,'REGISTRADA',0.00,160.00,'2023-01-03',1,1),(13,2,1,1,'COTIZACION','FV',NULL,'CONTADO','2023-01-22',0.00,600.00,'REGISTRADA',0.00,0.00,'0000-00-00',1,1),(14,2,1,1,'FACTURA','FV',NULL,'CONTADO','2023-01-22',0.00,10500.00,'REGISTRADA',0.00,0.00,'0000-00-00',1,1),(15,2,1,1,'TICKET','FV',NULL,'CONTADO','2023-03-24',0.00,30000.00,'REGISTRADA',0.00,0.00,'2023-03-24',1,1),(16,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-04-13',0.00,4500.00,'REGISTRADA',0.00,0.00,'2023-04-13',1,1),(17,1,1,1,'FACTURA','FV',NULL,'CONTADO','2023-04-13',0.00,4000.00,'REGISTRADA',0.00,0.00,'0000-00-00',1,1),(18,1,1,1,'FACTURA','FV',NULL,'CONTADO','2023-04-27',0.00,4000.00,'REGISTRADA',0.00,0.00,'0000-00-00',1,1),(19,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-05-18',0.00,3000.00,'REGISTRADA',0.00,0.00,'2023-05-18',1,1),(20,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-05-18',0.00,4200.00,'REGISTRADA',0.00,0.00,'2023-05-18',1,1),(21,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-05-18',0.00,2100.00,'REGISTRADA',0.00,0.00,'2023-05-18',1,1),(22,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-05-18',0.00,600.00,'REGISTRADA',0.00,0.00,'2023-05-18',1,1),(23,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-05-18',0.00,1800.00,'REGISTRADA',0.00,0.00,'0000-00-00',1,1),(24,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-05-18',0.00,1000.00,'REGISTRADA',0.00,0.00,'2023-05-18',1,1),(25,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-05-22',0.00,1500.00,'REGISTRADA',0.00,0.00,'2023-05-22',1,1),(26,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-05-22',0.00,4800.00,'REGISTRADA',0.00,0.00,'2023-05-22',1,1),(27,1,1,1,'COTIZACION','FV',NULL,'CONTADO','2023-05-22',0.00,3600.00,'REGISTRADA',0.00,0.00,'0000-00-00',1,1),(28,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-05-23',0.00,3500.00,'REGISTRADA',0.00,0.00,'2023-05-23',1,1),(29,2,1,1,'TICKET','FV',NULL,'CONTADO','2023-05-23',0.00,1800.00,'REGISTRADA',0.00,0.00,'0000-00-00',1,1),(30,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-05-23',0.00,3500.00,'REGISTRADA',0.00,0.00,'2023-05-23',1,1),(31,1,1,1,'COTIZACION','FV',NULL,'CONTADO','2023-05-23',0.00,600.00,'REGISTRADA',0.00,0.00,'0000-00-00',1,1),(32,1,1,1,'COTIZACION','FV',NULL,'CONTADO','2023-05-23',0.00,6500.00,'REGISTRADA',0.00,0.00,'2023-05-23',1,1),(33,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-05-23',0.00,900.00,'REGISTRADA',0.00,0.00,'2023-05-23',1,1),(34,1,1,1,'COTIZACION','FV',NULL,'CONTADO','2023-05-23',0.00,3600.00,'REGISTRADA',0.00,0.00,'2023-05-23',1,1),(35,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-05-23',0.00,1200.00,'REGISTRADA',0.00,0.00,'2023-05-23',1,1),(36,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-05-23',0.00,3600.00,'REGISTRADA',0.00,0.00,'2023-05-23',1,1),(37,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-05-24',0.00,5100.00,'REGISTRADA',0.00,0.00,'2023-05-24',1,1),(38,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-05-24',0.00,4500.00,'REGISTRADA',0.00,0.00,'0000-00-00',1,1),(39,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-05-26',0.00,1500.00,'REGISTRADA',0.00,0.00,'2023-05-26',1,1),(40,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-05-29',0.00,9600.00,'REGISTRADA',0.00,0.00,'2023-05-29',1,1),(41,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-05-29',0.00,2000.00,'REGISTRADA',0.00,0.00,'2023-05-29',1,1),(42,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-05-29',0.00,3000.00,'REGISTRADA',0.00,0.00,'2023-05-29',1,1),(43,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-05-30',0.00,2400.00,'REGISTRADA',0.00,0.00,'2023-05-30',1,1),(44,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-05-30',0.00,1200.00,'REGISTRADA',0.00,0.00,'2023-05-30',1,1),(45,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-05-31',0.00,5300.00,'REGISTRADA',0.00,0.00,'2023-05-31',1,1),(46,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-05-31',0.00,9000.00,'REGISTRADA',0.00,0.00,'2023-05-31',1,1),(47,1,1,1,'COTIZACION','FV',NULL,'CONTADO','2023-06-01',0.00,4500.00,'REGISTRADA',0.00,0.00,'2023-06-01',1,1),(48,1,1,1,'COTIZACION','FV',NULL,'CONTADO','2023-06-01',0.00,3000.00,'REGISTRADA',0.00,0.00,'2023-06-01',1,1),(49,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-06-01',0.00,600.00,'REGISTRADA',0.00,0.00,'2023-06-01',1,1),(50,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-06-05',0.00,12000.00,'REGISTRADA',0.00,0.00,'2023-06-05',1,1),(51,1,1,1,'COTIZACION','FV',NULL,'CONTADO','2023-06-05',0.00,4000.00,'REGISTRADA',0.00,0.00,'0000-00-00',1,1),(52,1,1,1,'COTIZACION','FV',NULL,'CONTADO','2023-06-06',0.00,600.00,'REGISTRADA',0.00,0.00,'2023-06-06',1,1),(53,1,1,1,'COTIZACION','FV',NULL,'CONTADO','2023-06-06',0.00,600.00,'REGISTRADA',0.00,0.00,'2023-06-06',1,1),(54,1,1,1,'COTIZACION','FV',NULL,'CONTADO','2023-06-06',0.00,1000.00,'REGISTRADA',0.00,0.00,'0000-00-00',1,1),(55,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-06-06',0.00,600.00,'REGISTRADA',0.00,0.00,'2023-06-06',1,1),(56,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-06-06',0.00,800.00,'REGISTRADA',0.00,0.00,'2023-06-06',1,1),(57,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-06-07',0.00,600.00,'REGISTRADA',0.00,0.00,'2023-06-07',1,1),(58,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-06-07',0.00,1600.00,'REGISTRADA',0.00,0.00,'2023-06-07',1,1),(59,1,1,1,'COTIZACION','FV',NULL,'CONTADO','2023-06-07',0.00,2700.00,'REGISTRADA',0.00,0.00,'2023-06-07',1,1),(60,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-06-08',0.00,1800.00,'REGISTRADA',0.00,0.00,'2023-06-08',1,1);
 
 /* Trigger structure for table `detalle_compra` */
 
@@ -1063,27 +1262,6 @@ FROM
         GROUP BY idCompra */$$
 DELIMITER ;
 
-/* Procedure structure for procedure `SP_LISTAR_ARL` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `SP_LISTAR_ARL` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_ARL`()
-SELECT
-    `IdARL`
-    , `NitARL`
-    , `NomARL`
-    , `DirARL`
-    , `CiudadARL`
-    , `TelARL`
-    , `EmailArl`
-    , `fregistro`
-    , `estatus`
-FROM
-    `arl` */$$
-DELIMITER ;
-
 /* Procedure structure for procedure `SP_LISTAR_BODEGAS` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `SP_LISTAR_BODEGAS` */;
@@ -1255,6 +1433,29 @@ FROM
         ON (`proveedor`.`persona_id` = `persona`.`persona_id`)
      INNER JOIN `bodega`  ON  `compra`.`id_bodega`  = `bodega`.`id`  
         where compra.compra_fecha BETWEEN INICIO AND FIN */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_LISTAR_PENSION` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_LISTAR_PENSION` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_PENSION`(IN IDEMPRESA INT)
+SELECT
+    `IdPension`
+    , `NitPension`
+    , `NomPension`
+    , `CiudadPension`
+    , `DirPension`
+    , `TelPension`
+    , `EmailPension`
+    , `fregistro`
+    , `estatus`
+    , `idempresa`
+FROM
+    `pension`
+    where pension.`idempresa` = 1 */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `SP_LISTAR_PERSONA` */
@@ -1706,6 +1907,19 @@ estatus = ESTATUS_EPS
 where IdEPS = ID */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `SP_MODIFICAR_ESTATUS_MARCA` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_MODIFICAR_ESTATUS_MARCA` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_ESTATUS_MARCA`(IN IDMARCA INT,
+    IN ESTATUS VARCHAR(20))
+UPDATE marcas SET 
+estatus = ESTATUS 
+WHERE id = IDMARCA */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `SP_MODIFICAR_ESTATUS_PERSONA` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `SP_MODIFICAR_ESTATUS_PERSONA` */;
@@ -1838,6 +2052,35 @@ select 1;
 end */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `SP_MODIFICAR_MARCA` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_MODIFICAR_MARCA` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_MARCA`(IN `IDMARCA` INT, IN `DESC_ACTUAL` VARCHAR(250), IN `DESC_NUEVO` VARCHAR(250), IN `ESTATUS_MARCA` VARCHAR(15))
+BEGIN
+DECLARE CANTIDAD INT;
+IF DESC_ACTUAL = DESC_NUEVO THEN
+	UPDATE marcas SET
+	estatus=ESTATUS_MARCA
+	WHERE id = ID;
+SELECT 1;
+ELSE 
+SET @CANTIDAD:=(SELECT COUNT(*) FROM marcas WHERE descripcion=DESC_NUEVO);
+IF  @CANTIDAD = 0 THEN
+UPDATE marcas SET
+estatus=ESTATUS_MARCA,
+descripcion=DESC_NUEVO
+WHERE id = IDMARCA;
+SELECT 1;
+ELSE 
+SELECT 2;
+END IF;
+END IF;
+END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `SP_MODIFICAR_PERSONA` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `SP_MODIFICAR_PERSONA` */;
@@ -1846,13 +2089,13 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_PERSONA`(IN `IDPERSONA` INT, IN `NOMBRE` VARCHAR(50), IN `APEPAT` VARCHAR(50),
 IN `APEMAT` VARCHAR(50), IN `NRO_DOCUMENTO_ACTUAL` VARCHAR(50), IN `NRO_DOCUMENTO_NUEVO` VARCHAR(50),
- IN `TIPO_DOC` VARCHAR(50), IN `SEXO` VARCHAR(15), IN `TELEFONO` VARCHAR(50), IN `DIRECCION` VARCHAR(50),IN CORREO VARCHAR(100), IN `ESTATUS` VARCHAR(20))
+ IN `TIPO_DOC` VARCHAR(50),  IN `TELEFONO` VARCHAR(50), IN `DIRECCION` VARCHAR(50),IN CORREO VARCHAR(100), IN `ESTATUS` VARCHAR(20))
 BEGIN
 DECLARE CANTIDAD INT;
 IF NRO_DOCUMENTO_ACTUAL= NRO_DOCUMENTO_NUEVO THEN
 		UPDATE persona SET 
 		persona_nombre= NOMBRE,`persona_apepat`=APEPAT,`persona_apemat`=APEMAT,
-		`persona_tipodocumento`=TIPO_DOC,`persona_sexo`=SEXO,`persona_telefono`=TELEFONO,
+		`persona_tipodocumento`=TIPO_DOC,`persona_telefono`=TELEFONO,
 		`persona_direccion`=DIRECCION,
 		persona_correo =CORREO,
 		 `persona_estatus`=ESTATUS
@@ -1865,7 +2108,7 @@ SELECT 1;
 		 UPDATE persona SET 
 			persona_nombre= NOMBRE,`persona_apepat`=APEPAT,`persona_apemat`=APEMAT,
 			`persona_nrodocumento`=NRO_DOCUMENTO_NUEVO,
-		`persona_tipodocumento`=TIPO_DOC,`persona_sexo`=SEXO,`persona_telefono`=TELEFONO,
+		`persona_tipodocumento`=TIPO_DOC,`persona_telefono`=TELEFONO,
 		`persona_direccion`=DIRECCION,
 		persona_correo = CORREO,
 		 `persona_estatus`=ESTATUS
@@ -2164,14 +2407,14 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_arl`(IN NIT_ARL BIGINT(20),IN NOMBRE_ARL VARCHAR(100), IN CIUDAD_ARL  VARCHAR(100),
 IN DIRECCION VARCHAR(100), IN TELEFONO_ARL VARCHAR(100),
-IN CORREO_ARL VARCHAR(200) )
+IN CORREO_ARL VARCHAR(200), IN IDEMPRESA INT )
 BEGIN 
 DECLARE CANTIDAD INT;
 SET @CANTIDAD:=(SELECT COUNT(*) FROM arl WHERE arl.`NitARL`=NIT_ARL);
 IF @CANTIDAD = 0 THEN
 INSERT INTO arl (`NitARL`, `NomARL`,`CiudadARL`,`DirARL`,`TelARL`,`EmailArl`,
- `estatus`)
-VALUES (NIT_ARL,NOMBRE_ARL, CIUDAD_ARL,DIRECCION,TELEFONO_ARL ,CORREO_ARL  ,'ACTIVO');
+ `estatus`, `idempresa`)
+VALUES (NIT_ARL,NOMBRE_ARL, CIUDAD_ARL,DIRECCION,TELEFONO_ARL ,CORREO_ARL  ,'ACTIVO',IDEMPRESA);
 SELECT 1;
 ELSE
 SELECT 2;
@@ -2265,14 +2508,18 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_CLIENTE2`(IN `NOMBRE` VARCHAR(50), IN `APEPAT` VARCHAR(50), IN `APEMAT` VARCHAR(50), IN `NRO_DOCUMENTO` VARCHAR(50), IN `TIPO_DOC` VARCHAR(50), IN `SEXO` VARCHAR(15), IN `TELEFONO` VARCHAR(50), IN `DIRECCION` VARCHAR(50), IN `CORREO` VARCHAR(100), IN `IDCIUDAD` INT, IN `IDEMPRESA` INT)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_CLIENTE2`(IN `NOMBRE` VARCHAR(50), 
+IN `APEPAT` VARCHAR(50), IN `APEMAT` VARCHAR(50), 
+IN `NRO_DOCUMENTO` VARCHAR(50), IN `TIPO_DOC` VARCHAR(50),IN TIPO_CONTRIBUYENTE VARCHAR(100),
+ IN `TELEFONO` VARCHAR(50), IN `DIRECCION` VARCHAR(50), IN `CORREO` VARCHAR(100),
+  IN `IDCIUDAD` INT, IN `IDEMPRESA` INT, IN IDTIPO_TERCERO INT)
 BEGIN
 DECLARE  cantidad INT;
 SET @cantidad:=( SELECT COUNT(*) FROM persona WHERE persona_nrodocumento =NRO_DOCUMENTO);
 IF @cantidad = 0 THEN
 INSERT INTO `persona`(`persona_nombre`,`persona_apepat`,`persona_apemat`,
-`persona_nrodocumento`,`persona_tipodocumento`,`persona_sexo`,`persona_telefono`,`persona_direccion`,`persona_correo`,  `persona_fregistro`,
-`persona_estatus`, idempresa)VALUES (NOMBRE,APEPAT,APEMAT,NRO_DOCUMENTO,TIPO_DOC,SEXO,TELEFONO,DIRECCION,CORREO,CURDATE(),'ACTIVO',IDEMPRESA);
+`persona_nrodocumento`,`persona_tipodocumento`,`tipo_contribuyente`, `persona_telefono`,`persona_direccion`,`persona_correo`,  `persona_fregistro`,
+`persona_estatus`, idempresa,`id_tipo_tercero`)VALUES (NOMBRE,APEPAT,APEMAT,NRO_DOCUMENTO,TIPO_DOC,TIPO_CONTRIBUYENTE,TELEFONO,DIRECCION,CORREO,CURDATE(),'ACTIVO',IDEMPRESA,IDTIPO_TERCERO );
 INSERT INTO cliente(`cliente_fregistro`,`cliente_estatus`,`persona_id`,idciudad, idempresa) VALUES (CURDATE(),'ACTIVO',LAST_INSERT_ID(),IDCIUDAD,  IDEMPRESA);
 SELECT 1;
 ELSE 
@@ -2328,6 +2575,33 @@ SET @CANTIDAD:=(SELECT COUNT(*) FROM concepto WHERE `descripcion` = NOMBRE);
 IF @CANTIDAD = 0 THEN
 INSERT INTO concepto (descripcion,  estatus,`idempresa`)
 VALUES (NOMBRE,'ACTIVO',IDEMPRESA);
+SELECT 1;
+ELSE
+SELECT 2;
+END IF;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_REGISTRAR_CUENTA_CONTABLE` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_REGISTRAR_CUENTA_CONTABLE` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_CUENTA_CONTABLE`(IN IDEMPRESA INT,IN COD_CUENTA VARCHAR(30),
+IN CONCEPTO_NIT VARCHAR(30), IN NOMBRE_CUENTA VARCHAR(100),IN TIPO VARCHAR(30),
+IN USA_BANCOS_C  INT, IN USA_BASE_C INT,IN USA_CENTRO_C INT,IN USA_NIT_C INT,
+IN USA_ANTICIPO_C INT,IN CATEGORIA VARCHAR(130), IN CLASE VARCHAR(100),
+IN NIVEL INT)
+BEGIN 
+DECLARE CANTIDAD INT;
+SET @CANTIDAD:=(SELECT COUNT(*) FROM cuentas WHERE `codigo` = COD_CUENTA);
+IF @CANTIDAD = 0 THEN
+INSERT INTO `cuentas` (`idEmpresa`,`codigo`,concepto_nit,nombre,
+tipo,usa_bancos,usa_base,usa_centros,usa_nit,usa_anticipo,categoria,clase,nivel,
+ fregistro,estatus)
+VALUES (IDEMPRESA,COD_CUENTA,CONCEPTO_NIT,NOMBRE_CUENTA,TIPO, USA_BANCOS_C  , USA_BASE_C , USA_CENTRO_C , USA_NIT_C ,
+ USA_ANTICIPO_C , CATEGORIA ,  CLASE , NIVEL ,CURDATE(),'ACTIVO');
 SELECT 1;
 ELSE
 SELECT 2;
@@ -2434,6 +2708,26 @@ END IF;
 END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `SP_REGISTRAR_MARCAS` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_REGISTRAR_MARCAS` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_MARCAS`(IN DESCP VARCHAR(200),IN IDEMPRESA INT)
+BEGIN 
+DECLARE CANTIDAD INT;
+SET @CANTIDAD:=(SELECT COUNT(*) FROM marcas WHERE `descripcion` = DESCP);
+IF @CANTIDAD = 0 THEN
+INSERT INTO marcas (descripcion, fregistro, estatus,`idempresa`)
+VALUES (DESCP,CURDATE(),'ACTIVO',IDEMPRESA);
+SELECT 1;
+ELSE
+SELECT 2;
+END IF;
+END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `SP_REGISTRAR_PENSION` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `SP_REGISTRAR_PENSION` */;
@@ -2462,14 +2756,16 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_PERSONA`(IN `NOMBRE` VARCHAR(50), IN `APEPAT` VARCHAR(50), IN `APEMAT` VARCHAR(50), IN `NRO_DOCUMENTO` VARCHAR(50), IN `TIPO_DOC` VARCHAR(50), IN `SEXO` VARCHAR(15), IN `TELEFONO` VARCHAR(50), IN `DIRECCION` VARCHAR(50), IN `IDEMPRESA` INT)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_PERSONA`(IN `NOMBRE` VARCHAR(50), IN `APEPAT` VARCHAR(50), IN `APEMAT` VARCHAR(50),
+ IN `TIPO_CONT` VARCHAR(50), IN `NRO_DOCUMENTO` VARCHAR(50), IN `TIPO_DOC` VARCHAR(50),
+  IN `TELEFONO` VARCHAR(50), IN `DIRECCION` VARCHAR(50), IN `CORREO` VARCHAR(250), IN `IDEMPRESA` INT, IN IDTIPO_TERCERO INT)
 BEGIN
 DECLARE  cantidad INT;
 SET @cantidad:=( SELECT COUNT(*) FROM persona WHERE persona_nrodocumento =NRO_DOCUMENTO);
 IF @cantidad = 0 THEN
-INSERT INTO `persona`(`persona_nombre`,`persona_apepat`,`persona_apemat`,
-`persona_nrodocumento`,`persona_tipodocumento`,`persona_sexo`,`persona_telefono`,`persona_direccion`,`persona_fregistro`,
-`persona_estatus`,idempresa)VALUES (NOMBRE,APEPAT,APEMAT,NRO_DOCUMENTO,TIPO_DOC,SEXO,TELEFONO,DIRECCION,CURDATE(),'ACTIVO',IDEMPRESA);
+INSERT INTO `persona`(`persona_nombre`,`persona_apepat`,`persona_apemat`,`tipo_contribuyente`,
+`persona_nrodocumento`,`persona_tipodocumento`,`persona_telefono`,`persona_direccion`, `persona_correo`, `persona_fregistro`,
+`persona_estatus`,idempresa, `id_tipo_tercero`)VALUES (NOMBRE,APEPAT,APEMAT,TIPO_CONT,NRO_DOCUMENTO,TIPO_DOC,TELEFONO,DIRECCION,CORREO, CURDATE(),'ACTIVO',IDEMPRESA,IDTIPO_TERCERO);
 SELECT 1;
 ELSE 
 SELECT 2;
@@ -2483,7 +2779,14 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_PRODUCTO`(IN `CODIGO` VARCHAR(100), IN `NOMBRE` VARCHAR(100), IN `PRESENTACION` VARCHAR(250), IN `IDBODEGA` INT, IN `CANTIDAD_MIN` VARCHAR(100), IN `CANTIDAD_INICIAL` VARCHAR(100), IN `IDCATEGORIA` VARCHAR(100), IN `IDUNIDAD` INT, IN `IDTIPO` INT, IN `RUTA` VARCHAR(255), IN `PRECIO_COMPRA` DOUBLE, IN `PRECIO_VENTA` DOUBLE, IN `IDEMPRESA` INT)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_PRODUCTO`(IN `CODIGO` VARCHAR(100),
+ IN `NOMBRE` VARCHAR(100), 
+ IN `PRESENTACION` VARCHAR(250),
+  IN `IDBODEGA` INT, IN `CANTIDAD_MIN` VARCHAR(100),
+   IN `CANTIDAD_INICIAL` VARCHAR(100),
+    IN `IDCATEGORIA` VARCHAR(100), 
+    IN `IDUNIDAD` INT, IN `IDTIPO` INT, IN IDMARCA INT,
+    IN `RUTA` VARCHAR(255), IN `PRECIO_COMPRA` DOUBLE, IN `PRECIO_VENTA` DOUBLE, IN `IDEMPRESA` INT)
 BEGIN 
 DECLARE CANTIDAD INT;
 SET @CANTIDAD:=(SELECT COUNT(*) FROM producto WHERE producto_codigo =CODIGO OR producto_nombre =NOMBRE);
@@ -2491,9 +2794,9 @@ IF @CANTIDAD =0 THEN
 INSERT INTO `producto` (`producto_codigo`,`producto_nombre`,`producto_presentacion`,`id_bodega`,
                         cant_minima,`producto_stock`,
 	
-`id_categoria`, `id_unidad`, `idTipoProducto`, `producto_foto`, `compra`, `producto_precioventa`, 
+`id_categoria`, `id_unidad`, `idTipoProducto`,`id_marca`, `producto_foto`, `compra`, `producto_precioventa`, 
 `producto_estatus`,producto.`idempresa`) VALUES(CODIGO,NOMBRE,PRESENTACION,IDBODEGA, 
-CANTIDAD_MIN, CANTIDAD_INICIAL,IDCATEGORIA,IDUNIDAD, IDTIPO,RUTA,PRECIO_COMPRA,  PRECIO_VENTA,'ACTIVO',IDEMPRESA);
+CANTIDAD_MIN, CANTIDAD_INICIAL,IDCATEGORIA,IDUNIDAD, IDTIPO,IDMARCA,RUTA,PRECIO_COMPRA,  PRECIO_VENTA,'ACTIVO',IDEMPRESA);
 SELECT 1;
 ELSE 
 SELECT 2;
@@ -2530,14 +2833,23 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_PROVEEDOR2`(IN `NOMBRE` VARCHAR(50), IN `APEPAT` VARCHAR(50), IN `APEMAT` VARCHAR(50), IN `NRO_DOCUMENTO` VARCHAR(50), IN `TIPO_DOC` VARCHAR(50), IN `SEXO` VARCHAR(15), IN `TELEFONO` VARCHAR(50), IN `DIRECCION` VARCHAR(50), IN `CORREO` VARCHAR(100), IN `RAZON_SOCIAL` VARCHAR(255), IN `NUM_PROVEEDOR` VARCHAR(255), IN `IDCIUDAD` INT, IN `IDEMPRESA` INT)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_PROVEEDOR2`(IN `NOMBRE` VARCHAR(50),
+ IN `APEPAT` VARCHAR(50), IN `APEMAT` VARCHAR(50),
+  IN `NRO_DOCUMENTO` VARCHAR(50), IN `TIPO_DOC` VARCHAR(50),
+  IN TIPO_CONTRIBUYENTE VARCHAR(100),
+   IN `SEXO` VARCHAR(15), IN `TELEFONO` VARCHAR(50),
+    IN `DIRECCION` VARCHAR(50), IN `CORREO` VARCHAR(100),
+     IN `RAZON_SOCIAL` VARCHAR(255), IN `NUM_PROVEEDOR` VARCHAR(255),
+      IN `IDCIUDAD` INT, IN `IDEMPRESA` INT, IN IDTIPO_TERCERO INT)
 BEGIN
 DECLARE  cantidad INT;
 SET @cantidad:=( SELECT COUNT(*) FROM persona WHERE persona_nrodocumento =NRO_DOCUMENTO);
 IF @cantidad = 0 THEN
 INSERT INTO `persona`(`persona_nombre`,`persona_apepat`,`persona_apemat`,
-`persona_nrodocumento`,`persona_tipodocumento`,`persona_sexo`,`persona_telefono`,`persona_direccion`,`persona_correo`,   `persona_fregistro`,
-`persona_estatus`,idempresa)VALUES (NOMBRE,APEPAT,APEMAT,NRO_DOCUMENTO,TIPO_DOC,SEXO,TELEFONO,DIRECCION, CORREO,  CURDATE(),'ACTIVO',IDEMPRESA);
+`persona_nrodocumento`,`persona_tipodocumento`,`tipo_contribuyente`, `persona_sexo`,`persona_telefono`,
+`persona_direccion`,`persona_correo`,   `persona_fregistro`,
+`persona_estatus`,idempresa, `id_tipo_tercero`)VALUES (NOMBRE,APEPAT,APEMAT,NRO_DOCUMENTO,TIPO_DOC,
+TIPO_CONTRIBUYENTE,SEXO,TELEFONO,DIRECCION, CORREO,  CURDATE(),'ACTIVO',IDEMPRESA,IDTIPO_TERCERO);
 INSERT INTO  proveedor(`proveedor_fregistro`,`proveedor_estatus`,`persona_id`,`proveedor_razon_social`,proveedor_num_contacto,idciudad, `idempresa`) 
 VALUES (CURDATE(),'ACTIVO',LAST_INSERT_ID(),RAZON_SOCIAL,NUM_PROVEEDOR,IDCIUDAD, IDEMPRESA);
 SELECT 1;

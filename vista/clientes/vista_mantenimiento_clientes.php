@@ -16,7 +16,7 @@
                             <th>Número</th>
                             <th>Tipo Documento</th>
                             <th>Tipo Contribuyente</th>
-                            <th style="text-align: center;">Sexo</th>
+                            <!-- <th>Tipo Tercero</th> -->
                             <th>Ciudad</th>
                             <th>Telefono</th>
                             <th>Direccion</th>
@@ -81,6 +81,12 @@
               <option value="Persona Juridica">Jurídica</option>
              </select>
         </div>
+        <div class="col-lg-6">
+      	   <label for=""><b>Tipo</b> </label>
+            <select class="js-example-basic-single" name="state" style="width: 100%;" id="cmb_tipo_tercero_cliente">
+
+             </select>
+      	</div>
 
       <!--	<div class="col-lg-6">
       	   <label for=""><b>Sexo</b> </label>
@@ -128,10 +134,13 @@
 
 
 <script type="text/javascript" src="../js/cliente.js"></script>
+<script type="text/javascript" src="../js/proveedor.js?rev=<?php echo time(); ?>"></script>
+
 <script>
 $(document).ready(function() {
     listar_cliente();
     listar_combo_ciudad();
+    listar_combo_tipo_cliente();
       $('.js-example-basic-single').select2();
 });
 

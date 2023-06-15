@@ -16,6 +16,7 @@
                             <th>Número</th>
                             <th>Tipo Documento</th>
                             <th>Tipo Contribuyente</th>
+                            <th>Tipo Tercero</th>
                             <th>Razón Social</th>
                             <th>No Contacto </th>
                             <th>Ciudad</th>

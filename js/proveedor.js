@@ -27,6 +27,7 @@ var idempresa =$("#txt_idempresa").val();
             {"data":"persona_nrodocumento"},
             {"data":"persona_tipodocumento"},
             {"data":"tipo_contribuyente"},
+            {"data":"tipo"},
             {"data":"proveedor_razon_social"},
             {"data":"proveedor_num_contacto"},
             {"data":"nombre_ciudad"},
@@ -125,6 +126,35 @@ var idempresa =$("#txt_idempresa").val();
                } else {
                    cadena+="<option value=''> No Hay datos</option>";
                    $('#cmb_tipo_tercero').html(cadena);
+                //  $('#cmb_ciudad_proveedor').html(cadena);
+                 //  $('#cmb_categoria_producto').html(cadena);
+               }
+            })
+       }
+
+       function listar_combo_tipo_cliente() {
+        var idempresa =$("#txt_idempresa").val();
+           $.ajax({
+               url:"../controlador/proveedor/control_combo_tercero_cliente.php",
+                type:'POST',
+                data:{
+                   idempresa:idempresa
+                }
+           }).done(function(resp){
+           //alert(resp);
+               var data = JSON.parse(resp);
+               //console.log(resp);
+              var cadena ="<option value=''>Seleccione...</option>";
+               if(data.length>0) {
+                   for (var i = 0; i < data.length; i++) {
+                       cadena+="<option value='"+data[i][0]+"'>"+data[i][1]+"</option>";
+                   }
+                   $('#cmb_tipo_tercero_cliente').html(cadena);
+                // $('#cmb_ciudad_proveedor').html(cadena);
+               //  $('#cmb_categoria_producto').html(cadena);
+               } else {
+                   cadena+="<option value=''> No Hay datos</option>";
+                   $('#cmb_tipo_tercero_cliente').html(cadena);
                 //  $('#cmb_ciudad_proveedor').html(cadena);
                  //  $('#cmb_categoria_producto').html(cadena);
                }

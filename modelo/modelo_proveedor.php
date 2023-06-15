@@ -13,17 +13,20 @@ class Modelo_Proveedor {
 		$sql = " SELECT     `persona`.`persona_id`
 		, CONCAT_WS(' ', `persona`.`persona_nombre`    , `persona`.`persona_apepat`    , `persona`.`persona_apemat`) AS proveedor
 		, `persona`.`persona_nrodocumento`    , `persona`.`persona_tipodocumento`
-		, `persona`.`persona_sexo`    , `persona`.`persona_telefono`
+		    , `persona`.`persona_telefono`
 		, persona.`tipo_contribuyente`
 		, `persona`.`persona_direccion` ,persona.persona_correo   , `proveedor`.`proveedor_id`
 		,proveedor.proveedor_num_contacto    , `proveedor`.`proveedor_fregistro`
 		, `proveedor`.`proveedor_estatus`    ,	proveedor.proveedor_razon_social
-			  ,proveedor.`idempresa`, proveedor.`idciudad`, ciudades.`nombre_ciudad`
+			  ,proveedor.`idempresa`, proveedor.`idciudad`, ciudades.`nombre_ciudad`,
+			  persona.`id_tipo_tercero`, `tipo_tercero`.`tipo`
 		FROM     `proveedor`
 		INNER JOIN `persona` ON (`proveedor`.`persona_id` = `persona`.`persona_id`)
 		INNER JOIN ciudades ON proveedor.`idciudad` =  ciudades.`id`
 		INNER JOIN empresa ON   proveedor.`idempresa` = empresa.`ID`
-        WHERE proveedor.`idempresa` ='$idempresa'";
+		INNER JOIN tipo_tercero ON persona.`id_tipo_tercero` = tipo_tercero.`id`
+        WHERE proveedor.`idempresa` ='$idempresa'
+        ORDER BY persona.`persona_apemat` ASC";
 			$arreglo = array();
 			if($consulta = $this->conexion->conexion->query($sql)){
 				while($consulta_vu = mysqli_fetch_assoc($consulta)) {
@@ -65,6 +68,22 @@ class Modelo_Proveedor {
 		WHERE tipo_tercero.`tipo` ='PROVEEDOR'
 		AND  tipo_tercero.`idempresa` = '$idempresa'
 		";
+					$arreglo = array();
+				if($consulta = $this->conexion->conexion->query($sql)){
+					while($consulta_vu = mysqli_fetch_array($consulta)) {
+							$arreglo[] =$consulta_vu;
+						
+					}
+					return $arreglo;
+					$this->conexion->cerrar();
+			}
+	}
+
+	function listar_combo_tipo_tercero_cliente($idempresa) {
+		$sql = "  SELECT  id,tipo FROM tipo_tercero
+		WHERE tipo_tercero.`tipo` ='CODEUDOR' 
+		OR `tipo_tercero`.`tipo` = 'CLIENTE'
+		AND  tipo_tercero.`idempresa` = '$idempresa'";
 					$arreglo = array();
 				if($consulta = $this->conexion->conexion->query($sql)){
 					while($consulta_vu = mysqli_fetch_array($consulta)) {

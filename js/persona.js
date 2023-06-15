@@ -32,15 +32,15 @@ function listar_persona(){
             {"data":"persona_nrodocumento"},
             {"data":"persona_tipodocumento"},
             {"data":"tipo"},
-            {"data":"persona_sexo", 
-            render: function (data, type, row ) {
-                if(data=='MASCULINO'){
-                    return "<i class='fa fa-male'></i>";                   
-                }else{
-                  return "<i class='fa fa-female'></i>";               
-                }
-              }
-            },
+            // {"data":"persona_sexo", 
+            // render: function (data, type, row ) {
+            //     if(data=='MASCULINO'){
+            //         return "<i class='fa fa-male'></i>";                   
+            //     }else{
+            //       return "<i class='fa fa-female'></i>";               
+            //     }
+            //   }
+            // },
             {"data":"persona_telefono"},
             {"data":"persona_direccion"},
            
@@ -202,12 +202,12 @@ function listar_persona(){
                        cadena+="<option value='"+data[i][0]+"'>"+data[i][1]+"</option>";
                    }
                    $('#cmb_tipo_tercero_persona').html(cadena);
-                // $('#cmb_ciudad_proveedor').html(cadena);
+                 $('#cmb_tipo_tercero_registro').html(cadena);
                //  $('#cmb_categoria_producto').html(cadena);
                } else {
                    cadena+="<option value=''> No Hay datos</option>";
                    $('#cmb_tipo_tercero_persona').html(cadena);
-                //  $('#cmb_ciudad_proveedor').html(cadena);
+                   $('#cmb_tipo_tercero_registro').html(cadena);
                  //  $('#cmb_categoria_producto').html(cadena);
                }
             })
@@ -275,9 +275,6 @@ function  listar_combo_ciudades(iddepartamento) {
 
 
 
-
-
-
   function  Registrar_Persona() {
     var nombre =$('#txt_nombre').val();
     var apepat =$('#txt_apepat').val();
@@ -290,6 +287,7 @@ function  listar_combo_ciudades(iddepartamento) {
     var direccion =$('#txt_direccion').val();
     var correo =$('#txt_correo').val();
     var idempresa =$("#txt_idempresa").val();
+    var id_tipo_tercero =$("#cmb_tipo_tercero_registro").val();
 
     if(nombre.length ==0 || apepat.length == 0 || apemat.length ==0 ||numero.length ==0
       || tipo_doc.length ==0) {
@@ -303,7 +301,7 @@ function  listar_combo_ciudades(iddepartamento) {
         numero:numero,
         tipo_doc:tipo_doc,  sexo:sexo, telefono:telefono,
          direccion:direccion,correo:correo,
-        idempresa:idempresa
+        idempresa:idempresa,id_tipo_tercero:id_tipo_tercero
       }
     }).done(function(resp){
       if(resp > 0) {
@@ -337,7 +335,7 @@ function  listar_combo_ciudades(iddepartamento) {
     var numero_actual =$('#txt_numero_actual_editar').val();
     var numero_nuevo =$('#txt_numero_nuevo_editar').val();
     var tipo_doc =$('#cmb_tipodocumento_editar').val();
-    var sexo =$('#cmb_sexo_editar').val();
+
     var telefono =$('#txt_telefono_editar').val();
     var direccion =$('#txt_direccion_editar').val();
     var correo =$('#txt_correo_editar').val();
@@ -352,7 +350,7 @@ function  listar_combo_ciudades(iddepartamento) {
       data:{
         id_persona:id_persona,  nombre:nombre, apepat:apepat, apemat:apemat,
         numero_actual:numero_actual, numero_nuevo:numero_nuevo, tipo_doc:tipo_doc,
-        sexo:sexo, telefono:telefono,  direccion:direccion, 
+         telefono:telefono,  direccion:direccion, 
         correo:correo,  estatus:estatus
       }
     }).done(function(resp){
