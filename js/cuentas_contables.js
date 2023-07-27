@@ -240,23 +240,43 @@ function Registrar_Cuenta() {
   });
 }
 
-function Modificar_Categoria() {
-  var id = $("#txt_idcategoria").val();
-  var categoria_actual = $("#txt_nombre_actual_categoria").val();
-  var categoria_nueva = $("#txt_nombre_nuevo_categoria").val();
-  var estatus = $("#cmb_estatus").val();
+function Modificar_Cuenta() {
+  var id = $("#txt_idcuenta").val();
+  var codigo_actual = $("#txt_codigo_actual_editar").val();
+  var codigo_nuevo = $("#txt_codigo_nuevo_editar").val();
+  var nit_cuenta = $("#txt_nit_cuenta_editar").val();
+  var cuenta_nombre = $("#txt_nombre_cuenta_editar").val();
+  var cuenta_tipo = $("#txt_tipo_editar").val();
+  var cuenta_banco = $("#cmb_usa_banco_editar").val();
+  var cuenta_base = $("#cmb_usa_base_editar").val();
+  var cuenta_centro = $("#cmb_usa_centro_editar").val();
+  var cta_nit = $("#cmb_usa_nit_editar").val();
+  var anticipo_cuenta = $("#cmb_usa_anticipo_editar").val();
+  var categoria_cuenta = $("#txt_categoria_editar").val();
+  var clase_cuenta = $("#txt_clase_editar").val();
+  var nivel_cuenta = $("#txt_nivel_editar").val();
 
-  if (categoria_nueva.length == 0) {
+  if (codigo_nuevo.length == 0) {
     Swal.fire("Mensaje de error", "Debe digitar los campos vacios", "warning");
   }
   $.ajax({
-    url: "../controlador/categoria/control_modificar_categoria.php",
+    url: "../controlador/cuentas_contables/control_cuentas_modificar.php",
     type: "POST",
     data: {
       id: id,
-      categoria_actual: categoria_actual,
-      categoria_nueva: categoria_nueva,
-      estatus: estatus,
+      codigo_actual: codigo_actual,
+      codigo_nuevo: codigo_nuevo,
+      nit_cuenta: nit_cuenta,
+      cuenta_nombre:cuenta_nombre,
+      cuenta_tipo:cuenta_tipo,
+      cuenta_banco:cuenta_banco,
+      cuenta_base:cuenta_base,
+      cuenta_centro:cuenta_centro,
+      cta_nit:cta_nit,
+      anticipo_cuenta:anticipo_cuenta,
+      categoria_cuenta:categoria_cuenta,
+      clase_cuenta:clase_cuenta,
+      nivel_cuenta:nivel_cuenta
     },
   }).done(function (resp) {
     alert(resp);
@@ -265,10 +285,10 @@ function Modificar_Categoria() {
         $("#modal_editar").modal("hide");
         Swal.fire(
           "Mensaje  de confirmaciòn",
-          "Categoria editado exitosamente",
+          "Cuenta editado exitosamente",
           "success"
         ).then((value) => {
-          listar_categoria();
+          listar_cuentas_contables();
           LimpiarCampos();
           t_cuentas_contables.ajax.reload();
         });
@@ -276,12 +296,12 @@ function Modificar_Categoria() {
         LimpiarCampos();
         return Swal.fire(
           "Mensaje de error",
-          "Categoria ya existe en el sistema, utilice otro",
+          "Cuenta ya existe en el sistema, utilice otro",
           "warning"
         );
       }
     } else {
-      return Swal.fire("Mensaje de error", "Categoria no editado", "warning");
+      return Swal.fire("Mensaje de error", "Cuenta no editado", "warning");
     }
   });
 }

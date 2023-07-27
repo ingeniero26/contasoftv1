@@ -81,7 +81,10 @@
                     <input type="text" id="txt_no_cuota" name="" class="form-control" placeholder="No cuota"><br>
                 </div>
 
-              
+                <div class="col-lg-3">
+                    <label for=""><b>Comprobante:</b></label>
+                    <input type="text" id="txt_no_comprobante" name="" class="form-control" placeholder="No comprobante"><br>
+                </div>
 
                 <div class="col-lg-4">
                     <label for=""><b>Fecha Pago:</b></label>

@@ -50,4 +50,23 @@ class Modelo_Cuentas_Contable
         }
 
     }
+
+    public function Modificar_Cuenta_Contable($id, $codigo_actual,
+        $codigo_nuevo, $nit_cuenta, $cuenta_nombre,$cuenta_tipo, $cuenta_banco,
+        $cuenta_base, $cuenta_centro, $cta_nit, $anticipo_cuenta,
+         $categoria_cuenta, $clase_cuenta,
+        $nivel_cuenta
+    ) {
+        $sql = "call  SP_MODIFICAR_CUENTA_CONTABLE('$id',
+        '$codigo_actual','$codigo_nuevo','$nit_cuenta','$cuenta_nombre','$cuenta_tipo',
+        '$cuenta_banco','$cuenta_base','$cuenta_centro','$cta_nit',
+        '$anticipo_cuenta','$categoria_cuenta','$clase_cuenta','$nivel_cuenta')";
+        if ($consulta = $this->conexion->conexion->query($sql)) {
+            if ($row = mysqli_fetch_array($consulta)) {
+                return $id = trim($row[0]);
+            }
+            $arreglo;
+            $this->conexion->cerrar();
+        }
+    }
 }

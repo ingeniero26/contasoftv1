@@ -1,12 +1,11 @@
-<?php 
+<?php
 session_start();
 
-if(!isset($_SESSION['S_IDUSUARIO'])){
+if (!isset($_SESSION['S_IDUSUARIO'])) {
     header('location: ../Login/index.php');
 }
 
-
- ?>
+?>
 
 
 
@@ -55,20 +54,20 @@ if(!isset($_SESSION['S_IDUSUARIO'])){
                         <a class="nav-link sidebar-toggler js-sidebar-toggler"><i class="ti-menu"></i></a>
                     </li>
                     <li>
-                        
+
                     </li>
                 </ul>
                 <!-- END TOP-LEFT TOOLBAR-->
                 <!-- START TOP-RIGHT TOOLBAR-->
                 <ul class="nav navbar-toolbar">
-                 
+
                     <li class="dropdown dropdown-user">
                         <a class="nav-link dropdown-toggle link" data-toggle="dropdown">
                             <img src="../plantilla/assets/img/admin-avatar.png" />
                             <span></span>Usuario<i class="fa fa-angle-down m-l-5"></i></a>
                         <ul class="dropdown-menu dropdown-menu-right">
                             <a class="dropdown-item"  onclick="cargar_contenido('contenido_principal','vista_profile.php')"><i class="fa fa-user"></i>Perfil</a>
-                           
+
                             <a class="dropdown-item" href="javascript:;"><i class="fa fa-support"></i>Soporte Técnico</a>
                             <li class="dropdown-divider"></li>
                             <a class="dropdown-item" href="../controlador/usuario/cntrlCerrarSesion.php"><i class="fa fa-power-off"></i>Cerrar Sesión</a>
@@ -80,17 +79,16 @@ if(!isset($_SESSION['S_IDUSUARIO'])){
         </header>
         <!-- END HEADER-->
         <!-- START SIDEBAR-->
-       <?php 
-        if($_SESSION['S_ROL']=='1') 
-        {
-            include '../include/menu_principal.php';
-        } else if($_SESSION['S_ROL']=='4')  {
-             include '../include/menu_super.php';
-        } else {
-             include '../include/menu_vendedor.php';
-        }
+       <?php
+if ($_SESSION['S_ROL'] == '1') {
+    include '../include/menu_principal.php';
+} else if ($_SESSION['S_ROL'] == '4') {
+    include '../include/menu_super.php';
+} else {
+    include '../include/menu_vendedor.php';
+}
 
-        ?>
+?>
         <!-- END SIDEBAR-->
         <div class="content-wrapper">
             <input type="text" value="<?php echo $_SESSION['S_IDUSUARIO']; ?>" id="txt_idprincipal" hidden>
@@ -100,7 +98,7 @@ if(!isset($_SESSION['S_IDUSUARIO'])){
             <div class="page-content fade-in-up">
                 <div id="contenido_principal">
                     <div class="row">
-                    
+
                           <div class="col-5">
                     <label for=""><b>Fecha Inicio</b></label>
                         <input type="date" id="txt_finicio_d" class="form-control"><br>
@@ -113,26 +111,26 @@ if(!isset($_SESSION['S_IDUSUARIO'])){
                         <label for="">&nbsp;</label><br>
                         <button class="btn btn-success" style="width:100%" onclick="TraerDatosWidgets()"><i class="fa fa-search"></i>Buscar</button><br>
                     </div>
-                 
+
                 </div>
                 <div class="row" id="div_widget">
-                    
+
                 </div>
                 <div class="row">
                      <div class="col-lg-6">
                         <div class="ibox">
                              <canvas id="myChartVentasTop5"></canvas>
                         </div>
-                    </div>  
+                    </div>
 
                     <div class="col-lg-6">
                         <div class="ibox">
                              <canvas id="myChartComprasTop5"></canvas>
                         </div>
-                    </div>  
-                    
+                    </div>
+
                 </div>
-   <div class="row">
+    <div class="row">
              <div class="col-lg-6">
                  <div class="card card-info">
                      <div class="card-header">
@@ -196,10 +194,10 @@ if(!isset($_SESSION['S_IDUSUARIO'])){
                  </div>
              </div>
          </div>
-                 
-                       
-                    
-            
+
+
+
+
 
                 </div>
                </div>
@@ -213,7 +211,7 @@ if(!isset($_SESSION['S_IDUSUARIO'])){
         </div>
     </div>
     <!-- BEGIN THEME CONFIG PANEL-->
-    
+
     <!-- END THEME CONFIG PANEL-->
     <!-- BEGIN PAGA BACKDROPS-->
     <div class="sidenav-backdrop backdrop"></div>
@@ -256,7 +254,7 @@ if(!isset($_SESSION['S_IDUSUARIO'])){
     <script type="text/javascript">
         TraerDatosUsuario();
          listar_productos_poco_stock();
-        
+
          function cargar_contenido(contenedor,contenido){
             $('#'+contenedor).load(contenido);
           }
@@ -459,7 +457,7 @@ if(!isset($_SESSION['S_IDUSUARIO'])){
                 break;
             }
         }
- 
+
         if(letras.indexOf(teclado)==-1 && !teclado_especial){
             return false;
         }
@@ -506,11 +504,11 @@ function filterfloat(evt,input) {
             } else {
                 return false;
             }
-            
+
         }
 
         $(document).ready(function() {
-   
+
         $('.js-example-basic-single').select2();
 
 
@@ -527,15 +525,15 @@ function filterfloat(evt,input) {
     }
      document.getElementById('txt_finicio_d').value=anio +"-"+mes +"-"+d;
      document.getElementById('txt_ffin_d').value=anio +"-"+mes +"-"+d;
-      
+
      TraerDatosWidgets();
-    
+
     });
 
 
 
         /*grafico*/
-      
+
 
     </script>
 </body>

@@ -12,7 +12,7 @@
 		    $this->servidor = "localhost";
 			$this->usuario = "root";
 			$this->contrasena = "";
-			$this->basedatos = "sistema_pos_v2";
+			$this->basedatos = "sistema_pos_v2_desarrollo";
 
         }
        
