@@ -56,19 +56,19 @@
       <div class="modal-body">
         <div class="row">
         <div class="col-6">
-          <label for="">Código Cuenta</label>
+          <label for=""><b>Código Cuenta</b></label>
           <input type="text" id="txt_codigo" class="form-control" placeholder="Codigo">
         </div>
         <div class="col-6">
-          <label for="">Concepto NIT</label>
+          <label for=""><b>Concepto NIT</b></label>
           <input type="text" id="txt_nit_cuenta" class="form-control" placeholder="Concepto">
         </div>
         <div class="col-6">
-          <label for="">Nombre</label>
+          <label for=""><b>Nombre</b></label>
           <input type="text" id="txt_nombre_cuenta" class="form-control" placeholder="Nombre">
         </div>
         <div class="col-6">
-        <label for="">Tipo</label>
+        <label for=""><b>Tipo</b></label>
           <input type="text" id="txt_tipo" class="form-control" placeholder="Tipo">
         </div>
         <div class="col-6">
@@ -81,7 +81,7 @@
 
         </div>
         <div class="col-lg-6">
-          <label for="">Usa Base</label>
+          <label for=""><b>Usa Base</b></label>
           <select class="js-example-basic-single" name="state"
               style="width: 100%;" id="cmb_usa_base">
                   <option value="1">Si</option>
@@ -89,7 +89,7 @@
             </select> <br> <br>
         </div>
         <div class="col-lg-6">
-          <label for="">Usa Centro</label>
+          <label for=""><b>Usa Centro</b></label>
           <select class="js-example-basic-single" name="state"
               style="width: 100%;" id="cmb_usa_centro">
                   <option value="1">Si</option>
@@ -97,7 +97,7 @@
             </select> <br> <br>
         </div>
         <div class="col-lg-6">
-        <label for="">Usa Nit</label>
+        <label for=""><b>Usa Nit</b></label>
           <select class="js-example-basic-single" name="state"
               style="width: 100%;" id="cmb_usa_nit">
                   <option value="1">Si</option>
@@ -105,7 +105,7 @@
             </select> <br> <br>
         </div>
         <div class="col-lg-6">
-        <label for="">Usa Anticipo</label>
+        <label for=""><b>Usa Anticipo</b></label>
           <select class="js-example-basic-single" name="state"
               style="width: 100%;" id="cmb_usa_anticipo">
                   <option value="1">Si</option>
@@ -113,15 +113,15 @@
             </select> <br> <br>
         </div>
         <div class="col-lg-6">
-          <label for="">Categoria</label>
+          <label for=""><b>Categoria</b></label>
           <input type="text" id="txt_categoria" class="form-control" placeholder="Categoria">
         </div>
         <div class="col-lg-6">
-          <label for="">Clase</label>
+          <label for=""><b>Clase</b></label>
           <input type="text" id="txt_clase" class="form-control" placeholder="Nombre">
         </div>
         <div class="col-lg-6">
-          <label for="">Nivel</label>
+          <label for=""><b>Nivel</b></label>
           <input type="text" id="txt_nivel" class="form-control" placeholder="Nombre">
         </div>
         <!-- <div class="col-lg-6">

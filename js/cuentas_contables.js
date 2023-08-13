@@ -307,6 +307,17 @@ function Modificar_Cuenta() {
 }
 
 function LimpiarCampos() {
-  $("#txt_nombre_categoria").val("");
+  $("#txt_codigo").val("");
   $("#txt_nombre_nuevo_categoria").val("");
+  $("#txt_nit_cuenta").val("");
+   $("#txt_nombre_cuenta").val("");
+   $("#txt_tipo").val("");
+   $("#cmb_usa_banco").val("");
+   $("#cmb_usa_base").val("");
+   $("#cmb_usa_centro").val("");
+   $("#cmb_usa_nit").val("");
+   $("#cmb_usa_anticipo").val("");
+   $("#txt_categoria").val("");
+   $("#txt_clase").val("");
+   $("#txt_nivel").val("");
 }

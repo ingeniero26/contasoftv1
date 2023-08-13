@@ -51,6 +51,18 @@ class Modelo_Cuentas_Contable
 
     }
 
+    public function Modificar_Estatus_Cuenta($id,$estatus) {
+        $sql = "call SP_MODIFICAR_ESTATUS_CUENTA('$id','$estatus')";
+        if ($consulta = $this->conexion->conexion->query($sql)) {
+            //$id_retornado = mysqli_insert_ind($this->conexion->conexion);
+            return 1;
+            
+        }else{
+            return 0;
+        }
+    }
+    
+
     public function Modificar_Cuenta_Contable($id, $codigo_actual,
         $codigo_nuevo, $nit_cuenta, $cuenta_nombre,$cuenta_tipo, $cuenta_banco,
         $cuenta_base, $cuenta_centro, $cta_nit, $anticipo_cuenta,
