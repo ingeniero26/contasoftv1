@@ -8,7 +8,7 @@
                 </div>
             </div>
             <div class="ibox-body">
-                <table id="tabla_concepto" class="display table-bordered" style="width:100%">
+                <table id="tabla_centro_contros" class="display table-bordered" style="width:100%">
                     <thead>
                         <tr>
                             <th>#</th>
@@ -95,12 +95,12 @@
 
 
 
-<script type="text/javascript" src="../js/concepto.js"></script>
+<script type="text/javascript" src="../js/centro_costos.js"></script>
 <script>
 $(document).ready(function() {
 
   $('.js-example-basic-single').select2();
-  listar_conceptos();
+  listar_centro_costos();
  $('#modal_registro').on('shown.bs.modal', function () {
     $('#txt_nombre_categoria').trigger('focus')
   })
