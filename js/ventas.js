@@ -47,6 +47,7 @@ function listar_ventas() {
             { "data": "venta_impuesto" },
             { "data": "venta_total" },
             { "data": "fecha_vencimiento" },
+            { "data": "dias_pago" },
             {
                 "data": "venta_estatus",
                 render: function(data, type, row) {
@@ -441,6 +442,7 @@ function Registrar_Venta() {
     let estado = document.getElementById('cmb_estado').value;
     let decto = document.getElementById('lbl_decto').innerHTML.substr(20);
     let fecha_vc = document.getElementById('txt_fecha_vc').value;
+    let dias_pago = document.getElementById('cmb_dias').value;
     var idempresa =$("#txt_idempresa").val();
     var idcaja =$("#cmb_caja_venta").val();
 
@@ -471,6 +473,7 @@ function Registrar_Venta() {
             porcentaje: porcentaje,
             decto:decto,
             fecha_vc:fecha_vc,
+            dias_pago:dias_pago,
             idempresa:idempresa,
             idcaja:idcaja
 

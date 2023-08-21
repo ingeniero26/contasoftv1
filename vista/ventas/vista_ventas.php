@@ -45,16 +45,12 @@
 
                          </select> <br> <br>
                     </div>
-                       <div class="col-3">
+                    <div class="col-3">
                        <label for=""><b>Forma Pago</b> </label>
                         <select class="js-example-basic-single" name="state"
                         style="width: 100%;" id="cmb_tipo_pago">
                         <option value="CONTADO">CONTADO</option>
                         <option value="CREDITO">CREDITO</option>
-                        <option value="CREDICONTADO">CREDICONTADO</option>
-                        <option value="TARJETA">TARJETA</option>
-                        <option value="TRANSFERENCIA">TRANSFERENCIA</option>
-                        <option value="CHEQUE">CHEQUE</option>
                          </select> <br> <br>
                     </div>
                      <div class="col-3">
@@ -77,6 +73,18 @@
                      <div class="col-3">
                         <label for=""><b>Fecha Vencimiento Factura </b></label>
                         <input type="date" class="form-control" id="txt_fecha_vc">
+                    </div>
+                    <div class="col-3">
+                       <label for=""><b>Días</b> </label>
+                        <select class="js-example-basic-single" name="state"
+                        style="width: 100%;" id="cmb_dias">
+                        <option value="0">0</option>
+                        <option value="8">8</option>
+                        <option value="15">15</option>
+                        <option value="30">30</option>
+                        <option value="60">60</option>
+                        <option value="90">90</option>
+                         </select> <br> <br>
                     </div>
                      <div class="col-lg-12">
                         <h1 class="text-center">DATOS DEL PRODUCTO</h1>
@@ -200,6 +208,15 @@ $('#cmb_tipo_comprobante').on('select2:select', function (e) {
   }
 });
 
+
+$('#cmb_tipo_pago').on('select2:select', function (e) {
+  let tipo_pago = document.getElementById('cmb_tipo_pago').value;
+  if(tipo_pago=="CREDITO") {
+    document.getElementById('cmb_dias').disabled=false;
+  } else {
+    document.getElementById('cmb_dias').disabled=true;
+  }
+});
 
 
 

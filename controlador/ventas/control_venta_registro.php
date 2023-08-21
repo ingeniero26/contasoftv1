@@ -15,10 +15,14 @@ $estado = htmlspecialchars($_POST['estado'],ENT_QUOTES,'UTF-8');
 $porcentaje = htmlspecialchars($_POST['porcentaje'],ENT_QUOTES,'UTF-8');
 $decto = htmlspecialchars($_POST['decto'],ENT_QUOTES,'UTF-8');
 $fecha_vc = htmlspecialchars($_POST['fecha_vc'],ENT_QUOTES,'UTF-8');
+$dias_pago = htmlspecialchars($_POST['dias_pago'],ENT_QUOTES,'UTF-8');
 $idempresa = htmlspecialchars($_POST['idempresa'],ENT_QUOTES,'UTF-8');
 $idcaja = htmlspecialchars($_POST['idcaja'],ENT_QUOTES,'UTF-8');
 
-$consulta =$MCP->Registrar_Venta($idcliente, $idbodega, $idusuario,$tipo_comprobante,$serie_comprobante, $tipo_pago,$impuesto ,$total,$estado,$porcentaje,$decto,$fecha_vc,$idempresa,$idcaja);
+$consulta =$MCP->Registrar_Venta($idcliente, $idbodega, 
+$idusuario,$tipo_comprobante,$serie_comprobante,
+ $tipo_pago,$impuesto ,$total,$estado,$porcentaje,$decto,$fecha_vc,$dias_pago,
+ $idempresa,$idcaja);
 echo $consulta;
 
 

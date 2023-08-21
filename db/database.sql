@@ -1,6 +1,6 @@
 /*
 SQLyog Ultimate v11.11 (64 bit)
-MySQL - 5.5.5-10.4.22-MariaDB : Database - sistema_pos_v2
+MySQL - 5.5.5-10.4.22-MariaDB : Database - sistema_pos_v2_desarrollo
 *********************************************************************
 */
 
@@ -12,9 +12,9 @@ MySQL - 5.5.5-10.4.22-MariaDB : Database - sistema_pos_v2
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`sistema_pos_v2` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`sistema_pos_v2_desarrollo` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci */;
 
-USE `sistema_pos_v2`;
+USE `sistema_pos_v2_desarrollo`;
 
 /*Table structure for table `arl` */
 
@@ -130,6 +130,26 @@ CREATE TABLE `categoriaarl` (
 
 /*Data for the table `categoriaarl` */
 
+/*Table structure for table `centro_costos` */
+
+DROP TABLE IF EXISTS `centro_costos`;
+
+CREATE TABLE `centro_costos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `idempresa` int(11) DEFAULT NULL,
+  `codigo` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `nombre` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `estatus` enum('ACTIVO') COLLATE utf8_unicode_ci DEFAULT NULL,
+  `fregistro` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `idempresa` (`idempresa`),
+  CONSTRAINT `centro_costos_ibfk_1` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `centro_costos` */
+
+insert  into `centro_costos`(`id`,`idempresa`,`codigo`,`nombre`,`estatus`,`fregistro`) values (1,1,'1','PRINCIPAL','ACTIVO','2023-08-11 12:55:27');
+
 /*Table structure for table `ciudades` */
 
 DROP TABLE IF EXISTS `ciudades`;
@@ -167,11 +187,11 @@ CREATE TABLE `cliente` (
   CONSTRAINT `cliente_ibfk_1` FOREIGN KEY (`persona_id`) REFERENCES `persona` (`persona_id`),
   CONSTRAINT `cliente_ibfk_2` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`),
   CONSTRAINT `cliente_ibfk_3` FOREIGN KEY (`idciudad`) REFERENCES `ciudades` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `cliente` */
 
-insert  into `cliente`(`idcliente`,`cliente_fregistro`,`cliente_estatus`,`persona_id`,`idciudad`,`idempresa`) values (1,'2022-07-13','ACTIVO',3,1,1),(2,'2022-08-22','ACTIVO',4,1,1),(3,'2022-12-03','ACTIVO',7,1,1),(4,'2022-12-03','ACTIVO',8,3,1),(5,'2023-04-24','ACTIVO',10,1,1),(6,'2023-05-02','ACTIVO',11,3,1);
+insert  into `cliente`(`idcliente`,`cliente_fregistro`,`cliente_estatus`,`persona_id`,`idciudad`,`idempresa`) values (1,'2022-07-13','ACTIVO',3,1,1),(2,'2022-08-22','ACTIVO',4,1,1),(3,'2022-12-03','ACTIVO',7,1,1),(4,'2022-12-03','ACTIVO',8,3,1),(5,'2023-04-24','ACTIVO',10,1,1),(6,'2023-05-02','ACTIVO',11,3,1),(7,'2023-06-14','ACTIVO',17,4,1),(8,'2023-06-14','ACTIVO',18,4,1),(9,'2023-06-14','ACTIVO',19,2,1);
 
 /*Table structure for table `codeudor` */
 
@@ -237,9 +257,11 @@ CREATE TABLE `compra` (
   CONSTRAINT `compra_ibfk_2` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`usuario_id`),
   CONSTRAINT `compra_ibfk_3` FOREIGN KEY (`id_bodega`) REFERENCES `bodega` (`id`),
   CONSTRAINT `compra_ibfk_4` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `compra` */
+
+insert  into `compra`(`compra_id`,`proveedor_id`,`id_bodega`,`usuario_id`,`compra_tipo_comprobante`,`compra_serie_comprobante`,`compra_num_comprobante`,`compra_tipo_pago`,`compra_fecha`,`compra_impuesto`,`compra_total`,`compra_estatus`,`compra_porcentaje`,`compra_total_decto`,`fecha_vencimiento`,`idempresa`) values (1,1,1,1,'FACTURA','fc','78978','CONTADO','0000-00-00',6897.00,43197.00,'CANCELADA',0.19,0.00,'0000-00-00',1);
 
 /*Table structure for table `concepto` */
 
@@ -282,11 +304,11 @@ CREATE TABLE `cuentas` (
   PRIMARY KEY (`id`),
   KEY `idEmpresa` (`idEmpresa`),
   CONSTRAINT `cuentas_ibfk_1` FOREIGN KEY (`idEmpresa`) REFERENCES `empresa` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `cuentas` */
 
-insert  into `cuentas`(`id`,`idEmpresa`,`codigo`,`concepto_nit`,`nombre`,`tipo`,`usa_bancos`,`usa_base`,`usa_centros`,`usa_nit`,`usa_anticipo`,`categoria`,`clase`,`nivel`,`fregistro`,`estatus`) values (1,1,'1',NULL,'ACTIVO','CLASE',NULL,0,0,0,0,NULL,NULL,NULL,'2023-02-04 13:52:33','ACTIVO');
+insert  into `cuentas`(`id`,`idEmpresa`,`codigo`,`concepto_nit`,`nombre`,`tipo`,`usa_bancos`,`usa_base`,`usa_centros`,`usa_nit`,`usa_anticipo`,`categoria`,`clase`,`nivel`,`fregistro`,`estatus`) values (1,1,'1',NULL,'ACTIVO','CLASE',0,0,0,0,0,'','',0,'2023-07-27 15:47:45','ACTIVO'),(3,1,'11','','DISPONIBLE','GRUPO',0,0,0,0,0,'','',0,'2023-07-27 16:02:42','ACTIVO'),(4,1,'1105','','CAJA',' CUENTA GENERAL ',0,0,0,0,0,'','',0,'2023-08-01 00:00:00','ACTIVO'),(5,1,'110505','','CAJA GENERAL','CUENTA DE DETALLE',0,1,0,0,0,'','',0,'2023-08-08 08:25:13','ACTIVO'),(6,1,'110510 ','','CAJAS MENORES  ','CUENTA DE DETALLE',0,1,0,0,0,'','',0,'2023-08-08 00:00:00','ACTIVO'),(7,1,'110515','','MONEDA EXTRANJERA','CUENTA DE DETALLE',0,1,0,0,0,'','',0,'2023-08-08 08:25:21','ACTIVO'),(8,1,'1110','','BANCOS',' CUENTA GENERAL ',0,0,0,0,0,'','',0,'2023-08-08 00:00:00','ACTIVO'),(9,1,'111005              ','','MONEDA NACIONAL','CUENTA DE DETALLE',0,1,0,0,0,'','',0,'2023-08-08 00:00:00','ACTIVO'),(10,1,'111010','','MONEDA EXTRANJERA','CUENTA DE DETALLE',0,1,0,0,0,'','',0,'2023-08-13 00:00:00','ACTIVO'),(11,1,'1115 ','','REMESAS EN TRANSITO',' CUENTA GENERAL ',0,0,0,0,0,'','',0,'2023-08-13 00:00:00','ACTIVO'),(12,1,'1120','','CUENTAS DE AHORRO',' CUENTA GENERAL ',0,0,0,0,0,'','',0,'2023-08-13 00:00:00','ACTIVO'),(13,1,'112005','','BANCOS','CUENTA DE DETALLE',0,1,0,0,0,'','',0,'2023-08-13 00:00:00','ACTIVO');
 
 /*Table structure for table `cuentas_x_cobrar` */
 
@@ -302,11 +324,9 @@ CREATE TABLE `cuentas_x_cobrar` (
   PRIMARY KEY (`id`),
   KEY `idventa` (`idventa`),
   CONSTRAINT `cuentas_x_cobrar_ibfk_1` FOREIGN KEY (`idventa`) REFERENCES `venta` (`venta_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `cuentas_x_cobrar` */
-
-insert  into `cuentas_x_cobrar`(`id`,`cuotas_abono`,`valor`,`fecha`,`idventa`,`no_comprobante`) values (1,1,10000,'2022-11-02',6,'11'),(2,1,5000,'2022-11-23',6,'');
 
 /*Table structure for table `cuentas_x_proveedor` */
 
@@ -380,9 +400,11 @@ CREATE TABLE `detalle_compra` (
   KEY `id_producto` (`id_producto`),
   CONSTRAINT `detalle_compra_ibfk_1` FOREIGN KEY (`id_compra`) REFERENCES `compra` (`compra_id`),
   CONSTRAINT `detalle_compra_ibfk_2` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`producto_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `detalle_compra` */
+
+insert  into `detalle_compra`(`detalle_compra_id`,`id_compra`,`id_producto`,`dc_cantidad`,`dc_precio`,`dc_descto`,`dc_estatus`) values (1,1,12,30,10,0,'INGRESADA'),(2,1,2,30,1200,0,'INGRESADA');
 
 /*Table structure for table `detalle_salida` */
 
@@ -420,11 +442,11 @@ CREATE TABLE `detalle_venta` (
   KEY `idproducto` (`producto_id`),
   CONSTRAINT `detalle_venta_ibfk_1` FOREIGN KEY (`venta_id`) REFERENCES `venta` (`venta_id`),
   CONSTRAINT `detalle_venta_ibfk_2` FOREIGN KEY (`producto_id`) REFERENCES `producto` (`producto_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `detalle_venta` */
 
-insert  into `detalle_venta`(`detalle_venta_id`,`venta_id`,`producto_id`,`dv_cantidad`,`dv_precio`,`dv_descuento`,`dv_estatus`) values (1,1,5,1.00,17000.00,0.00,'INGRESADA'),(2,2,9,4.00,600.00,0.00,'INGRESADA'),(3,2,8,6.00,200.00,0.00,'INGRESADA'),(4,3,1,1.00,4500.00,0.00,'INGRESADA'),(5,4,4,1.00,4000.00,0.00,'INGRESADA'),(6,5,9,10.00,600.00,0.00,'INGRESADA'),(7,6,3,3.00,5000.00,0.00,'INGRESADA'),(8,7,4,1.00,4000.00,0.00,'INGRESADA'),(9,8,1,1.00,4500.00,0.00,'INGRESADA'),(10,9,8,50.00,200.00,0.00,'INGRESADA'),(11,9,9,12.00,500.00,0.00,'INGRESADA'),(12,10,9,10.00,600.00,0.00,'INGRESADA'),(13,10,8,1.00,300.00,0.00,'INGRESADA'),(14,11,3,1.00,5000.00,0.00,'INGRESADA'),(15,12,4,2.00,4000.00,160.00,'INGRESADA'),(16,13,9,1.00,600.00,0.00,'INGRESADA'),(17,14,11,1.00,3000.00,0.00,'INGRESADA'),(18,14,9,10.00,600.00,0.00,'INGRESADA'),(19,14,8,5.00,300.00,0.00,'INGRESADA'),(20,15,8,50.00,300.00,0.00,'INGRESADA'),(21,15,9,25.00,600.00,0.00,'INGRESADA'),(22,16,1,1.00,4500.00,0.00,'INGRESADA'),(23,17,4,1.00,4000.00,0.00,'INGRESADA'),(24,18,4,1.00,4000.00,0.00,'INGRESADA'),(25,19,9,5.00,600.00,0.00,'INGRESADA'),(26,20,9,7.00,600.00,0.00,'INGRESADA'),(27,21,8,6.00,300.00,0.00,'INGRESADA'),(28,21,8,1.00,300.00,0.00,'INGRESADA'),(29,22,8,2.00,300.00,0.00,'INGRESADA'),(30,23,13,1.00,1800.00,0.00,'INGRESADA'),(31,24,14,5.00,200.00,0.00,'INGRESADA'),(32,25,10,1.00,1000.00,0.00,'INGRESADA'),(33,25,15,1.00,500.00,0.00,'INGRESADA'),(34,26,9,8.00,600.00,0.00,'INGRESADA'),(35,27,9,6.00,600.00,0.00,'INGRESADA'),(36,28,16,1.00,3500.00,0.00,'INGRESADA'),(37,29,9,3.00,600.00,0.00,'INGRESADA'),(38,30,16,1.00,3500.00,0.00,'INGRESADA'),(39,31,9,1.00,600.00,0.00,'INGRESADA'),(40,32,8,10.00,300.00,0.00,'INGRESADA'),(41,32,16,1.00,3500.00,0.00,'INGRESADA'),(42,33,8,3.00,300.00,0.00,'INGRESADA'),(43,34,9,5.00,600.00,0.00,'INGRESADA'),(44,34,9,1.00,600.00,0.00,'INGRESADA'),(45,35,8,2.00,300.00,0.00,'INGRESADA'),(46,35,8,2.00,300.00,0.00,'INGRESADA'),(47,36,9,6.00,600.00,0.00,'INGRESADA'),(48,37,8,4.00,300.00,0.00,'INGRESADA'),(49,37,9,3.00,600.00,0.00,'INGRESADA'),(50,37,8,4.00,300.00,0.00,'INGRESADA'),(51,37,8,3.00,300.00,0.00,'INGRESADA'),(52,38,2,1.00,4500.00,0.00,'INGRESADA');
+insert  into `detalle_venta`(`detalle_venta_id`,`venta_id`,`producto_id`,`dv_cantidad`,`dv_precio`,`dv_descuento`,`dv_estatus`) values (1,1,2,3.00,4500.00,0.00,'INGRESADA'),(2,2,4,1.00,4000.00,0.00,'INGRESADA');
 
 /*Table structure for table `dpto` */
 
@@ -567,6 +589,21 @@ CREATE TABLE `gastos` (
 
 insert  into `gastos`(`idGasto`,`idtipo_gasto`,`fecha_gasto`,`valor`,`recibo`,`idcaja`,`observaciones`,`fregistro`,`estatus`,`idusuario`,`idempresa`,`estado`) values (1,3,'2023-05-23',119600,'001',1,'','2023-05-23 11:20:03','ACTIVO',1,1,'CANCELADA');
 
+/*Table structure for table `iva` */
+
+DROP TABLE IF EXISTS `iva`;
+
+CREATE TABLE `iva` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `codigo` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tarifa` double DEFAULT NULL,
+  `nombre` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `id_cuenta` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `iva` */
+
 /*Table structure for table `marcas` */
 
 DROP TABLE IF EXISTS `marcas`;
@@ -639,7 +676,6 @@ CREATE TABLE `persona` (
   `tipo_contribuyente` enum('Persona Natural','Persona Juridica') COLLATE utf8_unicode_ci DEFAULT NULL,
   `persona_nrodocumento` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `persona_tipodocumento` enum('CEDULA','NIT','PASAPORTE','TI') COLLATE utf8_unicode_ci DEFAULT NULL,
-  `persona_sexo` enum('MASCULINO','FEMENINO','NULL') COLLATE utf8_unicode_ci DEFAULT 'NULL',
   `persona_telefono` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   `persona_direccion` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
   `persona_correo` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -654,11 +690,11 @@ CREATE TABLE `persona` (
   KEY `id_tipo_tercero` (`id_tipo_tercero`),
   CONSTRAINT `persona_ibfk_3` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`),
   CONSTRAINT `persona_ibfk_4` FOREIGN KEY (`id_tipo_tercero`) REFERENCES `tipo_tercero` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `persona` */
 
-insert  into `persona`(`persona_id`,`persona_nombre`,`persona_apepat`,`persona_apemat`,`tipo_contribuyente`,`persona_nrodocumento`,`persona_tipodocumento`,`persona_sexo`,`persona_telefono`,`persona_direccion`,`persona_correo`,`persona_fregistro`,`persona_estatus`,`idempresa`,`id_tipo_tercero`,`estatus`,`fregistro`) values (1,'JERSON','BATISTA','VEGA','Persona Natural','1070813753','CEDULA','MASCULINO','30045454545','el centro','ingjerson@gmail.com','2022-07-13','ACTIVO',1,1,'ACTIVO','2023-03-10 18:56:43'),(2,'PROVEEDOR','DE MOSTRADOR','MOSTRADOR','Persona Natural','000000001','NIT','MASCULINO','011111111','EL CENTRO','info@gmail.com','2022-07-13','ACTIVO',1,2,'ACTIVO','2023-03-10 18:56:46'),(3,'CLIENTE','DE ','MOSTRADOR','Persona Natural','000000000001','CEDULA','MASCULINO','56456456','EL CENTRO','DEPRUEBA@GMAIL.COM','2022-07-13','ACTIVO',1,3,'ACTIVO','2023-03-10 18:57:23'),(4,'AGROPECUARIA','CAÑA ','FLECHA','Persona Juridica','900312662','NIT','MASCULINO','3013794981','EL CARMEN DE BOLIVAR','info2022@gmail.com','2022-08-22','ACTIVO',1,1,'ACTIVO','2023-03-10 18:57:26'),(6,'PRUEBAS','PRUEBA','PRUEBA','Persona Juridica','55646456','CEDULA','MASCULINO','56757','EL CENTRO','jerson564564@gmail.com','2022-11-05','ACTIVO',1,5,'ACTIVO','2023-03-10 18:57:29'),(7,'JUAN','PEDRO','PEDRO','Persona Juridica','465465','CEDULA','','3013794981','EL CARMEN DE BOLIVAR','unitec13213@gmail.com','2022-12-03','ACTIVO',1,3,'ACTIVO','2023-04-24 20:03:58'),(8,'PRUEBAS','PRUEBA','PRUEBA','Persona Juridica','4534534','CEDULA','NULL','56757','MONTE CARMELO','jerson@gmail.com','2022-12-03','ACTIVO',1,3,NULL,'2023-04-24 20:04:02'),(9,'PRUEBAS','PRUEBA','PRUEBA','Persona Natural','675675','NIT','MASCULINO','3013794981','EL CARMEN DE BOLIVAR','jerson2@gmail.com','2023-04-24','ACTIVO',1,1,NULL,'2023-04-24 13:20:31'),(10,'JAMEZ','RODRIGUEZ','UNICARMEN','Persona Natural','56456456','NIT','NULL','3226165766','kra 45','unitec12165662@gmail.com','2023-04-24','ACTIVO',1,NULL,NULL,'2023-04-24 20:21:33'),(11,'UNICARMEN','PRUEBA','PRUEBA','Persona Natural','1','NIT','NULL','3226165766','3423423424234','unitec121212@gmail.com','2023-05-02','ACTIVO',1,NULL,NULL,'2023-05-02 20:28:33'),(12,'JAMEZ','RODRIGUEZ','VEGA','Persona Natural','78678678','NIT','MASCULINO','3226165766','EL CARMEN DE BOLIVAR','jamez@hotmail.com','2023-05-24','ACTIVO',1,1,NULL,'2023-05-24 14:37:21');
+insert  into `persona`(`persona_id`,`persona_nombre`,`persona_apepat`,`persona_apemat`,`tipo_contribuyente`,`persona_nrodocumento`,`persona_tipodocumento`,`persona_telefono`,`persona_direccion`,`persona_correo`,`persona_fregistro`,`persona_estatus`,`idempresa`,`id_tipo_tercero`,`estatus`,`fregistro`) values (1,'JERSON','BATISTA','VEGA','Persona Natural','1070813753','CEDULA','30045454545','el centro','ingjerson@gmail.com','2022-07-13','ACTIVO',1,1,'ACTIVO','2023-03-10 18:56:43'),(2,'PROVEEDOR','DE MOSTRADOR','MOSTRADOR','Persona Natural','000000001','NIT','011111111','EL CENTRO','info@gmail.com','2022-07-13','ACTIVO',1,1,'ACTIVO','2023-06-14 16:58:42'),(3,'CLIENTE','DE ','MOSTRADOR','Persona Natural','000000000001','CEDULA','56456456','EL CENTRO','DEPRUEBA@GMAIL.COM','2022-07-13','ACTIVO',1,3,'ACTIVO','2023-03-10 18:57:23'),(4,'AGROPECUARIA','CAÑA ','FLECHA','Persona Juridica','900312662','NIT','3013794981','EL CARMEN DE BOLIVAR','info20221@gmail.com','2022-08-22','ACTIVO',1,1,'ACTIVO','2023-06-14 15:40:56'),(6,'PRUEBAS','PRUEBA','PRUEBA','Persona Juridica','55646456','CEDULA','56757','EL CENTRO','jerson564564@gmail.com','2022-11-05','ACTIVO',1,5,'ACTIVO','2023-03-10 18:57:29'),(7,'JUAN','PEDRO','PEDRO','Persona Juridica','465465','CEDULA','3013794981','EL CARMEN DE BOLIVAR','unitec13213@gmail.com','2022-12-03','ACTIVO',1,3,'ACTIVO','2023-04-24 20:03:58'),(8,'PRUEBAS','PRUEBA','PRUEBA','Persona Juridica','4534534','CEDULA','56757','MONTE CARMELO','jerson@gmail.com','2022-12-03','ACTIVO',1,3,NULL,'2023-04-24 20:04:02'),(9,'PRUEBAS','PRUEBA','PRUEBA','Persona Natural','675675','NIT','3013794981','EL CARMEN DE BOLIVAR','jerson2@gmail.com','2023-04-24','ACTIVO',1,1,NULL,'2023-04-24 13:20:31'),(10,'JAMEZ','RODRIGUEZ','UNICARMEN','Persona Natural','56456456','NIT','3226165766','kra 45','unitec12165662@gmail.com','2023-04-24','ACTIVO',1,1,NULL,'2023-06-14 16:51:17'),(11,'UNICARMEN','PRUEBA','PRUEBA','Persona Natural','1','NIT','3226165766','3423423424234','unitec121212@gmail.com','2023-05-02','ACTIVO',1,1,NULL,'2023-06-14 16:51:18'),(12,'JAMEZ','RODRIGUEZ','VEGA','Persona Natural','78678678','NIT','3226165766','EL CARMEN DE BOLIVAR','jamez@hotmail.com','2023-05-24','ACTIVO',1,2,NULL,'2023-06-14 17:15:33'),(13,'SIIGO','PRUEBAS','PRUEBA','Persona Natural','6465465','NIT','3013794981','SIIGO@GMAIL.COM','jersonsiigo@gmail.com','2023-06-14','ACTIVO',1,1,NULL,'2023-06-14 16:59:46'),(16,'JUAN','GUILLERMO','cuadrado','Persona Natural','87896666','NIT','3013794981','MONTE CARMELO','juanguillermo@gmail.com','2023-06-14','ACTIVO',1,2,NULL,'2023-06-14 19:31:47'),(17,'federico','RODRIGUEZ','FLECHA','Persona Natural','6756756756','CEDULA','75675','EL CARMEN','unitec15656456@gmail.com','2023-06-14','ACTIVO',1,NULL,NULL,'2023-06-14 18:47:22'),(18,'PEDRO','BATISTA','VILLEGAS','Persona Natural','6657567567567','CEDULA','75675','kra 45','pedrobatista@gmail.com','2023-06-14','ACTIVO',1,2,NULL,'2023-06-14 19:20:49'),(19,'DENIS','BATISTA','ARROYO','Persona Natural','67567567','CEDULA','675675','MONTE CARMELO','DENISBATISTA@GMAIL.COM','2023-06-14','ACTIVO',1,3,NULL,'2023-06-14 19:29:56'),(20,'DENIS','BATISTA','ARROYO','Persona Natural','789654111','NIT','3013794981','EL CENTRO','denis2023@gmail.com','2023-08-16','ACTIVO',1,2,NULL,'2023-08-16 07:06:19');
 
 /*Table structure for table `prestacionsocial` */
 
@@ -715,11 +751,11 @@ CREATE TABLE `producto` (
   CONSTRAINT `producto_ibfk_4` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`),
   CONSTRAINT `producto_ibfk_5` FOREIGN KEY (`idTipoProducto`) REFERENCES `tipo_producto` (`id`),
   CONSTRAINT `producto_ibfk_6` FOREIGN KEY (`id_marca`) REFERENCES `marcas` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `producto` */
 
-insert  into `producto`(`producto_id`,`producto_codigo`,`producto_nombre`,`producto_presentacion`,`id_bodega`,`cant_minima`,`producto_stock`,`id_categoria`,`id_unidad`,`idTipoProducto`,`id_marca`,`producto_foto`,`compra`,`producto_precioventa`,`producto_estatus`,`fregistro`,`idempresa`) values (1,'9789588464466','AMALIA JOSE MARMOL(1)','ADITORIAL ATENEA',1,'1','1',2,1,1,1,'controlador/productos/img/default.png',3000.00,4500.00,'ACTIVO','2023-05-21 13:34:35',1),(2,'9789589761694','ALICIA EN EL PAIS DE LAS MARAVILLAS(2)','ATENEA',1,'1','0',2,1,1,1,'controlador/productos/img/default.png',3000.00,4500.00,'ACTIVO','2023-05-24 14:38:17',1),(3,'9789587230321','APOLOGIA DESOCRATES(3)','SKLA EDITORIAL',1,'1','0',2,1,1,1,'controlador/productos/img/default.png',4000.00,5000.00,'ACTIVO','2023-05-21 13:34:53',1),(4,'9789589825785','AZUL RUBEN DARIO(4)','ATENEA',1,'1','6',2,1,1,1,'controlador/productos/img/default.png',3000.00,4000.00,'ACTIVO','2023-05-21 13:34:57',1),(5,'9789585783010','BAJO LA MISMA ESTRELLA(5)','NUBE DE TINTA',1,'1','3',2,1,1,1,'controlador/productos/img/default.png',14000.00,17000.00,'ACTIVO','2023-05-21 13:35:05',1),(6,'9789588464282','BODAS DE SANGRE(6)','ATENEA',1,'1','7',2,1,1,1,'controlador/productos/img/default.png',3000.00,4000.00,'ACTIVO','2023-05-21 13:35:08',1),(7,'7707187092929','CARTA AL PADRE(7)','UNION',1,'1','9',2,1,1,1,'controlador/productos/img/default.png',3000.00,4000.00,'ACTIVO','2023-05-21 13:35:11',1),(8,'00003','COPIAS BLANCO Y NEGRO','COPIAS',1,'10','351',4,1,1,1,'controlador/productos/img/default.png',100.00,300.00,'ACTIVO','2023-05-24 11:59:56',1),(9,'0004','IMPRESIONES BLANCO Y NEGRO','NEGRO',1,'10','383',4,1,1,1,'controlador/productos/img/default.png',400.00,600.00,'ACTIVO','2023-05-24 11:59:55',1),(10,'0006','IMPRESIONES A COLOR','GEN',1,'10','499',4,1,1,NULL,'controlador/productos/img/default.png',300.00,1500.00,'ACTIVO','2023-05-22 13:48:56',1),(11,'7700394','LIBRETA DE 100 HOJAS','FAMA',1,'1','4',3,1,1,NULL,'controlador/productos/img/default.png',2000.00,3000.00,'ACTIVO','2023-05-21 13:35:25',1),(12,'4534','pruebas','general',1,'1','5',1,1,1,1,'controlador/productos/img/default.png',5.00,55.00,'ACTIVO','2023-05-21 13:35:31',1),(13,'10003','CARTULINAS','general',1,'10','4',3,1,1,2,'controlador/productos/img/default.png',1500.00,1800.00,'ACTIVO','2023-05-21 13:35:34',1),(14,'1000004','DULCES  TRULULU','general',1,'1','5',6,1,1,2,'controlador/productos/img/default.png',100.00,200.00,'ACTIVO','2023-05-21 13:35:37',1),(15,'1000002','1/8 CARTULINA BLANCO','general',1,'5','9',3,1,1,2,'controlador/productos/img/default.png',400.00,500.00,'ACTIVO','2023-05-22 13:48:57',1),(16,'7707294371795','CUADERNO COSIDO DE 100 HOJAS RAYADO','FAMA',1,'1','2',3,1,1,2,'controlador/productos/img/default.png',2500.00,3500.00,'ACTIVO','2023-05-23 13:26:38',1);
+insert  into `producto`(`producto_id`,`producto_codigo`,`producto_nombre`,`producto_presentacion`,`id_bodega`,`cant_minima`,`producto_stock`,`id_categoria`,`id_unidad`,`idTipoProducto`,`id_marca`,`producto_foto`,`compra`,`producto_precioventa`,`producto_estatus`,`fregistro`,`idempresa`) values (1,'9789588464466','AMALIA JOSE MARMOL(1)','ADITORIAL ATENEA',1,'1','1',2,1,1,1,'controlador/productos/img/default.png',3000.00,4500.00,'ACTIVO','2023-05-21 13:34:35',1),(2,'9789589761694','ALICIA EN EL PAIS DE LAS MARAVILLAS(2)','ATENEA',1,'1','27',2,1,1,1,'controlador/productos/img/default.png',3000.00,4500.00,'ACTIVO','2023-08-07 13:54:12',1),(3,'9789587230321','APOLOGIA DESOCRATES(3)','SKLA EDITORIAL',1,'1','0',2,1,1,1,'controlador/productos/img/default.png',4000.00,5000.00,'ACTIVO','2023-05-21 13:34:53',1),(4,'9789589825785','AZUL RUBEN DARIO(4)','ATENEA',1,'1','5',2,1,1,1,'controlador/productos/img/default.png',3000.00,4000.00,'ACTIVO','2023-08-07 13:55:35',1),(5,'9789585783010','BAJO LA MISMA ESTRELLA(5)','NUBE DE TINTA',1,'1','3',2,1,1,1,'controlador/productos/img/default.png',14000.00,17000.00,'ACTIVO','2023-05-21 13:35:05',1),(6,'9789588464282','BODAS DE SANGRE(6)','ATENEA',1,'1','7',2,1,1,1,'controlador/productos/img/default.png',3000.00,4000.00,'ACTIVO','2023-05-21 13:35:08',1),(7,'7707187092929','CARTA AL PADRE(7)','UNION',1,'1','9',2,1,1,1,'controlador/productos/img/default.png',3000.00,4000.00,'ACTIVO','2023-05-21 13:35:11',1),(8,'00003','COPIAS BLANCO Y NEGRO','COPIAS',1,'10','324',4,1,1,1,'controlador/productos/img/default.png',100.00,300.00,'ACTIVO','2023-06-08 12:04:13',1),(9,'0004','IMPRESIONES BLANCO Y NEGRO','NEGRO',1,'10','303',4,1,1,1,'controlador/productos/img/default.png',400.00,600.00,'ACTIVO','2023-06-08 12:04:13',1),(10,'0006','IMPRESIONES A COLOR','GEN',1,'10','487',4,1,1,NULL,'controlador/productos/img/default.png',300.00,1500.00,'ACTIVO','2023-06-15 09:05:33',1),(11,'7700394','LIBRETA DE 100 HOJAS','FAMA',1,'1','4',3,1,1,NULL,'controlador/productos/img/default.png',2000.00,3000.00,'ACTIVO','2023-05-21 13:35:25',1),(12,'4534','pruebas','general',1,'1','35',1,1,1,1,'controlador/productos/img/default.png',5.00,55.00,'ACTIVO','2023-08-07 13:53:43',1),(13,'10003','CARTULINAS','general',1,'10','4',3,1,1,2,'controlador/productos/img/default.png',1500.00,1800.00,'ACTIVO','2023-05-21 13:35:34',1),(14,'1000004','DULCES  TRULULU','general',1,'1','5',6,1,1,2,'controlador/productos/img/default.png',100.00,200.00,'ACTIVO','2023-05-21 13:35:37',1),(15,'1000002','1/8 CARTULINA BLANCO','general',1,'5','9',3,1,1,2,'controlador/productos/img/default.png',400.00,500.00,'ACTIVO','2023-05-22 13:48:57',1),(16,'7707294371795','CUADERNO COSIDO DE 100 HOJAS RAYADO','FAMA',1,'1','1',3,1,1,2,'controlador/productos/img/default.png',2500.00,3500.00,'ACTIVO','2023-05-31 08:17:32',1),(17,'0123655','CARPETA DE HOJA DE VIDA','general',1,'1','8',3,1,1,2,'controlador/productos/img/default.png',800.00,1000.00,'ACTIVO','2023-05-29 13:50:57',1),(18,'2300001','CARPETA OFICIO','general',1,'1','4',3,1,1,2,'controlador/productos/img/default.png',2500.00,3000.00,'ACTIVO','2023-06-05 20:24:51',1),(19,'2300002','EXACTO','general',1,'1','2',3,1,1,2,'controlador/productos/img/default.png',800.00,1000.00,'ACTIVO','2023-06-05 20:24:50',1),(20,'7800001','LAPICERO NEGRO','NORMA',1,'1','4',3,1,1,2,'controlador/productos/img/default.png',600.00,800.00,'ACTIVO','2023-06-06 15:33:43',1);
 
 /*Table structure for table `proveedor` */
 
@@ -741,11 +777,11 @@ CREATE TABLE `proveedor` (
   CONSTRAINT `proveedor_ibfk_1` FOREIGN KEY (`persona_id`) REFERENCES `persona` (`persona_id`),
   CONSTRAINT `proveedor_ibfk_2` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`),
   CONSTRAINT `proveedor_ibfk_3` FOREIGN KEY (`idciudad`) REFERENCES `ciudades` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `proveedor` */
 
-insert  into `proveedor`(`proveedor_id`,`proveedor_fregistro`,`proveedor_num_contacto`,`proveedor_estatus`,`persona_id`,`proveedor_razon_social`,`idciudad`,`idempresa`) values (1,'2022-07-13','000001','ACTIVO',2,'MOSTRADOR ',1,1),(2,'2023-04-24','67567567','ACTIVO',9,'probando ando ANDO',1,1),(3,'2023-05-24','45435345','ACTIVO',12,'JAMEZ PROBANDO',2,1);
+insert  into `proveedor`(`proveedor_id`,`proveedor_fregistro`,`proveedor_num_contacto`,`proveedor_estatus`,`persona_id`,`proveedor_razon_social`,`idciudad`,`idempresa`) values (1,'2022-07-13','000001','ACTIVO',2,'MOSTRADOR ',1,1),(2,'2023-04-24','67567567','ACTIVO',9,'probando ando ANDO',1,1),(3,'2023-05-24','45435345','ACTIVO',12,'JAMEZ PROBANDO',2,1),(4,'2023-06-14','67567567','ACTIVO',13,'SIIGO PRUEBAS',1,1);
 
 /*Table structure for table `registrohe` */
 
@@ -1058,11 +1094,11 @@ CREATE TABLE `venta` (
   CONSTRAINT `venta_ibfk_3` FOREIGN KEY (`bodega_id`) REFERENCES `bodega` (`id`),
   CONSTRAINT `venta_ibfk_4` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`),
   CONSTRAINT `venta_ibfk_5` FOREIGN KEY (`idcaja`) REFERENCES `caja` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `venta` */
 
-insert  into `venta`(`venta_id`,`cliente_id`,`bodega_id`,`usuario_id`,`venta_tipocomprobante`,`venta_serie`,`venta_numcomprobante`,`tipo_pago`,`venta_fecha`,`venta_impuesto`,`venta_total`,`venta_estatus`,`venta_porcentaje`,`venta_total_dcto`,`fecha_vencimiento`,`idempresa`,`idcaja`) values (1,1,1,1,'TICKET','FV',NULL,'CONTADO','2022-07-31',0.00,17000.00,'REGISTRADA',0.00,0.00,'2022-07-30',1,1),(2,2,1,1,'FACTURA','FV',NULL,'CONTADO','2022-08-22',0.00,3600.00,'REGISTRADA',0.00,0.00,'2022-08-22',1,1),(3,1,1,1,'TICKET','FV',NULL,'CONTADO','2022-09-22',0.00,4500.00,'REGISTRADA',0.00,0.00,'0000-00-00',1,1),(4,1,1,1,'FACTURA','FV',NULL,'CONTADO','2022-09-22',0.00,4000.00,'REGISTRADA',0.00,0.00,'0000-00-00',1,1),(5,2,1,1,'FACTURA','FV',NULL,'CONTADO','2022-09-26',0.00,6000.00,'REGISTRADA',0.00,0.00,'2022-09-26',1,1),(6,2,1,1,'TICKET','FV',NULL,'CREDITO','2022-11-02',0.00,15000.00,'CANCELADA',0.00,0.00,'0000-00-00',1,1),(7,1,1,1,'TICKET','FV',NULL,'CONTADO','2022-11-05',0.00,4000.00,'REGISTRADA',0.00,0.00,'2022-11-05',1,1),(8,1,1,1,'TICKET','FV',NULL,'CONTADO','2022-11-16',0.00,4500.00,'REGISTRADA',0.00,0.00,'0000-00-00',1,1),(9,2,1,1,'TICKET','FV',NULL,'CONTADO','2022-11-21',0.00,16000.00,'REGISTRADA',0.00,0.00,'2022-11-21',1,1),(10,2,1,1,'TICKET','FV',NULL,'CONTADO','2022-12-09',0.00,6300.00,'REGISTRADA',0.00,0.00,'2022-12-09',1,1),(11,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-01-03',0.00,5000.00,'REGISTRADA',0.00,0.00,'0000-00-00',1,1),(12,1,1,1,'FACTURA','FV',NULL,'CONTADO','2023-01-03',0.00,7840.00,'REGISTRADA',0.00,160.00,'2023-01-03',1,1),(13,2,1,1,'COTIZACION','FV',NULL,'CONTADO','2023-01-22',0.00,600.00,'REGISTRADA',0.00,0.00,'0000-00-00',1,1),(14,2,1,1,'FACTURA','FV',NULL,'CONTADO','2023-01-22',0.00,10500.00,'REGISTRADA',0.00,0.00,'0000-00-00',1,1),(15,2,1,1,'TICKET','FV',NULL,'CONTADO','2023-03-24',0.00,30000.00,'REGISTRADA',0.00,0.00,'2023-03-24',1,1),(16,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-04-13',0.00,4500.00,'REGISTRADA',0.00,0.00,'2023-04-13',1,1),(17,1,1,1,'FACTURA','FV',NULL,'CONTADO','2023-04-13',0.00,4000.00,'REGISTRADA',0.00,0.00,'0000-00-00',1,1),(18,1,1,1,'FACTURA','FV',NULL,'CONTADO','2023-04-27',0.00,4000.00,'REGISTRADA',0.00,0.00,'0000-00-00',1,1),(19,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-05-18',0.00,3000.00,'REGISTRADA',0.00,0.00,'2023-05-18',1,1),(20,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-05-18',0.00,4200.00,'REGISTRADA',0.00,0.00,'2023-05-18',1,1),(21,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-05-18',0.00,2100.00,'REGISTRADA',0.00,0.00,'2023-05-18',1,1),(22,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-05-18',0.00,600.00,'REGISTRADA',0.00,0.00,'2023-05-18',1,1),(23,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-05-18',0.00,1800.00,'REGISTRADA',0.00,0.00,'0000-00-00',1,1),(24,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-05-18',0.00,1000.00,'REGISTRADA',0.00,0.00,'2023-05-18',1,1),(25,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-05-22',0.00,1500.00,'REGISTRADA',0.00,0.00,'2023-05-22',1,1),(26,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-05-22',0.00,4800.00,'REGISTRADA',0.00,0.00,'2023-05-22',1,1),(27,1,1,1,'COTIZACION','FV',NULL,'CONTADO','2023-05-22',0.00,3600.00,'REGISTRADA',0.00,0.00,'0000-00-00',1,1),(28,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-05-23',0.00,3500.00,'REGISTRADA',0.00,0.00,'2023-05-23',1,1),(29,2,1,1,'TICKET','FV',NULL,'CONTADO','2023-05-23',0.00,1800.00,'REGISTRADA',0.00,0.00,'0000-00-00',1,1),(30,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-05-23',0.00,3500.00,'REGISTRADA',0.00,0.00,'2023-05-23',1,1),(31,1,1,1,'COTIZACION','FV',NULL,'CONTADO','2023-05-23',0.00,600.00,'REGISTRADA',0.00,0.00,'0000-00-00',1,1),(32,1,1,1,'COTIZACION','FV',NULL,'CONTADO','2023-05-23',0.00,6500.00,'REGISTRADA',0.00,0.00,'2023-05-23',1,1),(33,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-05-23',0.00,900.00,'REGISTRADA',0.00,0.00,'2023-05-23',1,1),(34,1,1,1,'COTIZACION','FV',NULL,'CONTADO','2023-05-23',0.00,3600.00,'REGISTRADA',0.00,0.00,'2023-05-23',1,1),(35,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-05-23',0.00,1200.00,'REGISTRADA',0.00,0.00,'2023-05-23',1,1),(36,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-05-23',0.00,3600.00,'REGISTRADA',0.00,0.00,'2023-05-23',1,1),(37,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-05-24',0.00,5100.00,'REGISTRADA',0.00,0.00,'2023-05-24',1,1),(38,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-05-24',0.00,4500.00,'REGISTRADA',0.00,0.00,'0000-00-00',1,1);
+insert  into `venta`(`venta_id`,`cliente_id`,`bodega_id`,`usuario_id`,`venta_tipocomprobante`,`venta_serie`,`venta_numcomprobante`,`tipo_pago`,`venta_fecha`,`venta_impuesto`,`venta_total`,`venta_estatus`,`venta_porcentaje`,`venta_total_dcto`,`fecha_vencimiento`,`idempresa`,`idcaja`) values (1,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-08-07',0.00,13500.00,'REGISTRADA',0.00,0.00,'2023-08-07',1,1),(2,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-08-07',0.00,4000.00,'REGISTRADA',0.00,0.00,'2023-08-07',1,1);
 
 /* Trigger structure for table `detalle_compra` */
 
@@ -1070,9 +1106,9 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `tr_updStockIngreso` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `tr_updStockIngreso` AFTER INSERT ON `detalle_compra` FOR EACH ROW BEGIN
-UPDATE producto SET producto_stock=producto_stock + NEW.dc_cantidad
-WHERE `producto`.`producto_id` = NEW.id_producto;
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `tr_updStockIngreso` AFTER INSERT ON `detalle_compra` FOR EACH ROW BEGIN
+UPDATE producto SET producto_stock=producto_stock + NEW.dc_cantidad
+WHERE `producto`.`producto_id` = NEW.id_producto;
 END */$$
 
 
@@ -1084,9 +1120,9 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `tr_updStockVenta` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `tr_updStockVenta` AFTER INSERT ON `detalle_venta` FOR EACH ROW BEGIN
-UPDATE producto SET producto_stock=producto_stock - NEW.dv_cantidad
-WHERE `producto`.`producto_id` = NEW.producto_id;
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `tr_updStockVenta` AFTER INSERT ON `detalle_venta` FOR EACH ROW BEGIN
+UPDATE producto SET producto_stock=producto_stock - NEW.dv_cantidad
+WHERE `producto`.`producto_id` = NEW.producto_id;
 END */$$
 
 
@@ -1098,44 +1134,44 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ACTUALIZAR_DATOS_PERSONA`(IN IDUSUARIO INT, IN NOMBRE VARCHAR(50),IN APEPAT VARCHAR(50),IN APEMAT VARCHAR(50),
-IN NRO_DOCUMENTO VARCHAR(50), IN TIPO_DOC VARCHAR(50), IN SEXO VARCHAR(15),
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ACTUALIZAR_DATOS_PERSONA`(IN IDUSUARIO INT, IN NOMBRE VARCHAR(50),IN APEPAT VARCHAR(50),IN APEMAT VARCHAR(50),
+IN NRO_DOCUMENTO VARCHAR(50), IN TIPO_DOC VARCHAR(50), IN SEXO VARCHAR(15),
 IN TELEFONO VARCHAR(50), IN DIRECCION VARCHAR(50))
-BEGIN
-DECLARE  cantidad INT;
-DECLARE IDPERSONA INT;
-DECLARE DOCMENTOACTUAL INT;
-SET @IDPERSONA:=(SELECT persona_id from usuario where usuario_id =IDUSUARIO);
-SET @DOCMENTOACTUAL:=(SELECT persona_nrodocumento from persona where persona_id =@IDPERSONA);
-IF @DOCMENTOACTUAL =  NRO_DOCUMENTO then
-UPDATE  persona set 
-persona_nombre=NOMBRE,
-persona_apepat=APEPAT,
-persona_apemat=APEMAT,
-persona_tipodocumento=TIPO_DOC,
-persona_sexo=SEXO,
-persona_telefono=TELEFONO,
-persona_direccion=DIRECCION
-WHERE persona_id =@IDPERSONA;
-SELECT 1;
-ELSE
-SET @cantidad:=( SELECT COUNT(*) FROM persona WHERE persona_nrodocumento =NRO_DOCUMENTO);
-IF @cantidad = 0 THEN
-	UPDATE  persona set 
-	persona_nombre=NOMBRE,
-	persona_apepat=APEPAT,
-	persona_apemat=APEMAT,
-	persona_nrodocumento=NRO_DOCUMENTO,
-	persona_tipodocumento=TIPO_DOC,
-	persona_sexo=SEXO,
-	persona_telefono=TELEFONO,
-	persona_direccion=DIRECCION
-	WHERE persona_id =@IDPERSONA;
-	SELECT 1;
-	ELSE 
-	SELECT 2;
-END IF;
-END IF;
+BEGIN
+DECLARE  cantidad INT;
+DECLARE IDPERSONA INT;
+DECLARE DOCMENTOACTUAL INT;
+SET @IDPERSONA:=(SELECT persona_id from usuario where usuario_id =IDUSUARIO);
+SET @DOCMENTOACTUAL:=(SELECT persona_nrodocumento from persona where persona_id =@IDPERSONA);
+IF @DOCMENTOACTUAL =  NRO_DOCUMENTO then
+UPDATE  persona set 
+persona_nombre=NOMBRE,
+persona_apepat=APEPAT,
+persona_apemat=APEMAT,
+persona_tipodocumento=TIPO_DOC,
+persona_sexo=SEXO,
+persona_telefono=TELEFONO,
+persona_direccion=DIRECCION
+WHERE persona_id =@IDPERSONA;
+SELECT 1;
+ELSE
+SET @cantidad:=( SELECT COUNT(*) FROM persona WHERE persona_nrodocumento =NRO_DOCUMENTO);
+IF @cantidad = 0 THEN
+	UPDATE  persona set 
+	persona_nombre=NOMBRE,
+	persona_apepat=APEPAT,
+	persona_apemat=APEMAT,
+	persona_nrodocumento=NRO_DOCUMENTO,
+	persona_tipodocumento=TIPO_DOC,
+	persona_sexo=SEXO,
+	persona_telefono=TELEFONO,
+	persona_direccion=DIRECCION
+	WHERE persona_id =@IDPERSONA;
+	SELECT 1;
+	ELSE 
+	SELECT 2;
+END IF;
+END IF;
 END */$$
 DELIMITER ;
 
@@ -1146,35 +1182,35 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ANULAR_COMPRA`(IN `IDCOMPRA` INT)
-BEGIN 
-DECLARE CANTIDAD INT;
-DECLARE IDPRODUCTO INT;
-DECLARE STOCKACTUAL DECIMAL(10,2);
-DECLARE DETALLEID INT;
-UPDATE compra SET 
-`compra_estatus` ='ANULADA'
-WHERE `compra_id` =IDCOMPRA;
-SET @CANTIDAD:=(SELECT COUNT(*) FROM `detalle_compra` WHERE `detalle_compra`.`dc_estatus`='INGRESADA' AND  `id_compra` =IDCOMPRA);
-  WHILE @CANTIDAD > 0 DO
-	SET @IDPRODUCTO:=(SELECT `id_producto` FROM `detalle_compra` 
-	WHERE `detalle_compra`.`dc_estatus` ='INGRESADA' AND  `id_compra` =IDCOMPRA  LIMIT 1);
-	
-	SET @DETALLEID:=(SELECT `detalle_compra_id` FROM `detalle_compra` WHERE `detalle_compra`.`dc_estatus`='INGRESADA' 
-	AND  `id_compra` =IDCOMPRA  LIMIT 1);
-	
-	SET @STOCKACTUAL:=(SELECT `producto_stock` FROM producto WHERE `producto_id` = @IDPRODUCTO);
-	
-	UPDATE producto SET 
-	`producto_stock`=@STOCKACTUAL-(SELECT `detalle_compra`.`dc_cantidad` FROM `detalle_compra` 
-	WHERE `detalle_compra`.`dc_estatus` ='INGRESADA' AND  `id_compra` =IDCOMPRA  LIMIT 1)
-	WHERE `producto_id`=@IDPRODUCTO;
-	UPDATE `detalle_compra` SET 
-	`detalle_compra`.`dc_estatus` ='ANULADA'
-	WHERE `detalle_compra_id` =@DETALLEID;
-	
-      SET @CANTIDAD:= @CANTIDAD - 1;
-    
-  END WHILE;
+BEGIN 
+DECLARE CANTIDAD INT;
+DECLARE IDPRODUCTO INT;
+DECLARE STOCKACTUAL DECIMAL(10,2);
+DECLARE DETALLEID INT;
+UPDATE compra SET 
+`compra_estatus` ='ANULADA'
+WHERE `compra_id` =IDCOMPRA;
+SET @CANTIDAD:=(SELECT COUNT(*) FROM `detalle_compra` WHERE `detalle_compra`.`dc_estatus`='INGRESADA' AND  `id_compra` =IDCOMPRA);
+  WHILE @CANTIDAD > 0 DO
+	SET @IDPRODUCTO:=(SELECT `id_producto` FROM `detalle_compra` 
+	WHERE `detalle_compra`.`dc_estatus` ='INGRESADA' AND  `id_compra` =IDCOMPRA  LIMIT 1);
+	
+	SET @DETALLEID:=(SELECT `detalle_compra_id` FROM `detalle_compra` WHERE `detalle_compra`.`dc_estatus`='INGRESADA' 
+	AND  `id_compra` =IDCOMPRA  LIMIT 1);
+	
+	SET @STOCKACTUAL:=(SELECT `producto_stock` FROM producto WHERE `producto_id` = @IDPRODUCTO);
+	
+	UPDATE producto SET 
+	`producto_stock`=@STOCKACTUAL-(SELECT `detalle_compra`.`dc_cantidad` FROM `detalle_compra` 
+	WHERE `detalle_compra`.`dc_estatus` ='INGRESADA' AND  `id_compra` =IDCOMPRA  LIMIT 1)
+	WHERE `producto_id`=@IDPRODUCTO;
+	UPDATE `detalle_compra` SET 
+	`detalle_compra`.`dc_estatus` ='ANULADA'
+	WHERE `detalle_compra_id` =@DETALLEID;
+	
+      SET @CANTIDAD:= @CANTIDAD - 1;
+    
+  END WHILE;
 END */$$
 DELIMITER ;
 
@@ -1185,35 +1221,35 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ANULAR_VENTA`(IN `IDVENTA` INT)
-BEGIN 
-DECLARE CANTIDAD INT;
-DECLARE IDPRODUCTO INT;
-DECLARE STOCKACTUAL DECIMAL(10,2);
-DECLARE DETALLEID INT;
-UPDATE venta SET 
-`venta_estatus` ='ANULADA'
-WHERE `venta_id` =IDVENTA;
-SET @CANTIDAD:=(SELECT COUNT(*) FROM `detalle_venta` WHERE `detalle_venta`.`dv_estatus`='INGRESADA' AND  `venta_id` =IDVENTA);
-  WHILE @CANTIDAD > 0 DO
-	SET @IDPRODUCTO:=(SELECT `producto_id` FROM `detalle_venta` 
-	WHERE `detalle_venta`.`dv_estatus` ='INGRESADA' AND  `venta_id` =IDVENTA  LIMIT 1);
-	
-	SET @DETALLEID:=(SELECT `detalle_venta_id` FROM `detalle_venta` WHERE `detalle_venta`.`dv_estatus`='INGRESADA' 
-	AND  `venta_id` =IDVENTA  LIMIT 1);
-	
-	SET @STOCKACTUAL:=(SELECT `producto_stock` FROM producto WHERE `producto_id` = @IDPRODUCTO);
-	
-	UPDATE producto SET 
-	`producto_stock`=@STOCKACTUAL+(SELECT `detalle_venta`.`dv_cantidad` FROM `detalle_venta` 
-	WHERE `detalle_venta`.`dv_estatus` ='INGRESADA' AND  `venta_id` =IDVENTA  LIMIT 1)
-	WHERE `producto_id`=@IDPRODUCTO;
-	UPDATE `detalle_venta` SET 
-	`detalle_venta`.`dv_estatus` ='ANULADA'
-	WHERE `detalle_venta_id` =@DETALLEID;
-	
-      SET @CANTIDAD:= @CANTIDAD - 1;
-    
-  END WHILE;
+BEGIN 
+DECLARE CANTIDAD INT;
+DECLARE IDPRODUCTO INT;
+DECLARE STOCKACTUAL DECIMAL(10,2);
+DECLARE DETALLEID INT;
+UPDATE venta SET 
+`venta_estatus` ='ANULADA'
+WHERE `venta_id` =IDVENTA;
+SET @CANTIDAD:=(SELECT COUNT(*) FROM `detalle_venta` WHERE `detalle_venta`.`dv_estatus`='INGRESADA' AND  `venta_id` =IDVENTA);
+  WHILE @CANTIDAD > 0 DO
+	SET @IDPRODUCTO:=(SELECT `producto_id` FROM `detalle_venta` 
+	WHERE `detalle_venta`.`dv_estatus` ='INGRESADA' AND  `venta_id` =IDVENTA  LIMIT 1);
+	
+	SET @DETALLEID:=(SELECT `detalle_venta_id` FROM `detalle_venta` WHERE `detalle_venta`.`dv_estatus`='INGRESADA' 
+	AND  `venta_id` =IDVENTA  LIMIT 1);
+	
+	SET @STOCKACTUAL:=(SELECT `producto_stock` FROM producto WHERE `producto_id` = @IDPRODUCTO);
+	
+	UPDATE producto SET 
+	`producto_stock`=@STOCKACTUAL+(SELECT `detalle_venta`.`dv_cantidad` FROM `detalle_venta` 
+	WHERE `detalle_venta`.`dv_estatus` ='INGRESADA' AND  `venta_id` =IDVENTA  LIMIT 1)
+	WHERE `producto_id`=@IDPRODUCTO;
+	UPDATE `detalle_venta` SET 
+	`detalle_venta`.`dv_estatus` ='ANULADA'
+	WHERE `detalle_venta_id` =@DETALLEID;
+	
+      SET @CANTIDAD:= @CANTIDAD - 1;
+    
+  END WHILE;
 END */$$
 DELIMITER ;
 
@@ -1224,24 +1260,24 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_ABONOS_PROVEEDOR`()
-SELECT
-    `cuentas_x_proveedor`.`idCuenta`
-    , `proveedor`.`proveedor_razon_social` AS proveedor
-    ,`compra`.`compra_tipo_comprobante`
-    ,   compra.`compra_num_comprobante` AS nofactura
-    , `cuentas_x_proveedor`.`noCuota`
-    , `cuentas_x_proveedor`.`fecha_pago`
-     , `compra`.`compra_total` AS credito
-    ,SUM( `cuentas_x_proveedor`.`valorAbono`) AS totalAbonos
-    , `cuentas_x_proveedor`.`idCompra`
-   
-    ,    `compra`.`compra_total` - SUM(`cuentas_x_proveedor`.`valorAbono`) AS saldo
-FROM
-    `sistema_pos`.`cuentas_x_proveedor`
-    INNER JOIN `sistema_pos`.`compra` 
-        ON (`cuentas_x_proveedor`.`idCompra` = `compra`.`compra_id`)
-    INNER JOIN `sistema_pos`.`proveedor` 
-        ON (`compra`.`proveedor_id` = `proveedor`.`proveedor_id`)
+SELECT
+    `cuentas_x_proveedor`.`idCuenta`
+    , `proveedor`.`proveedor_razon_social` AS proveedor
+    ,`compra`.`compra_tipo_comprobante`
+    ,   compra.`compra_num_comprobante` AS nofactura
+    , `cuentas_x_proveedor`.`noCuota`
+    , `cuentas_x_proveedor`.`fecha_pago`
+     , `compra`.`compra_total` AS credito
+    ,SUM( `cuentas_x_proveedor`.`valorAbono`) AS totalAbonos
+    , `cuentas_x_proveedor`.`idCompra`
+   
+    ,    `compra`.`compra_total` - SUM(`cuentas_x_proveedor`.`valorAbono`) AS saldo
+FROM
+    `sistema_pos`.`cuentas_x_proveedor`
+    INNER JOIN `sistema_pos`.`compra` 
+        ON (`cuentas_x_proveedor`.`idCompra` = `compra`.`compra_id`)
+    INNER JOIN `sistema_pos`.`proveedor` 
+        ON (`compra`.`proveedor_id` = `proveedor`.`proveedor_id`)
         GROUP BY idCompra */$$
 DELIMITER ;
 
@@ -1262,7 +1298,7 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_CATEGORIA`()
-select `categoria_id`,`categoria_nombre`,`categoria_fregistro`,`categoria_estatus`
+select `categoria_id`,`categoria_nombre`,`categoria_fregistro`,`categoria_estatus`
 from `categoria` */$$
 DELIMITER ;
 
@@ -1273,20 +1309,20 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_CLIENTE`()
-SELECT
-    `persona`.`persona_id`
-    ,   concat_ws(' ', `persona`.`persona_nombre`    , `persona`.`persona_apepat`    , `persona`.`persona_apemat`) as cliente
-    , `persona`.`persona_nrodocumento`
-    , `persona`.`persona_tipodocumento`
-    , `persona`.`persona_sexo`
-    , `persona`.`persona_telefono`
-    , `persona`.`persona_direccion`
-    , `cliente`.`cliente_fregistro`
-    , `cliente`.`cliente_estatus`
-    , `cliente`.`idcliente`
-FROM
-    `sistema_pos`.`cliente`
-    INNER JOIN `sistema_pos`.`persona` 
+SELECT
+    `persona`.`persona_id`
+    ,   concat_ws(' ', `persona`.`persona_nombre`    , `persona`.`persona_apepat`    , `persona`.`persona_apemat`) as cliente
+    , `persona`.`persona_nrodocumento`
+    , `persona`.`persona_tipodocumento`
+    , `persona`.`persona_sexo`
+    , `persona`.`persona_telefono`
+    , `persona`.`persona_direccion`
+    , `cliente`.`cliente_fregistro`
+    , `cliente`.`cliente_estatus`
+    , `cliente`.`idcliente`
+FROM
+    `sistema_pos`.`cliente`
+    INNER JOIN `sistema_pos`.`persona` 
         ON (`cliente`.`persona_id` = `persona`.`persona_id`) */$$
 DELIMITER ;
 
@@ -1297,11 +1333,11 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_COMBO_CATEGORIA`()
-SELECT
-	categoria_id, 
-	categoria_nombre
-FROM
-	categoria
+SELECT
+	categoria_id, 
+	categoria_nombre
+FROM
+	categoria
 	where categoria_estatus='ACTIVO' */$$
 DELIMITER ;
 
@@ -1312,11 +1348,11 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_COMBO_PERSONA`()
-SELECT
-    `persona_id`
-    , concat_ws(' ', `persona_nombre`, `persona_apepat`, `persona_apemat`) 
-FROM
-    `persona`
+SELECT
+    `persona_id`
+    , concat_ws(' ', `persona_nombre`, `persona_apepat`, `persona_apemat`) 
+FROM
+    `persona`
     WHERE persona.persona_estatus ='ACTIVO' */$$
 DELIMITER ;
 
@@ -1327,9 +1363,9 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_COMBO_PRODUCTO`()
-SELECT `producto_id`,`producto_nombre`,
-`producto_stock`,`producto_precioventa`, producto.producto_foto, producto.producto_codigo
-FROM `producto`
+SELECT `producto_id`,`producto_nombre`,
+`producto_stock`,`producto_precioventa`, producto.producto_foto, producto.producto_codigo
+FROM `producto`
 WHERE `producto`.`producto_estatus` ='ACTIVO' */$$
 DELIMITER ;
 
@@ -1340,14 +1376,14 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_COMBO_PROVEEDOR`()
-SELECT
-    `proveedor`.`proveedor_id`
-    , `proveedor`.`proveedor_razon_social`
-    , `persona`.`persona_nrodocumento`
-FROM
-    `proveedor`
-    INNER JOIN `persona` 
-        ON (`proveedor`.`persona_id` = `persona`.`persona_id`)
+SELECT
+    `proveedor`.`proveedor_id`
+    , `proveedor`.`proveedor_razon_social`
+    , `persona`.`persona_nrodocumento`
+FROM
+    `proveedor`
+    INNER JOIN `persona` 
+        ON (`proveedor`.`persona_id` = `persona`.`persona_id`)
         WHERE `proveedor_estatus` = 'ACTIVO' */$$
 DELIMITER ;
 
@@ -1358,11 +1394,11 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_COMBO_ROL`()
-SELECT
-    `rol_id`
-    , `rol_nombre`
-FROM
-    `rol`
+SELECT
+    `rol_id`
+    , `rol_nombre`
+FROM
+    `rol`
     where rol.rol_estatus='ACTIVO' */$$
 DELIMITER ;
 
@@ -1373,11 +1409,11 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_COMBO_UNIDAD`()
-SELECT
-	unidad_id, 
-	unidad_nombre
-FROM
-	unidad
+SELECT
+	unidad_id, 
+	unidad_nombre
+FROM
+	unidad
 	where unidad_estatus='ACTIVO' */$$
 DELIMITER ;
 
@@ -1388,33 +1424,33 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_COMPRAS`(IN `INICIO` DATE, IN `FIN` DATE)
-SELECT
-    `compra`.`compra_id`
-    , `compra`.`proveedor_id`
-    ,`compra`.`id_bodega`
-    ,`bodega`.`nombre_bodega`
-    , `compra`.`usuario_id`
-    , `compra`.`compra_tipo_comprobante`
-    , `compra`.`compra_serie_comprobante`
-    , `compra`.`compra_num_comprobante`
-    , `compra`.`compra_tipo_pago`
-    , `compra`.`compra_fecha`
-    , `compra`.`compra_impuesto`
-    , `compra`.`compra_total`
-    , `compra`.`compra_estatus`
-    , `usuario`.`usuario_nombre`
-    , CONCAT_WS(' ', `persona`.`persona_nombre`  , `persona`.`persona_apepat` , `persona`.`persona_apemat` ) AS proveedor,
-    compra.compra_total_decto, compra.fecha_vencimiento
-    
-FROM
-    `sistema_pos`.`compra`
-    INNER JOIN `sistema_pos`.`usuario` 
-        ON (`compra`.`usuario_id` = `usuario`.`usuario_id`)
-    INNER JOIN `sistema_pos`.`proveedor` 
-        ON (`compra`.`proveedor_id` = `proveedor`.`proveedor_id`)
-    INNER JOIN `sistema_pos`.`persona` 
-        ON (`proveedor`.`persona_id` = `persona`.`persona_id`)
-     INNER JOIN `bodega`  ON  `compra`.`id_bodega`  = `bodega`.`id`  
+SELECT
+    `compra`.`compra_id`
+    , `compra`.`proveedor_id`
+    ,`compra`.`id_bodega`
+    ,`bodega`.`nombre_bodega`
+    , `compra`.`usuario_id`
+    , `compra`.`compra_tipo_comprobante`
+    , `compra`.`compra_serie_comprobante`
+    , `compra`.`compra_num_comprobante`
+    , `compra`.`compra_tipo_pago`
+    , `compra`.`compra_fecha`
+    , `compra`.`compra_impuesto`
+    , `compra`.`compra_total`
+    , `compra`.`compra_estatus`
+    , `usuario`.`usuario_nombre`
+    , CONCAT_WS(' ', `persona`.`persona_nombre`  , `persona`.`persona_apepat` , `persona`.`persona_apemat` ) AS proveedor,
+    compra.compra_total_decto, compra.fecha_vencimiento
+    
+FROM
+    `sistema_pos`.`compra`
+    INNER JOIN `sistema_pos`.`usuario` 
+        ON (`compra`.`usuario_id` = `usuario`.`usuario_id`)
+    INNER JOIN `sistema_pos`.`proveedor` 
+        ON (`compra`.`proveedor_id` = `proveedor`.`proveedor_id`)
+    INNER JOIN `sistema_pos`.`persona` 
+        ON (`proveedor`.`persona_id` = `persona`.`persona_id`)
+     INNER JOIN `bodega`  ON  `compra`.`id_bodega`  = `bodega`.`id`  
         where compra.compra_fecha BETWEEN INICIO AND FIN */$$
 DELIMITER ;
 
@@ -1448,19 +1484,19 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_PERSONA`()
-SELECT
-    `persona_id`, concat_ws(' ',`persona_nombre`  , `persona_apepat`  , `persona_apemat`) as persona,
-    persona.persona_nombre,persona.persona_apepat,
-    persona.persona_apemat
-     ,`persona_nrodocumento`
-    , `persona_tipodocumento`
-    , `persona_sexo`
-    , `persona_telefono`
-    , `persona_direccion`
-    , persona_correo
-    , `persona_fregistro`
-    , `persona_estatus`
-FROM
+SELECT
+    `persona_id`, concat_ws(' ',`persona_nombre`  , `persona_apepat`  , `persona_apemat`) as persona,
+    persona.persona_nombre,persona.persona_apepat,
+    persona.persona_apemat
+     ,`persona_nrodocumento`
+    , `persona_tipodocumento`
+    , `persona_sexo`
+    , `persona_telefono`
+    , `persona_direccion`
+    , persona_correo
+    , `persona_fregistro`
+    , `persona_estatus`
+FROM
     `persona` */$$
 DELIMITER ;
 
@@ -1471,26 +1507,26 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_PRODUCTOS`(IN `IDBODEGA` INT)
-SELECT
-    `p`.`producto_id`    , `p`.`producto_codigo`
-    , `p`.`producto_nombre`    , `p`.`producto_presentacion`
-    
-    , `p`.`id_bodega`
-    , `b`.`nombre_bodega`  
-    ,`p`.`cant_minima`  
-    ,    `p`.`producto_stock`
-    , `p`.`id_categoria`    , `c`.`categoria_nombre`
-    , `p`.`id_unidad`    , `u`.`unidad_nombre`
-    , `p`.`producto_foto`    , `p`.`producto_precioventa`
-    , `p`.`producto_estatus`
-FROM
-    `sistema_pos`.`producto` AS `p`
-    INNER JOIN `sistema_pos`.`bodega` AS `b` 
-        ON (`p`.`id_bodega` = `b`.`id`)
-    INNER JOIN `sistema_pos`.`categoria` AS `c`
-        ON (`p`.`id_categoria` = `c`.`categoria_id`)
-    INNER JOIN `sistema_pos`.`unidad` AS `u`
-        ON (`p`.`id_unidad` = `u`.`unidad_id`)
+SELECT
+    `p`.`producto_id`    , `p`.`producto_codigo`
+    , `p`.`producto_nombre`    , `p`.`producto_presentacion`
+    
+    , `p`.`id_bodega`
+    , `b`.`nombre_bodega`  
+    ,`p`.`cant_minima`  
+    ,    `p`.`producto_stock`
+    , `p`.`id_categoria`    , `c`.`categoria_nombre`
+    , `p`.`id_unidad`    , `u`.`unidad_nombre`
+    , `p`.`producto_foto`    , `p`.`producto_precioventa`
+    , `p`.`producto_estatus`
+FROM
+    `sistema_pos`.`producto` AS `p`
+    INNER JOIN `sistema_pos`.`bodega` AS `b` 
+        ON (`p`.`id_bodega` = `b`.`id`)
+    INNER JOIN `sistema_pos`.`categoria` AS `c`
+        ON (`p`.`id_categoria` = `c`.`categoria_id`)
+    INNER JOIN `sistema_pos`.`unidad` AS `u`
+        ON (`p`.`id_unidad` = `u`.`unidad_id`)
        where b.`id` = IDBODEGA */$$
 DELIMITER ;
 
@@ -1501,23 +1537,23 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_PROVEEDOR`()
-SELECT
-    `persona`.`persona_id`
-    , concat_ws(' ', `persona`.`persona_nombre`    , `persona`.`persona_apepat`    , `persona`.`persona_apemat`) as proveedor
-    , `persona`.`persona_nrodocumento`
-    , `persona`.`persona_tipodocumento`
-    , `persona`.`persona_sexo`
-    , `persona`.`persona_telefono`
-    , `persona`.`persona_direccion`
-    , `proveedor`.`proveedor_id`
-    ,proveedor.proveedor_num_contacto
-    , `proveedor`.`proveedor_fregistro`
-    , `proveedor`.`proveedor_estatus`
-    ,	proveedor.proveedor_razon_social
- 
-FROM
-    `sistema_pos`.`proveedor`
-    INNER JOIN `sistema_pos`.`persona` 
+SELECT
+    `persona`.`persona_id`
+    , concat_ws(' ', `persona`.`persona_nombre`    , `persona`.`persona_apepat`    , `persona`.`persona_apemat`) as proveedor
+    , `persona`.`persona_nrodocumento`
+    , `persona`.`persona_tipodocumento`
+    , `persona`.`persona_sexo`
+    , `persona`.`persona_telefono`
+    , `persona`.`persona_direccion`
+    , `proveedor`.`proveedor_id`
+    ,proveedor.proveedor_num_contacto
+    , `proveedor`.`proveedor_fregistro`
+    , `proveedor`.`proveedor_estatus`
+    ,	proveedor.proveedor_razon_social
+ 
+FROM
+    `sistema_pos`.`proveedor`
+    INNER JOIN `sistema_pos`.`persona` 
         ON (`proveedor`.`persona_id` = `persona`.`persona_id`) */$$
 DELIMITER ;
 
@@ -1538,13 +1574,13 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_UNIDAD`()
-SELECT
-	u.unidad_id, 
-	u.unidad_nombre, 
-    u.unidad_abreviatura,
-	u.unidad_fregistro, 
-	u.unidad_estatus
-FROM
+SELECT
+	u.unidad_id, 
+	u.unidad_nombre, 
+    u.unidad_abreviatura,
+	u.unidad_fregistro, 
+	u.unidad_estatus
+FROM
 	unidad AS u */$$
 DELIMITER ;
 
@@ -1555,21 +1591,21 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_USUARIO2`(IN `IDEMPRESA` INT)
-SELECT
-    `usuario`.`usuario_id`    , `usuario`.`usuario_nombre`
-    , `usuario`.`usuario_email`    , `usuario`.`usuario_estatus`
-    , `usuario`.`usuario_imagen`    , `usuario`.`rol_id`
-    , `usuario`.`persona_id`    , `rol`.`rol_nombre`,
-    concat_ws(' ', `persona`.`persona_nombre` , `persona`.`persona_apepat`, `persona`.`persona_apemat`) AS persona
-    , `persona`.`persona_nombre`    , `persona`.`persona_apepat`
-    , `persona`.`persona_apemat`, `usuario`.`idempresa`
-    FROM
-    `usuario`
-    LEFT JOIN `persona` 
-        ON (`usuario`.`persona_id` = `persona`.`persona_id`)
-    INNER JOIN `rol` 
-        ON (`usuario`.`rol_id` = `rol`.`rol_id`)
-        inner join empresa on `usuario`.`idempresa` = empresa.`ID`
+SELECT
+    `usuario`.`usuario_id`    , `usuario`.`usuario_nombre`
+    , `usuario`.`usuario_email`    , `usuario`.`usuario_estatus`
+    , `usuario`.`usuario_imagen`    , `usuario`.`rol_id`
+    , `usuario`.`persona_id`    , `rol`.`rol_nombre`,
+    concat_ws(' ', `persona`.`persona_nombre` , `persona`.`persona_apepat`, `persona`.`persona_apemat`) AS persona
+    , `persona`.`persona_nombre`    , `persona`.`persona_apepat`
+    , `persona`.`persona_apemat`, `usuario`.`idempresa`
+    FROM
+    `usuario`
+    LEFT JOIN `persona` 
+        ON (`usuario`.`persona_id` = `persona`.`persona_id`)
+    INNER JOIN `rol` 
+        ON (`usuario`.`rol_id` = `rol`.`rol_id`)
+        inner join empresa on `usuario`.`idempresa` = empresa.`ID`
         where usuario.`idempresa` = IDEMPRESA */$$
 DELIMITER ;
 
@@ -1580,35 +1616,35 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_VENTAS`(IN `FINICIO` DATE, IN `FFIN` DATE)
-SELECT
-    `venta`.`venta_id`
-    , `venta`.`cliente_id`
-    , `venta`.`bodega_id`
-    , `bodega`.`nombre_bodega`
-    , `venta`.`usuario_id`
-    , `usuario`.`usuario_nombre`
-    , `venta`.`venta_tipocomprobante`
-    , `venta`.`venta_serie`
-    , `venta`.`venta_numcomprobante`
-    , `venta`.`tipo_pago`
-    , `venta`.`venta_fecha`
-    , `venta`.`venta_impuesto`
-    , `venta`.`venta_total`
-    , `venta`.`venta_estatus`
-    , `venta`.`venta_porcentaje`
-    , `venta`.`venta_total_dcto`
-    , venta.fecha_vencimiento
-    , concat_ws(' ',`persona`.`persona_nombre`    , `persona`.`persona_apepat`    , `persona`.`persona_apemat`) as cliente
-   
-FROM
-    `bodega`, 
-    `venta`
-    INNER JOIN `usuario` 
-        ON (`venta`.`usuario_id` = `usuario`.`usuario_id`)
-    INNER JOIN `cliente` 
-        ON (`venta`.`cliente_id` = `cliente`.`idcliente`)
-    INNER JOIN `persona` 
-        ON (`cliente`.`persona_id` = `persona`.`persona_id`)
+SELECT
+    `venta`.`venta_id`
+    , `venta`.`cliente_id`
+    , `venta`.`bodega_id`
+    , `bodega`.`nombre_bodega`
+    , `venta`.`usuario_id`
+    , `usuario`.`usuario_nombre`
+    , `venta`.`venta_tipocomprobante`
+    , `venta`.`venta_serie`
+    , `venta`.`venta_numcomprobante`
+    , `venta`.`tipo_pago`
+    , `venta`.`venta_fecha`
+    , `venta`.`venta_impuesto`
+    , `venta`.`venta_total`
+    , `venta`.`venta_estatus`
+    , `venta`.`venta_porcentaje`
+    , `venta`.`venta_total_dcto`
+    , venta.fecha_vencimiento
+    , concat_ws(' ',`persona`.`persona_nombre`    , `persona`.`persona_apepat`    , `persona`.`persona_apemat`) as cliente
+   
+FROM
+    `bodega`, 
+    `venta`
+    INNER JOIN `usuario` 
+        ON (`venta`.`usuario_id` = `usuario`.`usuario_id`)
+    INNER JOIN `cliente` 
+        ON (`venta`.`cliente_id` = `cliente`.`idcliente`)
+    INNER JOIN `persona` 
+        ON (`cliente`.`persona_id` = `persona`.`persona_id`)
         WHERE `venta`.`venta_fecha` between FINICIO AND FFIN */$$
 DELIMITER ;
 
@@ -1618,37 +1654,37 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_ARL`(IN ID int, 
-    IN NIT_ACTUAL VARCHAR(250), IN NIT_NUEVO VARCHAR(250),
-     IN NOMBRE VARCHAR(100), IN CIUDAD VARCHAR(100), IN DIRECCION VARCHAR(200),
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_ARL`(IN ID int, 
+    IN NIT_ACTUAL VARCHAR(250), IN NIT_NUEVO VARCHAR(250),
+     IN NOMBRE VARCHAR(100), IN CIUDAD VARCHAR(100), IN DIRECCION VARCHAR(200),
      IN TELEFONO VARCHAR(100),IN CORREO VARCHAR(100))
-BEGIN
-DECLARE CANTIDAD INT;
-IF NIT_ACTUAL = NIT_NUEVO THEN
-    UPDATE arl set
-    NomARL=NOMBRE,
-    CiudadARL=CIUDAD,
-    DirARL=DIRECCION,
-    TelARL=TELEFONO,
-    EmailArl=CORREO
-    where IdARL = ID;
-select 1;
-ELSE 
-SET @CANTIDAD:=(SELECT COUNT(*) FROM arl WHERE NitARL=NIT_NUEVO);
-if  @CANTIDAD = 0 THEN
- UPDATE arl set
-    NitARL=NIT_NUEVO,
-    NomARL=NOMBRE,
-    CiudadARL=CIUDAD,
-    DirARL=DIRECCION,
-    TelARL=TELEFONO,
-    EmailArl=CORREO
-    where IdARL = ID;
-select 1;
-ELSE 
-select 2;
-END IF;
-END IF;
+BEGIN
+DECLARE CANTIDAD INT;
+IF NIT_ACTUAL = NIT_NUEVO THEN
+    UPDATE arl set
+    NomARL=NOMBRE,
+    CiudadARL=CIUDAD,
+    DirARL=DIRECCION,
+    TelARL=TELEFONO,
+    EmailArl=CORREO
+    where IdARL = ID;
+select 1;
+ELSE 
+SET @CANTIDAD:=(SELECT COUNT(*) FROM arl WHERE NitARL=NIT_NUEVO);
+if  @CANTIDAD = 0 THEN
+ UPDATE arl set
+    NitARL=NIT_NUEVO,
+    NomARL=NOMBRE,
+    CiudadARL=CIUDAD,
+    DirARL=DIRECCION,
+    TelARL=TELEFONO,
+    EmailArl=CORREO
+    where IdARL = ID;
+select 1;
+ELSE 
+select 2;
+END IF;
+END IF;
 END */$$
 DELIMITER ;
 
@@ -1659,25 +1695,25 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_CATEGORIA`(IN ID int, IN NOMBRE_ACTUAL VARCHAR(250), IN NOMBRE_NUEVO VARCHAR(250), IN ESTATUS VARCHAR(15))
-BEGIN
-DECLARE CANTIDAD INT;
-IF NOMBRE_ACTUAL = NOMBRE_NUEVO THEN
-	UPDATE categoria set
-	categoria_estatus=ESTATUS
-	where categoria_id = ID;
-select 1;
-ELSE 
-SET @CANTIDAD:=(SELECT COUNT(*) FROM categoria WHERE categoria_nombre=NOMBRE_NUEVO);
-if  @CANTIDAD = 0 THEN
-UPDATE categoria set
-categoria_estatus=ESTATUS,
-categoria_nombre=NOMBRE_NUEVO
-where categoria_id = ID;
-select 1;
-ELSE 
-select 2;
-END IF;
-END IF;
+BEGIN
+DECLARE CANTIDAD INT;
+IF NOMBRE_ACTUAL = NOMBRE_NUEVO THEN
+	UPDATE categoria set
+	categoria_estatus=ESTATUS
+	where categoria_id = ID;
+select 1;
+ELSE 
+SET @CANTIDAD:=(SELECT COUNT(*) FROM categoria WHERE categoria_nombre=NOMBRE_NUEVO);
+if  @CANTIDAD = 0 THEN
+UPDATE categoria set
+categoria_estatus=ESTATUS,
+categoria_nombre=NOMBRE_NUEVO
+where categoria_id = ID;
+select 1;
+ELSE 
+select 2;
+END IF;
+END IF;
 END */$$
 DELIMITER ;
 
@@ -1688,9 +1724,51 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_CONTRASENA_USUARIO`(in ID INT,in CONTRA VARCHAR(250))
-UPDATE usuario set 
-`usuario_password` =CONTRA where 
+UPDATE usuario set 
+`usuario_password` =CONTRA where 
 `usuario_id` = ID */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_MODIFICAR_CUENTA_CONTABLE` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_MODIFICAR_CUENTA_CONTABLE` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_CUENTA_CONTABLE`(IN `IDCUENTA` INT, IN `CODIGO_ACTUAL` VARCHAR(250), IN `CODIGO_NUEVO` VARCHAR(250), IN `NIT_CUENTA` VARCHAR(100), IN `CUENTA_NOMBRE` VARCHAR(100), IN `TIPO_CUENTA` VARCHAR(100), IN `CUENTA_BANCO` INT, IN `CUENTA_BASE` INT, IN `CUENTA_CENTRO` INT, IN `CUENTA_NIT` INT, IN `ANTICIPO_CUENTA` INT, IN `CATEGORIA_CUENTA` VARCHAR(100), IN `CLASE_CUENTA` VARCHAR(100), IN `NIVEL_CUENTA` INT)
+BEGIN
+DECLARE CANTIDAD INT;
+IF CODIGO_ACTUAL = CODIGO_NUEVO THEN
+	UPDATE cuentas SET
+	categoria=CATEGORIA_CUENTA,
+	clase=CLASE_CUENTA,
+	nivel=NIVEL_CUENTA
+	WHERE id = IDCUENTA;
+SELECT 1;
+ELSE 
+SET @CANTIDAD:=(SELECT COUNT(*) FROM cuentas WHERE nombre=CUENTA_NOMBRE);
+IF  @CANTIDAD = 0 THEN
+UPDATE cuentas SET
+nombre=CUENTA_NOMBRE,
+codigo=CODIGO_NUEVO,
+`concepto_nit`=NIT_CUENTA,
+nombre=CUENTA_NOMBRE,
+tipo=TIPO_CUENTA,
+usa_bancos=CUENTA_BANCO,
+usa_base=CUENTA_BASE,
+usa_centros=CUENTA_CENTRO,
+usa_nit=CUENTA_NIT,
+usa_anticipo=ANTICIPO_CUENTA,
+categoria=CATEGORIA_CUENTA,
+clase=CLASE_CUENTA,
+nivel=NIVEL_CUENTA
+WHERE id = IDCUENTA;
+SELECT 1;
+ELSE 
+SELECT 2;
+END IF;
+END IF;
+END */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `SP_MODIFICAR_DEPARTAMENTO` */
@@ -1699,27 +1777,27 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_DEPARTAMENTO`(IN IDDEP int,
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_DEPARTAMENTO`(IN IDDEP int,
  IN NOMBRE_ACTUAL VARCHAR(250), IN NOMBRE_NUEVO VARCHAR(250), IN ESTATUSDEP VARCHAR(15))
-BEGIN
-DECLARE CANTIDAD INT;
-IF NOMBRE_ACTUAL = NOMBRE_NUEVO THEN
-	UPDATE departamentos set
-	estatus=ESTATUSDEP
-	where id = IDDEP;
-select 1;
-ELSE 
-SET @CANTIDAD:=(SELECT COUNT(*) FROM departamentos WHERE nombre_depto=NOMBRE_NUEVO);
-if  @CANTIDAD = 0 THEN
-UPDATE departamentos set
-estatus=ESTATUSDEP,
-nombre_depto=NOMBRE_NUEVO
-where  id = IDDEP;
-select 1;
-ELSE 
-select 2;
-END IF;
-END IF;
+BEGIN
+DECLARE CANTIDAD INT;
+IF NOMBRE_ACTUAL = NOMBRE_NUEVO THEN
+	UPDATE departamentos set
+	estatus=ESTATUSDEP
+	where id = IDDEP;
+select 1;
+ELSE 
+SET @CANTIDAD:=(SELECT COUNT(*) FROM departamentos WHERE nombre_depto=NOMBRE_NUEVO);
+if  @CANTIDAD = 0 THEN
+UPDATE departamentos set
+estatus=ESTATUSDEP,
+nombre_depto=NOMBRE_NUEVO
+where  id = IDDEP;
+select 1;
+ELSE 
+select 2;
+END IF;
+END IF;
 END */$$
 DELIMITER ;
 
@@ -1729,26 +1807,26 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_DEPTO`(IN ID INT, 
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_DEPTO`(IN ID INT, 
     IN DESC_ACTUAL VARCHAR(250), IN DESC_NUEVO VARCHAR(250))
-BEGIN
-DECLARE CANTIDAD INT;
-IF DESC_ACTUAL = DESC_NUEVO THEN
-    UPDATE dpto SET
-    `DescDpto`=DESC_ACTUAL
-    WHERE `IdDpto` = ID;
-SELECT 1;
-ELSE 
-SET @CANTIDAD:=(SELECT COUNT(*) FROM dpto WHERE `DescDpto`=DESC_NUEVO);
-IF  @CANTIDAD = 0 THEN
-     UPDATE dpto SET
-    `DescDpto`=DESC_NUEVO
-    WHERE `IdDpto` = ID;
-SELECT 1;
-ELSE 
-SELECT 2;
-END IF;
-END IF;
+BEGIN
+DECLARE CANTIDAD INT;
+IF DESC_ACTUAL = DESC_NUEVO THEN
+    UPDATE dpto SET
+    `DescDpto`=DESC_ACTUAL
+    WHERE `IdDpto` = ID;
+SELECT 1;
+ELSE 
+SET @CANTIDAD:=(SELECT COUNT(*) FROM dpto WHERE `DescDpto`=DESC_NUEVO);
+IF  @CANTIDAD = 0 THEN
+     UPDATE dpto SET
+    `DescDpto`=DESC_NUEVO
+    WHERE `IdDpto` = ID;
+SELECT 1;
+ELSE 
+SELECT 2;
+END IF;
+END IF;
 END */$$
 DELIMITER ;
 
@@ -1759,33 +1837,33 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_EPS`(IN `ID` INT, IN `NIT_ACTUAL` VARCHAR(250), IN `NIT_NUEVO` VARCHAR(250), IN `NOMBRE` VARCHAR(100), IN `CIUDAD` VARCHAR(100), IN `DIRECCION` VARCHAR(200), IN `TELEFONO` VARCHAR(100), IN `CORREO` VARCHAR(100))
-BEGIN
-DECLARE CANTIDAD INT;
-IF NIT_ACTUAL = NIT_NUEVO THEN
-    UPDATE eps set
-    NomEPS=NOMBRE,
-    CiudadEPS=CIUDAD,
-    DirEPS=DIRECCION,
-    TelEPS=TELEFONO,
-    EmailEps=CORREO
-    where IdEPS = ID;
-select 1;
-ELSE 
-SET @CANTIDAD:=(SELECT COUNT(*) FROM eps WHERE NitEPS=NIT_NUEVO);
-if  @CANTIDAD = 0 THEN
- UPDATE eps set
-    NitEPS=NIT_NUEVO,
-    NomEPS=NOMBRE,
-    CiudadEPS=CIUDAD,
-    DirEPS=DIRECCION,
-    TelEPS=TELEFONO,
-    EmailEps=CORREO
-    where IdEPS = ID;
-select 1;
-ELSE 
-select 2;
-END IF;
-END IF;
+BEGIN
+DECLARE CANTIDAD INT;
+IF NIT_ACTUAL = NIT_NUEVO THEN
+    UPDATE eps set
+    NomEPS=NOMBRE,
+    CiudadEPS=CIUDAD,
+    DirEPS=DIRECCION,
+    TelEPS=TELEFONO,
+    EmailEps=CORREO
+    where IdEPS = ID;
+select 1;
+ELSE 
+SET @CANTIDAD:=(SELECT COUNT(*) FROM eps WHERE NitEPS=NIT_NUEVO);
+if  @CANTIDAD = 0 THEN
+ UPDATE eps set
+    NitEPS=NIT_NUEVO,
+    NomEPS=NOMBRE,
+    CiudadEPS=CIUDAD,
+    DirEPS=DIRECCION,
+    TelEPS=TELEFONO,
+    EmailEps=CORREO
+    where IdEPS = ID;
+select 1;
+ELSE 
+select 2;
+END IF;
+END IF;
 END */$$
 DELIMITER ;
 
@@ -1796,8 +1874,8 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_ESTATUS_ARL`(IN `ID` INT, IN `ESTATUS_ARL` VARCHAR(20))
-UPDATE arl SET 
-`estatus` = ESTATUS_ARL 
+UPDATE arl SET 
+`estatus` = ESTATUS_ARL 
 WHERE `IdARL` = ID */$$
 DELIMITER ;
 
@@ -1807,10 +1885,10 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_ESTATUS_BODEGA`(IN IDBODEGA INT,
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_ESTATUS_BODEGA`(IN IDBODEGA INT,
     IN ESTATUS VARCHAR(20))
-UPDATE bodega set 
-estatus = ESTATUS 
+UPDATE bodega set 
+estatus = ESTATUS 
 where id = IDBODEGA */$$
 DELIMITER ;
 
@@ -1820,10 +1898,10 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_ESTATUS_CARGO`(IN IDCARGO INT,
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_ESTATUS_CARGO`(IN IDCARGO INT,
     IN ESTATUS VARCHAR(20))
-UPDATE cargos set 
-estatus = ESTATUS 
+UPDATE cargos set 
+estatus = ESTATUS 
 where IdCargos = IDCARGO */$$
 DELIMITER ;
 
@@ -1834,8 +1912,8 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_ESTATUS_CATEGORIA`(IN `IDCATEGORIA` INT, IN `ESTATUS` VARCHAR(20))
-UPDATE categoria set 
-categoria_estatus = ESTATUS 
+UPDATE categoria set 
+categoria_estatus = ESTATUS 
 where categoria_id = IDCATEGORIA */$$
 DELIMITER ;
 
@@ -1846,9 +1924,21 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_ESTATUS_CLIENTE`(IN `CLIENTE_ID` INT, IN `ESTATUS` VARCHAR(20))
-UPDATE cliente set 
-cliente_estatus = ESTATUS 
+UPDATE cliente set 
+cliente_estatus = ESTATUS 
 where idcliente = CLIENTE_ID */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_MODIFICAR_ESTATUS_CUENTA` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_MODIFICAR_ESTATUS_CUENTA` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_ESTATUS_CUENTA`(IN `CUENTA_ID` INT, IN `ESTATUS_CUENTA` VARCHAR(20))
+UPDATE cuentas SET 
+estatus = ESTATUS_CUENTA 
+WHERE id = CUENTA_ID */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `SP_MODIFICAR_ESTATUS_DEPTO` */
@@ -1857,10 +1947,10 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_ESTATUS_DEPTO`(IN IDDEPTO INT,
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_ESTATUS_DEPTO`(IN IDDEPTO INT,
     IN ESTATUS VARCHAR(20))
-UPDATE dpto set 
-estatus = ESTATUS 
+UPDATE dpto set 
+estatus = ESTATUS 
 where IdDpto = IDDEPTO */$$
 DELIMITER ;
 
@@ -1870,10 +1960,10 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_ESTATUS_EMPLEADO`(IN IDEMP INT,
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_ESTATUS_EMPLEADO`(IN IDEMP INT,
     IN ESTATUS VARCHAR(20))
-UPDATE empleados set 
-estatus = ESTATUS 
+UPDATE empleados set 
+estatus = ESTATUS 
 where IdEmp = IDEMP */$$
 DELIMITER ;
 
@@ -1883,10 +1973,10 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_ESTATUS_EPS`(IN ID INT,
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_ESTATUS_EPS`(IN ID INT,
     IN ESTATUS_EPS VARCHAR(20))
-UPDATE eps set 
-estatus = ESTATUS_EPS 
+UPDATE eps set 
+estatus = ESTATUS_EPS 
 where IdEPS = ID */$$
 DELIMITER ;
 
@@ -1896,10 +1986,10 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_ESTATUS_MARCA`(IN IDMARCA INT,
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_ESTATUS_MARCA`(IN IDMARCA INT,
     IN ESTATUS VARCHAR(20))
-UPDATE marcas SET 
-estatus = ESTATUS 
+UPDATE marcas SET 
+estatus = ESTATUS 
 WHERE id = IDMARCA */$$
 DELIMITER ;
 
@@ -1909,10 +1999,10 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_ESTATUS_PERSONA`(IN IDPERSONA INT,
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_ESTATUS_PERSONA`(IN IDPERSONA INT,
     IN ESTATUS VARCHAR(20))
-UPDATE persona set 
-persona_estatus = ESTATUS 
+UPDATE persona set 
+persona_estatus = ESTATUS 
 where persona_id = IDPERSONA */$$
 DELIMITER ;
 
@@ -1923,7 +2013,7 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_ESTATUS_PRODUCTO`(IN IDPRODUCTO INT, IN ESTATUS VARCHAR(20))
-UPDATE producto set producto_estatus = ESTATUS
+UPDATE producto set producto_estatus = ESTATUS
 where producto_id = IDPRODUCTO */$$
 DELIMITER ;
 
@@ -1934,8 +2024,8 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_ESTATUS_PROVEEDOR`(IN PROVEEDOR_ID INT, IN ESTATUS VARCHAR(20))
-UPDATE proveedor set 
-proveedor_estatus = ESTATUS 
+UPDATE proveedor set 
+proveedor_estatus = ESTATUS 
 where proveedor_id = PROVEEDOR_ID */$$
 DELIMITER ;
 
@@ -1945,10 +2035,10 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_ESTATUS_ROL`(IN IDROL INT,
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_ESTATUS_ROL`(IN IDROL INT,
     IN ESTATUS VARCHAR(20))
-UPDATE rol set 
-rol_estatus = ESTATUS 
+UPDATE rol set 
+rol_estatus = ESTATUS 
 where rol_id = IDROL */$$
 DELIMITER ;
 
@@ -1958,10 +2048,10 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_ESTATUS_UNIDAD`(IN IDUNIDAD INT,
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_ESTATUS_UNIDAD`(IN IDUNIDAD INT,
     IN ESTATUS VARCHAR(20))
-UPDATE unidad set 
-unidad_estatus = ESTATUS 
+UPDATE unidad set 
+unidad_estatus = ESTATUS 
 where unidad_id = IDUNIDAD */$$
 DELIMITER ;
 
@@ -1972,8 +2062,8 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_ESTATUS_USUARIO`(IN IDUSUARIO INT, IN ESTATUS VARCHAR(20))
-UPDATE usuario set 
-usuario_estatus = ESTATUS 
+UPDATE usuario set 
+usuario_estatus = ESTATUS 
 where usuario_id = IDUSUARIO */$$
 DELIMITER ;
 
@@ -1983,10 +2073,10 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_ESTATUS_VENTA`(IN IDVENTA INT,
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_ESTATUS_VENTA`(IN IDVENTA INT,
     IN ESTATUS VARCHAR(20))
-UPDATE `venta` SET 
-`venta_estatus` = ESTATUS 
+UPDATE `venta` SET 
+`venta_estatus` = ESTATUS 
 WHERE `venta_id` = IDVENTA */$$
 DELIMITER ;
 
@@ -1997,11 +2087,11 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_FOTO_EMPRESA`(IN idempresa INT, IN foto VARCHAR(250))
-BEGIN 
-UPDATE empresa SET 
-logo =foto
-WHERE ID =idempresa;
-SELECT 1;
+BEGIN 
+UPDATE empresa SET 
+logo =foto
+WHERE ID =idempresa;
+SELECT 1;
 END */$$
 DELIMITER ;
 
@@ -2012,11 +2102,11 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_FOTO_PRODUCTO`(IN IDPRODUCTO INT, IN foto VARCHAR(250))
-BEGIN 
-UPDATE `producto` SET 
-`producto_foto` =foto
-WHERE `producto_id` =IDPRODUCTO;
-SELECT 1;
+BEGIN 
+UPDATE `producto` SET 
+`producto_foto` =foto
+WHERE `producto_id` =IDPRODUCTO;
+SELECT 1;
 END */$$
 DELIMITER ;
 
@@ -2027,11 +2117,11 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_FOTO_USUARIO`(in idusuario int, in foto VARCHAR(250))
-begin 
-update usuario set 
-usuario_imagen =foto
-where usuario_id =idusuario;
-select 1;
+begin 
+update usuario set 
+usuario_imagen =foto
+where usuario_id =idusuario;
+select 1;
 end */$$
 DELIMITER ;
 
@@ -2042,25 +2132,25 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_MARCA`(IN `IDMARCA` INT, IN `DESC_ACTUAL` VARCHAR(250), IN `DESC_NUEVO` VARCHAR(250), IN `ESTATUS_MARCA` VARCHAR(15))
-BEGIN
-DECLARE CANTIDAD INT;
-IF DESC_ACTUAL = DESC_NUEVO THEN
-	UPDATE marcas SET
-	estatus=ESTATUS_MARCA
-	WHERE id = ID;
-SELECT 1;
-ELSE 
-SET @CANTIDAD:=(SELECT COUNT(*) FROM marcas WHERE descripcion=DESC_NUEVO);
-IF  @CANTIDAD = 0 THEN
-UPDATE marcas SET
-estatus=ESTATUS_MARCA,
-descripcion=DESC_NUEVO
-WHERE id = IDMARCA;
-SELECT 1;
-ELSE 
-SELECT 2;
-END IF;
-END IF;
+BEGIN
+DECLARE CANTIDAD INT;
+IF DESC_ACTUAL = DESC_NUEVO THEN
+	UPDATE marcas SET
+	estatus=ESTATUS_MARCA
+	WHERE id = ID;
+SELECT 1;
+ELSE 
+SET @CANTIDAD:=(SELECT COUNT(*) FROM marcas WHERE descripcion=DESC_NUEVO);
+IF  @CANTIDAD = 0 THEN
+UPDATE marcas SET
+estatus=ESTATUS_MARCA,
+descripcion=DESC_NUEVO
+WHERE id = IDMARCA;
+SELECT 1;
+ELSE 
+SELECT 2;
+END IF;
+END IF;
 END */$$
 DELIMITER ;
 
@@ -2070,39 +2160,39 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_PERSONA`(IN `IDPERSONA` INT, IN `NOMBRE` VARCHAR(50), IN `APEPAT` VARCHAR(50),
-IN `APEMAT` VARCHAR(50), IN `NRO_DOCUMENTO_ACTUAL` VARCHAR(50), IN `NRO_DOCUMENTO_NUEVO` VARCHAR(50),
- IN `TIPO_DOC` VARCHAR(50), IN `SEXO` VARCHAR(15), IN `TELEFONO` VARCHAR(50), IN `DIRECCION` VARCHAR(50),IN CORREO VARCHAR(100), IN `ESTATUS` VARCHAR(20))
-BEGIN
-DECLARE CANTIDAD INT;
-IF NRO_DOCUMENTO_ACTUAL= NRO_DOCUMENTO_NUEVO THEN
-		UPDATE persona SET 
-		persona_nombre= NOMBRE,`persona_apepat`=APEPAT,`persona_apemat`=APEMAT,
-		`persona_tipodocumento`=TIPO_DOC,`persona_sexo`=SEXO,`persona_telefono`=TELEFONO,
-		`persona_direccion`=DIRECCION,
-		persona_correo =CORREO,
-		 `persona_estatus`=ESTATUS
-		WHERE `persona_id`=IDPERSONA;
-SELECT 1;
- ELSE
-  SET @CANTIDAD:=(SELECT COUNT(*) FROM persona WHERE `persona_nrodocumento` =NRO_DOCUMENTO_NUEVO);
-	
-	IF @CANTIDAD = 0 THEN 
-		 UPDATE persona SET 
-			persona_nombre= NOMBRE,`persona_apepat`=APEPAT,`persona_apemat`=APEMAT,
-			`persona_nrodocumento`=NRO_DOCUMENTO_NUEVO,
-		`persona_tipodocumento`=TIPO_DOC,`persona_sexo`=SEXO,`persona_telefono`=TELEFONO,
-		`persona_direccion`=DIRECCION,
-		persona_correo = CORREO,
-		 `persona_estatus`=ESTATUS
-		WHERE `persona_id`=IDPERSONA;
-		SELECT 1;
-	ELSE
-	SELECT 2;
-	
-	END IF;
- 
- END IF;
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_PERSONA`(IN `IDPERSONA` INT, IN `NOMBRE` VARCHAR(50), IN `APEPAT` VARCHAR(50),
+IN `APEMAT` VARCHAR(50), IN `NRO_DOCUMENTO_ACTUAL` VARCHAR(50), IN `NRO_DOCUMENTO_NUEVO` VARCHAR(50),
+ IN `TIPO_DOC` VARCHAR(50),  IN `TELEFONO` VARCHAR(50), IN `DIRECCION` VARCHAR(50),IN CORREO VARCHAR(100), IN `ESTATUS` VARCHAR(20))
+BEGIN
+DECLARE CANTIDAD INT;
+IF NRO_DOCUMENTO_ACTUAL= NRO_DOCUMENTO_NUEVO THEN
+		UPDATE persona SET 
+		persona_nombre= NOMBRE,`persona_apepat`=APEPAT,`persona_apemat`=APEMAT,
+		`persona_tipodocumento`=TIPO_DOC,`persona_telefono`=TELEFONO,
+		`persona_direccion`=DIRECCION,
+		persona_correo =CORREO,
+		 `persona_estatus`=ESTATUS
+		WHERE `persona_id`=IDPERSONA;
+SELECT 1;
+ ELSE
+  SET @CANTIDAD:=(SELECT COUNT(*) FROM persona WHERE `persona_nrodocumento` =NRO_DOCUMENTO_NUEVO);
+	
+	IF @CANTIDAD = 0 THEN 
+		 UPDATE persona SET 
+			persona_nombre= NOMBRE,`persona_apepat`=APEPAT,`persona_apemat`=APEMAT,
+			`persona_nrodocumento`=NRO_DOCUMENTO_NUEVO,
+		`persona_tipodocumento`=TIPO_DOC,`persona_telefono`=TELEFONO,
+		`persona_direccion`=DIRECCION,
+		persona_correo = CORREO,
+		 `persona_estatus`=ESTATUS
+		WHERE `persona_id`=IDPERSONA;
+		SELECT 1;
+	ELSE
+	SELECT 2;
+	
+	END IF;
+ 
+ END IF;
 END */$$
 DELIMITER ;
 
@@ -2112,46 +2202,46 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_PRODUCTO`(IN `IDPRODUCTO` INT,
- IN `CODIGO_ACTUAL` VARCHAR(100), IN `CODIGO_NUEVO` VARCHAR(100), IN `NOMBRE_ACTUAL` VARCHAR(50),
-  IN `NOMBRE_NUEVO` VARCHAR(50), IN `PRESENTACION` VARCHAR(50),  IN `CANTIDAD_MIN` VARCHAR(100), 
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_PRODUCTO`(IN `IDPRODUCTO` INT,
+ IN `CODIGO_ACTUAL` VARCHAR(100), IN `CODIGO_NUEVO` VARCHAR(100), IN `NOMBRE_ACTUAL` VARCHAR(50),
+  IN `NOMBRE_NUEVO` VARCHAR(50), IN `PRESENTACION` VARCHAR(50),  IN `CANTIDAD_MIN` VARCHAR(100), 
   IN `IDCATEGORIA` INT, IN `IDUNIDAD` INT, IN `PRECIO_COMPRA` DECIMAL(10,2),IN `PRECIO_VENTA` DECIMAL(10,2))
-BEGIN
-DECLARE CANTIDAD INT;
-IF CODIGO_ACTUAL = CODIGO_NUEVO  THEN
- 
-   UPDATE producto SET 
-   `producto_nombre` =NOMBRE_NUEVO,
-   producto_presentacion =PRESENTACION,
-   cant_minima=CANTIDAD_MIN,
-   id_categoria=IDCATEGORIA,
-   id_unidad=IDUNIDAD,
-   `precio_costo`=PRECIO_COMPRA,
-   producto_precioventa=PRECIO_VENTA
-  
-   WHERE producto_id=IDPRODUCTO;
-   SELECT 1;
-ELSE 
-SET @CANTIDAD:=(SELECT COUNT(*) FROM producto WHERE producto_codigo =CODIGO_NUEVO
-   OR producto_nombre =NOMBRE_NUEVO);
-   IF @CANTIDAD = 0 THEN 
-  
-   UPDATE producto SET 
-   producto_codigo=CODIGO_NUEVO,
-   producto_nombre=NOMBRE_NUEVO,
-   producto_presentacion =PRESENTACION,
-    cant_minima=CANTIDAD_MIN,
-   id_categoria=IDCATEGORIA,
-   id_unidad=IDUNIDAD,
-    `precio_costo`=PRECIO_COMPRA,
-   producto_precioventa=PRECIO_VENTA
-  
-    WHERE producto_id=IDPRODUCTO;
-   SELECT 1;
-   ELSE 
-   SELECT 2;
-END IF;
-END IF;
+BEGIN
+DECLARE CANTIDAD INT;
+IF CODIGO_ACTUAL = CODIGO_NUEVO  THEN
+ 
+   UPDATE producto SET 
+   `producto_nombre` =NOMBRE_NUEVO,
+   producto_presentacion =PRESENTACION,
+   cant_minima=CANTIDAD_MIN,
+   id_categoria=IDCATEGORIA,
+   id_unidad=IDUNIDAD,
+   `precio_costo`=PRECIO_COMPRA,
+   producto_precioventa=PRECIO_VENTA
+  
+   WHERE producto_id=IDPRODUCTO;
+   SELECT 1;
+ELSE 
+SET @CANTIDAD:=(SELECT COUNT(*) FROM producto WHERE producto_codigo =CODIGO_NUEVO
+   OR producto_nombre =NOMBRE_NUEVO);
+   IF @CANTIDAD = 0 THEN 
+  
+   UPDATE producto SET 
+   producto_codigo=CODIGO_NUEVO,
+   producto_nombre=NOMBRE_NUEVO,
+   producto_presentacion =PRESENTACION,
+    cant_minima=CANTIDAD_MIN,
+   id_categoria=IDCATEGORIA,
+   id_unidad=IDUNIDAD,
+    `precio_costo`=PRECIO_COMPRA,
+   producto_precioventa=PRECIO_VENTA
+  
+    WHERE producto_id=IDPRODUCTO;
+   SELECT 1;
+   ELSE 
+   SELECT 2;
+END IF;
+END IF;
 END */$$
 DELIMITER ;
 
@@ -2161,48 +2251,48 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_PRODUCTO2`(IN `IDPRODUCTO` INT,
- IN `CODIGO_ACTUAL` VARCHAR(100), IN `CODIGO_NUEVO` VARCHAR(100), IN `NOMBRE_ACTUAL` VARCHAR(50),
-  IN `NOMBRE_NUEVO` VARCHAR(50), IN `PRESENTACION` VARCHAR(50),  IN `CANTIDAD_MIN` VARCHAR(100), 
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_PRODUCTO2`(IN `IDPRODUCTO` INT,
+ IN `CODIGO_ACTUAL` VARCHAR(100), IN `CODIGO_NUEVO` VARCHAR(100), IN `NOMBRE_ACTUAL` VARCHAR(50),
+  IN `NOMBRE_NUEVO` VARCHAR(50), IN `PRESENTACION` VARCHAR(50),  IN `CANTIDAD_MIN` VARCHAR(100), 
   IN `IDCATEGORIA` INT, IN `IDUNIDAD` INT, IN IDTIPO_PRODUCTO INT, IN `PRECIO_COMPRA` DECIMAL(10,2),IN `PRECIO_VENTA` DECIMAL(10,2))
-BEGIN
-DECLARE CANTIDAD INT;
-IF CODIGO_ACTUAL = CODIGO_NUEVO  THEN
- 
-   UPDATE producto SET 
-   `producto_nombre` =NOMBRE_NUEVO,
-   producto_presentacion =PRESENTACION,
-   cant_minima=CANTIDAD_MIN,
-   id_categoria=IDCATEGORIA,
-   id_unidad=IDUNIDAD,
-   idTipoProducto =IDTIPO_PRODUCTO,
-   `compra`=PRECIO_COMPRA,
-   producto_precioventa=PRECIO_VENTA
-  
-   WHERE producto_id=IDPRODUCTO;
-   SELECT 1;
-ELSE 
-SET @CANTIDAD:=(SELECT COUNT(*) FROM producto WHERE producto_codigo =CODIGO_NUEVO
-   OR producto_nombre =NOMBRE_NUEVO);
-   IF @CANTIDAD = 0 THEN 
-  
-   UPDATE producto SET 
-   producto_codigo=CODIGO_NUEVO,
-   producto_nombre=NOMBRE_NUEVO,
-   producto_presentacion =PRESENTACION,
-    cant_minima=CANTIDAD_MIN,
-   id_categoria=IDCATEGORIA,
-   id_unidad=IDUNIDAD,
-   idTipoProducto =IDTIPO_PRODUCTO,
-    `compra`=PRECIO_COMPRA,
-   producto_precioventa=PRECIO_VENTA
-  
-    WHERE producto_id=IDPRODUCTO;
-   SELECT 1;
-   ELSE 
-   SELECT 2;
-END IF;
-END IF;
+BEGIN
+DECLARE CANTIDAD INT;
+IF CODIGO_ACTUAL = CODIGO_NUEVO  THEN
+ 
+   UPDATE producto SET 
+   `producto_nombre` =NOMBRE_NUEVO,
+   producto_presentacion =PRESENTACION,
+   cant_minima=CANTIDAD_MIN,
+   id_categoria=IDCATEGORIA,
+   id_unidad=IDUNIDAD,
+   idTipoProducto =IDTIPO_PRODUCTO,
+   `compra`=PRECIO_COMPRA,
+   producto_precioventa=PRECIO_VENTA
+  
+   WHERE producto_id=IDPRODUCTO;
+   SELECT 1;
+ELSE 
+SET @CANTIDAD:=(SELECT COUNT(*) FROM producto WHERE producto_codigo =CODIGO_NUEVO
+   OR producto_nombre =NOMBRE_NUEVO);
+   IF @CANTIDAD = 0 THEN 
+  
+   UPDATE producto SET 
+   producto_codigo=CODIGO_NUEVO,
+   producto_nombre=NOMBRE_NUEVO,
+   producto_presentacion =PRESENTACION,
+    cant_minima=CANTIDAD_MIN,
+   id_categoria=IDCATEGORIA,
+   id_unidad=IDUNIDAD,
+   idTipoProducto =IDTIPO_PRODUCTO,
+    `compra`=PRECIO_COMPRA,
+   producto_precioventa=PRECIO_VENTA
+  
+    WHERE producto_id=IDPRODUCTO;
+   SELECT 1;
+   ELSE 
+   SELECT 2;
+END IF;
+END IF;
 END */$$
 DELIMITER ;
 
@@ -2213,25 +2303,25 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_ROL`(IN `ID` INT, IN `ROL_ACTUAL` VARCHAR(250), IN `ROL_NUEVO` VARCHAR(250), IN `ESTATUS` VARCHAR(15))
-BEGIN
-DECLARE CANTIDAD INT;
-IF ROL_ACTUAL = ROL_NUEVO THEN
-	UPDATE rol SET
-	rol_estatus=ESTATUS
-	WHERE rol_id = ID;
-SELECT 1;
-ELSE 
-SET @CANTIDAD:=(SELECT COUNT(*) FROM rol WHERE rol_nombre=ROL_NUEVO);
-IF  @CANTIDAD = 0 THEN
-UPDATE rol SET
-rol_estatus=ESTATUS,
-rol_nombre=ROL_NUEVO
-WHERE rol_id = ID;
-SELECT 1;
-ELSE 
-SELECT 2;
-END IF;
-END IF;
+BEGIN
+DECLARE CANTIDAD INT;
+IF ROL_ACTUAL = ROL_NUEVO THEN
+	UPDATE rol SET
+	rol_estatus=ESTATUS
+	WHERE rol_id = ID;
+SELECT 1;
+ELSE 
+SET @CANTIDAD:=(SELECT COUNT(*) FROM rol WHERE rol_nombre=ROL_NUEVO);
+IF  @CANTIDAD = 0 THEN
+UPDATE rol SET
+rol_estatus=ESTATUS,
+rol_nombre=ROL_NUEVO
+WHERE rol_id = ID;
+SELECT 1;
+ELSE 
+SELECT 2;
+END IF;
+END IF;
 END */$$
 DELIMITER ;
 
@@ -2242,44 +2332,25 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_TIPO_PRODUCTO`(IN IDTIPO INT, IN NOMBRE_ACTUAL VARCHAR(250), IN NOMBRE_NUEVO VARCHAR(250), IN ESTATUSTIPO VARCHAR(15))
-BEGIN
-
-DECLARE CANTIDAD INT;
-
-IF NOMBRE_ACTUAL = NOMBRE_NUEVO THEN
-
-	UPDATE `tipo_producto` SET
-
-	estatus=ESTATUSTIPO
-
-	WHERE id = IDTIPO;
-
-SELECT 1;
-
-ELSE 
-
-SET @CANTIDAD:=(SELECT COUNT(*) FROM `tipo_producto` WHERE tipo_producto=NOMBRE_NUEVO);
-
-IF  @CANTIDAD = 0 THEN
-
-UPDATE tipo_producto SET
-
-estatus=ESTATUSTIPO,
-
-`tipo_producto`=NOMBRE_NUEVO
-
-WHERE id = IDTIPO;
-
-SELECT 1;
-
-ELSE 
-
-SELECT 2;
-
-END IF;
-
-END IF;
-
+BEGIN
+DECLARE CANTIDAD INT;
+IF NOMBRE_ACTUAL = NOMBRE_NUEVO THEN
+	UPDATE `tipo_producto` SET
+	estatus=ESTATUSTIPO
+	WHERE id = IDTIPO;
+SELECT 1;
+ELSE 
+SET @CANTIDAD:=(SELECT COUNT(*) FROM `tipo_producto` WHERE tipo_producto=NOMBRE_NUEVO);
+IF  @CANTIDAD = 0 THEN
+UPDATE tipo_producto SET
+estatus=ESTATUSTIPO,
+`tipo_producto`=NOMBRE_NUEVO
+WHERE id = IDTIPO;
+SELECT 1;
+ELSE 
+SELECT 2;
+END IF;
+END IF;
 END */$$
 DELIMITER ;
 
@@ -2289,29 +2360,29 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_UNIDAD`(IN ID int,
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_UNIDAD`(IN ID int,
  IN NOMBRE_ACTUAL VARCHAR(250), IN NOMBRE_NUEVO VARCHAR(250), IN ABREVIATURA char(20), IN ESTATUS VARCHAR(15))
-BEGIN
-DECLARE CANTIDAD INT;
-IF NOMBRE_ACTUAL = NOMBRE_NUEVO THEN
-	UPDATE unidad set
-    unidad_abreviatura=ABREVIATURA,
-	unidad_estatus=ESTATUS
-	where unidad_id = ID;
-select 1;
-ELSE 
-SET @CANTIDAD:=(SELECT COUNT(*) FROM unidad WHERE unidad_nombre=NOMBRE_NUEVO);
-if  @CANTIDAD = 0 THEN
-UPDATE unidad set
-unidad_estatus=ESTATUS,
-unidad_nombre=NOMBRE_NUEVO,
- unidad_abreviatura=ABREVIATURA
-where unidad_id = ID;
-select 1;
-ELSE 
-select 2;
-END IF;
-END IF;
+BEGIN
+DECLARE CANTIDAD INT;
+IF NOMBRE_ACTUAL = NOMBRE_NUEVO THEN
+	UPDATE unidad set
+    unidad_abreviatura=ABREVIATURA,
+	unidad_estatus=ESTATUS
+	where unidad_id = ID;
+select 1;
+ELSE 
+SET @CANTIDAD:=(SELECT COUNT(*) FROM unidad WHERE unidad_nombre=NOMBRE_NUEVO);
+if  @CANTIDAD = 0 THEN
+UPDATE unidad set
+unidad_estatus=ESTATUS,
+unidad_nombre=NOMBRE_NUEVO,
+ unidad_abreviatura=ABREVIATURA
+where unidad_id = ID;
+select 1;
+ELSE 
+select 2;
+END IF;
+END IF;
 END */$$
 DELIMITER ;
 
@@ -2322,31 +2393,31 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_USUARIO`( IN IDUSUARIO INT, IN CORREONUEVO VARCHAR(100),IN IDROL INT,  in IDPERSONA INT,IN ESTATUS VARCHAR(20))
-BEGIN 
-DECLARE CANTIDAD INT;
-DECLARE CORREOACTUAL VARCHAR(250);
-SET @CORREOACTUAL:=(SELECT usuario_email from usuario where usuario_id =IDUSUARIO);
-IF  @CORREOACTUAL = CORREONUEVO THEN
-UPDATE usuario set 
-rol_id =IDROL,
-persona_id =IDPERSONA,
-usuario_estatus =ESTATUS
-where usuario_id =IDUSUARIO;
-SELECT 1;
-ELSE
-SET @CANTIDAD:=(SELECT  COUNT(*) from usuario where usuario_email =CORREONUEVO);
-IF @CANTIDAD = 0 THEN 
-UPDATE usuario set 
-usuario_email=CORREONUEVO,
-rol_id =IDROL,
-persona_id =IDPERSONA,
-usuario_estatus =ESTATUS
-where usuario_id =IDUSUARIO;
-select 1;
-ELSE 
-select 2;
-END IF;
-END IF;
+BEGIN 
+DECLARE CANTIDAD INT;
+DECLARE CORREOACTUAL VARCHAR(250);
+SET @CORREOACTUAL:=(SELECT usuario_email from usuario where usuario_id =IDUSUARIO);
+IF  @CORREOACTUAL = CORREONUEVO THEN
+UPDATE usuario set 
+rol_id =IDROL,
+persona_id =IDPERSONA,
+usuario_estatus =ESTATUS
+where usuario_id =IDUSUARIO;
+SELECT 1;
+ELSE
+SET @CANTIDAD:=(SELECT  COUNT(*) from usuario where usuario_email =CORREONUEVO);
+IF @CANTIDAD = 0 THEN 
+UPDATE usuario set 
+usuario_email=CORREONUEVO,
+rol_id =IDROL,
+persona_id =IDPERSONA,
+usuario_estatus =ESTATUS
+where usuario_id =IDUSUARIO;
+select 1;
+ELSE 
+select 2;
+END IF;
+END IF;
 END */$$
 DELIMITER ;
 
@@ -2356,13 +2427,13 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_ABONO`(IN `IDCOMPRA` INT, IN `CUOTA` INT, 
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_ABONO`(IN `IDCOMPRA` INT, IN `CUOTA` INT, 
 IN  `FECHA_ABONO` DATE, IN `VALOR_PAGO`  DECIMAL(10,2))
-BEGIN
- INSERT INTO `cuentas_x_proveedor`(`idCompra`,`noCuota`,`fecha_pago`,
- `valorAbono`) VALUES 
- (IDCOMPRA,CUOTA,FECHA_ABONO,VALOR_PAGO);
- 
+BEGIN
+ INSERT INTO `cuentas_x_proveedor`(`idCompra`,`noCuota`,`fecha_pago`,
+ `valorAbono`) VALUES 
+ (IDCOMPRA,CUOTA,FECHA_ABONO,VALOR_PAGO);
+ 
  END */$$
 DELIMITER ;
 
@@ -2372,13 +2443,13 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_ABONO_CLIENTE`(IN `IDVENTA` INT, IN `CUOTA` INT, IN NO_COMPROBANTE VARCHAR(100),
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_ABONO_CLIENTE`(IN `IDVENTA` INT, IN `CUOTA` INT, IN NO_COMPROBANTE VARCHAR(100),
 IN  `FECHA_ABONO` DATE, IN `VALOR_PAGO`  DECIMAL(10,2))
-BEGIN
- INSERT INTO `cuentas_x_cobrar`(`idventa`,`cuotas_abono`,`no_comprobante`,`fecha`,
- `valor`) VALUES 
- (IDVENTA,CUOTA, NO_COMPROBANTE,FECHA_ABONO,VALOR_PAGO);
- 
+BEGIN
+ INSERT INTO `cuentas_x_cobrar`(`idventa`,`cuotas_abono`,`no_comprobante`,`fecha`,
+ `valor`) VALUES 
+ (IDVENTA,CUOTA, NO_COMPROBANTE,FECHA_ABONO,VALOR_PAGO);
+ 
  END */$$
 DELIMITER ;
 
@@ -2388,20 +2459,20 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_arl`(IN NIT_ARL BIGINT(20),IN NOMBRE_ARL VARCHAR(100), IN CIUDAD_ARL  VARCHAR(100),
-IN DIRECCION VARCHAR(100), IN TELEFONO_ARL VARCHAR(100),
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_arl`(IN NIT_ARL BIGINT(20),IN NOMBRE_ARL VARCHAR(100), IN CIUDAD_ARL  VARCHAR(100),
+IN DIRECCION VARCHAR(100), IN TELEFONO_ARL VARCHAR(100),
 IN CORREO_ARL VARCHAR(200), IN IDEMPRESA INT )
-BEGIN 
-DECLARE CANTIDAD INT;
-SET @CANTIDAD:=(SELECT COUNT(*) FROM arl WHERE arl.`NitARL`=NIT_ARL);
-IF @CANTIDAD = 0 THEN
-INSERT INTO arl (`NitARL`, `NomARL`,`CiudadARL`,`DirARL`,`TelARL`,`EmailArl`,
- `estatus`, `idempresa`)
-VALUES (NIT_ARL,NOMBRE_ARL, CIUDAD_ARL,DIRECCION,TELEFONO_ARL ,CORREO_ARL  ,'ACTIVO',IDEMPRESA);
-SELECT 1;
-ELSE
-SELECT 2;
-END IF;
+BEGIN 
+DECLARE CANTIDAD INT;
+SET @CANTIDAD:=(SELECT COUNT(*) FROM arl WHERE arl.`NitARL`=NIT_ARL);
+IF @CANTIDAD = 0 THEN
+INSERT INTO arl (`NitARL`, `NomARL`,`CiudadARL`,`DirARL`,`TelARL`,`EmailArl`,
+ `estatus`, `idempresa`)
+VALUES (NIT_ARL,NOMBRE_ARL, CIUDAD_ARL,DIRECCION,TELEFONO_ARL ,CORREO_ARL  ,'ACTIVO',IDEMPRESA);
+SELECT 1;
+ELSE
+SELECT 2;
+END IF;
 END */$$
 DELIMITER ;
 
@@ -2412,16 +2483,16 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_BODEGA`(IN `NOMBRE` VARCHAR(50), IN `IDEMPRESA` INT)
-BEGIN
-DECLARE CANTIDAD INT;
-SET @CANTIDAD:=(SELECT COUNT(*) FROM bodega WHERE `nombre_bodega`=NOMBRE);
-IF @CANTIDAD= 0 THEN 
-INSERT INTO bodega(`nombre_bodega`,estatus,idempresa)
-VALUES (NOMBRE,'ACTIVO',IDEMPRESA);
-SELECT 1;
- ELSE 
- SELECT 2;
- END IF;
+BEGIN
+DECLARE CANTIDAD INT;
+SET @CANTIDAD:=(SELECT COUNT(*) FROM bodega WHERE `nombre_bodega`=NOMBRE);
+IF @CANTIDAD= 0 THEN 
+INSERT INTO bodega(`nombre_bodega`,estatus,idempresa)
+VALUES (NOMBRE,'ACTIVO',IDEMPRESA);
+SELECT 1;
+ ELSE 
+ SELECT 2;
+ END IF;
 END */$$
 DELIMITER ;
 
@@ -2432,16 +2503,16 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_CARGO`(IN `DESCRIPCION` VARCHAR(50), IN IDDEPTO INT)
-BEGIN
-DECLARE CANTIDAD INT;
-SET @CANTIDAD:=(SELECT COUNT(*) FROM `cargos` WHERE `cargos`.`DescCargos`=DESCRIPCION);
-IF @CANTIDAD= 0 THEN 
-INSERT INTO cargos(`DescCargos`,`IdDpto`,estatus)
-VALUES (DESCRIPCION, IDDEPTO,'ACTIVO');
-SELECT 1;
- ELSE 
- SELECT 2;
- END IF;
+BEGIN
+DECLARE CANTIDAD INT;
+SET @CANTIDAD:=(SELECT COUNT(*) FROM `cargos` WHERE `cargos`.`DescCargos`=DESCRIPCION);
+IF @CANTIDAD= 0 THEN 
+INSERT INTO cargos(`DescCargos`,`IdDpto`,estatus)
+VALUES (DESCRIPCION, IDDEPTO,'ACTIVO');
+SELECT 1;
+ ELSE 
+ SELECT 2;
+ END IF;
 END */$$
 DELIMITER ;
 
@@ -2452,16 +2523,16 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_CATEGORIA`(IN NOMBRE VARCHAR(200),IN IDEMPRESA INT)
-BEGIN 
-DECLARE CANTIDAD INT;
-SET @CANTIDAD:=(SELECT COUNT(*) FROM categoria WHERE `categoria_nombre` = NOMBRE);
-IF @CANTIDAD = 0 THEN
-INSERT INTO categoria (categoria_nombre, categoria_fregistro, categoria_estatus,`idempresa`)
-VALUES (NOMBRE,CURDATE(),'ACTIVO',IDEMPRESA);
-SELECT 1;
-ELSE
-SELECT 2;
-END IF;
+BEGIN 
+DECLARE CANTIDAD INT;
+SET @CANTIDAD:=(SELECT COUNT(*) FROM categoria WHERE `categoria_nombre` = NOMBRE);
+IF @CANTIDAD = 0 THEN
+INSERT INTO categoria (categoria_nombre, categoria_fregistro, categoria_estatus,`idempresa`)
+VALUES (NOMBRE,CURDATE(),'ACTIVO',IDEMPRESA);
+SELECT 1;
+ELSE
+SELECT 2;
+END IF;
 END */$$
 DELIMITER ;
 
@@ -2472,16 +2543,16 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_CIUDADES`(IN NOMBRE VARCHAR(200), IN IDDEPARTAMENTO INT,IN IDEMPRESA INT)
-BEGIN 
-DECLARE CANTIDAD INT;
-SET @CANTIDAD:=(SELECT COUNT(*) FROM ciudades WHERE `nombre_ciudad` = NOMBRE);
-IF @CANTIDAD = 0 THEN
-INSERT INTO ciudades (nombre_ciudad, idDepto, estatus,`idempresa`)
-VALUES (NOMBRE,IDDEPARTAMENTO,'ACTIVO',IDEMPRESA);
-SELECT 1;
-ELSE
-SELECT 2;
-END IF;
+BEGIN 
+DECLARE CANTIDAD INT;
+SET @CANTIDAD:=(SELECT COUNT(*) FROM ciudades WHERE `nombre_ciudad` = NOMBRE);
+IF @CANTIDAD = 0 THEN
+INSERT INTO ciudades (nombre_ciudad, idDepto, estatus,`idempresa`)
+VALUES (NOMBRE,IDDEPARTAMENTO,'ACTIVO',IDEMPRESA);
+SELECT 1;
+ELSE
+SELECT 2;
+END IF;
 END */$$
 DELIMITER ;
 
@@ -2491,22 +2562,23 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_CLIENTE2`(IN `NOMBRE` VARCHAR(50), 
-IN `APEPAT` VARCHAR(50), IN `APEMAT` VARCHAR(50), 
-IN `NRO_DOCUMENTO` VARCHAR(50), IN `TIPO_DOC` VARCHAR(50),IN TIPO_CONTRIBUYENTE VARCHAR(100),
- IN `TELEFONO` VARCHAR(50), IN `DIRECCION` VARCHAR(50), IN `CORREO` VARCHAR(100), IN `IDCIUDAD` INT, IN `IDEMPRESA` INT)
-BEGIN
-DECLARE  cantidad INT;
-SET @cantidad:=( SELECT COUNT(*) FROM persona WHERE persona_nrodocumento =NRO_DOCUMENTO);
-IF @cantidad = 0 THEN
-INSERT INTO `persona`(`persona_nombre`,`persona_apepat`,`persona_apemat`,
-`persona_nrodocumento`,`persona_tipodocumento`,`tipo_contribuyente`, `persona_telefono`,`persona_direccion`,`persona_correo`,  `persona_fregistro`,
-`persona_estatus`, idempresa)VALUES (NOMBRE,APEPAT,APEMAT,NRO_DOCUMENTO,TIPO_DOC,TIPO_CONTRIBUYENTE,TELEFONO,DIRECCION,CORREO,CURDATE(),'ACTIVO',IDEMPRESA);
-INSERT INTO cliente(`cliente_fregistro`,`cliente_estatus`,`persona_id`,idciudad, idempresa) VALUES (CURDATE(),'ACTIVO',LAST_INSERT_ID(),IDCIUDAD,  IDEMPRESA);
-SELECT 1;
-ELSE 
-SELECT 2;
-END IF;
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_CLIENTE2`(IN `NOMBRE` VARCHAR(50), 
+IN `APEPAT` VARCHAR(50), IN `APEMAT` VARCHAR(50), 
+IN `NRO_DOCUMENTO` VARCHAR(50), IN `TIPO_DOC` VARCHAR(50),IN TIPO_CONTRIBUYENTE VARCHAR(100),
+ IN `TELEFONO` VARCHAR(50), IN `DIRECCION` VARCHAR(50), IN `CORREO` VARCHAR(100),
+  IN `IDCIUDAD` INT, IN `IDEMPRESA` INT, IN IDTIPO_TERCERO INT)
+BEGIN
+DECLARE  cantidad INT;
+SET @cantidad:=( SELECT COUNT(*) FROM persona WHERE persona_nrodocumento =NRO_DOCUMENTO);
+IF @cantidad = 0 THEN
+INSERT INTO `persona`(`persona_nombre`,`persona_apepat`,`persona_apemat`,
+`persona_nrodocumento`,`persona_tipodocumento`,`tipo_contribuyente`, `persona_telefono`,`persona_direccion`,`persona_correo`,  `persona_fregistro`,
+`persona_estatus`, idempresa,`id_tipo_tercero`)VALUES (NOMBRE,APEPAT,APEMAT,NRO_DOCUMENTO,TIPO_DOC,TIPO_CONTRIBUYENTE,TELEFONO,DIRECCION,CORREO,CURDATE(),'ACTIVO',IDEMPRESA,IDTIPO_TERCERO );
+INSERT INTO cliente(`cliente_fregistro`,`cliente_estatus`,`persona_id`,idciudad, idempresa) VALUES (CURDATE(),'ACTIVO',LAST_INSERT_ID(),IDCIUDAD,  IDEMPRESA);
+SELECT 1;
+ELSE 
+SELECT 2;
+END IF;
 END */$$
 DELIMITER ;
 
@@ -2516,20 +2588,20 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_COMPRA`(IN `IDPROVEEDOR` INT, IN `IDBODEGA` INT, IN `IDUSUARIO` INT, 
-IN `TIPO_COMPROBANTE` VARCHAR(50), IN `SERIE_COMPROBANTE` VARCHAR(50), IN `NUM_COMPROBANTE` VARCHAR(50),
- IN `TIPO_PAGO` VARCHAR(50), IN `FECHA_COMPRA` DATE, IN `IMPUESTO` DECIMAL(10,2), IN `TOTAL` DECIMAL(10,2),
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_COMPRA`(IN `IDPROVEEDOR` INT, IN `IDBODEGA` INT, IN `IDUSUARIO` INT, 
+IN `TIPO_COMPROBANTE` VARCHAR(50), IN `SERIE_COMPROBANTE` VARCHAR(50), IN `NUM_COMPROBANTE` VARCHAR(50),
+ IN `TIPO_PAGO` VARCHAR(50), IN `FECHA_COMPRA` DATE, IN `IMPUESTO` DECIMAL(10,2), IN `TOTAL` DECIMAL(10,2),
   IN `ESTADO` VARCHAR(50), IN `PORCENTAJE` DECIMAL(10,2), IN `DCTO_TOTAL` DECIMAL(10,2), IN FECHA_VENCIMIENTO DATE,IN IDEMPRESA INT)
-BEGIN
- INSERT INTO compra(proveedor_id,id_bodega, usuario_id,compra_tipo_comprobante,
- compra_serie_comprobante,compra_num_comprobante,
- compra_tipo_pago,compra_fecha ,
- compra_impuesto,compra_total,compra_estatus,compra_porcentaje,compra_total_decto, `fecha_vencimiento`,`idempresa`) VALUES 
- (IDPROVEEDOR,IDBODEGA,IDUSUARIO,TIPO_COMPROBANTE,SERIE_COMPROBANTE,NUM_COMPROBANTE,
-     TIPO_PAGO,FECHA_COMPRA,
-   IMPUESTO,TOTAL,ESTADO,PORCENTAJE,DCTO_TOTAL,FECHA_VENCIMIENTO,IDEMPRESA
- );
- SELECT LAST_INSERT_ID();
+BEGIN
+ INSERT INTO compra(proveedor_id,id_bodega, usuario_id,compra_tipo_comprobante,
+ compra_serie_comprobante,compra_num_comprobante,
+ compra_tipo_pago,compra_fecha ,
+ compra_impuesto,compra_total,compra_estatus,compra_porcentaje,compra_total_decto, `fecha_vencimiento`,`idempresa`) VALUES 
+ (IDPROVEEDOR,IDBODEGA,IDUSUARIO,TIPO_COMPROBANTE,SERIE_COMPROBANTE,NUM_COMPROBANTE,
+     TIPO_PAGO,FECHA_COMPRA,
+   IMPUESTO,TOTAL,ESTADO,PORCENTAJE,DCTO_TOTAL,FECHA_VENCIMIENTO,IDEMPRESA
+ );
+ SELECT LAST_INSERT_ID();
  END */$$
 DELIMITER ;
 
@@ -2540,7 +2612,7 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_COMPRA_DETALLE`(IN `ID` INT, IN `IDPRODUCTO` INT, IN `CANTIDAD` DECIMAL(10,2), IN `PRECIO` DECIMAL(10,2), IN `DCTO` DECIMAL(10,2))
-INSERT INTO `detalle_compra`(`id_compra`,`id_producto`,`dc_cantidad`,`dc_precio`,`dc_descto`,`dc_estatus`)
+INSERT INTO `detalle_compra`(`id_compra`,`id_producto`,`dc_cantidad`,`dc_precio`,`dc_descto`,`dc_estatus`)
  VALUES(ID,IDPRODUCTO,CANTIDAD,PRECIO,DCTO,'INGRESADA') */$$
 DELIMITER ;
 
@@ -2551,16 +2623,43 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_CONCEPTO`(IN `NOMBRE` VARCHAR(200), IN `IDEMPRESA` INT)
-BEGIN 
-DECLARE CANTIDAD INT;
-SET @CANTIDAD:=(SELECT COUNT(*) FROM concepto WHERE `descripcion` = NOMBRE);
-IF @CANTIDAD = 0 THEN
-INSERT INTO concepto (descripcion,  estatus,`idempresa`)
-VALUES (NOMBRE,'ACTIVO',IDEMPRESA);
-SELECT 1;
-ELSE
-SELECT 2;
-END IF;
+BEGIN 
+DECLARE CANTIDAD INT;
+SET @CANTIDAD:=(SELECT COUNT(*) FROM concepto WHERE `descripcion` = NOMBRE);
+IF @CANTIDAD = 0 THEN
+INSERT INTO concepto (descripcion,  estatus,`idempresa`)
+VALUES (NOMBRE,'ACTIVO',IDEMPRESA);
+SELECT 1;
+ELSE
+SELECT 2;
+END IF;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_REGISTRAR_CUENTA_CONTABLE` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_REGISTRAR_CUENTA_CONTABLE` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_CUENTA_CONTABLE`(IN IDEMPRESA INT,IN COD_CUENTA VARCHAR(30),
+IN CONCEPTO_NIT VARCHAR(30), IN NOMBRE_CUENTA VARCHAR(100),IN TIPO VARCHAR(30),
+IN USA_BANCOS_C  INT, IN USA_BASE_C INT,IN USA_CENTRO_C INT,IN USA_NIT_C INT,
+IN USA_ANTICIPO_C INT,IN CATEGORIA VARCHAR(130), IN CLASE VARCHAR(100),
+IN NIVEL INT)
+BEGIN 
+DECLARE CANTIDAD INT;
+SET @CANTIDAD:=(SELECT COUNT(*) FROM cuentas WHERE `codigo` = COD_CUENTA);
+IF @CANTIDAD = 0 THEN
+INSERT INTO `cuentas` (`idEmpresa`,`codigo`,concepto_nit,nombre,
+tipo,usa_bancos,usa_base,usa_centros,usa_nit,usa_anticipo,categoria,clase,nivel,
+ fregistro,estatus)
+VALUES (IDEMPRESA,COD_CUENTA,CONCEPTO_NIT,NOMBRE_CUENTA,TIPO, USA_BANCOS_C  , USA_BASE_C , USA_CENTRO_C , USA_NIT_C ,
+ USA_ANTICIPO_C , CATEGORIA ,  CLASE , NIVEL ,CURDATE(),'ACTIVO');
+SELECT 1;
+ELSE
+SELECT 2;
+END IF;
 END */$$
 DELIMITER ;
 
@@ -2571,16 +2670,16 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_DEPARTAMENTO`(IN `NOMBRE` VARCHAR(200))
-BEGIN
-DECLARE CANTIDAD INT;
-SET @CANTIDAD:=(SELECT COUNT(*) FROM departamentos WHERE nombre_depto =NOMBRE);
-IF @CANTIDAD= 0 THEN 
-INSERT INTO departamentos(`nombre_depto`,estatus)
-VALUES (NOMBRE,'ACTIVO');
-SELECT 1;
- ELSE 
- SELECT 2;
- END IF;
+BEGIN
+DECLARE CANTIDAD INT;
+SET @CANTIDAD:=(SELECT COUNT(*) FROM departamentos WHERE nombre_depto =NOMBRE);
+IF @CANTIDAD= 0 THEN 
+INSERT INTO departamentos(`nombre_depto`,estatus)
+VALUES (NOMBRE,'ACTIVO');
+SELECT 1;
+ ELSE 
+ SELECT 2;
+ END IF;
 END */$$
 DELIMITER ;
 
@@ -2591,16 +2690,16 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_DEPTO`(IN `DESCRIPCION` VARCHAR(50))
-BEGIN
-DECLARE CANTIDAD INT;
-SET @CANTIDAD:=(SELECT COUNT(*) FROM dpto WHERE DescDpto=DESCRIPCION);
-IF @CANTIDAD= 0 THEN 
-INSERT INTO `dpto`(`DescDpto`,estatus)
-VALUES (DESCRIPCION,'ACTIVO');
-SELECT 1;
- ELSE 
- SELECT 2;
- END IF;
+BEGIN
+DECLARE CANTIDAD INT;
+SET @CANTIDAD:=(SELECT COUNT(*) FROM dpto WHERE DescDpto=DESCRIPCION);
+IF @CANTIDAD= 0 THEN 
+INSERT INTO `dpto`(`DescDpto`,estatus)
+VALUES (DESCRIPCION,'ACTIVO');
+SELECT 1;
+ ELSE 
+ SELECT 2;
+ END IF;
 END */$$
 DELIMITER ;
 
@@ -2610,35 +2709,35 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_EMPLEADO2`(IN `DOCUMENTO` VARCHAR(50),
- IN `NOMBRE` VARCHAR(150), IN `DIRECCION` VARCHAR(200),
- IN `MOVIL` CHAR(50), IN `CELULAR` CHAR(50), 
- IN `CORREO` VARCHAR(100), IN `FECHANAC` DATE, IN `IDARL` INT, IN `IDEPS` INT, IN `IDPENSION` INT,
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_EMPLEADO2`(IN `DOCUMENTO` VARCHAR(50),
+ IN `NOMBRE` VARCHAR(150), IN `DIRECCION` VARCHAR(200),
+ IN `MOVIL` CHAR(50), IN `CELULAR` CHAR(50), 
+ IN `CORREO` VARCHAR(100), IN `FECHANAC` DATE, IN `IDARL` INT, IN `IDEPS` INT, IN `IDPENSION` INT,
     IN `USUARIO` VARCHAR(20), IN `CONTRASENA` VARCHAR(250), IN `ROL` INT)
-BEGIN
-DECLARE  CANTIDADU INT;
-DECLARE CANTIDADME INT;
-SET @CANTIDADU :=(SELECT COUNT(*) FROM usuario WHERE usuario_nombre =USUARIO);
-IF @CANTIDADU = 0 THEN
-    SET @CANTIDADME:=(SELECT COUNT(*) FROM `empleados` WHERE `empleados`.`CCEmp` =DOCUMENTO);
-    IF @CANTIDADME = 0 THEN
-        INSERT INTO usuario(`usuario_nombre`,`usuario_password`, `usuario_intento`,usuario_estatus,
-            `rol_id`)
-        VALUES(USUARIO,CONTRASENA,0,'INACTIVO',rol);
-       INSERT INTO `empleados` (`CCEmp`,`NomEmp`,`DirEmp`,`TelEmp`,
-        `CelEmp`, `EmailEmp`, `fecha_nacimiento`,`IdARL`,`IdEPS`,
-        `IdPension`,`estatus`,
-        usuario_id)
-         VALUES(DOCUMENTO,NOMBRE,DIRECCION,MOVIL,CELULAR, CORREO, FECHANAC,IDARL,IDEPS,
-        IDPENSION,'ACTIVO',
-        (SELECT MAX(usuario_id) FROM usuario));
-        SELECT 1;
-    ELSE
-    SELECT 2;
-    END IF;
-    ELSE 
-    SELECT 2;
-END IF;
+BEGIN
+DECLARE  CANTIDADU INT;
+DECLARE CANTIDADME INT;
+SET @CANTIDADU :=(SELECT COUNT(*) FROM usuario WHERE usuario_nombre =USUARIO);
+IF @CANTIDADU = 0 THEN
+    SET @CANTIDADME:=(SELECT COUNT(*) FROM `empleados` WHERE `empleados`.`CCEmp` =DOCUMENTO);
+    IF @CANTIDADME = 0 THEN
+        INSERT INTO usuario(`usuario_nombre`,`usuario_password`, `usuario_intento`,usuario_estatus,
+            `rol_id`)
+        VALUES(USUARIO,CONTRASENA,0,'INACTIVO',rol);
+       INSERT INTO `empleados` (`CCEmp`,`NomEmp`,`DirEmp`,`TelEmp`,
+        `CelEmp`, `EmailEmp`, `fecha_nacimiento`,`IdARL`,`IdEPS`,
+        `IdPension`,`estatus`,
+        usuario_id)
+         VALUES(DOCUMENTO,NOMBRE,DIRECCION,MOVIL,CELULAR, CORREO, FECHANAC,IDARL,IDEPS,
+        IDPENSION,'ACTIVO',
+        (SELECT MAX(usuario_id) FROM usuario));
+        SELECT 1;
+    ELSE
+    SELECT 2;
+    END IF;
+    ELSE 
+    SELECT 2;
+END IF;
 END */$$
 DELIMITER ;
 
@@ -2649,17 +2748,17 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_EPS`(IN `NIT_EPS` BIGINT(20), IN `NOMBRE_EPS` VARCHAR(100), IN `CIUDAD_EPS` VARCHAR(100), IN `DIRECCION` VARCHAR(100), IN `TELEFONO_EPS` VARCHAR(100), IN `CORREO_EPS` VARCHAR(200))
-BEGIN 
-DECLARE CANTIDAD INT;
-SET @CANTIDAD:=(SELECT COUNT(*) FROM eps WHERE `NitEPS`=NIT_EPS);
-IF @CANTIDAD = 0 THEN
-INSERT INTO eps (`NitEPS`, `NomEPS`,`CiudadEPS`,`DirEPS`,`TelEPS`,`EmailEps`,
- `estatus`)
-VALUES (NIT_EPS,NOMBRE_EPS, CIUDAD_EPS,DIRECCION,TELEFONO_EPS ,CORREO_EPS  ,'ACTIVO');
-SELECT 1;
-ELSE
-SELECT 2;
-END IF;
+BEGIN 
+DECLARE CANTIDAD INT;
+SET @CANTIDAD:=(SELECT COUNT(*) FROM eps WHERE `NitEPS`=NIT_EPS);
+IF @CANTIDAD = 0 THEN
+INSERT INTO eps (`NitEPS`, `NomEPS`,`CiudadEPS`,`DirEPS`,`TelEPS`,`EmailEps`,
+ `estatus`)
+VALUES (NIT_EPS,NOMBRE_EPS, CIUDAD_EPS,DIRECCION,TELEFONO_EPS ,CORREO_EPS  ,'ACTIVO');
+SELECT 1;
+ELSE
+SELECT 2;
+END IF;
 END */$$
 DELIMITER ;
 
@@ -2670,16 +2769,16 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_MARCAS`(IN DESCP VARCHAR(200),IN IDEMPRESA INT)
-BEGIN 
-DECLARE CANTIDAD INT;
-SET @CANTIDAD:=(SELECT COUNT(*) FROM marcas WHERE `descripcion` = DESCP);
-IF @CANTIDAD = 0 THEN
-INSERT INTO marcas (descripcion, fregistro, estatus,`idempresa`)
-VALUES (DESCP,CURDATE(),'ACTIVO',IDEMPRESA);
-SELECT 1;
-ELSE
-SELECT 2;
-END IF;
+BEGIN 
+DECLARE CANTIDAD INT;
+SET @CANTIDAD:=(SELECT COUNT(*) FROM marcas WHERE `descripcion` = DESCP);
+IF @CANTIDAD = 0 THEN
+INSERT INTO marcas (descripcion, fregistro, estatus,`idempresa`)
+VALUES (DESCP,CURDATE(),'ACTIVO',IDEMPRESA);
+SELECT 1;
+ELSE
+SELECT 2;
+END IF;
 END */$$
 DELIMITER ;
 
@@ -2690,18 +2789,18 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_PENSION`(IN `NIT_Pension` BIGINT(20), IN `NOMBRE_Pension` VARCHAR(100), IN `CIUDAD_Pension` VARCHAR(100), IN `DIRECCION` VARCHAR(100), IN `TELEFONO_Pension` VARCHAR(100), IN `CORREO_Pension` VARCHAR(200))
-BEGIN 
-DECLARE CANTIDAD INT;
-SET @CANTIDAD:=(SELECT COUNT(*) FROM pension WHERE pension.`NitPension`=NIT_Pension);
-IF @CANTIDAD = 0 THEN
-INSERT INTO pension (`NitPension`, `NomPension`,`CiudadPension`,`DirPension`,
-`TelPension`,`EmailPension`,
- `estatus`)
-VALUES (NIT_Pension,NOMBRE_Pension, CIUDAD_Pension,DIRECCION,TELEFONO_Pension ,CORREO_Pension  ,'ACTIVO');
-SELECT 1;
-ELSE
-SELECT 2;
-END IF;
+BEGIN 
+DECLARE CANTIDAD INT;
+SET @CANTIDAD:=(SELECT COUNT(*) FROM pension WHERE pension.`NitPension`=NIT_Pension);
+IF @CANTIDAD = 0 THEN
+INSERT INTO pension (`NitPension`, `NomPension`,`CiudadPension`,`DirPension`,
+`TelPension`,`EmailPension`,
+ `estatus`)
+VALUES (NIT_Pension,NOMBRE_Pension, CIUDAD_Pension,DIRECCION,TELEFONO_Pension ,CORREO_Pension  ,'ACTIVO');
+SELECT 1;
+ELSE
+SELECT 2;
+END IF;
 END */$$
 DELIMITER ;
 
@@ -2711,18 +2810,20 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_PERSONA`(IN `NOMBRE` VARCHAR(50), IN `APEPAT` VARCHAR(50), IN `APEMAT` VARCHAR(50), IN `TIPO_CONT` VARCHAR(50), IN `NRO_DOCUMENTO` VARCHAR(50), IN `TIPO_DOC` VARCHAR(50), IN `TELEFONO` VARCHAR(50), IN `DIRECCION` VARCHAR(50), IN `CORREO` VARCHAR(250), IN `IDEMPRESA` INT)
-BEGIN
-DECLARE  cantidad INT;
-SET @cantidad:=( SELECT COUNT(*) FROM persona WHERE persona_nrodocumento =NRO_DOCUMENTO);
-IF @cantidad = 0 THEN
-INSERT INTO `persona`(`persona_nombre`,`persona_apepat`,`persona_apemat`,`tipo_contribuyente`,
-`persona_nrodocumento`,`persona_tipodocumento`,`persona_telefono`,`persona_direccion`, `persona_correo`, `persona_fregistro`,
-`persona_estatus`,idempresa)VALUES (NOMBRE,APEPAT,APEMAT,TIPO_CONT,NRO_DOCUMENTO,TIPO_DOC,TELEFONO,DIRECCION,CORREO, CURDATE(),'ACTIVO',IDEMPRESA);
-SELECT 1;
-ELSE 
-SELECT 2;
-END IF;
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_PERSONA`(IN `NOMBRE` VARCHAR(50), IN `APEPAT` VARCHAR(50), IN `APEMAT` VARCHAR(50),
+ IN `TIPO_CONT` VARCHAR(50), IN `NRO_DOCUMENTO` VARCHAR(50), IN `TIPO_DOC` VARCHAR(50),
+  IN `TELEFONO` VARCHAR(50), IN `DIRECCION` VARCHAR(50), IN `CORREO` VARCHAR(250), IN `IDEMPRESA` INT, IN IDTIPO_TERCERO INT)
+BEGIN
+DECLARE  cantidad INT;
+SET @cantidad:=( SELECT COUNT(*) FROM persona WHERE persona_nrodocumento =NRO_DOCUMENTO);
+IF @cantidad = 0 THEN
+INSERT INTO `persona`(`persona_nombre`,`persona_apepat`,`persona_apemat`,`tipo_contribuyente`,
+`persona_nrodocumento`,`persona_tipodocumento`,`persona_telefono`,`persona_direccion`, `persona_correo`, `persona_fregistro`,
+`persona_estatus`,idempresa, `id_tipo_tercero`)VALUES (NOMBRE,APEPAT,APEMAT,TIPO_CONT,NRO_DOCUMENTO,TIPO_DOC,TELEFONO,DIRECCION,CORREO, CURDATE(),'ACTIVO',IDEMPRESA,IDTIPO_TERCERO);
+SELECT 1;
+ELSE 
+SELECT 2;
+END IF;
 END */$$
 DELIMITER ;
 
@@ -2732,28 +2833,28 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_PRODUCTO`(IN `CODIGO` VARCHAR(100),
- IN `NOMBRE` VARCHAR(100), 
- IN `PRESENTACION` VARCHAR(250),
-  IN `IDBODEGA` INT, IN `CANTIDAD_MIN` VARCHAR(100),
-   IN `CANTIDAD_INICIAL` VARCHAR(100),
-    IN `IDCATEGORIA` VARCHAR(100), 
-    IN `IDUNIDAD` INT, IN `IDTIPO` INT, IN IDMARCA INT,
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_PRODUCTO`(IN `CODIGO` VARCHAR(100),
+ IN `NOMBRE` VARCHAR(100), 
+ IN `PRESENTACION` VARCHAR(250),
+  IN `IDBODEGA` INT, IN `CANTIDAD_MIN` VARCHAR(100),
+   IN `CANTIDAD_INICIAL` VARCHAR(100),
+    IN `IDCATEGORIA` VARCHAR(100), 
+    IN `IDUNIDAD` INT, IN `IDTIPO` INT, IN IDMARCA INT,
     IN `RUTA` VARCHAR(255), IN `PRECIO_COMPRA` DOUBLE, IN `PRECIO_VENTA` DOUBLE, IN `IDEMPRESA` INT)
-BEGIN 
-DECLARE CANTIDAD INT;
-SET @CANTIDAD:=(SELECT COUNT(*) FROM producto WHERE producto_codigo =CODIGO OR producto_nombre =NOMBRE);
-IF @CANTIDAD =0 THEN
-INSERT INTO `producto` (`producto_codigo`,`producto_nombre`,`producto_presentacion`,`id_bodega`,
-                        cant_minima,`producto_stock`,
-	
-`id_categoria`, `id_unidad`, `idTipoProducto`,`id_marca`, `producto_foto`, `compra`, `producto_precioventa`, 
-`producto_estatus`,producto.`idempresa`) VALUES(CODIGO,NOMBRE,PRESENTACION,IDBODEGA, 
-CANTIDAD_MIN, CANTIDAD_INICIAL,IDCATEGORIA,IDUNIDAD, IDTIPO,IDMARCA,RUTA,PRECIO_COMPRA,  PRECIO_VENTA,'ACTIVO',IDEMPRESA);
-SELECT 1;
-ELSE 
-SELECT 2;
-END IF;
+BEGIN 
+DECLARE CANTIDAD INT;
+SET @CANTIDAD:=(SELECT COUNT(*) FROM producto WHERE producto_codigo =CODIGO OR producto_nombre =NOMBRE);
+IF @CANTIDAD =0 THEN
+INSERT INTO `producto` (`producto_codigo`,`producto_nombre`,`producto_presentacion`,`id_bodega`,
+                        cant_minima,`producto_stock`,
+	
+`id_categoria`, `id_unidad`, `idTipoProducto`,`id_marca`, `producto_foto`, `compra`, `producto_precioventa`, 
+`producto_estatus`,producto.`idempresa`) VALUES(CODIGO,NOMBRE,PRESENTACION,IDBODEGA, 
+CANTIDAD_MIN, CANTIDAD_INICIAL,IDCATEGORIA,IDUNIDAD, IDTIPO,IDMARCA,RUTA,PRECIO_COMPRA,  PRECIO_VENTA,'ACTIVO',IDEMPRESA);
+SELECT 1;
+ELSE 
+SELECT 2;
+END IF;
 END */$$
 DELIMITER ;
 
@@ -2764,19 +2865,19 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_PROVEEDOR`(IN `NOMBRE` VARCHAR(50), IN `APEPAT` VARCHAR(50), IN `APEMAT` VARCHAR(50), IN `NRO_DOCUMENTO` VARCHAR(50), IN `TIPO_DOC` VARCHAR(50), IN `SEXO` VARCHAR(15), IN `TELEFONO` VARCHAR(50), IN `DIRECCION` VARCHAR(50), IN `CORREO` VARCHAR(100), IN `RAZON_SOCIAL` VARCHAR(255), IN `NUM_PROVEEDOR` VARCHAR(255), IN `IDEMPRESA` INT)
-BEGIN
-DECLARE  cantidad INT;
-SET @cantidad:=( SELECT COUNT(*) FROM persona WHERE persona_nrodocumento =NRO_DOCUMENTO);
-IF @cantidad = 0 THEN
-INSERT INTO `persona`(`persona_nombre`,`persona_apepat`,`persona_apemat`,
-`persona_nrodocumento`,`persona_tipodocumento`,`persona_sexo`,`persona_telefono`,`persona_direccion`,`persona_correo`,   `persona_fregistro`,
-`persona_estatus`)VALUES (NOMBRE,APEPAT,APEMAT,NRO_DOCUMENTO,TIPO_DOC,SEXO,TELEFONO,DIRECCION, CORREO,  CURDATE(),'ACTIVO');
-INSERT INTO proveedor(`proveedor_fregistro`,`proveedor_estatus`,`persona_id`,`proveedor_razon_social`,proveedor_num_contacto,`idempresa`) 
-VALUES (CURDATE(),'ACTIVO',LAST_INSERT_ID(),RAZON_SOCIAL,NUM_PROVEEDOR,IDEMPRESA);
-SELECT 1;
-ELSE 
-SELECT 2;
-END IF;
+BEGIN
+DECLARE  cantidad INT;
+SET @cantidad:=( SELECT COUNT(*) FROM persona WHERE persona_nrodocumento =NRO_DOCUMENTO);
+IF @cantidad = 0 THEN
+INSERT INTO `persona`(`persona_nombre`,`persona_apepat`,`persona_apemat`,
+`persona_nrodocumento`,`persona_tipodocumento`,`persona_sexo`,`persona_telefono`,`persona_direccion`,`persona_correo`,   `persona_fregistro`,
+`persona_estatus`)VALUES (NOMBRE,APEPAT,APEMAT,NRO_DOCUMENTO,TIPO_DOC,SEXO,TELEFONO,DIRECCION, CORREO,  CURDATE(),'ACTIVO');
+INSERT INTO proveedor(`proveedor_fregistro`,`proveedor_estatus`,`persona_id`,`proveedor_razon_social`,proveedor_num_contacto,`idempresa`) 
+VALUES (CURDATE(),'ACTIVO',LAST_INSERT_ID(),RAZON_SOCIAL,NUM_PROVEEDOR,IDEMPRESA);
+SELECT 1;
+ELSE 
+SELECT 2;
+END IF;
 END */$$
 DELIMITER ;
 
@@ -2786,29 +2887,29 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_PROVEEDOR2`(IN `NOMBRE` VARCHAR(50),
- IN `APEPAT` VARCHAR(50), IN `APEMAT` VARCHAR(50),
-  IN `NRO_DOCUMENTO` VARCHAR(50), IN `TIPO_DOC` VARCHAR(50),
-  IN TIPO_CONTRIBUYENTE VARCHAR(100),
-   IN `SEXO` VARCHAR(15), IN `TELEFONO` VARCHAR(50),
-    IN `DIRECCION` VARCHAR(50), IN `CORREO` VARCHAR(100),
-     IN `RAZON_SOCIAL` VARCHAR(255), IN `NUM_PROVEEDOR` VARCHAR(255),
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_PROVEEDOR2`(IN `NOMBRE` VARCHAR(50),
+ IN `APEPAT` VARCHAR(50), IN `APEMAT` VARCHAR(50),
+  IN `NRO_DOCUMENTO` VARCHAR(50), IN `TIPO_DOC` VARCHAR(50),
+  IN TIPO_CONTRIBUYENTE VARCHAR(100),
+   IN `SEXO` VARCHAR(15), IN `TELEFONO` VARCHAR(50),
+    IN `DIRECCION` VARCHAR(50), IN `CORREO` VARCHAR(100),
+     IN `RAZON_SOCIAL` VARCHAR(255), IN `NUM_PROVEEDOR` VARCHAR(255),
       IN `IDCIUDAD` INT, IN `IDEMPRESA` INT, IN IDTIPO_TERCERO INT)
-BEGIN
-DECLARE  cantidad INT;
-SET @cantidad:=( SELECT COUNT(*) FROM persona WHERE persona_nrodocumento =NRO_DOCUMENTO);
-IF @cantidad = 0 THEN
-INSERT INTO `persona`(`persona_nombre`,`persona_apepat`,`persona_apemat`,
-`persona_nrodocumento`,`persona_tipodocumento`,`tipo_contribuyente`, `persona_sexo`,`persona_telefono`,
-`persona_direccion`,`persona_correo`,   `persona_fregistro`,
-`persona_estatus`,idempresa, `id_tipo_tercero`)VALUES (NOMBRE,APEPAT,APEMAT,NRO_DOCUMENTO,TIPO_DOC,
-TIPO_CONTRIBUYENTE,SEXO,TELEFONO,DIRECCION, CORREO,  CURDATE(),'ACTIVO',IDEMPRESA,IDTIPO_TERCERO);
-INSERT INTO  proveedor(`proveedor_fregistro`,`proveedor_estatus`,`persona_id`,`proveedor_razon_social`,proveedor_num_contacto,idciudad, `idempresa`) 
-VALUES (CURDATE(),'ACTIVO',LAST_INSERT_ID(),RAZON_SOCIAL,NUM_PROVEEDOR,IDCIUDAD, IDEMPRESA);
-SELECT 1;
-ELSE 
-SELECT 2;
-END IF;
+BEGIN
+DECLARE  cantidad INT;
+SET @cantidad:=( SELECT COUNT(*) FROM persona WHERE persona_nrodocumento =NRO_DOCUMENTO);
+IF @cantidad = 0 THEN
+INSERT INTO `persona`(`persona_nombre`,`persona_apepat`,`persona_apemat`,
+`persona_nrodocumento`,`persona_tipodocumento`,`tipo_contribuyente`, `persona_sexo`,`persona_telefono`,
+`persona_direccion`,`persona_correo`,   `persona_fregistro`,
+`persona_estatus`,idempresa, `id_tipo_tercero`)VALUES (NOMBRE,APEPAT,APEMAT,NRO_DOCUMENTO,TIPO_DOC,
+TIPO_CONTRIBUYENTE,SEXO,TELEFONO,DIRECCION, CORREO,  CURDATE(),'ACTIVO',IDEMPRESA,IDTIPO_TERCERO);
+INSERT INTO  proveedor(`proveedor_fregistro`,`proveedor_estatus`,`persona_id`,`proveedor_razon_social`,proveedor_num_contacto,idciudad, `idempresa`) 
+VALUES (CURDATE(),'ACTIVO',LAST_INSERT_ID(),RAZON_SOCIAL,NUM_PROVEEDOR,IDCIUDAD, IDEMPRESA);
+SELECT 1;
+ELSE 
+SELECT 2;
+END IF;
 END */$$
 DELIMITER ;
 
@@ -2819,16 +2920,16 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_ROL`(IN NOMBRE VARCHAR(50),IN IDEMPRESA INT)
-BEGIN
-DECLARE CANTIDAD INT;
-SET @CANTIDAD:=(SELECT COUNT(*) FROM rol WHERE `rol_nombre`=NOMBRE);
-IF @CANTIDAD= 0 THEN 
-INSERT INTO rol(`rol_nombre`,rol_fregistro,rol_estatus,`idempresa`)
-VALUES (NOMBRE,CURDATE(),'ACTIVO',IDEMPRESA);
-SELECT 1;
- ELSE 
- SELECT 2;
- END IF;
+BEGIN
+DECLARE CANTIDAD INT;
+SET @CANTIDAD:=(SELECT COUNT(*) FROM rol WHERE `rol_nombre`=NOMBRE);
+IF @CANTIDAD= 0 THEN 
+INSERT INTO rol(`rol_nombre`,rol_fregistro,rol_estatus,`idempresa`)
+VALUES (NOMBRE,CURDATE(),'ACTIVO',IDEMPRESA);
+SELECT 1;
+ ELSE 
+ SELECT 2;
+ END IF;
 END */$$
 DELIMITER ;
 
@@ -2839,16 +2940,16 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_TIPO_GASTO`(IN NOMBRE VARCHAR(200),IN IDEMPRESA INT)
-BEGIN 
-DECLARE CANTIDAD INT;
-SET @CANTIDAD:=(SELECT COUNT(*) FROM tipo_gasto WHERE `descripcion` = NOMBRE);
-IF @CANTIDAD = 0 THEN
-INSERT INTO tipo_gasto (descripcion,  estatus,`idempresa`)
-VALUES (NOMBRE,'ACTIVO',IDEMPRESA);
-SELECT 1;
-ELSE
-SELECT 2;
-END IF;
+BEGIN 
+DECLARE CANTIDAD INT;
+SET @CANTIDAD:=(SELECT COUNT(*) FROM tipo_gasto WHERE `descripcion` = NOMBRE);
+IF @CANTIDAD = 0 THEN
+INSERT INTO tipo_gasto (descripcion,  estatus,`idempresa`)
+VALUES (NOMBRE,'ACTIVO',IDEMPRESA);
+SELECT 1;
+ELSE
+SELECT 2;
+END IF;
 END */$$
 DELIMITER ;
 
@@ -2859,16 +2960,16 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_TIPO_PRODUCTO`(IN NOMBRE VARCHAR(200),IN IDEMPRESA INT)
-BEGIN 
-DECLARE CANTIDAD INT;
-SET @CANTIDAD:=(SELECT COUNT(*) FROM `tipo_producto` WHERE `tipo_producto` = NOMBRE);
-IF @CANTIDAD = 0 THEN
-INSERT INTO tipo_producto (tipo_producto,  estatus,`idEmpresa`)
-VALUES (NOMBRE,'ACTIVO',IDEMPRESA);
-SELECT 1;
-ELSE
-SELECT 2;
-END IF;
+BEGIN 
+DECLARE CANTIDAD INT;
+SET @CANTIDAD:=(SELECT COUNT(*) FROM `tipo_producto` WHERE `tipo_producto` = NOMBRE);
+IF @CANTIDAD = 0 THEN
+INSERT INTO tipo_producto (tipo_producto,  estatus,`idEmpresa`)
+VALUES (NOMBRE,'ACTIVO',IDEMPRESA);
+SELECT 1;
+ELSE
+SELECT 2;
+END IF;
 END */$$
 DELIMITER ;
 
@@ -2879,16 +2980,16 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_UNIDAD`(IN `NOMBRE` VARCHAR(50), IN ABREVIATURA CHAR(20),IN IDEMPRESA INT)
-BEGIN
-DECLARE CANTIDAD INT;
-SET @CANTIDAD:=(SELECT COUNT(*) FROM unidad WHERE unidad_nombre=NOMBRE);
-IF @CANTIDAD= 0 THEN 
-INSERT INTO unidad(unidad_nombre,unidad_abreviatura,unidad_fregistro,unidad_estatus,`idempresa`)
-VALUES (NOMBRE, ABREVIATURA, CURDATE(),'ACTIVO',IDEMPRESA);
-SELECT 1;
- ELSE 
- SELECT 2;
- END IF;
+BEGIN
+DECLARE CANTIDAD INT;
+SET @CANTIDAD:=(SELECT COUNT(*) FROM unidad WHERE unidad_nombre=NOMBRE);
+IF @CANTIDAD= 0 THEN 
+INSERT INTO unidad(unidad_nombre,unidad_abreviatura,unidad_fregistro,unidad_estatus,`idempresa`)
+VALUES (NOMBRE, ABREVIATURA, CURDATE(),'ACTIVO',IDEMPRESA);
+SELECT 1;
+ ELSE 
+ SELECT 2;
+ END IF;
 END */$$
 DELIMITER ;
 
@@ -2898,19 +2999,19 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_USUARIO`(IN USUARIO VARCHAR(100), IN PASS VARCHAR(250), IN CORREO VARCHAR(100),
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_USUARIO`(IN USUARIO VARCHAR(100), IN PASS VARCHAR(250), IN CORREO VARCHAR(100),
 IN IDROL INT, IN RUTA VARCHAR(255), IN IDPERSONA INT, IN IDEMPRESA INT)
-BEGIN 
-DECLARE CANTIDAD INT;
-SET @CANTIDAD:=(SELECT COUNT(*) FROM usuario WHERE usuario_nombre =USUARIO 
-OR usuario_email =CORREO);
-IF @CANTIDAD =0 THEN
-INSERT INTO `usuario` (`usuario_nombre`,`usuario_password`,`usuario_email`, `usuario_intento`, `usuario_estatus`, `rol_id`, 
-`usuario_imagen`, `persona_id`,`idempresa`) VALUES(USUARIO,PASS,CORREO,1,'ACTIVO',IDROL,RUTA,IDPERSONA,IDEMPRESA);
-SELECT 1;
-ELSE 
-SELECT 2;
-END IF;
+BEGIN 
+DECLARE CANTIDAD INT;
+SET @CANTIDAD:=(SELECT COUNT(*) FROM usuario WHERE usuario_nombre =USUARIO 
+OR usuario_email =CORREO);
+IF @CANTIDAD =0 THEN
+INSERT INTO `usuario` (`usuario_nombre`,`usuario_password`,`usuario_email`, `usuario_intento`, `usuario_estatus`, `rol_id`, 
+`usuario_imagen`, `persona_id`,`idempresa`) VALUES(USUARIO,PASS,CORREO,1,'ACTIVO',IDROL,RUTA,IDPERSONA,IDEMPRESA);
+SELECT 1;
+ELSE 
+SELECT 2;
+END IF;
 END */$$
 DELIMITER ;
 
@@ -2921,14 +3022,14 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_VENTA`(IN `IDCLIENTE` INT, IN `IDBODEGA` INT, IN `IDUSUARIO` INT, IN `TIPO_COMPROBANTE` VARCHAR(50), IN `SERIE_COMPROBANTE` VARCHAR(50), IN `TIPO_PAGO` VARCHAR(50), IN `IMPUESTO` DECIMAL(10,2), IN `TOTAL` DECIMAL(10,2), IN `ESTADO` VARCHAR(50), IN `PORCENTAJE` DECIMAL(10,2), IN `DCTO_TOTAL` DECIMAL(10,2), IN `FECHA_VENCIMIENTO` DATE, IN `IDEMPRESA` INT, IN `IDCAJA` INT)
-BEGIN
- INSERT INTO venta(`cliente_id`,`bodega_id`, usuario_id,`venta_tipocomprobante`,
- `venta_serie`, tipo_pago,`venta_fecha` ,
- `venta_impuesto`,`venta_total`,venta_estatus,venta_porcentaje,venta_total_dcto, `fecha_vencimiento`,`idempresa`,idcaja) VALUES 
- (IDCLIENTE,IDBODEGA,IDUSUARIO,TIPO_COMPROBANTE,SERIE_COMPROBANTE,
-     TIPO_PAGO,CURDATE(), IMPUESTO,TOTAL,ESTADO,PORCENTAJE,DCTO_TOTAL,FECHA_VENCIMIENTO,IDEMPRESA,IDCAJA
- );
- SELECT LAST_INSERT_ID();
+BEGIN
+ INSERT INTO venta(`cliente_id`,`bodega_id`, usuario_id,`venta_tipocomprobante`,
+ `venta_serie`, tipo_pago,`venta_fecha` ,
+ `venta_impuesto`,`venta_total`,venta_estatus,venta_porcentaje,venta_total_dcto, `fecha_vencimiento`,`idempresa`,idcaja) VALUES 
+ (IDCLIENTE,IDBODEGA,IDUSUARIO,TIPO_COMPROBANTE,SERIE_COMPROBANTE,
+     TIPO_PAGO,CURDATE(), IMPUESTO,TOTAL,ESTADO,PORCENTAJE,DCTO_TOTAL,FECHA_VENCIMIENTO,IDEMPRESA,IDCAJA
+ );
+ SELECT LAST_INSERT_ID();
  END */$$
 DELIMITER ;
 
@@ -2938,9 +3039,9 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_VENTA_DETALLE`(IN `ID` INT, IN `IDPRODUCTO` INT,
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_VENTA_DETALLE`(IN `ID` INT, IN `IDPRODUCTO` INT,
 IN `CANTIDAD` DECIMAL(10,2), IN `PRECIO` DECIMAL(10,2), IN `DCTO` DECIMAL(10,2))
-INSERT INTO `detalle_venta`(`venta_id`,`producto_id`,`dv_cantidad`,`dv_precio`,`dv_descuento`,`dv_estatus`)
+INSERT INTO `detalle_venta`(`venta_id`,`producto_id`,`dv_cantidad`,`dv_precio`,`dv_descuento`,`dv_estatus`)
  VALUES(ID,IDPRODUCTO,CANTIDAD,PRECIO,DCTO,'INGRESADA') */$$
 DELIMITER ;
 
@@ -2950,7 +3051,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_TRAER_DATOS_USUARIO`(IN ID INT)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_TRAER_DATOS_USUARIO`(IN `ID` INT)
 SELECT
 	u.usuario_id, 	u.usuario_nombre, 
 	u.usuario_password, 	u.usuario_email, 
@@ -2959,7 +3060,7 @@ SELECT
 	r.rol_nombre, 	u.persona_id, 
 	p.persona_nombre, 	p.persona_apepat, 
 	p.persona_apemat, 	p.persona_nrodocumento, 
-	p.persona_tipodocumento, 	p.persona_sexo, 
+	p.persona_tipodocumento,
 	p.persona_telefono, 	p.persona_direccion, 
 	p.persona_fregistro
 FROM
@@ -2976,7 +3077,7 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_VERIFICAR_USUARIO`(IN USUARIO varchar(30))
-select * from usuario 
+select * from usuario 
 where usuario_nombre =USUARIO */$$
 DELIMITER ;
 
@@ -2987,18 +3088,18 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `TraerDatosGraficoWidgets`(IN INICIO DATE,IN FIN DATE)
-SELECT `producto`.`producto_nombre`,
-    SUM( `detalle_venta`.`dv_cantidad`)
-    
-FROM
-    `detalle_venta`
-    INNER JOIN `producto` 
-        ON (`detalle_venta`.`producto_id` = `producto`.`producto_id`)
-    INNER JOIN `venta` 
-        ON (`detalle_venta`.`venta_id` = `venta`.`venta_id`)
-        WHERE `venta`.`venta_fecha` BETWEEN INICIO AND FIN
-          GROUP BY  `detalle_venta`.`producto_id`
-         
+SELECT `producto`.`producto_nombre`,
+    SUM( `detalle_venta`.`dv_cantidad`)
+    
+FROM
+    `detalle_venta`
+    INNER JOIN `producto` 
+        ON (`detalle_venta`.`producto_id` = `producto`.`producto_id`)
+    INNER JOIN `venta` 
+        ON (`detalle_venta`.`venta_id` = `venta`.`venta_id`)
+        WHERE `venta`.`venta_fecha` BETWEEN INICIO AND FIN
+          GROUP BY  `detalle_venta`.`producto_id`
+         
           ORDER BY  `dv_cantidad` desc limit 5 */$$
 DELIMITER ;
 
@@ -3009,16 +3110,16 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `TraerDatosGrafico_Compras_Widgets`(IN `INICIO` DATE, IN `FIN` DATE)
-SELECT `producto`.`producto_nombre`,
-    SUM( `detalle_compra`.`dc_cantidad`)   as cantidad
-FROM
-  `detalle_compra`
-  INNER JOIN `producto` 
-  ON (`detalle_compra`.`id_producto` = `producto`.`producto_id`)
-    INNER JOIN `compra` 
-   ON (`detalle_compra`.`id_compra` = `compra`.`compra_id`)
-    WHERE `compra`.`compra_fecha` BETWEEN INICIO AND FIN
-    GROUP BY  `detalle_compra`.`id_producto`
+SELECT `producto`.`producto_nombre`,
+    SUM( `detalle_compra`.`dc_cantidad`)   as cantidad
+FROM
+  `detalle_compra`
+  INNER JOIN `producto` 
+  ON (`detalle_compra`.`id_producto` = `producto`.`producto_id`)
+    INNER JOIN `compra` 
+   ON (`detalle_compra`.`id_compra` = `compra`.`compra_id`)
+    WHERE `compra`.`compra_fecha` BETWEEN INICIO AND FIN
+    GROUP BY  `detalle_compra`.`id_producto`
      ORDER BY  `dc_cantidad` DESC LIMIT 5 */$$
 DELIMITER ;
 
@@ -3029,14 +3130,14 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `TraerDatosWidgets`(IN `INICIO` DATE, IN `FIN` DATE)
-SELECT  
-IFNULL(SUM(venta.`venta_total`),0),
-(SELECT IFNULL(SUM( `compra`.`compra_total`), 0)
- FROM `compra` WHERE `compra_fecha`
-BETWEEN INICIO AND FIN),
-(SELECT COUNT(*) FROM venta WHERE venta.`venta_fecha` BETWEEN INICIO AND FIN),
-(SELECT COUNT(*) FROM compra WHERE compra.`compra_fecha` BETWEEN INICIO AND FIN)
-FROM venta
+SELECT  
+IFNULL(SUM(venta.`venta_total`),0),
+(SELECT IFNULL(SUM( `compra`.`compra_total`), 0)
+ FROM `compra` WHERE `compra_fecha`
+BETWEEN INICIO AND FIN),
+(SELECT COUNT(*) FROM venta WHERE venta.`venta_fecha` BETWEEN INICIO AND FIN),
+(SELECT COUNT(*) FROM compra WHERE compra.`compra_fecha` BETWEEN INICIO AND FIN)
+FROM venta
 WHERE venta.`venta_fecha` BETWEEN INICIO AND FIN */$$
 DELIMITER ;
 

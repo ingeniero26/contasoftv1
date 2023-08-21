@@ -76,9 +76,18 @@ class Modelo_Ventas
         }
     }
 
-    public function Registrar_Venta($idcliente, $idbodega, $idusuario, $tipo_comprobante, $serie_comprobante, $tipo_pago, $impuesto, $total, $estado, $porcentaje, $decto, $fecha_vc, $idempresa, $idcaja)
+    public function Registrar_Venta($idcliente, $idbodega, 
+	$idusuario, $tipo_comprobante, 
+	$serie_comprobante, $tipo_pago, 
+	$impuesto, $total, $estado, $porcentaje,
+	 $decto, $fecha_vc,$dias_pago,
+	 $idempresa, $idcaja)
     {
-        $sql = "call  SP_REGISTRAR_VENTA('$idcliente','$idbodega',  '$idusuario','$tipo_comprobante','$serie_comprobante','$tipo_pago','$impuesto','$total','$estado','$porcentaje','$decto','$fecha_vc','$idempresa','$idcaja')";
+        $sql = "call  SP_REGISTRAR_VENTA('$idcliente','$idbodega', 
+		 '$idusuario','$tipo_comprobante','$serie_comprobante',
+		 '$tipo_pago','$impuesto','$total',
+		 '$estado','$porcentaje','$decto',
+		 '$fecha_vc','$dias_pago','$idempresa','$idcaja')";
         if ($consulta = $this->conexion->conexion->query($sql)) {
             if ($row = mysqli_fetch_array($consulta)) {
                 return $id = trim($row[0]);
