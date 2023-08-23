@@ -65,9 +65,14 @@
                 </div>
 
                 <div class="col-lg-3">
+                    <label for=""><b>Comprobante:</b></label>
+                    <input type="text" id="txt_no_comprobante" name="" class="form-control" placeholder="Digite el valor del Abono"><br>
+                </div>
+                <div class="col-lg-3">
                     <label for=""><b>Fecha Pago:</b></label>
                     <input type="date" id="txt_fechaPago" name="" class="form-control" placeholder="fecha pago"><br><br>
                 </div>
+
              
                 <div class="col-lg-3">
                     <label for=""><b>Valor Abono:</b></label>

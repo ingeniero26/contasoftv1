@@ -153,13 +153,6 @@ var idempresa =$("#txt_idempresa").val();
 
 
 
-
-
-
-
-
-
-
   function AbrirModalRegistro() {
         $("#modal_registro").modal({backdrop:'static',keyboard:false})
         $('#modal_registro').modal('show');

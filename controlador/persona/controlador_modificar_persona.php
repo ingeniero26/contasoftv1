@@ -9,14 +9,13 @@ $apemat = htmlspecialchars($_POST['apemat'],ENT_QUOTES,'UTF-8');
 $numero_actual = htmlspecialchars($_POST['numero_actual'],ENT_QUOTES,'UTF-8');
 $numero_nuevo = htmlspecialchars($_POST['numero_nuevo'],ENT_QUOTES,'UTF-8');
 $tipo_doc = htmlspecialchars($_POST['tipo_doc'],ENT_QUOTES,'UTF-8');
-$sexo = htmlspecialchars($_POST['sexo'],ENT_QUOTES,'UTF-8');
 $telefono = htmlspecialchars($_POST['telefono'],ENT_QUOTES,'UTF-8');
 $direccion = htmlspecialchars($_POST['direccion'],ENT_QUOTES,'UTF-8');
 $correo = htmlspecialchars($_POST['correo'],ENT_QUOTES,'UTF-8');
 $estatus = htmlspecialchars($_POST['estatus'],ENT_QUOTES,'UTF-8');
 
 $consulta =$MP->Modificar_Persona($id_persona,$nombre,$apepat,$apemat,
- $numero_actual,$numero_nuevo,$tipo_doc,$sexo,$telefono ,$direccion, $correo, $estatus);
+ $numero_actual,$numero_nuevo,$tipo_doc,$telefono ,$direccion, $correo, $estatus);
 echo $consulta;
 
 

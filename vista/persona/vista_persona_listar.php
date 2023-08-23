@@ -8,15 +8,30 @@
                 </div>
             </div>
             <div class="ibox-body">
+            <div class="row">
+                       <div class="col-5">
+
+                         <label for=""><b>Seleccione un tipo</b></label>
+                          <select class="js-example-basic-single"
+                          name="state" style="width: 100%;" id="cmb_tipo_tercero_persona">
+
+                             </select> <br> <br>
+                    </div>
+                      <div class="col-2">
+                        <label for="">&nbsp;</label><br>
+                        <button class="btn btn-success" style="width:100%" onclick="listar_persona()"><i class="fa fa-search"></i>Buscar</button>
+                    </div><br>
+                </div>
                 <table id="tabla_persona" class="display table-bordered" style="width:100%">
                     <thead>
                         <tr>
                             <th>#</th>
                             <th style="text-align: center;">Nombre</th>
                             <th>Tipo Contribuyente</th>
-                            <th>Documento</th>
-                            <th>Tipo</th>
-                            <th style="text-align: center;">Sexo</th>
+                            <th>Número</th>
+                            <th>Tipo Documento</th>
+                            <th>Tercero</th>
+                            <!-- <th style="text-align: center;">Sexo</th> -->
                             <th>Telefono</th>
                             <th>Direccion</th>
                             <th>Correo</th>
@@ -26,7 +41,7 @@
                     </thead>
                     <tbody>
                     </tbody>
-                   
+
                 </table>
             </div>
         </div>
@@ -59,11 +74,17 @@
       	   <label for=""><b>Apellido Materno</b> </label>
            <input type="text" id="txt_apemat" class="form-control" placeholder="" onkeypress="return sololetras(event)"> <br>
       	</div>
-        <div class="col-lg-12">
+        <div class="col-lg-6">
       	   <label for=""><b>Tipo Contribuyente</b> </label>
             <select class="js-example-basic-single" name="state" style="width: 100%;" id="cmb_tipo_contribuyente">
              <option value="Persona Natural">Natural</option>
               <option value="Persona Juridica">Jurídica</option>
+             </select>
+      	</div>
+        <div class="col-lg-6">
+      	   <label for=""><b>Tipo</b> </label>
+            <select class="js-example-basic-single" name="state" style="width: 100%;" id="cmb_tipo_tercero_registro">
+
              </select>
       	</div>
 
@@ -81,15 +102,15 @@
              </select> <br> <br>
       	</div>
 
-      	
-      	<div class="col-lg-6">
+
+      	<!-- <div class="col-lg-6">
       	   <label for=""><b>Sexo</b> </label>
             <select class="js-example-basic-single" name="state" style="width: 100%;" id="cmb_sexo">
              <option value="MASCULINO">MASCULINO</option>
               <option value="FEMENINO">FEMENINO</option>
-              
+
              </select> <br> <br>
-      	</div>
+      	</div> -->
       	<div class="col-lg-6">
       	   <label for=""><b>Teléfono</b> </label>
            <input type="text" id="txt_telefono" class="form-control" placeholder="tel " onkeypress="return soloNumeros(event)">
@@ -102,21 +123,21 @@
       	   <label for=""><b>Email</b> </label>
            <input type="text" id="txt_correo" class="form-control" placeholder="Correo Electrónico">
       	</div>
-      
-     
+
+
 
 
       	<div class="col-lg-12"><br>
       		<div class="alert alert-danger alert-bordered" style="display: none;"></div>
       	</div>
       	</div>
-      	
-       
+
+
       </div>
       <div class="modal-footer">
       	 <button type="button" class="btn btn-primary" onclick="Registrar_Persona()">Grabar</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-       
+
       </div>
     </div>
   </div>
@@ -163,15 +184,15 @@
              </select> <br> <br>
       	</div>
 
-      	
-      	<div class="col-lg-6">
+
+      	<!-- <div class="col-lg-6">
       	   <label for=""><b>Sexo</b> </label>
             <select class="js-example-basic-single" name="state" style="width: 100%;" id="cmb_sexo_editar">
              <option value="MASCULINO">MASCULINO</option>
               <option value="FEMENINO">FEMENINO</option>
-              
+
              </select> <br> <br>
-      	</div>
+      	</div> -->
       	<div class="col-lg-6">
       	   <label for=""><b>Teléfono</b> </label>
            <input type="number" id="txt_telefono_editar" class="form-control" placeholder="dir ">
@@ -190,15 +211,15 @@
             <select class="js-example-basic-single" name="state" style="width: 100%;" id="cmb_estatus_editar">
              <option value="ACTIVO">ACTIVO</option>
               <option value="INACTIVO">INACTIVO</option>
-              
+
              </select> <br> <br>
       	</div>
-       
+
       </div>
       <div class="modal-footer">
       	 <button type="button" class="btn btn-warning" onclick="Modificar_Persona()">Editar</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-       
+
       </div>
     </div>
   </div>
@@ -206,18 +227,21 @@
 
 
 <script type="text/javascript" src="../js/persona.js"></script>
+<script type="text/javascript" src="../js/proveedor.js?rev=<?php echo time(); ?>"></script>
+
 <script>
 $(document).ready(function() {
   $('.js-example-basic-single').select2();
      listar_persona();
      listar_combo_departamentos();
+     listar_combo_tipo_tercero_persona();
 
        $("#cmb_ciudad_persona").change(function() {
            var iddepartamento =$("#cmb_ciudad_persona").val();
             listar_combo_ciudades(iddepartamento);
           });
 
-     
+
 });
 
 

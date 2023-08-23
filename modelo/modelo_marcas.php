@@ -13,11 +13,11 @@ class Modelo_Marcas{
 	}
 
 
-	function listar_bodegas($idempresa){
-		$sql = "SELECT  `id`  , `nombre_bodega`  , `fregistro`  , `estatus`
+	function listar_marcas($idempresa){
+		$sql = "SELECT  `id`  , `descripcion`  , `fregistro`  , `estatus`
   			  , `idempresa` FROM
-  			  `bodega`
-  			  WHERE bodega.`idempresa` ='$idempresa'";
+  			  `marcas`
+  			  WHERE marcas.`idempresa` ='$idempresa'";
 			$arreglo = array();
 			if($consulta = $this->conexion->conexion->query($sql)){
 				while($consulta_vu = mysqli_fetch_assoc($consulta)) {
@@ -30,8 +30,8 @@ class Modelo_Marcas{
 	}
 
 
-	function Registrar_Bodega($nombre_bodega,$idempresa) {
-		$sql = "call  SP_REGISTRAR_BODEGA('$nombre_bodega','$idempresa')";
+	function Registrar_Marca_Producto($descripcion,$idempresa) {
+		$sql = "call  SP_REGISTRAR_MARCAS('$descripcion','$idempresa')";
 			if($consulta = $this->conexion->conexion->query($sql)){
 				if($row = mysqli_fetch_array($consulta)) {
 					return	$id =trim($row[0]);
@@ -44,8 +44,8 @@ class Modelo_Marcas{
 
 
 
-		function Modificar_Estatus_Bodega($id,$estatus){
-		$sql = "call SP_MODIFICAR_ESTATUS_BODEGA('$id','$estatus')";
+		function Modificar_Estatus_Marcas($id,$estatus){
+		$sql = "call SP_MODIFICAR_ESTATUS_MARCA('$id','$estatus')";
 			if ($consulta = $this->conexion->conexion->query($sql)) {
 				//$id_retornado = mysqli_insert_ind($this->conexion->conexion);
 				return 1;
@@ -55,7 +55,18 @@ class Modelo_Marcas{
 			}
 		}
 
-			function listar_combo_marcas($idempresa) {
+		/*modificar <marcas></marcas>*/
+		function Modificar_Marcas($id,$desc_actual,$desc_nueva, $estatus) {
+			$sql = "call  SP_MODIFICAR_MARCA('$id','$desc_actual','$desc_nueva','$estatus')";
+				if($consulta = $this->conexion->conexion->query($sql)){
+					if($row = mysqli_fetch_array($consulta)) {
+						return	$id =trim($row[0]);
+					}
+					 $arreglo;
+					$this->conexion->cerrar();
+			}
+		}
+		function listar_combo_marcas($idempresa) {
 				$sql = "SELECT id, descripcion
                 FROM marcas
                 WHERE marcas.`idempresa` = '$idempresa'

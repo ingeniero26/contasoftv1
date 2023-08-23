@@ -1,6 +1,7 @@
 var t_persona;
 function listar_persona(){
  var idempresa =$("#txt_idempresa").val();
+ var idtipo_tercero = document.getElementById('cmb_tipo_tercero_persona').value;
      t_persona = $("#tabla_persona").DataTable({
 	     	"ordering":false,   
         "pageLength":10,
@@ -17,7 +18,8 @@ function listar_persona(){
 		    "url":"../controlador/persona/control_persona_listar.php",
              data:{
               
-                idempresa:idempresa
+                idempresa:idempresa,
+                idtipo_tercero:idtipo_tercero
                 
             }
       },
@@ -25,19 +27,20 @@ function listar_persona(){
       "order":[[1,'asc']],
         "columns":[
             {"defaultContent":""},
-            {"data":"persona"},
+            {"data":"tercero"},
             {"data":"tipo_contribuyente"},
             {"data":"persona_nrodocumento"},
             {"data":"persona_tipodocumento"},
-            {"data":"persona_sexo", 
-            render: function (data, type, row ) {
-                if(data=='MASCULINO'){
-                    return "<i class='fa fa-male'></i>";                   
-                }else{
-                  return "<i class='fa fa-female'></i>";               
-                }
-              }
-            },
+            {"data":"tipo"},
+            // {"data":"persona_sexo", 
+            // render: function (data, type, row ) {
+            //     if(data=='MASCULINO'){
+            //         return "<i class='fa fa-male'></i>";                   
+            //     }else{
+            //       return "<i class='fa fa-female'></i>";               
+            //     }
+            //   }
+            // },
             {"data":"persona_telefono"},
             {"data":"persona_direccion"},
            
@@ -181,7 +184,34 @@ function listar_persona(){
 
         })
     }
-
+    function listar_combo_tipo_tercero_persona() {
+        var idempresa =$("#txt_idempresa").val();
+           $.ajax({
+               url:"../controlador/proveedor/control_combo_tipo_tercero_persona.php",
+                type:'POST',
+                data:{
+                   idempresa:idempresa
+                }
+           }).done(function(resp){
+           //alert(resp);
+               var data = JSON.parse(resp);
+               //console.log(resp);
+              var cadena ="<option value=''>Seleccione...</option>";
+               if(data.length>0) {
+                   for (var i = 0; i < data.length; i++) {
+                       cadena+="<option value='"+data[i][0]+"'>"+data[i][1]+"</option>";
+                   }
+                   $('#cmb_tipo_tercero_persona').html(cadena);
+                 $('#cmb_tipo_tercero_registro').html(cadena);
+               //  $('#cmb_categoria_producto').html(cadena);
+               } else {
+                   cadena+="<option value=''> No Hay datos</option>";
+                   $('#cmb_tipo_tercero_persona').html(cadena);
+                   $('#cmb_tipo_tercero_registro').html(cadena);
+                 //  $('#cmb_categoria_producto').html(cadena);
+               }
+            })
+       }
 
  function listar_combo_departamentos() {
     
@@ -245,9 +275,6 @@ function  listar_combo_ciudades(iddepartamento) {
 
 
 
-
-
-
   function  Registrar_Persona() {
     var nombre =$('#txt_nombre').val();
     var apepat =$('#txt_apepat').val();
@@ -260,6 +287,7 @@ function  listar_combo_ciudades(iddepartamento) {
     var direccion =$('#txt_direccion').val();
     var correo =$('#txt_correo').val();
     var idempresa =$("#txt_idempresa").val();
+    var id_tipo_tercero =$("#cmb_tipo_tercero_registro").val();
 
     if(nombre.length ==0 || apepat.length == 0 || apemat.length ==0 ||numero.length ==0
       || tipo_doc.length ==0) {
@@ -273,7 +301,7 @@ function  listar_combo_ciudades(iddepartamento) {
         numero:numero,
         tipo_doc:tipo_doc,  sexo:sexo, telefono:telefono,
          direccion:direccion,correo:correo,
-        idempresa:idempresa
+        idempresa:idempresa,id_tipo_tercero:id_tipo_tercero
       }
     }).done(function(resp){
       if(resp > 0) {
@@ -307,7 +335,7 @@ function  listar_combo_ciudades(iddepartamento) {
     var numero_actual =$('#txt_numero_actual_editar').val();
     var numero_nuevo =$('#txt_numero_nuevo_editar').val();
     var tipo_doc =$('#cmb_tipodocumento_editar').val();
-    var sexo =$('#cmb_sexo_editar').val();
+
     var telefono =$('#txt_telefono_editar').val();
     var direccion =$('#txt_direccion_editar').val();
     var correo =$('#txt_correo_editar').val();
@@ -322,7 +350,7 @@ function  listar_combo_ciudades(iddepartamento) {
       data:{
         id_persona:id_persona,  nombre:nombre, apepat:apepat, apemat:apemat,
         numero_actual:numero_actual, numero_nuevo:numero_nuevo, tipo_doc:tipo_doc,
-        sexo:sexo, telefono:telefono,  direccion:direccion, 
+         telefono:telefono,  direccion:direccion, 
         correo:correo,  estatus:estatus
       }
     }).done(function(resp){

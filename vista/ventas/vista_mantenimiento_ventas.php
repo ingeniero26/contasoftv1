@@ -19,8 +19,8 @@
                     </div><br>
                     <div class="col-3">
                         <label for=""><b>Caja</b></label>
-                         <select class="js-example-basic-single" name="state" style="width: 100%;" id="cmb_caja"> 
-                       
+                         <select class="js-example-basic-single" name="state" style="width: 100%;" id="cmb_caja">
+
                          </select> <br> <br>
                     </div><br>
                     <div class="col-2">
@@ -28,9 +28,9 @@
                         <button class="btn btn-success" style="width:100%" onclick="listar_ventas()"><i class="fa fa-search"></i>Buscar</button>
                     </div>
                 </div> <br>
-                
-                
-                <table id="tabla_ventas" class="display table-bordered" 
+
+
+                <table id="tabla_ventas" class="display table-bordered"
                 style="width:100%">
                     <thead>
                         <tr>
@@ -41,23 +41,24 @@
                             <th>Bodega</th>
                             <th>Tipo</th>
                             <th>Serie</th>
-                         
+
                             <th>Pago</th>
                             <th>Fecha</th>
                             <th>Dcto</th>
                             <th>IVA</th>
                             <th>Total</th>
-                             <th>Fecha Vencimiento</th>
+                            <th>Fecha Vencimiento</th>
+                            <th>Dias</th>
                             <th>Estado</th>
                             <th>Acci&oacute;n</th>
                         </tr>
                     </thead>
                     <tbody>
                     </tbody>
-                 
+
                 </table>
-                
-               
+
+
             </div>
         </div>
     </div>
@@ -65,10 +66,10 @@
 
 
 
-<script type="text/javascript" src="../js/ventas.js?rev=<?php echo time();?>"></script>
+<script type="text/javascript" src="../js/ventas.js?rev=<?php echo time(); ?>"></script>
 <script>
 $(document).ready(function() {
-   
+
   $('.js-example-basic-single').select2();
 
 
@@ -93,6 +94,6 @@ if(mes < 10 ) {
   })
 });
 
- 
+
 
 </script>

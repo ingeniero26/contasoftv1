@@ -13,9 +13,10 @@
                         <tr>
                             <th>#</th>
                             <th>Nombre</th>
-                            <th>Documento</th>
-                            <th>Tipo</th>
-                            <th style="text-align: center;">Sexo</th>
+                            <th>Número</th>
+                            <th>Tipo Documento</th>
+                            <th>Tipo Contribuyente</th>
+                            <!-- <th>Tipo Tercero</th> -->
                             <th>Ciudad</th>
                             <th>Telefono</th>
                             <th>Direccion</th>
@@ -26,7 +27,7 @@
                     </thead>
                     <tbody>
                     </tbody>
-                  
+
                 </table>
             </div>
         </div>
@@ -73,22 +74,33 @@
               <option value="TI">TI</option>
              </select> <br> <br>
       	</div>
+        <div class="col-lg-6">
+           <label for=""><b>Tipo Contribuyente</b> </label>
+            <select class="js-example-basic-single" name="state" style="width: 100%;" id="cmb_tipo_contribuyente">
+             <option value="Persona Natural">Natural</option>
+              <option value="Persona Juridica">Jurídica</option>
+             </select>
+        </div>
+        <div class="col-lg-6">
+      	   <label for=""><b>Tipo</b> </label>
+            <select class="js-example-basic-single" name="state" style="width: 100%;" id="cmb_tipo_tercero_cliente">
 
-      	
+             </select>
+      	</div>
+
       <!--	<div class="col-lg-6">
       	   <label for=""><b>Sexo</b> </label>
             <select class="js-example-basic-single" name="state" style="width: 100%;" id="cmb_sexo">
              <option value="MASCULINO">MASCULINO</option>
               <option value="FEMENINO">FEMENINO</option>
-              
+
              </select> <br> <br>
       	</div>-->
         <div class="col-lg-6">
-                <label for=""><b>Ciudad</b> </label>
-                        <select class="js-example-basic-single" name="state" style="width: 100%;" id="cmb_ciudad_ingreso"> 
-                       
-                         </select> <br> <br>
-                    </div>
+            <label for=""><b>Ciudad</b> </label>
+                <select class="js-example-basic-single" name="state" style="width: 100%;" id="cmb_ciudad_ingreso">
+                </select> <br> <br>
+          </div>
       	<div class="col-lg-6">
       	   <label for=""><b>Teléfono</b> </label>
            <input type="text" id="txt_telefono" class="form-control" placeholder="teléfono " onkeypress="return soloNumeros(event)">
@@ -106,13 +118,13 @@
       		<div class="alert alert-danger alert-bordered" style="display: none;"></div>
       	</div>
       	</div>
-      	
-       
+
+
       </div>
       <div class="modal-footer">
       	 <button type="button" class="btn btn-primary" onclick="Registrar_Cliente()">Grabar</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-       
+
       </div>
     </div>
   </div>
@@ -122,10 +134,13 @@
 
 
 <script type="text/javascript" src="../js/cliente.js"></script>
+<script type="text/javascript" src="../js/proveedor.js?rev=<?php echo time(); ?>"></script>
+
 <script>
 $(document).ready(function() {
     listar_cliente();
     listar_combo_ciudad();
+    listar_combo_tipo_cliente();
       $('.js-example-basic-single').select2();
 });
 

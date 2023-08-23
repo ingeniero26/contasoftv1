@@ -47,6 +47,7 @@ function listar_ventas() {
             { "data": "venta_impuesto" },
             { "data": "venta_total" },
             { "data": "fecha_vencimiento" },
+            { "data": "dias_pago" },
             {
                 "data": "venta_estatus",
                 render: function(data, type, row) {
@@ -228,6 +229,7 @@ function listar_combo_bodega() {
 
 var arreglo_stock = new Array();
 var arreglo_precio = new Array();
+var arreglo_precio2 = new Array();
 var arreglo_img = new Array();
 
 function listar_combo_producto() {
@@ -250,13 +252,14 @@ function listar_combo_producto() {
                 + data[i][5] +"-"  + data[i][1] + "</option>";
                 arreglo_stock[data[i][0]]=data[i][2];
                 arreglo_precio[data[i][0]]=data[i][3];
+                //arreglo_precio2[data[i][0]]=data[i][4];
                 arreglo_img[data[i][0]]=data[i][4];
             }
 
             $('#cmb_producto').html(cadena);
             document.getElementById('txt_stock').value=data[0][2];
             document.getElementById('txt_precio').value=data[0][3];
-             //document.getElementById('txt_foto_producto').value=data[0][4];
+            // document.getElementById('txt_precio2').value=data[0][4];
              document.getElementById('txt_foto_producto').src='../'+data[0][4];
 
 
@@ -437,10 +440,11 @@ function Registrar_Venta() {
     //let fecha_venta = document.getElementById('txt_fecha').value;
     let total = document.getElementById('lbl_totalneto').innerHTML.substr(18);
     let estado = document.getElementById('cmb_estado').value;
-     let decto = document.getElementById('lbl_decto').innerHTML.substr(20);
-      let fecha_vc = document.getElementById('txt_fecha_vc').value;
-      var idempresa =$("#txt_idempresa").val();
-      var idcaja =$("#cmb_caja_venta").val();
+    let decto = document.getElementById('lbl_decto').innerHTML.substr(20);
+    let fecha_vc = document.getElementById('txt_fecha_vc').value;
+    let dias_pago = document.getElementById('cmb_dias').value;
+    var idempresa =$("#txt_idempresa").val();
+    var idcaja =$("#cmb_caja_venta").val();
 
     let impuesto = "";
     let porcentaje = "";
@@ -469,6 +473,7 @@ function Registrar_Venta() {
             porcentaje: porcentaje,
             decto:decto,
             fecha_vc:fecha_vc,
+            dias_pago:dias_pago,
             idempresa:idempresa,
             idcaja:idcaja
 
@@ -481,9 +486,6 @@ function Registrar_Venta() {
             Swal.fire("Mensaje de Error","Numero de factura ya existe","error");
         }
     })
-
-
-
 }
 
 function Registrar_Detalle_Venta(id){

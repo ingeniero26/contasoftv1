@@ -3,14 +3,12 @@ function listar_cliente(){
  var idempresa =$("#txt_idempresa").val();
 
      t_cliente = $("#tabla_cliente").DataTable({
-	     "ordering":false,
-        "bLengthChange":true,
-        "searching": { "regex": false },
-        "lengthMenu": [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "All"] ],
-        "pageLength": 10,
+	    "ordering":false,   
+        "pageLength":10,
         "destroy":true,
         "async": false ,
-        "processing": true,
+        "responsive": true,
+        "autoWidth": false,
            dom: 'Bfrtip',
         buttons: [
         'excel', 'csv', 'pdf', 'print', 'copy',
@@ -29,15 +27,16 @@ function listar_cliente(){
             {"data":"cliente"},
             {"data":"persona_nrodocumento"},
             {"data":"persona_tipodocumento"},
-            {"data":"persona_sexo", 
-            render: function (data, type, row ) {
-                if(data=='MASCULINO'){
-                    return "<i class='fa fa-male'></i>";                   
-                }else{
-                  return "<i class='fa fa-female'></i>";               
-                }
-              }
-            },
+             {"data":"tipo_contribuyente"},
+            // {"data":"persona_sexo", 
+            // render: function (data, type, row ) {
+            //     if(data=='MASCULINO'){
+            //         return "<i class='fa fa-male'></i>";                   
+            //     }else{
+            //       return "<i class='fa fa-female'></i>";               
+            //     }
+            //   }
+            // },
             {"data":"nombre_ciudad"},
             {"data":"persona_telefono"},
             
@@ -108,12 +107,12 @@ function listar_cliente(){
                        cadena+="<option value='"+data[i][0]+"'>"+data[i][1]+"</option>";
                    }
                    $('#cmb_ciudad_ingreso').html(cadena);
-               //  $('#cmb_categoria_editar').html(cadena);
+                  $('#cmb_ciudad_empresa').html(cadena);
                //  $('#cmb_categoria_producto').html(cadena);
                } else {
                    cadena+="<option value=''> No Hay datos</option>";
                    $('#cmb_ciudad_ingreso').html(cadena);
-                 //  $('#cmb_categoria_editar').html(cadena);
+                   $('#cmb_ciudad_empresa').html(cadena);
                  //  $('#cmb_categoria_producto').html(cadena);
                }
             })
@@ -129,12 +128,14 @@ function listar_cliente(){
         var apemat =$('#txt_apemat').val();
         var numero =$('#txt_numero').val();
         var tipo_doc =$('#cmb_tipodocumento').val();
+        var tipo_contribuyente =$('#cmb_tipo_contribuyente').val();
        // var sexo =$('#cmb_sexo').val();
         var telefono =$('#txt_telefono').val();
         var direccion =$('#txt_direccion').val();
         var correo =$('#txt_correo').val();
          var idciudad =$("#cmb_ciudad_ingreso").val();
         var idempresa =$("#txt_idempresa").val();
+        var id_tipo_tercero =$("#cmb_tipo_tercero_cliente").val();
        
       if(nombre.length ==0 || apepat.length == 0 || apemat.length ==0 ||numero.length ==0
       || tipo_doc.length ==0) {
@@ -149,16 +150,18 @@ function listar_cliente(){
         apemat:apemat,
         numero:numero,
         tipo_doc:tipo_doc,
+        tipo_contribuyente:tipo_contribuyente,
         //sexo:sexo,
         telefono:telefono,
         direccion:direccion,
         correo:correo,
          idciudad:idciudad,
-        idempresa:idempresa
+        idempresa:idempresa,
+        id_tipo_tercero:id_tipo_tercero
        
       }
        }).done(function(resp){
-        alert(resp);
+       // alert(resp);
         if(resp > 0) {
             if(resp==1) {
                 $('#modal_registro').modal('hide');
@@ -176,7 +179,7 @@ function listar_cliente(){
                   );
             }
         }else {
-            return Swal.fire('Mensaje de error','Persona no insertado','warning');
+            return Swal.fire('Mensaje de error','Cliente no insertado','warning');
         }
     })
   }
@@ -253,6 +256,7 @@ function listar_cliente(){
         })
     }
 
+  
 
 function limpiar_campos(){
         $('#txt_nombre').val();
@@ -261,6 +265,6 @@ function limpiar_campos(){
         $('#txt_numero').val();
         $('#cmb_tipodocumento').val();
         $('#cmb_sexo').val();
-          $('#txt_telefono').val();
-       $('#txt_direccion').val();
+        $('#txt_telefono').val();
+        $('#txt_direccion').val();
 }
