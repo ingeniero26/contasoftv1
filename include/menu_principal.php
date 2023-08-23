@@ -247,12 +247,12 @@
                                     <span class="nav-label"><i class="fa   fa-outdent"></i> Centro de Costos</span></a>
 
                             </li>
-                              <!-- <li>
-                                <a href="javascript:cargar_contenido('contenido_principal','pagos/listado_gastos.php')" >
-                                    <span class="nav-label"><i class="fa   fa-outdent"></i> Plan de cuentas NIFF</span></a>
+                               <li>
+                                <a href="javascript:cargar_contenido('contenido_principal','contabilidad/tipo_comprobante.php')" >
+                                    <span class="nav-label"><i class="fa   fa-outdent"></i> Tipo Comprobante</span></a>
 
                             </li>
-                               <li>
+                              <!-- <li>
                                 <a href="javascript:cargar_contenido('contenido_principal','pagos/listado_gastos.php')" >
                                     <span class="nav-label"><i class="fa   fa-outdent"></i> IVA</span></a>
 
