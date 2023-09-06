@@ -61,7 +61,7 @@ var idempresa =$("#txt_idempresa").val();
 }
 
  // modificar datos del procedimiento
-    $('#tabla_tipo_producto').on('click','.editar',function(){
+    $('#tabla_tipo_comprobante').on('click','.editar',function(){
         var data = t_tipo_comprobante.row($(this).parents('tr')).data();
 
          if(t_tipo_comprobante.row(this).child.isShown()){
@@ -80,13 +80,13 @@ var idempresa =$("#txt_idempresa").val();
 
 
 /*desactivar y activar categoria*/ 
- $('#tabla_tipo_producto').on('click', '.activar', function() {
+ $('#tabla_tipo_comprobante').on('click', '.activar', function() {
         var data = t_tipo_comprobante.row($(this).parents('tr')).data();
         if (t_tipo_comprobante.row(this).child.isShown()) {
             var data = t_tipo_comprobante.row(this).data();
         }
         Swal.fire({
-            title: 'Está seguro de activar  la categoria?',
+            title: 'Está seguro de activar  tipo comprobante?',
             text: "Activacion",
             icon: 'warning',
             showCancelButton: true,
@@ -100,14 +100,14 @@ var idempresa =$("#txt_idempresa").val();
         })
     })
  // function activar usuario
-    $('#tabla_tipo_producto').on('click', '.desactivar', function() {
+    $('#tabla_tipo_comprobante').on('click', '.desactivar', function() {
         var data = t_tipo_comprobante.row($(this).parents('tr')).data();
         if (t_tipo_comprobante.row(this).child.isShown()) {
             var data = t_tipo_comprobante.row(this).data();
         }
         Swal.fire({
-            title: 'Está seguro de desactivar tipo producto?',
-            text: "Una vez desactivado el producto no podrá tener ingresos o ventas",
+            title: 'Está seguro de desactivar tipo comprobante?',
+            text: "Una vez desactivado esto afectará modulos del sistema",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -128,7 +128,7 @@ var idempresa =$("#txt_idempresa").val();
             mensaje = "activo";
         }
         $.ajax({
-            url: "../controlador/categoria/control_modificar_estatus.php",
+            url: "../controlador/tipo_comprobante/control_modificar_estatus.php",
             type: 'POST',
             data: {
                 id: id,
@@ -137,7 +137,7 @@ var idempresa =$("#txt_idempresa").val();
         }).done(function(resp) {
            alert(resp);
             if (resp > 0) {
-                Swal.fire("Mensaje  de confirmaciòn", "Categoria " + mensaje + " exitosamente",
+                Swal.fire("Mensaje  de confirmaciòn", "Tipo Comprobante " + mensaje + " exitosamente",
                         "success")
                     .then((value) => {
                         //LimpiarRegistro();
@@ -159,28 +159,30 @@ var idempresa =$("#txt_idempresa").val();
         $('#modal_registro').modal('show');
     }
 
-    function Registrar_Tipo_Producto() {
-      var tipo_producto = $('#txt_tipo_producto').val();
-    var idempresa =$("#txt_idempresa").val();
-      if(tipo_producto.length==0) {
+    function Registrar_Comprobante() {
+      var abreviatura = $('#txt_abreviatura').val();
+      var descripcion = $('#txt_descripcion').val();
+      var idempresa =$("#txt_idempresa").val();
+      if(abreviatura.length==0) {
         return   Swal.fire( 'Mensaje de error',  'Digite los campos estan vacios', 'warning'
         );
       }
       $.ajax({
-        url:'../controlador/tipo_producto/control_tipo_producto_registro.php',
+        url:'../controlador/tipo_comprobante/control_tipo_comprobante_registro.php',
         type:'POST',
         data:{
-          tipo_producto:tipo_producto,
-          idempresa:idempresa
+            abreviatura:abreviatura,
+            descripcion:descripcion,
+           idempresa:idempresa
         }
       }).done(function(resp){
         if(resp > 0) {
             if(resp==1) {
                 $('#modal_registro').modal('hide');
-                Swal.fire("Mensaje  de confirmaciòn","Tipo Producto registrada exitosamente",
+                Swal.fire("Mensaje  de confirmaciòn","Tipo Comprobante registrada exitosamente",
                     "success")
                 .then((value)=>{
-                    listar_tipo_producto();
+                    listar_tipo_comprobante();
                LimpiarCampos();
                     t_tipo_comprobante.ajax.reload();
                 

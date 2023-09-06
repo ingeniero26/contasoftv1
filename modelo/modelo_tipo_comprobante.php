@@ -21,7 +21,7 @@ class Modelo_Tipo_Comprobante
         tp.fregistro,
         tp.idEmpresa
          FROM tipo_comprobante tp
-         WHERE   tp.estatus ='ACTIVO' and tp.idEmpresa = '$idempresa'
+         WHERE    tp.idEmpresa = '$idempresa'
          ORDER BY tp.abreviatura asc";
         $arreglo = array();
         if ($consulta = $this->conexion->conexion->query($sql)) {
@@ -34,9 +34,9 @@ class Modelo_Tipo_Comprobante
         }
     }
 
-    public function Registrar_Tipo_Producto($tipo_producto, $idempresa)
+    public function Registrar_Tipo_Comprobante($abreviatura, $descripcion, $idempresa)
     {
-        $sql = "call  SP_REGISTRAR_TIPO_PRODUCTO('$tipo_producto','$idempresa')";
+        $sql = "call  SP_REGISTRAR_TIPO_COMPROBANTE('$abreviatura','$descripcion','$idempresa')";
         if ($consulta = $this->conexion->conexion->query($sql)) {
             if ($row = mysqli_fetch_array($consulta)) {
                 return $id = trim($row[0]);
@@ -58,9 +58,9 @@ class Modelo_Tipo_Comprobante
         }
     }
 
-    public function Modificar_Estatus_Categoria($id, $estatus)
+    public function Modificar_Estatus_Tipo_Comprobante($id, $estatus)
     {
-        $sql = "call SP_MODIFICAR_ESTATUS_TIPO_PRODUCTO('$id','$estatus')";
+        $sql = "call SP_MODIFICAR_ESTATUS_TIPO_COMPROBANTE('$id','$estatus')";
         if ($consulta = $this->conexion->conexion->query($sql)) {
             //$id_retornado = mysqli_insert_ind($this->conexion->conexion);
             return 1;

@@ -35,17 +35,28 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Registro de Conceptos</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">Registro de Tipo Comprobantes</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <label for="">Descripción</label>
-        <input type="text" id="txt_concepto" class="form-control" placeholder="Nombre categoria">
+        <div class="row">
+            <div class="col-md-12">
+                <label for=""><b>Abreviatura</b></label>
+                <input type="text" id="txt_abreviatura"
+                class="form-control" placeholder="Abreviatura comprobante">
+            </div>
+            <div class="col-md-12">
+                <label for=""><b>Descripción</b></label>
+                <input type="text" id="txt_descripcion"
+                class="form-control" placeholder="Descripciòn">
+            </div>
+        </div>
+
       </div>
       <div class="modal-footer">
-      	 <button type="button" class="btn btn-primary" onclick="Registrar_Concepto()">Grabar</button>
+      	 <button type="button" class="btn btn-primary" onclick="Registrar_Comprobante()">Grabar</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
 
       </div>
