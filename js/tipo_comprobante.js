@@ -69,9 +69,10 @@ var idempresa =$("#txt_idempresa").val();
             }
         $("#modal_editar").modal({backdrop:'static',keyboard:false})
         $("#modal_editar").modal('show');
-        $("#txt_idtipo_producto").val(data.id);
-        $("#txt_tipo_producto_actual_editar").val(data.tipo_producto);
-        $("#txt_tipo_producto_nuevo_editar").val(data.tipo_producto);
+        $("#txt_idtipo_comprobante").val(data.id);
+        $("#txt_abreviatura_editar").val(data.abreviatura);
+        $("#txt_abreviatura_editar").val(data.abreviatura);
+        $("#txt_descripcion_editar").val(data.descripcion);
        $("#cmb_estatus_editar").val(data.estatus).trigger("change");
 
     })
@@ -199,44 +200,45 @@ var idempresa =$("#txt_idempresa").val();
     }
 
 
-    function Modificar_Tipo_Producto() {
-      var id = $('#txt_idtipo_producto').val();
-      var tipo_actual = $('#txt_tipo_producto_actual_editar').val();
-      var tipo_nueva = $('#txt_tipo_producto_nuevo_editar').val();
+    function Modificar_Comprobante() {
+      var id = $('#txt_idtipo_comprobante').val();
+      var tipo_actual = $('#txt_abreviatura_actual_editar').val();
+      var tipo_nueva = $('#txt_abreviatura_nuevo_editar').val();
+      var descripcion = $('#txt_descripcion_editar').val();
       var estatus =$("#cmb_estatus").val();
 
       if(tipo_nueva.length == 0 ) {
         Swal.fire('Mensaje de error','Debe digitar los campos vacios','warning');
       }
       $.ajax({
-        url:'../controlador/tipo_producto/control_modificar_tipo_producto.php',
+        url:'../controlador/tipo_comprobante/control_modificar_tipo_comprobante.php',
         type:'POST',
         data:{
           id:id,
           tipo_actual:tipo_actual,
           tipo_nueva:tipo_nueva,
-          estatus:estatus
+          descripcion:descripcion
         }
       }).done(function(resp){
         alert(resp);
          if(resp > 0) {
             if(resp==1) {
                 $('#modal_editar').modal('hide');
-                Swal.fire("Mensaje  de confirmaciòn","Categoria editado exitosamente",
+                Swal.fire("Mensaje  de confirmaciòn","Comprobante editado exitosamente",
                     "success")
                 .then((value)=>{
-                    listar_tipo_producto();
+                    listar_tipo_comprobante();
                 LimpiarCampos();
                     t_tipo_comprobante.ajax.reload();
                 
                 });
             } else {
              LimpiarCampos();
-                return Swal.fire('Mensaje de error', 'Categoria ya existe en el sistema, utilice otro', 'warning'
+                return Swal.fire('Mensaje de error', 'Comprobante ya existe en el sistema, utilice otro', 'warning'
                   );
             }
         }else {
-            return Swal.fire('Mensaje de error','Categoria no editado','warning');
+            return Swal.fire('Mensaje de error','Comprobante no editado','warning');
         }
       })
     }

@@ -70,31 +70,29 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Registro de Categorias</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">Editar de Tipo Comprobantes</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         <div class="row">
-          <div class="col-lg-6">
-            <input type="text" id="txt_idcategoria" hidden="">
-              <label for="">Nombre Categoria</label>
-              <input type="text" id="txt_nombre_actual_categoria" hidden="" placeholder="Nombre rol">
-              <input type="text" id="txt_nombre_nuevo_categoria" class="form-control" placeholder="Nombre rol">
-          </div>
-          <div class="col-lg-6">
-             <label for="estatus">Estatus:</label>
-                  <select class="js-example-basic-single" name="state" style="width: 100%;" id="cmb_estatus">
-                  <option value="ACTIVO">ACTIVO</option>
-                  <option value="INACTIVO">INACTIVO</option>
-                </select> <br> <br>
-          </div>
+            <div class="col-md-12">
+              <input type="text" id="txt_idtipo_comprobante" hidden>
+                <label for=""><b>Abreviatura</b></label>
+                <input type="text" id="txt_abreviatura_editar"
+                class="form-control" placeholder="Abreviatura comprobante">
+            </div>
+            <div class="col-md-12">
+                <label for=""><b>Descripción</b></label>
+                <input type="text" id="txt_descripcion_editar"
+                class="form-control" placeholder="Descripciòn">
+            </div>
         </div>
 
       </div>
       <div class="modal-footer">
-         <button type="button" class="btn btn-primary" onclick="Modificar_Categoria()">Grabar</button>
+      	 <button type="button" class="btn btn-primary" onclick="Modificar_Comprobante()">Editar</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
 
       </div>

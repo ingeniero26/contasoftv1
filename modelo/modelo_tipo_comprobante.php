@@ -46,9 +46,11 @@ class Modelo_Tipo_Comprobante
         }
     }
 
-    public function Modificar_Tipo_Producto($id, $tipo_actual, $tipo_nueva, $estatus)
+    public function Modificar_Tipo_Comprobante($id, $tipo_actual, $tipo_nueva,
+    $descripcion)
     {
-        $sql = "call  SP_MODIFICAR_TIPO_PRODUCTO('$id','$tipo_actual','$tipo_nueva','$estatus')";
+        $sql = "call  SP_MODIFICAR_TIPO_COMPROBANTE('$id','$tipo_actual'
+        ,'$tipo_nueva','$descripcion')";
         if ($consulta = $this->conexion->conexion->query($sql)) {
             if ($row = mysqli_fetch_array($consulta)) {
                 return $id = trim($row[0]);
