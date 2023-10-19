@@ -38,10 +38,10 @@ class Modelo_Proveedor {
 		}
 	}
 	function Registrar_Proveedor($nombre,$apepat,$apemat,$numero,$tipo_doc,
-	$tipo_contribuyente,$sexo,$telefono,$direccion,$correo,
+	$tipo_contribuyente,$telefono,$direccion,$correo,
 	 $razon_social,$num_contacto,$idciudad,$idempresa,$id_tipo_tercero) {
 		$sql = "call  SP_REGISTRAR_PROVEEDOR2('$nombre','$apepat','$apemat','$numero','$tipo_doc',
-		'$tipo_contribuyente','$sexo','$telefono','$direccion','$correo',
+		'$tipo_contribuyente','$telefono','$direccion','$correo',
 		  '$razon_social','$num_contacto','$idciudad', '$idempresa','$id_tipo_tercero')";
 			if($consulta = $this->conexion->conexion->query($sql)){
 				if($row = mysqli_fetch_array($consulta)) {

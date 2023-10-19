@@ -169,7 +169,7 @@ var idempresa =$("#txt_idempresa").val();
         var tipo_doc =$('#cmb_tipodocumento').val();
         var tipo_contribuyente =$('#cmb_tipo_contribuyente').val();
         var id_tipo_tercero =$('#cmb_tipo_tercero').val();
-        var sexo =$('#cmb_sexo').val();
+        
         var telefono =$('#txt_telefono').val();
         var direccion =$('#txt_direccion').val();
         var correo =$('#txt_correo').val();
@@ -191,7 +191,6 @@ var idempresa =$("#txt_idempresa").val();
         numero:numero,
         tipo_doc:tipo_doc,
         tipo_contribuyente:tipo_contribuyente,
-        sexo:sexo,
         telefono:telefono,
         direccion:direccion,
         correo:correo,

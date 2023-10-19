@@ -154,7 +154,8 @@ class Modelo_Productos
 			, `b`.`nombre_bodega`      ,`p`.`cant_minima`
 			,    `p`.`producto_stock`    , `p`.`id_categoria`    , `c`.`categoria_nombre`
 			, `p`.`id_unidad`    , `u`.`unidad_nombre`
-			, `p`.`producto_foto`    , p.compra,`p`.`producto_precioventa`, p.producto_precio_mayor,
+			, `p`.`producto_foto`    , p.compra,
+            `p`.`producto_precioventa`, 
 			  p.producto_precioventa - p.`compra`  AS ganancia,p.idTipoProducto,
 			tp.id, tp.tipo_producto
 			, `p`.`producto_estatus`,p.`idempresa`
