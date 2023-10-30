@@ -209,7 +209,7 @@ CREATE TABLE IF NOT EXISTS `compra` (
   CONSTRAINT `compra_ibfk_2` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`usuario_id`),
   CONSTRAINT `compra_ibfk_3` FOREIGN KEY (`id_bodega`) REFERENCES `bodega` (`id`),
   CONSTRAINT `compra_ibfk_4` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- La exportación de datos fue deseleccionada.
 
@@ -248,7 +248,7 @@ CREATE TABLE IF NOT EXISTS `cuentas` (
   PRIMARY KEY (`id`),
   KEY `idEmpresa` (`idEmpresa`),
   CONSTRAINT `cuentas_ibfk_1` FOREIGN KEY (`idEmpresa`) REFERENCES `empresa` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=96 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- La exportación de datos fue deseleccionada.
 
@@ -325,7 +325,7 @@ CREATE TABLE IF NOT EXISTS `detalle_compra` (
   KEY `id_producto` (`id_producto`),
   CONSTRAINT `detalle_compra_ibfk_1` FOREIGN KEY (`id_compra`) REFERENCES `compra` (`compra_id`),
   CONSTRAINT `detalle_compra_ibfk_2` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`producto_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- La exportación de datos fue deseleccionada.
 
@@ -359,7 +359,7 @@ CREATE TABLE IF NOT EXISTS `detalle_venta` (
   KEY `idproducto` (`producto_id`),
   CONSTRAINT `detalle_venta_ibfk_1` FOREIGN KEY (`venta_id`) REFERENCES `venta` (`venta_id`),
   CONSTRAINT `detalle_venta_ibfk_2` FOREIGN KEY (`producto_id`) REFERENCES `producto` (`producto_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- La exportación de datos fue deseleccionada.
 
@@ -823,6 +823,49 @@ SET @CANTIDAD:=(SELECT COUNT(*) FROM `detalle_venta` WHERE `detalle_venta`.`dv_e
       SET @CANTIDAD:= @CANTIDAD - 1;
     
   END WHILE;
+END//
+DELIMITER ;
+
+-- Volcando estructura para procedimiento sistema_pos_v2_desarrollo.sp_dashboard_datos
+DELIMITER //
+CREATE PROCEDURE `sp_dashboard_datos`()
+BEGIN
+ DECLARE totalProductos int;
+  DECLARE totalCompras float;
+  DECLARE totalVentas float;
+  
+  DECLARE productosPocoStock int;
+  DECLARE ventasHoy float;
+  SET totalProductos = (SELECT
+      COUNT(*)
+    FROM producto p);
+  SET totalCompras = (SELECT  
+sum(c.compra_total)  FROM compra c);
+  /*set totalVentas = (select sum(vc.total_venta) from venta_cabecera vc where EXTRACT(MONTH FROM vc.fecha_venta) = EXTRACT(MONTH FROM curdate()) and EXTRACT(YEAR FROM vc.fecha_venta) = EXTRACT(YEAR FROM curdate()));*/
+  SET totalVentas = (SELECT SUM(v.venta_total)
+ FROM venta v);
+  /*set ganancias = (select sum(vd.total_venta - (p.precio_compra_producto * vd.cantidad)) 
+  					from venta_detalle vd inner join productos p on vd.codigo_producto = p.codigo_producto
+                   where EXTRACT(MONTH FROM vd.fecha_venta) = EXTRACT(MONTH FROM curdate()) 
+                   and EXTRACT(YEAR FROM vd.fecha_venta) = EXTRACT(YEAR FROM curdate()));*/
+  /*SET ganancias = (SELECT sum(vd.dv_cantidad * vd.dv_precio)
+  FROM detalle_venta vd);*/
+  SET productosPocoStock = (SELECT COUNT(1)
+  FROM producto p
+  WHERE p.producto_stock <=p.cant_minima);
+  SET ventasHoy = (SELECT sum(dv.venta_total)
+   FROM venta dv
+   WHERE DATE(dv.venta_fecha) =CURDATE());
+
+  SELECT
+    IFNULL(totalProductos, 0) AS totalProductos,
+    IFNULL(CONCAT('S./ ', FORMAT(totalCompras, 2)), 0) AS totalCompras,
+    IFNULL(CONCAT('S./ ', FORMAT(totalVentas, 2)), 0) AS totalVentas,
+    /*IFNULL(CONCAT('S./ ', FORMAT(ganancias, 2)), 0) AS ganancias,*/
+    IFNULL(productosPocoStock, 0) AS productosPocoStock,
+    IFNULL(CONCAT('S./ ', FORMAT(ventasHoy, 2)), 0) AS ventasHoy;
+
+
 END//
 DELIMITER ;
 
@@ -1457,7 +1500,13 @@ DELIMITER ;
 
 -- Volcando estructura para procedimiento sistema_pos_v2_desarrollo.SP_MODIFICAR_ESTATUS_TIPO_COMPROBANTE
 DELIMITER //
-//
+CREATE PROCEDURE `SP_MODIFICAR_ESTATUS_TIPO_COMPROBANTE`(
+	IN `IDTIPO_CP` INT,
+	IN `ESTATUS_CP` VARCHAR(50)
+)
+UPDATE tipo_comprobante set 
+estatus = ESTATUS_CP 
+where id = IDTIPO_CP//
 DELIMITER ;
 
 -- Volcando estructura para procedimiento sistema_pos_v2_desarrollo.SP_MODIFICAR_ESTATUS_UNIDAD
@@ -2571,9 +2620,6 @@ CREATE PROCEDURE `TraerDatosWidgets`(
 )
 SELECT  
 IFNULL(SUM(venta.`venta_total`),0),
-(SELECT
-      COUNT(*)
-    FROM producto p),
 (SELECT IFNULL(SUM( `compra`.`compra_total`), 0)
  FROM `compra` WHERE `compra_fecha`
 BETWEEN INICIO AND FIN),
@@ -2657,7 +2703,7 @@ CREATE TABLE IF NOT EXISTS `venta` (
   CONSTRAINT `venta_ibfk_3` FOREIGN KEY (`bodega_id`) REFERENCES `bodega` (`id`),
   CONSTRAINT `venta_ibfk_4` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`),
   CONSTRAINT `venta_ibfk_5` FOREIGN KEY (`idcaja`) REFERENCES `caja` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- La exportación de datos fue deseleccionada.
 
