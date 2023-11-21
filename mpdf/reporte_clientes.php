@@ -45,8 +45,7 @@ $html='<!DOCTYPE html>
     `cliente`.`idcliente`
     , `persona`.`persona_nombre`    , `persona`.`persona_apepat`
     , `persona`.`persona_apemat`    , `persona`.`persona_nrodocumento`
-    , `persona`.`persona_tipodocumento`    , `persona`.`persona_sexo`
-    , `persona`.`persona_telefono`
+    , `persona`.`persona_tipodocumento` , `persona`.`persona_telefono`
     , `persona`.`persona_direccion`
     , `persona`.`persona_fregistro`
     , `persona`.`persona_estatus`

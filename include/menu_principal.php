@@ -26,9 +26,6 @@
                                     <span class="nav-label"><i class="fa   fa-outdent"></i> EMPRESA</span></a>
 
                             </li>
-
-
-
                             <!--<li>
                                 <a href="javascript:cargar_contenido('contenido_principal','configuracion/vista_deptos.php')">
                                     <span class="nav-label"><i class="fa   fa-outdent"></i> Departamentos</span></a>
@@ -38,6 +35,10 @@
                             <li>
                             <a href="javascript:cargar_contenido('contenido_principal','configuracion/vista_ciudades.php')">
                                 <span class="nav-label"><i class="fa   fa-th-list"></i> Ciudades</span></a>
+                            </li>
+                            <li>
+                            <a href="javascript:cargar_contenido('contenido_principal','configuracion/vista_impuestos_iva.php')">
+                                <span class="nav-label"><i class="fa   fa-th-list"></i> Impuestos</span></a>
                             </li>
 
                         </ul>
