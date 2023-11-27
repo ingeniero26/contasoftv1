@@ -14,10 +14,12 @@ class Modelo_Tipo_Impuestos
     public function listar_tipo_impuestos($idempresa)
     {
         $sql = "SELECT  i.id,i.codigo,i.tarifa,i.nombre,
+     i.idTipoImpuesto,ti.tipo_impuesto,
         i.estado,i.fregistro,i.idEmpresa
-
-         FROM iva i
-         WHERE i.idEmpresa = '$idempresa'";
+   FROM iva i
+   INNER JOIN tipo_impuestos AS ti 
+   ON i.idTipoImpuesto = ti.id
+         WHERE i.idEmpresa = '$idempresa' and i.estado='ACTIVO' ";
         $arreglo = array();
         if ($consulta = $this->conexion->conexion->query($sql)) {
             while ($consulta_vu = mysqli_fetch_assoc($consulta)) {
@@ -29,9 +31,9 @@ class Modelo_Tipo_Impuestos
         }
     }
 
-    public function Registrar_Tipo_Impuesto($codigo, $tarifa, $nombre, $idempresa)
+    public function Registrar_Tipo_Impuesto($codigo, $tarifa, $nombre,$id_tipo_iva, $idempresa)
     {
-        $sql = "call  sp_agregar_iva('$codigo','$tarifa','$nombre','$idempresa')";
+        $sql = "call  sp_agregar_iva('$codigo','$tarifa','$nombre','$id_tipo_iva','$idempresa')";
         if ($consulta = $this->conexion->conexion->query($sql)) {
             if ($row = mysqli_fetch_array($consulta)) {
                 return $id = trim($row[0]);
@@ -41,9 +43,9 @@ class Modelo_Tipo_Impuestos
         }
     }
 
-    public function Modificar_Categoria($id, $categoria_actual, $categoria_nueva, $estatus)
+    public function Modificar_Tipo_Iva($id,$codigo_actual,$codigo_nuevo, $tarifa,$nombre,$idTipoImpuesto)
     {
-        $sql = "call  SP_MODIFICAR_CATEGORIA('$id','$categoria_actual','$categoria_nueva','$estatus')";
+        $sql = "call  SP_MODIFICAR_IVA('$id','$codigo_actual','$codigo_nuevo','$tarifa','$nombre','$idTipoImpuesto')";
         if ($consulta = $this->conexion->conexion->query($sql)) {
             if ($row = mysqli_fetch_array($consulta)) {
                 return $id = trim($row[0]);
@@ -62,6 +64,22 @@ class Modelo_Tipo_Impuestos
 
         } else {
             return 0;
+        }
+    }
+
+    public function listar_combo_tipo_iva($idempresa) {
+    $sql = "SELECT  ti.id,ti.tipo_impuesto
+     FROM tipo_impuestos ti 
+     WHERE ti.idEmpresa = '1' and
+     ti.estado ='ACTIVO'    ";
+        $arreglo = array();
+        if ($consulta = $this->conexion->conexion->query($sql)) {
+            while ($consulta_vu = mysqli_fetch_array($consulta)) {
+                $arreglo[] = $consulta_vu;
+
+            }
+            return $arreglo;
+            $this->conexion->cerrar();
         }
     }
 

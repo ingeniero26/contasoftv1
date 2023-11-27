@@ -22,6 +22,7 @@ function listar_tipo_impuestos() {
             { "data": "codigo" },
             { "data": "tarifa" },
             { "data": "nombre" },
+            { "data": "tipo_impuesto" },
             {
                 "data": "estado",
                 render: function (data, type, row) {
@@ -70,10 +71,13 @@ $('#tabla_impuestos').on('click', '.editar', function () {
     }
     $("#modal_editar").modal({ backdrop: 'static', keyboard: false })
     $("#modal_editar").modal('show');
-    $("#txt_idcategoria").val(data.categoria_id);
-    $("#txt_nombre_actual_categoria").val(data.categoria_nombre).trigger("change");
-    $("#txt_nombre_nuevo_categoria").val(data.categoria_nombre);
-    $("#cmb_estatus_editar").val(data.categoria_estatus).trigger("change");
+    $("#txt_idimpuesto").val(data.id);
+    $("#txt_codigo_actual_editar").val(data.codigo);
+    $("#txt_codigo_nuevo_editar").val(data.codigo);
+    $("#txt_tarifa_editar").val(data.tarifa);
+    $("#txt_descripcion_editar").val(data.nombre);
+    
+    $("#cmb_tipo_iva_producto_editar").val(data.idTipoImpuesto).trigger("change");
 
 })
 
@@ -156,10 +160,40 @@ function AbrirModalRegistro() {
     $('#modal_registro').modal('show');
 }
 
+function listar_combo_tipo_iva() {
+    var idempresa =$("#txt_idempresa").val();
+    $.ajax({
+        url: "../controlador/tipo_impuestos/control_combo_tipo_iva.php",
+        type: 'POST',
+        data:{
+                idempresa:idempresa
+        }
+    }).done(function(resp) {
+        //alert(resp);
+        var data = JSON.parse(resp);
+        //console.log(resp);
+        var cadena = "";
+        if (data.length > 0) {
+            for (var i = 0; i < data.length; i++) {
+                cadena += "<option value='" + data[i][0] + "'>" + data[i][1] + "</option>";
+            }
+            $('#cmb_tipo_iva_producto').html(cadena);
+            $('#cmb_tipo_iva_producto_editar').html(cadena);
+
+        } else {
+            cadena += "<option value=''> No Hay datos</option>";
+            $('#cmb_tipo_iva_producto').html(cadena);
+            $('#cmb_tipo_iva_producto_editar').html(cadena);
+
+        }
+    })
+}
+
 function Registrar_Tipo_Impuesto() {
     var codigo = $('#txt_codigo').val();
     var tarifa = $('#txt_tarifa').val();
     var nombre = $('#txt_descripcion').val();
+     var id_tipo_iva = $('#cmb_tipo_iva_producto').val();
     var idempresa = $("#txt_idempresa").val();
     if (codigo.length == 0) {
         return Swal.fire('Mensaje de error', 'Digite los campos estan vacios', 'warning'
@@ -172,6 +206,7 @@ function Registrar_Tipo_Impuesto() {
             codigo: codigo,
             tarifa:tarifa,
             nombre:nombre,
+            id_tipo_iva:id_tipo_iva,
             idempresa: idempresa
         }
     }).done(function (resp) {
@@ -198,44 +233,48 @@ function Registrar_Tipo_Impuesto() {
 }
 
 
-function Modificar_Categoria() {
-    var id = $('#txt_idcategoria').val();
-    var categoria_actual = $('#txt_nombre_actual_categoria').val();
-    var categoria_nueva = $('#txt_nombre_nuevo_categoria').val();
-    var estatus = $("#cmb_estatus").val();
+function Modificar_Tipo_Iva() {
+    var id = $('#txt_idimpuesto').val();
+    var codigo_actual = $('#txt_codigo_actual_editar').val();
+    var codigo_nuevo = $('#txt_codigo_nuevo_editar').val();
+    var tarifa = $('#txt_tarifa_editar').val();
+    var nombre = $('#txt_descripcion_editar').val();
+    var idTipoImpuesto = $("#cmb_tipo_iva_producto_editar").val();
 
-    if (categoria_nueva.length == 0) {
+    if (codigo_nuevo.length == 0) {
         Swal.fire('Mensaje de error', 'Debe digitar los campos vacios', 'warning');
     }
     $.ajax({
-        url: '../controlador/categoria/control_modificar_categoria.php',
+        url: '../controlador/tipo_impuestos/control_modificar_iva.php',
         type: 'POST',
         data: {
             id: id,
-            categoria_actual: categoria_actual,
-            categoria_nueva: categoria_nueva,
-            estatus: estatus
+            codigo_actual: codigo_actual,
+            codigo_nuevo: codigo_nuevo,
+            tarifa: tarifa,
+            nombre:nombre,
+            idTipoImpuesto:idTipoImpuesto
         }
     }).done(function (resp) {
         alert(resp);
         if (resp > 0) {
             if (resp == 1) {
                 $('#modal_editar').modal('hide');
-                Swal.fire("Mensaje  de confirmaciòn", "Categoria editado exitosamente",
+                Swal.fire("Mensaje  de confirmaciòn", "Impuesto editado exitosamente",
                     "success")
                     .then((value) => {
-                        listar_categoria();
+                        listar_tipo_impuestos();
                         LimpiarCampos();
                         t_tipo_impuestos.ajax.reload();
 
                     });
             } else {
                 LimpiarCampos();
-                return Swal.fire('Mensaje de error', 'Categoria ya existe en el sistema, utilice otro', 'warning'
+                return Swal.fire('Mensaje de error', 'Impuesto ya existe en el sistema, utilice otro', 'warning'
                 );
             }
         } else {
-            return Swal.fire('Mensaje de error', 'Categoria no editado', 'warning');
+            return Swal.fire('Mensaje de error', 'Impuesto no editado', 'warning');
         }
     })
 }

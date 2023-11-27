@@ -15,6 +15,7 @@
                             <th>Codigo</th>
                             <th>Tarifa</th>
                             <th>Descripcion</th>
+                             <th>Tipo Impuesto</th>
                             <th>Estado</th>
                             <th>Fecha Registro</th>
                             <th>Acci&oacute;n</th>
@@ -60,6 +61,14 @@
                 <input type="text" id="txt_descripcion"
                 class="form-control" placeholder="Descripcion">
             </div>
+               <div class="col-8">
+                        
+                         <label for=""><b>Seleccione un Tipo Impuesto</b></label>
+                          <select class="js-example-basic-single" 
+                          name="state" style="width: 100%;" id="cmb_tipo_iva_producto">
+                            
+                             </select> <br> <br>
+                    </div>
 
         </div>
 
@@ -86,24 +95,41 @@
       </div>
       <div class="modal-body">
         <div class="row">
-          <div class="col-lg-6">
-            <input type="text" id="txt_idcategoria" hidden="">
-              <label for="">Nombre Categoria</label>
-              <input type="text" id="txt_nombre_actual_categoria" hidden="" placeholder="Nombre rol">
-              <input type="text" id="txt_nombre_nuevo_categoria" class="form-control" placeholder="Nombre rol">
-          </div>
-          <div class="col-lg-6">
-             <label for="estatus">Estatus:</label>
-                  <select class="js-example-basic-single" name="state" style="width: 100%;" id="cmb_estatus">
-                  <option value="ACTIVO">ACTIVO</option>
-                  <option value="INACTIVO">INACTIVO</option>
-                </select> <br> <br>
-          </div>
-        </div>
+      
+            <input type="text" id="txt_idimpuesto" hidden>
+
+           <div class="col-md-12">
+                <label for=""><b>Codigo</b></label>
+                <input type="text" id="txt_codigo_actual_editar"
+
+                class="form-control" placeholder="Codigo" hidden>
+                  <input type="text" id="txt_codigo_nuevo_editar"
+                
+                class="form-control" placeholder="Codigo">
+            </div>
+            <div class="col-md-12">
+                <label for="">Tarifa</label>
+                <input type="text" id="txt_tarifa_editar"
+                class="form-control" placeholder="Tarifa">
+            </div>
+            <div class="col-md-12">
+                <label for="">Descripción</label>
+                <input type="text" id="txt_descripcion_editar"
+                class="form-control" placeholder="Descripcion">
+            </div>
+               <div class="col-8">
+                        
+                         <label for=""><b>Seleccione un Tipo Impuesto</b></label>
+                          <select class="js-example-basic-single" 
+                          name="state" style="width: 100%;" id="cmb_tipo_iva_producto_editar">
+                            
+                             </select> <br> <br>
+                    </div>
+        
 
       </div>
       <div class="modal-footer">
-         <button type="button" class="btn btn-primary" onclick="Modificar_Categoria()">Grabar</button>
+         <button type="button" class="btn btn-warning" onclick="Modificar_Tipo_Iva()">Grabar</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
 
       </div>
@@ -121,6 +147,7 @@ $(document).ready(function() {
 
   $('.js-example-basic-single').select2();
   listar_tipo_impuestos();
+  listar_combo_tipo_iva();
  $('#modal_registro').on('shown.bs.modal', function () {
     $('#txt_nombre_categoria').trigger('focus')
   })
