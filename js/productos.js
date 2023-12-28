@@ -33,6 +33,7 @@ function listar_productos(){
             {"data":"producto_presentacion"},
             {"data":"nombre_bodega"},
             {"data":"descripcion"},
+            {"data":"tarifa"},
             {
                 "data": "cant_minima",
                 render: function(data, type, row) {
@@ -323,6 +324,36 @@ function listar_productos(){
          })
     }
 
+    function listar_combo_iva() {
+    var idempresa =$("#txt_idempresa").val();
+        $.ajax({
+            url:"../controlador/iva/control_iva_combo_productos.php",
+             type:'POST',
+             data:{
+                idempresa:idempresa
+             }
+        }).done(function(resp){
+       //alert(resp);
+            var data = JSON.parse(resp);
+            //console.log(resp);
+           var cadena ="<option value=''>Seleccione...</option>";
+            if(data.length>0) {
+                for (var i = 0; i < data.length; i++) {
+                    cadena+="<option value='"+data[i][0]+"'>"+data[i][1]+"</option>";
+                }
+                $('#cmb_iva_producto').html(cadena);
+             // $('#cmb_tipo_editar').html(cadena);
+            } else {
+                cadena+="<option value=''> No Hay datos</option>";
+                $('#cmb_iva_producto').html(cadena);
+           // $('#cmb_tipo_editar').html(cadena);
+            }
+         })
+    }
+
+
+
+
 
 
   function Registrar_Producto() {
@@ -337,6 +368,7 @@ function listar_productos(){
     var idunidad =$('#cmb_unidad').val();
     var tipo_producto =$('#cmb_tipo').val();
     var id_marca =$('#cmb_marca').val();
+    var id_iva =$('#cmb_iva_producto').val();
 
     var archivo = $('#imagen').val();
     var precio_compra=$('#txt_precio_compra').val();
@@ -369,6 +401,8 @@ function listar_productos(){
     formData.append('idunidad',idunidad);
     formData.append('tipo_producto',tipo_producto);
     formData.append('id_marca',id_marca);
+    formData.append('id_iva',id_iva);
+    
     formData.append('foto',foto);
     formData.append('nombrearchivo',nombrearchivo);
     formData.append('precio_compra',precio_compra);

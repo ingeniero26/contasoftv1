@@ -14,25 +14,27 @@ class Modelo_Productos
     public function listar_productos($id_bodega, $id_categoria, $idempresa)
     {
         $sql = "SELECT
-		`p`.`producto_id`    , `p`.`producto_codigo`
-		, `p`.`producto_nombre`    , `p`.`producto_presentacion`
-		, `p`.`id_bodega`    , `b`.`nombre_bodega`
-		, `p`.`cant_minima`    , `p`.`producto_stock`
-		, `p`.`id_categoria`    , `c`.`categoria_nombre`
-		, `p`.`id_unidad`    , `u`.`unidad_nombre`
-		, `p`.`idTipoProducto`    , `tp`.`tipo_producto`
-		, `p`.`id_marca`    , `m`.`descripcion`
-		, `p`.`producto_foto`    , `p`.`compra`
-		, `p`.`producto_precioventa` , `p`.`producto_estatus`
-		, `p`.`fregistro`    , `p`.`idempresa`
-		,   p.producto_precioventa - p.`compra` AS ganancia
-	FROM
-		`producto` AS `p`
-		 INNER JOIN `bodega` AS `b`    ON (`p`.`id_bodega` = `b`.`id`)
-		INNER JOIN `categoria` AS `c`    ON (`p`.`id_categoria` = `c`.`categoria_id`)
-		INNER JOIN `unidad` AS `u`       ON (`p`.`id_unidad` = `u`.`unidad_id`)
-		INNER JOIN `tipo_producto` AS `tp`     ON (`p`.`idTipoProducto` = `tp`.`id`)
-		INNER JOIN `marcas` AS `m`       ON (`p`.`id_marca` = `m`.`id`)
+        `p`.`producto_id`    , `p`.`producto_codigo`
+        , `p`.`producto_nombre`    , `p`.`producto_presentacion`
+        , `p`.`id_bodega`    , `b`.`nombre_bodega`
+        , `p`.`cant_minima`    , `p`.`producto_stock`
+        , `p`.`id_categoria`    , `c`.`categoria_nombre`
+        , `p`.`id_unidad`    , `u`.`unidad_nombre`
+        , `p`.`idTipoProducto`    , `tp`.`tipo_producto`
+        , `p`.`id_marca`    , `m`.`descripcion`
+        ,  p.IdIva, i.tarifa, i.nombre
+        , `p`.`producto_foto`    , `p`.`compra`
+        , `p`.`producto_precioventa` , `p`.`producto_estatus`
+        , `p`.`fregistro`    , `p`.`idempresa`
+        ,   p.producto_precioventa - p.`compra` AS ganancia
+    FROM
+        `producto` AS `p`
+         INNER JOIN `bodega` AS `b`    ON (`p`.`id_bodega` = `b`.`id`)
+        INNER JOIN `categoria` AS `c`    ON (`p`.`id_categoria` = `c`.`categoria_id`)
+        INNER JOIN `unidad` AS `u`       ON (`p`.`id_unidad` = `u`.`unidad_id`)
+        INNER JOIN `tipo_producto` AS `tp`     ON (`p`.`idTipoProducto` = `tp`.`id`)
+        INNER JOIN `marcas` AS `m`       ON (`p`.`id_marca` = `m`.`id`)
+        INNER JOIN iva AS i ON p.IdIva = i.id
        WHERE b.`id` = '$id_bodega'  AND p.`id_categoria` = '$id_categoria' AND p.`idempresa` = '$idempresa'";
         $arreglo = array();
         if ($consulta = $this->conexion->conexion->query($sql)) {
@@ -91,10 +93,14 @@ class Modelo_Productos
         }
     }
 
+  
+
+
     public function Registrar_Producto($codigo, $nombre, $presentacion, $idbodega, $cant_minima, $cant_inicial,
-        $idcategoria, $idunidad, $tipo_producto, $id_marca, $ruta, $precio_compra, $precio_venta, $idempresa) {
+        $idcategoria, $idunidad, $tipo_producto, $id_marca,$id_iva,
+         $ruta, $precio_compra, $precio_venta, $idempresa) {
         $sql = "call  SP_REGISTRAR_PRODUCTO('$codigo','$nombre','$presentacion',  '$idbodega','$cant_minima',
-		'$cant_inicial', '$idcategoria','$idunidad','$tipo_producto', '$id_marca', '$ruta','$precio_compra','$precio_venta','$idempresa')";
+		'$cant_inicial', '$idcategoria','$idunidad','$tipo_producto', '$id_marca','$id_iva', '$ruta','$precio_compra','$precio_venta','$idempresa')";
         if ($consulta = $this->conexion->conexion->query($sql)) {
             if ($row = mysqli_fetch_array($consulta)) {
                 return $id = trim($row[0]);

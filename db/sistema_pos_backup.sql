@@ -279,11 +279,11 @@ CREATE TABLE `compra` (
   CONSTRAINT `compra_ibfk_2` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`usuario_id`),
   CONSTRAINT `compra_ibfk_3` FOREIGN KEY (`id_bodega`) REFERENCES `bodega` (`id`),
   CONSTRAINT `compra_ibfk_4` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `compra` */
 
-insert  into `compra`(`compra_id`,`proveedor_id`,`id_bodega`,`usuario_id`,`compra_tipo_comprobante`,`compra_serie_comprobante`,`compra_num_comprobante`,`compra_tipo_pago`,`compra_fecha`,`compra_impuesto`,`compra_total`,`compra_estatus`,`compra_porcentaje`,`compra_total_decto`,`fecha_vencimiento`,`idempresa`) values (1,1,1,1,'FACTURA','fc','78978','CONTADO','0000-00-00',6897.00,43197.00,'CANCELADA',0.19,0.00,'0000-00-00',1),(2,1,1,1,'TICKET','FC','ERERER5656456','CONTADO','0000-00-00',0.00,17010.00,'CANCELADA',0.00,0.00,'0000-00-00',1),(5,1,1,1,'FACTURA','fc','1212313','CONTADO','2023-10-22',13300.00,83300.00,'CANCELADA',0.19,0.00,'2023-10-22',1);
+insert  into `compra`(`compra_id`,`proveedor_id`,`id_bodega`,`usuario_id`,`compra_tipo_comprobante`,`compra_serie_comprobante`,`compra_num_comprobante`,`compra_tipo_pago`,`compra_fecha`,`compra_impuesto`,`compra_total`,`compra_estatus`,`compra_porcentaje`,`compra_total_decto`,`fecha_vencimiento`,`idempresa`) values (1,1,1,1,'FACTURA','fc','78978','CONTADO','0000-00-00',6897.00,43197.00,'CANCELADA',0.19,0.00,'0000-00-00',1),(2,1,1,1,'TICKET','FC','ERERER5656456','CONTADO','0000-00-00',0.00,17010.00,'CANCELADA',0.00,0.00,'0000-00-00',1),(5,1,1,1,'FACTURA','fc','1212313','CONTADO','2023-10-22',13300.00,83300.00,'CANCELADA',0.19,0.00,'2023-10-22',1),(6,1,1,1,'TICKET','','','CONTADO','0000-00-00',0.00,7500.00,'CANCELADA',0.00,0.00,'0000-00-00',1);
 
 /*Table structure for table `concepto` */
 
@@ -399,11 +399,11 @@ CREATE TABLE `departamentos` (
   PRIMARY KEY (`id`),
   KEY `idempresa` (`idempresa`),
   CONSTRAINT `departamentos_ibfk_1` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `departamentos` */
 
-insert  into `departamentos`(`id`,`nombre_depto`,`estatus`,`fregistro`,`idempresa`) values (1,'Bolivar','ACTIVO','2022-09-23 19:25:59',1),(2,'Sucre','ACTIVO','2022-09-23 19:26:00',1),(3,'Cordoba','ACTIVO','2022-09-23 19:26:01',1),(4,'Atlantico','ACTIVO','2022-09-23 19:26:02',1),(5,'Cesar','ACTIVO','2022-09-23 19:26:03',1),(6,'Magdalena','ACTIVO','2022-09-23 19:26:04',1),(7,'Antioquia','ACTIVO','2022-09-23 19:26:09',1);
+insert  into `departamentos`(`id`,`nombre_depto`,`estatus`,`fregistro`,`idempresa`) values (1,'Bolivar','ACTIVO','2022-09-23 19:25:59',1),(2,'Sucre','ACTIVO','2022-09-23 19:26:00',1),(3,'Cordoba','ACTIVO','2022-09-23 19:26:01',1),(4,'Atlantico','ACTIVO','2022-09-23 19:26:02',1),(5,'Cesar','ACTIVO','2022-09-23 19:26:03',1),(6,'Magdalena','ACTIVO','2022-09-23 19:26:04',1),(7,'Antioquia','ACTIVO','2022-09-23 19:26:09',1),(8,'Cundinamarca','ACTIVO','2023-12-09 20:17:45',1),(9,'Casanare','ACTIVO','2023-12-09 20:18:12',1),(10,'Boyaca','ACTIVO','2023-12-09 20:18:35',1),(11,'Arauca','ACTIVO','2023-12-09 20:19:21',1),(12,'Caldas','ACTIVO','2023-12-09 20:19:46',1),(13,'Caqueta','ACTIVO','2023-12-09 20:20:01',1),(14,'Amazonas','ACTIVO','2023-12-09 20:20:20',1);
 
 /*Table structure for table `detalle_compra` */
 
@@ -422,11 +422,11 @@ CREATE TABLE `detalle_compra` (
   KEY `id_producto` (`id_producto`),
   CONSTRAINT `detalle_compra_ibfk_1` FOREIGN KEY (`id_compra`) REFERENCES `compra` (`compra_id`),
   CONSTRAINT `detalle_compra_ibfk_2` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`producto_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `detalle_compra` */
 
-insert  into `detalle_compra`(`detalle_compra_id`,`id_compra`,`id_producto`,`dc_cantidad`,`dc_precio`,`dc_descto`,`dc_estatus`) values (1,1,12,30,10,0,'INGRESADA'),(2,1,2,30,1200,0,'INGRESADA'),(3,2,2,30,567,0,'INGRESADA'),(4,5,1,7,10000,0,'INGRESADA');
+insert  into `detalle_compra`(`detalle_compra_id`,`id_compra`,`id_producto`,`dc_cantidad`,`dc_precio`,`dc_descto`,`dc_estatus`) values (1,1,12,30,10,0,'INGRESADA'),(2,1,2,30,1200,0,'INGRESADA'),(3,2,2,30,567,0,'INGRESADA'),(4,5,1,7,10000,0,'INGRESADA'),(5,6,9,15,500,0,'INGRESADA');
 
 /*Table structure for table `detalle_salida` */
 
@@ -464,11 +464,11 @@ CREATE TABLE `detalle_venta` (
   KEY `idproducto` (`producto_id`),
   CONSTRAINT `detalle_venta_ibfk_1` FOREIGN KEY (`venta_id`) REFERENCES `venta` (`venta_id`),
   CONSTRAINT `detalle_venta_ibfk_2` FOREIGN KEY (`producto_id`) REFERENCES `producto` (`producto_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `detalle_venta` */
 
-insert  into `detalle_venta`(`detalle_venta_id`,`venta_id`,`producto_id`,`dv_cantidad`,`dv_precio`,`dv_descuento`,`dv_estatus`) values (1,1,2,3.00,4500.00,0.00,'INGRESADA'),(2,2,4,1.00,4000.00,0.00,'INGRESADA'),(3,3,6,3.00,4000.00,0.00,'INGRESADA'),(4,4,2,1.00,4500.00,0.00,'INGRESADA'),(5,5,5,1.00,17000.00,0.00,'INGRESADA'),(6,6,17,1.00,1000.00,0.00,'INGRESADA'),(7,7,2,1.00,4500.00,0.00,'INGRESADA'),(8,8,1,1.00,4500.00,0.00,'INGRESADA'),(9,9,1,1.00,4500.00,0.00,'INGRESADA'),(10,10,5,1.00,17000.00,0.00,'INGRESADA');
+insert  into `detalle_venta`(`detalle_venta_id`,`venta_id`,`producto_id`,`dv_cantidad`,`dv_precio`,`dv_descuento`,`dv_estatus`) values (1,1,2,3.00,4500.00,0.00,'INGRESADA'),(2,2,4,1.00,4000.00,0.00,'INGRESADA'),(3,3,6,3.00,4000.00,0.00,'INGRESADA'),(4,4,2,1.00,4500.00,0.00,'INGRESADA'),(5,5,5,1.00,17000.00,0.00,'INGRESADA'),(6,6,17,1.00,1000.00,0.00,'INGRESADA'),(7,7,2,1.00,4500.00,0.00,'INGRESADA'),(8,8,1,1.00,4500.00,0.00,'INGRESADA'),(9,9,1,1.00,4500.00,0.00,'INGRESADA'),(10,10,5,1.00,17000.00,0.00,'INGRESADA'),(11,11,10,30.00,1500.00,0.00,'INGRESADA'),(12,12,11,1.00,3000.00,0.00,'INGRESADA'),(13,13,9,15.00,500.00,0.00,'INGRESADA'),(14,14,9,15.00,500.00,0.00,'INGRESADA');
 
 /*Table structure for table `dpto` */
 
@@ -553,7 +553,7 @@ CREATE TABLE `empresa` (
 
 /*Data for the table `empresa` */
 
-insert  into `empresa`(`ID`,`Nit`,`nombre`,`Representante`,`Direccion`,`Telefono`,`Correo`,`Logo`,`id_tipo_regimen`,`idCiudad`,`fregistro`,`estatus`) values (1,'1070813753','JKSYSTEMAS','JERSON BATISTA','MONTE CARMELO','3013794981','INGJERSON2014@GMAIL.COM','controlador/empresa/img/IMG22820221557.jpg',2,1,'2023-05-11 11:41:14','ACTIVO');
+insert  into `empresa`(`ID`,`Nit`,`nombre`,`Representante`,`Direccion`,`Telefono`,`Correo`,`Logo`,`id_tipo_regimen`,`idCiudad`,`fregistro`,`estatus`) values (1,'1070813753','JKSYSTEMAS','JERSON BATISTA','MONTE CARMELO','3013794981','INGJERSON2014@GMAIL.COM','controlador/empresa/img/IMG61120239202.png',2,1,'2023-11-06 09:20:02','ACTIVO');
 
 /*Table structure for table `eps` */
 
@@ -605,11 +605,11 @@ CREATE TABLE `gastos` (
   CONSTRAINT `gastos_ibfk_2` FOREIGN KEY (`idusuario`) REFERENCES `usuario` (`usuario_id`),
   CONSTRAINT `gastos_ibfk_3` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`),
   CONSTRAINT `gastos_ibfk_4` FOREIGN KEY (`idcaja`) REFERENCES `caja` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `gastos` */
 
-insert  into `gastos`(`idGasto`,`idtipo_gasto`,`fecha_gasto`,`valor`,`recibo`,`idcaja`,`observaciones`,`fregistro`,`estatus`,`idusuario`,`idempresa`,`estado`) values (1,3,'2023-05-23',119600,'001',1,'','2023-05-23 11:20:03','ACTIVO',1,1,'CANCELADA');
+insert  into `gastos`(`idGasto`,`idtipo_gasto`,`fecha_gasto`,`valor`,`recibo`,`idcaja`,`observaciones`,`fregistro`,`estatus`,`idusuario`,`idempresa`,`estado`) values (1,3,'2023-05-23',119600,'001',1,'','2023-05-23 11:20:03','ACTIVO',1,1,'CANCELADA'),(2,2,'2023-11-07',121212,'5456',1,'','2023-11-06 09:06:06','ACTIVO',1,1,'ENTREGADA');
 
 /*Table structure for table `iva` */
 
@@ -620,11 +620,20 @@ CREATE TABLE `iva` (
   `codigo` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `tarifa` double DEFAULT NULL,
   `nombre` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `id_cuenta` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `idTipoImpuesto` int(11) DEFAULT NULL,
+  `estado` enum('ACTIVO','INACTIVO') COLLATE utf8_unicode_ci DEFAULT NULL,
+  `fregistro` timestamp NULL DEFAULT NULL,
+  `idEmpresa` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_iva_empresa` (`idEmpresa`),
+  KEY `FK_iva_tipo_impuestos` (`idTipoImpuesto`),
+  CONSTRAINT `FK_iva_empresa` FOREIGN KEY (`idEmpresa`) REFERENCES `empresa` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_iva_tipo_impuestos` FOREIGN KEY (`idTipoImpuesto`) REFERENCES `tipo_impuestos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `iva` */
+
+insert  into `iva`(`id`,`codigo`,`tarifa`,`nombre`,`idTipoImpuesto`,`estado`,`fregistro`,`idEmpresa`) values (1,'01',19,'IVA GENERAL DE PRODUCTOS',1,'ACTIVO','2023-11-17 10:43:42',1),(3,'02',0,'NO APLICA TARIFA',2,'ACTIVO','2023-11-27 00:00:00',1),(4,'03',5,'TARIFA 5%',1,'ACTIVO','2023-11-27 00:00:00',1);
 
 /*Table structure for table `marcas` */
 
@@ -753,6 +762,7 @@ CREATE TABLE `producto` (
   `id_unidad` int(11) DEFAULT NULL,
   `idTipoProducto` int(11) DEFAULT NULL,
   `id_marca` int(11) DEFAULT NULL,
+  `IdIva` int(11) DEFAULT NULL,
   `producto_foto` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `compra` decimal(10,2) DEFAULT NULL,
   `producto_precioventa` decimal(10,2) DEFAULT NULL,
@@ -767,17 +777,19 @@ CREATE TABLE `producto` (
   KEY `idempresa` (`idempresa`),
   KEY `idTipoProducto` (`idTipoProducto`),
   KEY `id_marca` (`id_marca`),
+  KEY `FK_producto_iva` (`IdIva`),
+  CONSTRAINT `FK_producto_iva` FOREIGN KEY (`IdIva`) REFERENCES `iva` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `producto_ibfk_1` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`categoria_id`),
   CONSTRAINT `producto_ibfk_2` FOREIGN KEY (`id_unidad`) REFERENCES `unidad` (`unidad_id`),
   CONSTRAINT `producto_ibfk_3` FOREIGN KEY (`id_bodega`) REFERENCES `bodega` (`id`),
   CONSTRAINT `producto_ibfk_4` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`),
   CONSTRAINT `producto_ibfk_5` FOREIGN KEY (`idTipoProducto`) REFERENCES `tipo_producto` (`id`),
   CONSTRAINT `producto_ibfk_6` FOREIGN KEY (`id_marca`) REFERENCES `marcas` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `producto` */
 
-insert  into `producto`(`producto_id`,`producto_codigo`,`producto_nombre`,`producto_presentacion`,`id_bodega`,`cant_minima`,`producto_stock`,`id_categoria`,`id_unidad`,`idTipoProducto`,`id_marca`,`producto_foto`,`compra`,`producto_precioventa`,`producto_estatus`,`fregistro`,`idempresa`) values (1,'9789588464466','AMALIA JOSE MARMOL(1)','ADITORIAL ATENEA',1,'1','6',2,1,1,1,'controlador/productos/img/default.png',3000.00,4500.00,'ACTIVO','2023-10-30 15:00:37',1),(2,'9789589761694','ALICIA EN EL PAIS DE LAS MARAVILLAS(2)','ATENEA',1,'1','55',2,1,1,1,'controlador/productos/img/default.png',3000.00,4500.00,'ACTIVO','2023-10-20 18:08:42',1),(3,'9789587230321','APOLOGIA DESOCRATES(3)','SKLA EDITORIAL',1,'1','0',2,1,1,1,'controlador/productos/img/default.png',4000.00,5000.00,'ACTIVO','2023-05-21 13:34:53',1),(4,'9789589825785','AZUL RUBEN DARIO(4)','ATENEA',1,'1','5',2,1,1,1,'controlador/productos/img/default.png',3000.00,4000.00,'ACTIVO','2023-08-07 13:55:35',1),(5,'9789585783010','BAJO LA MISMA ESTRELLA(5)','NUBE DE TINTA',1,'1','1',2,1,1,1,'controlador/productos/img/default.png',14000.00,17000.00,'ACTIVO','2023-10-30 15:02:10',1),(6,'9789588464282','BODAS DE SANGRE(6)','ATENEA',1,'1','4',2,1,1,1,'controlador/productos/img/default.png',3000.00,4000.00,'ACTIVO','2023-08-21 10:37:44',1),(7,'7707187092929','CARTA AL PADRE(7)','UNION',1,'1','9',2,1,1,1,'controlador/productos/img/default.png',3000.00,4000.00,'ACTIVO','2023-05-21 13:35:11',1),(8,'00003','COPIAS BLANCO Y NEGRO','COPIAS',1,'10','324',4,1,1,1,'controlador/productos/img/default.png',100.00,300.00,'ACTIVO','2023-06-08 12:04:13',1),(9,'0004','IMPRESIONES BLANCO Y NEGRO','NEGRO',1,'10','303',4,1,1,1,'controlador/productos/img/default.png',400.00,600.00,'ACTIVO','2023-06-08 12:04:13',1),(10,'0006','IMPRESIONES A COLOR','GEN',1,'10','487',4,1,1,NULL,'controlador/productos/img/default.png',300.00,1500.00,'ACTIVO','2023-06-15 09:05:33',1),(11,'7700394','LIBRETA DE 100 HOJAS','FAMA',1,'1','4',3,1,1,NULL,'controlador/productos/img/default.png',2000.00,3000.00,'ACTIVO','2023-05-21 13:35:25',1),(12,'4534','pruebas','general',1,'1','35',1,1,1,1,'controlador/productos/img/default.png',5.00,55.00,'ACTIVO','2023-08-07 13:53:43',1),(13,'10003','CARTULINAS','general',1,'10','4',3,1,1,2,'controlador/productos/img/default.png',1500.00,1800.00,'ACTIVO','2023-05-21 13:35:34',1),(14,'1000004','DULCES  TRULULU','general',1,'1','5',6,1,1,2,'controlador/productos/img/default.png',100.00,200.00,'ACTIVO','2023-05-21 13:35:37',1),(15,'1000002','1/8 CARTULINA BLANCO','general',1,'5','9',3,1,1,2,'controlador/productos/img/default.png',400.00,500.00,'ACTIVO','2023-05-22 13:48:57',1),(16,'7707294371795','CUADERNO COSIDO DE 100 HOJAS RAYADO','FAMA',1,'1','1',3,1,1,2,'controlador/productos/img/default.png',2500.00,3500.00,'ACTIVO','2023-05-31 08:17:32',1),(17,'0123655','CARPETA DE HOJA DE VIDA','general',1,'1','7',3,1,1,2,'controlador/productos/img/default.png',800.00,1000.00,'ACTIVO','2023-10-20 18:08:15',1),(18,'2300001','CARPETA OFICIO','general',1,'1','4',3,1,1,2,'controlador/productos/img/default.png',2500.00,3000.00,'ACTIVO','2023-06-05 20:24:51',1),(19,'2300002','EXACTO','general',1,'1','2',3,1,1,2,'controlador/productos/img/default.png',800.00,1000.00,'ACTIVO','2023-06-05 20:24:50',1),(20,'7800001','LAPICERO NEGRO','NORMA',1,'1','4',3,1,1,2,'controlador/productos/img/default.png',600.00,800.00,'ACTIVO','2023-06-06 15:33:43',1);
+insert  into `producto`(`producto_id`,`producto_codigo`,`producto_nombre`,`producto_presentacion`,`id_bodega`,`cant_minima`,`producto_stock`,`id_categoria`,`id_unidad`,`idTipoProducto`,`id_marca`,`IdIva`,`producto_foto`,`compra`,`producto_precioventa`,`producto_estatus`,`fregistro`,`idempresa`) values (1,'9789588464466','AMALIA JOSE MARMOL(1)','ADITORIAL ATENEA',1,'1','6',2,1,1,1,1,'controlador/productos/img/default.png',3000.00,4500.00,'ACTIVO','2023-12-11 10:58:25',1),(2,'9789589761694','ALICIA EN EL PAIS DE LAS MARAVILLAS(2)','ATENEA',1,'1','55',2,1,1,1,1,'controlador/productos/img/default.png',3000.00,4500.00,'ACTIVO','2023-12-11 10:58:27',1),(3,'9789587230321','APOLOGIA DESOCRATES(3)','SKLA EDITORIAL',1,'1','0',2,1,1,1,1,'controlador/productos/img/default.png',4000.00,5000.00,'ACTIVO','2023-12-11 10:58:28',1),(4,'9789589825785','AZUL RUBEN DARIO(4)','ATENEA',1,'1','5',2,1,1,1,1,'controlador/productos/img/default.png',3000.00,4000.00,'ACTIVO','2023-12-11 10:58:30',1),(5,'9789585783010','BAJO LA MISMA ESTRELLA(5)','NUBE DE TINTA',1,'1','1',2,1,1,1,1,'controlador/productos/img/default.png',14000.00,17000.00,'ACTIVO','2023-12-11 10:58:32',1),(6,'9789588464282','BODAS DE SANGRE(6)','ATENEA',1,'1','4',2,1,1,1,1,'controlador/productos/img/default.png',3000.00,4000.00,'ACTIVO','2023-12-11 10:58:33',1),(7,'7707187092929','CARTA AL PADRE(7)','UNION',1,'1','9',2,1,1,1,1,'controlador/productos/img/default.png',3000.00,4000.00,'ACTIVO','2023-12-11 10:58:35',1),(8,'00003','COPIAS BLANCO Y NEGRO','COPIAS',1,'10','324',4,1,1,1,1,'controlador/productos/img/default.png',100.00,300.00,'ACTIVO','2023-12-11 10:58:37',1),(9,'0004','IMPRESIONES BLANCO Y NEGRO','NEGRO',1,'10','288',4,1,1,1,1,'controlador/productos/img/default.png',400.00,600.00,'ACTIVO','2023-12-11 10:58:39',1),(10,'0006','IMPRESIONES A COLOR','GEN',1,'10','457',4,1,1,NULL,1,'controlador/productos/img/default.png',300.00,1500.00,'ACTIVO','2023-12-11 10:58:40',1),(11,'7700394','LIBRETA DE 100 HOJAS','FAMA',1,'1','3',3,1,1,NULL,1,'controlador/productos/img/default.png',2000.00,3000.00,'ACTIVO','2023-12-11 10:58:42',1),(12,'4534','pruebas','general',1,'1','35',1,1,1,1,1,'controlador/productos/img/default.png',5.00,55.00,'ACTIVO','2023-12-11 10:58:43',1),(13,'10003','CARTULINAS','general',1,'10','4',3,1,1,2,1,'controlador/productos/img/default.png',1500.00,1800.00,'ACTIVO','2023-12-11 10:58:45',1),(14,'1000004','DULCES  TRULULU','general',1,'1','5',6,1,1,2,1,'controlador/productos/img/default.png',100.00,200.00,'ACTIVO','2023-12-11 10:58:46',1),(15,'1000002','1/8 CARTULINA BLANCO','general',1,'5','9',3,1,1,2,1,'controlador/productos/img/default.png',400.00,500.00,'ACTIVO','2023-12-11 10:58:48',1),(16,'7707294371795','CUADERNO COSIDO DE 100 HOJAS RAYADO','FAMA',1,'1','1',3,1,1,2,1,'controlador/productos/img/default.png',2500.00,3500.00,'ACTIVO','2023-12-11 10:58:50',1),(17,'0123655','CARPETA DE HOJA DE VIDA','general',1,'1','7',3,1,1,2,1,'controlador/productos/img/default.png',800.00,1000.00,'ACTIVO','2023-12-11 10:58:52',1),(18,'2300001','CARPETA OFICIO','general',1,'1','4',3,1,1,2,1,'controlador/productos/img/default.png',2500.00,3000.00,'ACTIVO','2023-12-11 10:58:54',1),(19,'2300002','EXACTO','general',1,'1','2',3,1,1,2,1,'controlador/productos/img/default.png',800.00,1000.00,'ACTIVO','2023-12-11 10:58:56',1),(20,'7800001','LAPICERO NEGRO','NORMA',1,'1','4',3,1,1,2,1,'controlador/productos/img/default.png',600.00,800.00,'ACTIVO','2023-12-11 10:58:58',1),(21,'7678786','PORTATIL HP','general',1,'1','0',1,1,1,2,1,'controlador/productos/img/default.png',1000000.00,1250000.00,'ACTIVO','2023-12-27 20:35:19',1);
 
 /*Table structure for table `proveedor` */
 
@@ -946,6 +958,26 @@ CREATE TABLE `tipo_gasto` (
 
 insert  into `tipo_gasto`(`id`,`descripcion`,`fregistro`,`estatus`,`idempresa`) values (2,'PAGO SERVICIOS','2023-05-08 16:52:32','ACTIVO',1),(3,'SERVICIO DE ENERGIA','2023-05-23 11:19:34','ACTIVO',1);
 
+/*Table structure for table `tipo_impuestos` */
+
+DROP TABLE IF EXISTS `tipo_impuestos`;
+
+CREATE TABLE `tipo_impuestos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `tipo_impuesto` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `descripcion` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `estado` enum('ACTIVO','INACTIVO') COLLATE utf8_unicode_ci DEFAULT NULL,
+  `fregistro` timestamp NULL DEFAULT NULL,
+  `idEmpresa` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_tipo_impuestos_empresa` (`idEmpresa`),
+  CONSTRAINT `FK_tipo_impuestos_empresa` FOREIGN KEY (`idEmpresa`) REFERENCES `empresa` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `tipo_impuestos` */
+
+insert  into `tipo_impuestos`(`id`,`tipo_impuesto`,`descripcion`,`estado`,`fregistro`,`idEmpresa`) values (1,'GRAVADO','PRODUCTO CON IVA','ACTIVO','2023-11-26 14:21:37',1),(2,'EXONERADO','NO APLICA IVA','ACTIVO','2023-11-26 14:23:36',1);
+
 /*Table structure for table `tipo_producto` */
 
 DROP TABLE IF EXISTS `tipo_producto`;
@@ -959,11 +991,11 @@ CREATE TABLE `tipo_producto` (
   PRIMARY KEY (`id`),
   KEY `fk_tp_emp` (`idEmpresa`),
   CONSTRAINT `fk_tp_emp` FOREIGN KEY (`idEmpresa`) REFERENCES `empresa` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `tipo_producto` */
 
-insert  into `tipo_producto`(`id`,`tipo_producto`,`estatus`,`fregistro`,`idEmpresa`) values (1,'PRODUCTO','ACTIVO','2022-07-13 15:56:42',1),(2,'CONSUMO','ACTIVO','2022-07-13 15:56:49',1),(3,'COMBO','ACTIVO','2022-07-13 15:56:57',1);
+insert  into `tipo_producto`(`id`,`tipo_producto`,`estatus`,`fregistro`,`idEmpresa`) values (1,'PRODUCTO','ACTIVO','2022-07-13 15:56:42',1),(2,'CONSUMO','ACTIVO','2022-07-13 15:56:49',1),(3,'COMBO','ACTIVO','2022-07-13 15:56:57',1),(4,'SERVICIO','ACTIVO','2023-12-27 18:59:45',1);
 
 /*Table structure for table `tipo_regimen` */
 
@@ -1137,11 +1169,11 @@ CREATE TABLE `venta` (
   CONSTRAINT `venta_ibfk_3` FOREIGN KEY (`bodega_id`) REFERENCES `bodega` (`id`),
   CONSTRAINT `venta_ibfk_4` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`),
   CONSTRAINT `venta_ibfk_5` FOREIGN KEY (`idcaja`) REFERENCES `caja` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `venta` */
 
-insert  into `venta`(`venta_id`,`cliente_id`,`bodega_id`,`usuario_id`,`venta_tipocomprobante`,`venta_serie`,`venta_numcomprobante`,`tipo_pago`,`venta_fecha`,`venta_impuesto`,`venta_total`,`venta_estatus`,`venta_porcentaje`,`venta_total_dcto`,`fecha_vencimiento`,`dias_pago`,`idempresa`,`idcaja`) values (1,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-08-07',0.00,13500.00,'REGISTRADA',0.00,0.00,'2023-08-07',8,1,1),(2,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-08-07',0.00,4000.00,'REGISTRADA',0.00,0.00,'2023-08-07',15,1,1),(3,1,1,1,'FACTURA','FV',NULL,'CONTADO','2023-08-21',2280.00,14280.00,'REGISTRADA',0.19,0.00,'2023-08-30',30,1,1),(4,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-09-18',0.00,4500.00,'REGISTRADA',0.00,0.00,'2023-09-18',0,1,1),(5,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-09-28',0.00,17000.00,'REGISTRADA',0.00,0.00,'2023-09-28',0,1,1),(6,1,1,1,'FACTURA','FV',NULL,'CONTADO','2023-10-20',190.00,1190.00,'REGISTRADA',0.19,0.00,'0000-00-00',0,1,1),(7,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-10-20',0.00,4500.00,'REGISTRADA',0.00,0.00,'0000-00-00',0,1,1),(8,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-10-22',0.00,4500.00,'REGISTRADA',0.00,0.00,'2023-10-22',0,1,1),(9,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-10-30',0.00,4500.00,'REGISTRADA',0.00,0.00,'2023-10-30',0,1,1),(10,9,1,1,'TICKET','FV',NULL,'CONTADO','2023-10-30',0.00,17000.00,'REGISTRADA',0.00,0.00,'2023-10-30',0,1,1);
+insert  into `venta`(`venta_id`,`cliente_id`,`bodega_id`,`usuario_id`,`venta_tipocomprobante`,`venta_serie`,`venta_numcomprobante`,`tipo_pago`,`venta_fecha`,`venta_impuesto`,`venta_total`,`venta_estatus`,`venta_porcentaje`,`venta_total_dcto`,`fecha_vencimiento`,`dias_pago`,`idempresa`,`idcaja`) values (1,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-08-07',0.00,13500.00,'REGISTRADA',0.00,0.00,'2023-08-07',8,1,1),(2,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-08-07',0.00,4000.00,'REGISTRADA',0.00,0.00,'2023-08-07',15,1,1),(3,1,1,1,'FACTURA','FV',NULL,'CONTADO','2023-08-21',2280.00,14280.00,'REGISTRADA',0.19,0.00,'2023-08-30',30,1,1),(4,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-09-18',0.00,4500.00,'REGISTRADA',0.00,0.00,'2023-09-18',0,1,1),(5,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-09-28',0.00,17000.00,'REGISTRADA',0.00,0.00,'2023-09-28',0,1,1),(6,1,1,1,'FACTURA','FV',NULL,'CONTADO','2023-10-20',190.00,1190.00,'REGISTRADA',0.19,0.00,'0000-00-00',0,1,1),(7,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-10-20',0.00,4500.00,'REGISTRADA',0.00,0.00,'0000-00-00',0,1,1),(8,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-10-22',0.00,4500.00,'REGISTRADA',0.00,0.00,'2023-10-22',0,1,1),(9,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-10-30',0.00,4500.00,'REGISTRADA',0.00,0.00,'2023-10-30',0,1,1),(10,9,1,1,'TICKET','FV',NULL,'CONTADO','2023-10-30',0.00,17000.00,'REGISTRADA',0.00,0.00,'2023-10-30',0,1,1),(11,1,1,1,'FACTURA','FV',NULL,'CREDITO','2023-11-06',8550.00,53550.00,'POR_COBRAR',0.19,0.00,'2023-11-13',8,1,1),(12,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-11-06',0.00,3000.00,'REGISTRADA',0.00,0.00,'0000-00-00',0,1,1),(13,1,1,1,'TICKET','FV',NULL,'CONTADO','2023-11-28',0.00,7500.00,'REGISTRADA',0.00,0.00,'0000-00-00',0,1,1),(14,1,1,1,'FACTURA','FV',NULL,'CONTADO','2023-11-28',0.00,7500.00,'REGISTRADA',0.00,0.00,'2023-11-28',0,1,1);
 
 /* Trigger structure for table `detalle_compra` */
 
@@ -1215,6 +1247,34 @@ IF @cantidad = 0 THEN
 	SELECT 2;
 END IF;
 END IF;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_agregar_iva` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_agregar_iva` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_agregar_iva`(
+	IN `COD` VARCHAR(50),
+	IN `TAR_IVA` DOUBLE,
+	IN `DESCRIPCION` VARCHAR(250),
+	IN `IDTIPOIVA` INT,
+	IN `IDEMPRESA` INT
+)
+BEGIN
+DECLARE CANTIDAD INT;
+SET @CANTIDAD:=(SELECT COUNT(*) FROM iva
+ WHERE `nombre`=DESCRIPCION);
+IF @CANTIDAD= 0 THEN 
+INSERT INTO iva(`codigo`,tarifa,nombre,idTipoImpuesto, estado,
+fregistro,`idempresa`)
+VALUES (COD,TAR_IVA,DESCRIPCION,IDTIPOIVA,'ACTIVO',CURDATE(),IDEMPRESA);
+SELECT 1;
+ ELSE 
+ SELECT 2;
+ END IF;
 END */$$
 DELIMITER ;
 
@@ -1957,6 +2017,23 @@ END IF;
 END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `sp_modificar_estado_iva` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_modificar_estado_iva` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_modificar_estado_iva`(
+	IN `IDIVA` INT,
+	IN `ESTATUS_IMP` VARCHAR(50)
+)
+BEGIN
+UPDATE iva SET 
+`estado` = ESTATUS_IMP 
+WHERE `id` = IDIVA;
+END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `SP_MODIFICAR_ESTATUS_ARL` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `SP_MODIFICAR_ESTATUS_ARL` */;
@@ -2228,6 +2305,48 @@ usuario_imagen =foto
 where usuario_id =idusuario;
 select 1;
 end */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SP_MODIFICAR_IVA` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SP_MODIFICAR_IVA` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_IVA`(
+	IN `IDIVA` INT,
+	IN `COD_ACTUAL` VARCHAR(50),
+	IN `COD_NUEVO` VARCHAR(50),
+	IN `TARIFA_IVA` FLOAT,
+	IN `NOMBRE_IVA` VARCHAR(500),
+	IN `IDTIPOIMP` INT
+)
+BEGIN
+DECLARE CANTIDAD INT;
+IF COD_ACTUAL = COD_NUEVO THEN
+	UPDATE iva set
+	tarifa=TARIFA_IVA,
+	nombre=NOMBRE_IVA,
+	idTipoImpuesto=IDTIPOIMP
+	where id = IDIVA;
+select 1;
+ELSE 
+SET @CANTIDAD:=(SELECT COUNT(*)
+ FROM iva WHERE 
+ codigo=COD_NUEVO);
+if  @CANTIDAD = 0 THEN
+UPDATE iva SET
+	codigo=COD_NUEVO,
+	tarifa=TARIFA_IVA,
+	nombre=NOMBRE_IVA,
+	idTipoImpuesto=IDTIPOIMP
+	where id = IDIVA;
+select 1;
+ELSE 
+select 2;
+END IF;
+END IF;
+END */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `SP_MODIFICAR_MARCA` */
@@ -2973,28 +3092,37 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_PRODUCTO`(IN `CODIGO` VARCHAR(100),
- IN `NOMBRE` VARCHAR(100), 
- IN `PRESENTACION` VARCHAR(250),
-  IN `IDBODEGA` INT, IN `CANTIDAD_MIN` VARCHAR(100),
-   IN `CANTIDAD_INICIAL` VARCHAR(100),
-    IN `IDCATEGORIA` VARCHAR(100), 
-    IN `IDUNIDAD` INT, IN `IDTIPO` INT, IN IDMARCA INT,
-    IN `RUTA` VARCHAR(255), IN `PRECIO_COMPRA` DOUBLE, IN `PRECIO_VENTA` DOUBLE, IN `IDEMPRESA` INT)
-BEGIN 
-DECLARE CANTIDAD INT;
-SET @CANTIDAD:=(SELECT COUNT(*) FROM producto WHERE producto_codigo =CODIGO OR producto_nombre =NOMBRE);
-IF @CANTIDAD =0 THEN
-INSERT INTO `producto` (`producto_codigo`,`producto_nombre`,`producto_presentacion`,`id_bodega`,
-                        cant_minima,`producto_stock`,
-	
-`id_categoria`, `id_unidad`, `idTipoProducto`,`id_marca`, `producto_foto`, `compra`, `producto_precioventa`, 
-`producto_estatus`,producto.`idempresa`) VALUES(CODIGO,NOMBRE,PRESENTACION,IDBODEGA, 
-CANTIDAD_MIN, CANTIDAD_INICIAL,IDCATEGORIA,IDUNIDAD, IDTIPO,IDMARCA,RUTA,PRECIO_COMPRA,  PRECIO_VENTA,'ACTIVO',IDEMPRESA);
-SELECT 1;
-ELSE 
-SELECT 2;
-END IF;
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_PRODUCTO`(
+	IN `CODIGO` VARCHAR(100),
+	IN `NOMBRE` VARCHAR(100),
+	IN `PRESENTACION` VARCHAR(250),
+	IN `IDBODEGA` INT,
+	IN `CANTIDAD_MIN` VARCHAR(100),
+	IN `CANTIDAD_INICIAL` VARCHAR(100),
+	IN `IDCATEGORIA` VARCHAR(100),
+	IN `IDUNIDAD` INT,
+	IN `IDTIPO` INT,
+	IN `IDMARCA` INT,
+	IN `IDIVA` INT,
+	IN `RUTA` VARCHAR(255),
+	IN `PRECIO_COMPRA` DOUBLE,
+	IN `PRECIO_VENTA` DOUBLE,
+	IN `IDEMPRESA` INT
+)
+BEGIN 
+DECLARE CANTIDAD INT;
+SET @CANTIDAD:=(SELECT COUNT(*) FROM producto WHERE producto_codigo =CODIGO OR producto_nombre =NOMBRE);
+IF @CANTIDAD =0 THEN
+INSERT INTO `producto` (`producto_codigo`,`producto_nombre`,`producto_presentacion`,`id_bodega`,
+                        cant_minima,`producto_stock`,
+	
+`id_categoria`, `id_unidad`, `idTipoProducto`,`id_marca`,producto.IdIva, `producto_foto`, `compra`, `producto_precioventa`, 
+`producto_estatus`,producto.`idempresa`) VALUES(CODIGO,NOMBRE,PRESENTACION,IDBODEGA, 
+CANTIDAD_MIN, CANTIDAD_INICIAL,IDCATEGORIA,IDUNIDAD, IDTIPO,IDMARCA,IDIVA,RUTA,PRECIO_COMPRA,  PRECIO_VENTA,'ACTIVO',IDEMPRESA);
+SELECT 1;
+ELSE 
+SELECT 2;
+END IF;
 END */$$
 DELIMITER ;
 

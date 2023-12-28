@@ -13,7 +13,8 @@
                         
                          <label for=""><b>Seleccione un Departamento</b></label>
                           <select class="js-example-basic-single" 
-                          name="state" style="width: 100%;" id="cmb_departamento">
+                          name="state" style="width: 100%;" 
+                          id="cmb_departamento">
                             
                              </select> <br> <br>
                     </div>
@@ -56,20 +57,18 @@
       </div>
       <div class="modal-body">
       	<div class="row">
-              <div class="col-lg-6">
-                <label for=""><b>Nombre Ciudad</b> </label>
-               <input type="text" id="txt_ciudad" class="form-control" placeholder="">
-            </div>
+           
       
-
-
       <div class="col-lg-6">
             <label for=""><b>Departamento</b> </label>
                 <select class="js-example-basic-single" name="state" style="width: 100%;" id="cmb_departamento_registro"> 
                        
             </select> <br> <br>
         </div>
-
+    <div class="col-lg-6">
+                <label for=""><b>Ciudad</b> </label>
+               <input type="text" id="txt_ciudad" class="form-control" placeholder="">
+            </div>
       
 		</div>
       </div>

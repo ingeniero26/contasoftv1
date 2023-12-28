@@ -14,11 +14,11 @@ class Modelo_Tipo_Impuestos
     public function listar_tipo_impuestos($idempresa)
     {
         $sql = "SELECT  i.id,i.codigo,i.tarifa,i.nombre,
-     i.idTipoImpuesto,ti.tipo_impuesto,
-        i.estado,i.fregistro,i.idEmpresa
-   FROM iva i
-   INNER JOIN tipo_impuestos AS ti 
-   ON i.idTipoImpuesto = ti.id
+         i.idTipoImpuesto,ti.tipo_impuesto,
+         i.estado,i.fregistro,i.idEmpresa
+         FROM iva i
+         INNER JOIN tipo_impuestos AS ti 
+         ON i.idTipoImpuesto = ti.id
          WHERE i.idEmpresa = '$idempresa' and i.estado='ACTIVO' ";
         $arreglo = array();
         if ($consulta = $this->conexion->conexion->query($sql)) {
@@ -30,6 +30,9 @@ class Modelo_Tipo_Impuestos
             $this->conexion->cerrar();
         }
     }
+
+   
+
 
     public function Registrar_Tipo_Impuesto($codigo, $tarifa, $nombre,$id_tipo_iva, $idempresa)
     {

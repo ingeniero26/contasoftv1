@@ -112,9 +112,7 @@ function listar_ciudades(){
         $("#txt_ciudad_nueva").val(data.nombre_ciudad);
        
         $("#cmb_departamento_editar").val(data.idDepto).trigger("change");
-       
-        
-       
+                     
 
     });
 

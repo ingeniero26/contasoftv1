@@ -14,6 +14,8 @@ $idbodega = htmlspecialchars($_POST['idbodega'],ENT_QUOTES,'UTF-8');
  $idunidad = htmlspecialchars($_POST['idunidad'],ENT_QUOTES,'UTF-8');
  $tipo_producto = htmlspecialchars($_POST['tipo_producto'],ENT_QUOTES,'UTF-8');
  $id_marca = htmlspecialchars($_POST['id_marca'],ENT_QUOTES,'UTF-8');
+ $id_iva = htmlspecialchars($_POST['id_iva'],ENT_QUOTES,'UTF-8');
+ 
  $nombrearchivo = htmlspecialchars($_POST['nombrearchivo'],ENT_QUOTES,'UTF-8');
  $precio_compra = htmlspecialchars($_POST['precio_compra'],ENT_QUOTES,'UTF-8');
  $precio_venta = htmlspecialchars($_POST['precio_venta'],ENT_QUOTES,'UTF-8');
@@ -33,7 +35,7 @@ $idbodega = htmlspecialchars($_POST['idbodega'],ENT_QUOTES,'UTF-8');
  	$ruta ='controlador/productos/img/default.png';
  		$consulta = $MP->Registrar_Producto($codigo,$nombre,$presentacion,
             $idbodega,$cant_minima,$cant_inicial,
-            $idcategoria,$idunidad,$tipo_producto,$id_marca, $ruta, $precio_compra,$precio_venta,$idempresa);
+            $idcategoria,$idunidad,$tipo_producto,$id_marca,$id_iva, $ruta, $precio_compra,$precio_venta,$idempresa);
  		echo $consulta;
  }
 

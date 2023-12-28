@@ -39,6 +39,7 @@
                             <th>Referencia</th>
                             <th>Bodega</th>
                             <th>Marca</th>
+                             <th>Impuesto(%IVA)</th>
                             <th>Cantidad Minima</th>
                             <th>Stock</th>
                             <th>Categoria</th>
@@ -69,7 +70,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Registro de Productos</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle"><b> Registro de Productos</b></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -112,24 +113,32 @@
            
              </select> <br> <br>
       	</div>
-      	  <div class="col-lg-6">
+      	  <div class="col-lg-4">
       	     <label for=""><b>Unidad</b> </label>
               <select class="js-example-basic-single" name="state" style="width: 100%;" id="cmb_unidad"> 
            
              </select> <br> <br>
       	</div>
-         <div class="col-lg-6">
+         <div class="col-lg-4">
              <label for=""><b>Tipo</b> </label>
               <select class="js-example-basic-single" name="state" style="width: 100%;" id="cmb_tipo"> 
            
              </select> <br> <br>
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-4">
              <label for=""><b>Marca</b> </label>
-              <select class="js-example-basic-single" name="state" style="width: 100%;" id="cmb_marca"> 
+              <select class="js-example-basic-single" 
+              name="state" style="width: 100%;" id="cmb_marca"> 
            
              </select> <br> <br>
         </div>
+           <div class="col-lg-4">
+                <label for=""><b>Seleccione % iva</b></label>
+                <select class="js-example-basic-single" 
+                name="state" style="width: 100%;" id="cmb_iva_producto">
+                            
+                </select> <br> <br>
+            </div>
          <div class="col-lg-6">
           <label for=""><b>Precio Compra</b></label>
           <input type="number" id="txt_precio_compra" class="form-control"  onkeypress="return soloNumeros(event)">
@@ -271,6 +280,7 @@ $(document).ready(function() {
  listar_combo_bodega();
  listar_combo_tipo();
  listar_combo_marcas();
+ listar_combo_iva();
  });
  $('#modal_registro').on('shown.bs.modal', function () {
     $('#txt_codigo').trigger('focus')
