@@ -34,8 +34,10 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Código Producto</th>
+                            <th>Código Interno</th>
                             <th style="text-align:center;">Nombre </th>
+                            <th style="text-align:center;">Descripción </th>
+                            <th>Código de Barra</th>
                             <th>Referencia</th>
                             <th>Bodega</th>
                             <th>Marca</th>
@@ -67,7 +69,7 @@
 
 <!-- Modal registro -->
 <div class="modal fade" id="modal_registro" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLongTitle"><b> Registro de Productos</b></h5>
@@ -82,8 +84,16 @@
                <input type="text" id="txt_codigo" class="form-control" placeholder="">
             </div>
         <div class="col-lg-12">
-            <label for=""><b>Descripción</b> </label>
+            <label for=""><b>Nombre Producto</b> </label>
            <input type="text" id="txt_nombre_producto" class="form-control" placeholder="">
+        </div>
+           <div class="col-lg-12">
+            <label for=""><b>Descripción Producto</b> </label>
+           <input type="text" id="txt_descripcion_producto" class="form-control" placeholder="">
+        </div>
+           <div class="col-lg-6">
+            <label for=""><b>Codigo Barra Producto</b> </label>
+           <input type="text" id="txt_cod_barra_producto" class="form-control" placeholder="">
         </div>
 
         <div class="col-lg-6">

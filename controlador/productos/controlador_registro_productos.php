@@ -5,6 +5,9 @@
  $MP = new Modelo_Productos();
   $codigo = htmlspecialchars($_POST['codigo'],ENT_QUOTES,'UTF-8');
  $nombre = htmlspecialchars($_POST['nombre'],ENT_QUOTES,'UTF-8');
+ $descripcion = htmlspecialchars($_POST['descripcion'],ENT_QUOTES,'UTF-8');
+  $cod_barra = htmlspecialchars($_POST['cod_barra'],ENT_QUOTES,'UTF-8');
+ 
  $presentacion = htmlspecialchars($_POST['presentacion'],ENT_QUOTES,'UTF-8');
  
 $idbodega = htmlspecialchars($_POST['idbodega'],ENT_QUOTES,'UTF-8');
@@ -24,7 +27,9 @@ $idbodega = htmlspecialchars($_POST['idbodega'],ENT_QUOTES,'UTF-8');
  if(is_array($_FILES) && count($_FILES)>0) {
  	if(move_uploaded_file($_FILES['foto']['tmp_name'],"img/".$nombrearchivo)) {
  		$ruta ='controlador/productos/img/'.$nombrearchivo;
- 		$consulta = $MP->Registrar_Producto($codigo,$nombre,$presentacion,
+ 		$consulta = $MP->Registrar_Producto($codigo,$nombre,
+            $descripcion,$cod_barra,
+            $presentacion,
             $idbodega,$cant_minima,$cant_inicial, $idcategoria,$idunidad,
 			$tipo_producto,$id_marca, $ruta,$precio_compra, $precio_venta,$idempresa);
  		echo $consulta;
@@ -33,7 +38,8 @@ $idbodega = htmlspecialchars($_POST['idbodega'],ENT_QUOTES,'UTF-8');
  	}
  }else {
  	$ruta ='controlador/productos/img/default.png';
- 		$consulta = $MP->Registrar_Producto($codigo,$nombre,$presentacion,
+ 		$consulta = $MP->Registrar_Producto($codigo,$nombre,
+            $descripcion,$cod_barra,$presentacion,
             $idbodega,$cant_minima,$cant_inicial,
             $idcategoria,$idunidad,$tipo_producto,$id_marca,$id_iva, $ruta, $precio_compra,$precio_venta,$idempresa);
  		echo $consulta;

@@ -15,7 +15,7 @@ class Modelo_Productos
     {
         $sql = "SELECT
         `p`.`producto_id`    , `p`.`producto_codigo`
-        , `p`.`producto_nombre`    , `p`.`producto_presentacion`
+        , `p`.`producto_nombre`,p.producto_descripcion,p.producto_cod_barra, `p`.`producto_presentacion`
         , `p`.`id_bodega`    , `b`.`nombre_bodega`
         , `p`.`cant_minima`    , `p`.`producto_stock`
         , `p`.`id_categoria`    , `c`.`categoria_nombre`
@@ -96,10 +96,12 @@ class Modelo_Productos
   
 
 
-    public function Registrar_Producto($codigo, $nombre, $presentacion, $idbodega, $cant_minima, $cant_inicial,
+    public function Registrar_Producto($codigo, $nombre,
+        $descripcion,$cod_barra, $presentacion, $idbodega, $cant_minima, $cant_inicial,
         $idcategoria, $idunidad, $tipo_producto, $id_marca,$id_iva,
          $ruta, $precio_compra, $precio_venta, $idempresa) {
-        $sql = "call  SP_REGISTRAR_PRODUCTO('$codigo','$nombre','$presentacion',  '$idbodega','$cant_minima',
+        $sql = "call  SP_REGISTRAR_PRODUCTO('$codigo','$nombre','$descripcion','$cod_barra',
+        '$presentacion',  '$idbodega','$cant_minima',
 		'$cant_inicial', '$idcategoria','$idunidad','$tipo_producto', '$id_marca','$id_iva', '$ruta','$precio_compra','$precio_venta','$idempresa')";
         if ($consulta = $this->conexion->conexion->query($sql)) {
             if ($row = mysqli_fetch_array($consulta)) {

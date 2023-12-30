@@ -30,6 +30,10 @@ function listar_productos(){
             {"defaultContent":""},
             {"data":"producto_codigo"},
             {"data":"producto_nombre"},
+           
+            {"data":"producto_descripcion"},
+            {"data":"producto_cod_barra"},
+            
             {"data":"producto_presentacion"},
             {"data":"nombre_bodega"},
             {"data":"descripcion"},
@@ -359,6 +363,9 @@ function listar_productos(){
   function Registrar_Producto() {
     var codigo = $('#txt_codigo').val();
     var nombre = $('#txt_nombre_producto').val();
+    var descripcion = $('#txt_descripcion_producto').val();
+    var cod_barra = $('#txt_cod_barra_producto').val();
+    
     var presentacion =$('#txt_presentacion_producto').val();
     
     var idbodega = $('#cmb_bodega_producto').val();
@@ -373,7 +380,7 @@ function listar_productos(){
     var archivo = $('#imagen').val();
     var precio_compra=$('#txt_precio_compra').val();
     var precio_venta =$('#txt_precio_venta').val();
-     var idempresa =$("#txt_idempresa").val();
+    var idempresa =$("#txt_idempresa").val();
 
     if(codigo.length==0 || nombre.length==0 
     || presentacion.length==0 ||
@@ -392,10 +399,14 @@ function listar_productos(){
     var foto = $("#imagen")[0].files[0];
     formData.append('codigo',codigo);
     formData.append('nombre',nombre);
+    formData.append('descripcion',descripcion);
+    formData.append('cod_barra',cod_barra);
+    
+    
     formData.append('presentacion',presentacion);
     
     formData.append('idbodega',idbodega);
-     formData.append('idcategoria',idcategoria);
+    formData.append('idcategoria',idcategoria);
     formData.append('cant_minima',cant_minima);
     formData.append('cant_inicial',cant_inicial);
     formData.append('idunidad',idunidad);
@@ -431,7 +442,7 @@ function listar_productos(){
                   
                   });
               } else {
-               LimpiarCampos();
+               //LimpiarCampos();
                   return Swal.fire('Mensaje de error', 'Producto ya existe en el sistema, utilice otro', 'warning'
                     );
               }
