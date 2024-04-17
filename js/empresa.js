@@ -19,6 +19,7 @@ var idempresa =$("#txt_idempresa").val();
       "order":[[1,'asc']],
         "columns":[
             {"defaultContent":""},
+            {"data":"ID"},
             {"data":"Nit"},
             {"data":"nombre"},
             {"data":"Representante"},
@@ -94,7 +95,7 @@ var idempresa =$("#txt_idempresa").val();
 
 
  // desactivar usuario
-    $('#tabla_usuario').on('click', '.activar', function() {
+    $('#tabla_empresa').on('click', '.activar', function() {
         var data = t_empresa.row($(this).parents('tr')).data();
         if (t_empresa.row(this).child.isShown()) {
             var data = t_empresa.row(this).data();
@@ -114,7 +115,7 @@ var idempresa =$("#txt_idempresa").val();
         })
     })
  // function activar usuario
-    $('#tabla_usuario').on('click', '.desactivar', function() {
+    $('#tabla_empresa').on('click', '.desactivar', function() {
         var data = t_empresa.row($(this).parents('tr')).data();
         if (t_empresa.row(this).child.isShown()) {
             var data = t_empresa.row(this).data();

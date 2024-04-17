@@ -88,7 +88,7 @@ function listar_productos(){
                 "data": "producto_estatus",
                 render: function(data, type, row) {
                     if (data == 'ACTIVO') {
-                        return "<button style='font-size:13px;' type='button' class='editar btn btn-primary'><i class='fa fa-edit'></i></button>&nbsp;&nbsp;&nbsp <button style='font-size:13px;' type='button' class='desactivar btn btn-danger' ><i class='fa fa-trash' disabled ></i></button>&nbsp;&nbsp;&nbsp;&nbsp;<button style='font-size:13px;' type='button' class='activar btn btn-success' disabled><i class='fa fa-check'></i></button>";
+                        return "<button style='font-size:13px;' type='button' class='editar btn btn-primary'><i class='fa fa-edit'></i></button>&nbsp;&nbsp;&nbsp <button style='font-size:13px;' type='button' class='desactivar btn btn-danger' ><i class='fa fa-trash' disabled ></i></button>&nbsp;&nbsp;&nbsp;&nbsp;<button style='font-size:13px;' type='button' class='activar btn btn-success' disabled><i class='fa fa-check'></i></button> &nbsp;<button style='font-size:13px;' type='button' class='btnAumentarStock btn btn-success'><i class='fas fa-plus-circle fs-5'></i></button>";
                     } else {
                         return "<button style='font-size:13px;' type='button' class='editar btn btn-primary'><i class='fa fa-edit'></i></button>&nbsp;&nbsp;&nbsp <button style='font-size:13px;' type='button' class='desactivar btn btn-danger' disabled ><i class='fa fa-trash'  ></i></button>&nbsp;&nbsp;&nbsp;&nbsp;<button style='font-size:13px;' type='button' class='activar btn btn-success' ><i class='fa fa-check'></i></button>";
                     }
@@ -140,6 +140,104 @@ function listar_productos(){
     });
 
 
+     $('#tabla_productos tbody').on('click', '.btnAumentarStock', function() {
+
+        operacion_stock = 1; //sumar stock
+        accion = 3;
+
+        $("#mdlGestionarStock").modal('show'); //MOSTRAR VENTANA MODAL
+
+        $("#titulo_modal_stock").html('Aumentar Stock'); // CAMBIAR EL TITULO DE LA VENTANA MODAL
+        $("#titulo_modal_label").html('Agregar al Stock'); // CAMBIAR EL TEXTO DEL LABEL DEL INPUT PARA INGRESO DE STOCK
+        $("#iptStockSumar").attr("placeholder", "Ingrese cantidad a agregar al Stock"); //CAMBIAR EL PLACEHOLDER 
+
+        //var data = table.row($(this).parents('tr')).data(); //OBTENER EL ARRAY CON LOS DATOS DE CADA COLUMNA DEL DATATABLE
+
+       var data = t_productos.row($(this).parents('tr')).data();
+
+         if(t_productos.row(this).child.isShown()){
+                var data = t_productos.row(this).data();
+            }
+
+
+
+        $("#stock_codigoProducto").html(data.producto_codigo)    //CODIGO DEL PRODUCTO DEL DATATABLE
+        $("#stock_Producto").html(data.producto_nombre)          //NOMBRE DEL PRODUCTO DEL DATATABLE
+        $("#stock_Stock").html(data.producto_stock)             //STOCK ACTUAL DEL PRODUCTO DEL DATATABLE
+
+        $("#stock_NuevoStock").html(parseFloat($("#stock_Stock").html()));
+
+    })
+
+
+
+ /* ======================================================================================
+    EVENTO QUE LIMPIA EL INPUT DE INGRESO DE STOCK AL CERRAR LA VENTANA MODAL
+    =========================================================================================*/
+    $("#btnCancelarRegistroStock, #btnCerrarModalStock").on('click', function() {
+        $("#iptStockSumar").val("")
+    })
+
+    /* ======================================================================================
+    EVENTO AL DIGITAR LA CANTIDAD A AUMENTAR O DISMINUIR DEL STOCK
+    =========================================================================================*/
+    $("#iptStockSumar").keyup(function() {
+
+        // console.log($("#iptStockSumar").val());
+
+     
+
+            if ($("#iptStockSumar").val() != "" && $("#iptStockSumar").val() > 0) {
+
+                var stockActual = parseFloat($("#stock_Stock").html());
+                var cantidadAgregar = parseFloat($("#iptStockSumar").val());
+
+                $("#stock_NuevoStock").html(stockActual + cantidadAgregar);
+
+            } else {
+
+                Toast.fire({
+                    icon: 'warning',
+                    title: 'Ingrese un valor mayor a 0'
+                });
+                $("#iptStockSumar").val("")
+                $("#stock_NuevoStock").html(parseFloat($("#stock_Stock").html()));
+
+            }
+
+
+            if ($("#iptStockSumar").val() != "" && $("#iptStockSumar").val() > 0) {
+
+                var stockActual = parseFloat($("#stock_Stock").html());
+                var cantidadAgregar = parseFloat($("#iptStockSumar").val());
+
+                $("#stock_NuevoStock").html(stockActual - cantidadAgregar);
+
+                if (parseInt($("#stock_NuevoStock").html()) < 0) {
+
+                    Toast.fire({
+                        icon: 'warning',
+                        title: 'La cantidad a disminuir no puede ser mayor al stock actual (Nuevo stock < 0)'
+                    });
+
+                    $("#iptStockSumar").val("");
+                    $("#iptStockSumar").focus();
+                    $("#stock_NuevoStock").html(parseFloat($("#stock_Stock").html()));
+                }
+            } else {
+                
+                Toast.fire({
+                    icon: 'warning',
+                    title: 'Ingrese un valor mayor a 0'
+                });
+                
+                $("#iptStockSumar").val("")                
+                $("#stock_NuevoStock").html(parseFloat($("#stock_Stock").html()));
+            }
+        
+
+    });
+
 
 // desactivar usuario
     $('#tabla_productos').on('click', '.activar', function() {
@@ -161,6 +259,14 @@ function listar_productos(){
             }
         })
     })
+
+
+
+
+
+
+
+
  // function activar usuario
     $('#tabla_productos').on('click', '.desactivar', function() {
         var data = t_productos.row($(this).parents('tr')).data();

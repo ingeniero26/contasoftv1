@@ -32,7 +32,7 @@
     var t_ciudades;
 function listar_ciudades(){
  var id_departamento = document.getElementById('cmb_departamento').value;
- 
+ var idempresa = $("#txt_idempresa").val();
  
      t_ciudades = $("#tabla_ciudades").DataTable({
         "ordering":false,   
@@ -49,7 +49,8 @@ function listar_ciudades(){
         "method":"POST",
             "url":"../controlador/ciudades/control_listar_ciudades.php",
              data:{
-                id_departamento:id_departamento
+                id_departamento:id_departamento,
+                idempresa:idempresa
                 
             }
       },
@@ -123,7 +124,7 @@ function listar_ciudades(){
     function Registrar_Ciudades() {
         var ciudad =$('#txt_ciudad').val();
         var id_departamento =$('#cmb_departamento_registro').val();
-        var idempresa =$("#txt_idempresa").val();
+        var idempresa = $("#txt_idempresa").val();
        
       if(ciudad.length ==0 || id_departamento.length == 0 ) {
       return Swal.fire('Mensaje de error','Debe digitar los campos vacios','warning');
