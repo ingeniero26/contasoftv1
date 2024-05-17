@@ -148,7 +148,8 @@ function listar_combo_proveedor() {
        var cadena ="<option value=''>Seleccione...</option>";
         if (data.length > 0) {
             for (var i = 0; i < data.length; i++) {
-                cadena += "<option value='" + data[i][0] + "'>" + data[i][1] + "</option>";
+               cadena += "<option value='" + data[i][0] + "'>"   + " " 
+                + data[i][1] +"-"  + data[i][2] + "-"  + data[i][3] + "-"  + data[i][4] + "</option>";
             }
             $('#cmb_proveedor').html(cadena);
 

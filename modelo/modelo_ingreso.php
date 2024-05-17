@@ -42,10 +42,13 @@ class Modelo_Ingreso
     public function listar_combo_proveedor($idempresa)
     {
         $sql = "SELECT     `proveedor`.`proveedor_id`
-    , `proveedor`.`proveedor_razon_social`    , `persona`.`persona_nrodocumento`
+    , `proveedor`.`proveedor_razon_social`,
+	  `persona`.`persona_nrodocumento`,
+	  persona.persona_nombre,persona.persona_apepat
 		FROM
     `proveedor`
-    INNER JOIN `persona`    ON (`proveedor`.`persona_id` = `persona`.`persona_id`)
+    INNER JOIN `persona`
+	  ON (`proveedor`.`persona_id` = `persona`.`persona_id`)
         WHERE proveedor.`idempresa` = '$idempresa' AND    `proveedor_estatus` = 'ACTIVO' ";
         $arreglo = array();
         if ($consulta = $this->conexion->conexion->query($sql)) {
