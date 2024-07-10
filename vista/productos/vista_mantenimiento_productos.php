@@ -83,13 +83,14 @@
                 <label for=""><b>Codigo Producto</b> </label>
                <input type="text" id="txt_codigo" class="form-control" placeholder="">
             </div>
-        <div class="col-lg-12">
+        <div class="col-lg-6">
             <label for=""><b>Nombre Producto</b> </label>
            <input type="text" id="txt_nombre_producto" class="form-control" placeholder="">
         </div>
-           <div class="col-lg-12">
+           <div class="col-lg-6">
             <label for=""><b>Descripción Producto</b> </label>
-           <input type="text" id="txt_descripcion_producto" class="form-control" placeholder="">
+            <textarea class="form-control" id="txt_descripcion_producto"class="form-control" aria-label="With textarea"></textarea>
+           <!-- <input type="text"   placeholder=""> -->
         </div>
            <div class="col-lg-6">
             <label for=""><b>Codigo Barra Producto</b> </label>
@@ -102,7 +103,7 @@
         </div>
      
 
-      <div class="col-lg-6">
+      <div class="col-lg-4">
             <label for=""><b>Bodega</b> </label>
                 <select class="js-example-basic-single" name="state" style="width: 100%;" id="cmb_bodega_producto"> 
                        
@@ -119,10 +120,12 @@
         </div>
          <div class="col-lg-4">
       	   <label for=""><b>Categoria</b> </label>
-            <select class="js-example-basic-single" name="state" style="width: 100%;" id="cmb_categoria"> 
+            <select class="form-control select2_demo_1" 
+            name="state" style="width: 100%;" id="cmb_categoria"> 
            
              </select> <br> <br>
       	</div>
+        
       	  <div class="col-lg-4">
       	     <label for=""><b>Unidad</b> </label>
               <select class="js-example-basic-single" name="state" style="width: 100%;" id="cmb_unidad"> 

@@ -148,11 +148,11 @@
                             href="javascript:cargar_contenido('contenido_principal','clientes/vista_mantenimiento_clientes.php')">
                             <span class="nav-label"><i class="fa   fa-list-ul"></i> Clientes</span></a>
                     </li>
-                    <!-- <li>
-                        <a href="javascript:cargar_contenido('contenido_principal','clientes/vista_mantenimiento_codeudor.php')">
-                            <span class="nav-label"><i class="fa   fa-list-ul"></i> Codeudores</span></a>
+                     <li>
+                        <a href="javascript:cargar_contenido('contenido_principal','ventas/vista_mantenimiento_cotizacion.php')">
+                            <span class="nav-label"><i class="fa   fa-list-ul"></i> Cotización</span></a>
                         </li>
-                          -->
+                          
                     <li>
                         <a
                             href="javascript:cargar_contenido('contenido_principal','ventas/vista_mantenimiento_ventas.php')">
