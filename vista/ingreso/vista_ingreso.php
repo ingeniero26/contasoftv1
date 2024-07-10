@@ -31,11 +31,12 @@
                       <div class="col-3">
                        <label for=""><b>Tipo Comprobante</b> </label>
                         <select class="js-example-basic-single" name="state"
-                        style="width: 100%;" id="cmb_tipo_comprobante"> 
+                        style="width: 100%;" id="cmb_tipo_comprobante">
+                        <option value="TICKET">TICKET</option> 
                         <option value="COTIZACION">COTIZACION</option>
                         <option value="FACTURA">FACTURA</option>
                         <option value="BOLETA">BOLETA</option>
-                        <option value="TICKET">TICKET</option>
+                      
                        
                          </select> <br> <br>
                     </div>

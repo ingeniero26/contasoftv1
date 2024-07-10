@@ -17,7 +17,7 @@ $sql ="SELECT
     , CONCAT_WS(' ', `persona`.`persona_nombre`   , `persona`.`persona_apepat`   , `persona`.`persona_apemat` ) AS cliente
     , `persona`.`persona_nrodocumento`,`persona`.`persona_direccion`,`persona`.`persona_telefono`
     , usuario.`usuario_nombre`
-    , empresa.Nit, empresa.Representante, empresa.Direccion,empresa.Telefono,empresa.Correo, empresa.Logo
+    , empresa.Nit, empresa.nombre, empresa.Representante, empresa.Direccion,empresa.Telefono,empresa.Correo, empresa.Logo
     FROM
     `venta`
     INNER JOIN `cliente` 
@@ -43,18 +43,19 @@ $html ='<!DOCTYPE html>
      <table style="border-collapse;" border="1">
      	<thead>
      	<tr> 
-     	<th width="20%" style="border-top:0px; border-left:0px; border-bottom:0px border-right:0px;"><img src='.$row1['Logo'].'></th>
-     	<th width="50%" style="border-top:0px; border-left:0px; border-bottom:0px border-right:0px; text-align:left;">
-      <b>'.$row1['Representante'].'</b><br>
-      <b>Dirección:'.$row1['Direccion'].'</b><br>
+     	<th width="10%" style="border-top:0px; border-left:0px; border-bottom:0px border-right:0px;"><img src='.$row1['Logo'].'></th>
+     	<th width="60%" style="border-top:0px; border-left:0px; border-bottom:0px border-right:0px; text-align:left; font-size: 5.5em; color: black">
+   
+       <b>'.$row1['nombre'].'</b><br>
+      <b >Dirección:'.$row1['Direccion'].'</b><br>
       <b>cel:'.$row1['Telefono'].'</b><br>
       <b>Correo:'.$row1['Correo'].'</b><br>
       </th>
      	<th width="30%" style="text-align:center;">
-      <span>NIT: '.$row1['Nit'].'</span>
-      <h1>'.$row1['venta_tipocomprobante'].' DE VENTA </h1><br>
-      <h2>'.$row1['tipo_pago'].'</h2><br>
-       <h3>'.$row1['venta_serie'].'-'.$row1['venta_id'].' </h3><br>
+      <span style="color: black; font-size: 5em">NIT: '.$row1['Nit'].'</span>
+      <h1 style="color: black; font-size: 5em">'.$row1['venta_tipocomprobante'].' DE VENTA </h1><br>
+      <h2 style="color: black; font-size: 5em">'.$row1['tipo_pago'].'</h2><br>
+       <h3 style="color: black; font-size: 5em">'.$row1['venta_serie'].'-'.$row1['venta_id'].' </h3><br>
       </th>
      	</tr>
      	</thead>
@@ -62,13 +63,13 @@ $html ='<!DOCTYPE html>
       
       <div id="project">
 
-       <div><span style="color:black; font-size:10px;"><b>Atendido Por</b>:'.$row1['usuario_nombre'].' </span> </div>
-        <div><span style="color:black; font-size:10px;"><b>---------------------------</b>: </span> </div>
-        <div><span style="color:black; font-size:10px;"><b>Cliente</b>:'.$row1['cliente'].' </span> </div>
-         <div><span style="color:black; font-size:10px;"><b>Documento</b>:'.$row1['persona_nrodocumento'].' </span> </div>
-        <div><span style="color:black; font-size:10px;"><b>Número  Contacto</b>:'.$row1['persona_telefono'].' </span></div>
-        <div><span style="color:black; font-size:10px;"><b>Fecha Venta</b>:'.$row1['venta_fecha'].'</span></div>
-          <div><span style="color:black; font-size:10px;"><b>Fecha Vencimiento</b>:'.$row1['fecha_vencimiento'].'</span></div>
+       <div><span style="color:black; font-size: 2em;"><b>Atendido Por</b>:'.$row1['usuario_nombre'].' </span> </div>
+        <div><span style="color:black; font-size: 2em;"><b>---------------------------</b>: </span> </div>
+        <div><span style="color:black; font-size: 2em;"><b>Cliente</b>:'.$row1['cliente'].' </span> </div>
+         <div><span style="color:black; font-size: 2em;"><b>CC/NIT</b>:'.$row1['persona_nrodocumento'].' </span> </div>
+        <div><span style="color:black; font-size: 2em;"><b>Cel:</b>:'.$row1['persona_telefono'].' </span></div>
+        <div><span style="color:black; font-size: 2em;"><b>F. Venta</b>:'.$row1['venta_fecha'].'</span></div>
+          <div><span style="color:black; font-size: 2em;"><b>F. Vence</b>:'.$row1['fecha_vencimiento'].'</span></div>
         
       </div>
     </header>
@@ -76,12 +77,12 @@ $html ='<!DOCTYPE html>
       <table>
         <thead>
           <tr>
-            <th class="service">ITEM</th>
-            <th class="desc">DESCRIPCIÓN</th>
-            <th>PRECIO</th>
-            <th>CANTIDAD</th>
-            <th>SUBTOTAL</th>
-            <th>DCTO</th>
+            <th class="service" style="color: black; font-size: 5.5em;">ITEM</th>
+            <th class="desc" style="color: black; font-size: 5em;">Descripciòn</th>
+            <th style="color: black; font-size: 5em;">Precio</th>
+            <th style="color: black; font-size: 5em;">Cantidad</th>
+            <th style="color: black; font-size: 5em;">Subtotal</th>
+            <th style="color: black; font-size: 5em;">Dcto</th>
           </tr>
         </thead>
         <tbody>';
@@ -98,12 +99,12 @@ $html ='<!DOCTYPE html>
       $contador++;
         $html.='
           <tr>
-            <td class="service">'.$contador.'</td>
-            <td class="desc">'.$row2['producto_nombre'].'</td>
-            <td class="unit">'.$row2['dv_precio'].'</td>
-            <td class="qty">'.$row2['dv_cantidad'].'</td>
-            <td class="total">'.round($row2['subtotal'],2).'</td>
-            <td class="qty">'.$row2['dv_descuento'].'</td>
+            <td class="service" style="color: black; font-size: 5em;">'.$contador.'</td>
+            <td class="desc" style="color: black; font-size: 5em;">'.$row2['producto_nombre'].'</td>
+            <td class="unit" style="color: black; font-size: 5em;">'.$row2['dv_precio'].'</td>
+            <td class="qty" style="color: black; font-size: 5em;">'.$row2['dv_cantidad'].'</td>
+            <td class="total" style="color: black; font-size: 5em;">'.round($row2['subtotal'],2).'</td>
+            <td class="qty" style="color: black; font-size: 5em;">'.$row2['dv_descuento'].'</td>
             </tr>';
           }
           if($row1['venta_tipocomprobante']=="FACTURA") {
@@ -113,18 +114,18 @@ $html ='<!DOCTYPE html>
            
 
            <tr>
-            <td colspan="4" style="background:#fff;">IVA '.($row1['venta_porcentaje']*100).' %</td>
-             <td class="grand total" style="background:#fff;">'.$row1['venta_impuesto'].'</td>
+            <td colspan="4" style="background:#fff; font-size: 5em;">IVA '.($row1['venta_porcentaje']*100).' %</td>
+             <td class="grand total" style="background:#fff; font-size: 4em;">'.$row1['venta_impuesto'].'</td>
           </tr>
           <tr>
-            <td colspan="2" class="grand total"> <b>TOTAL</></td>
-            <td colspan="4" class="grand total">'.$row1['venta_total'].'</td>
+            <td colspan="2" class="grand total" style="color: black; font-size: 5em;"> <b>TOTAL</></td>
+            <td colspan="4" class="grand total" style="color: black; font-size: 5em;">'.$row1['venta_total'].'</td>
           </tr>
           ';
           }else {
             $html.=' <tr>
-            <td colspan="4" class="grand total"> <b>TOTAL</b></td>
-            <td colspan="4" class="grand total">'.round($row1['venta_total'],2).'</td>
+            <td colspan="4" class="grand total" style="color: black; font-size: 5em;"> <b>TOTAL</b></td>
+            <td colspan="1" class="" style="color: black; font-size: 5em;">'.round($row1['venta_total'],2).'</td>
           </tr>';
           }
 
@@ -134,14 +135,14 @@ $html ='<!DOCTYPE html>
       </table>
      
     </main>
-    <footer>
+    <footer style="color: black">
     GRACIAS POR SU COMPRA.
     </footer>
   </body>
 </html>';
 }
 $css = file_get_contents('css/style.css');
-$mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => [80, 150]]);
+$mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => [120, 210]]);
 $mpdf->WriteHTML($css,1);
 $mpdf->WriteHTML($html);
 $mpdf->Output();

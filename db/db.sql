@@ -170,15 +170,16 @@ CREATE TABLE IF NOT EXISTS `ciudades` (
   PRIMARY KEY (`id`),
   KEY `idDepto` (`idDepto`),
   CONSTRAINT `ciudades_ibfk_1` FOREIGN KEY (`idDepto`) REFERENCES `departamentos` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Volcando datos para la tabla sistema_pos_v2_desarrollo.ciudades: ~5 rows (aproximadamente)
+-- Volcando datos para la tabla sistema_pos_v2_desarrollo.ciudades: ~6 rows (aproximadamente)
 INSERT INTO `ciudades` (`id`, `nombre_ciudad`, `idDepto`, `idempresa`, `estatus`, `fregistro`) VALUES
-	(1, 'EL CARMEN DE BOLIVAR', 1, NULL, 'ACTIVO', '2022-07-13 20:39:37'),
-	(2, 'Cartagena', 1, NULL, 'ACTIVO', '2022-09-10 16:00:55'),
-	(3, 'San Jacinto', 1, NULL, 'ACTIVO', '2022-09-10 17:04:26'),
+	(1, 'EL CARMEN DE BOLIVAR', 1, 1, 'ACTIVO', '2024-05-20 18:48:10'),
+	(2, 'Cartagena', 1, 1, 'ACTIVO', '2024-05-20 18:48:11'),
+	(3, 'San Jacinto', 1, 1, 'ACTIVO', '2024-05-20 18:48:12'),
 	(4, 'San Juan Nepomuceno', 1, NULL, 'ACTIVO', '2022-09-10 17:04:54'),
-	(5, 'Lorica', 3, 1, 'ACTIVO', '2024-04-17 01:51:08');
+	(5, 'Lorica', 3, 1, 'ACTIVO', '2024-04-17 01:51:08'),
+	(6, 'Zambrano', 1, 1, 'ACTIVO', '2024-05-20 18:49:53');
 
 -- Volcando estructura para tabla sistema_pos_v2_desarrollo.cliente
 CREATE TABLE IF NOT EXISTS `cliente` (
@@ -267,15 +268,17 @@ CREATE TABLE IF NOT EXISTS `compra` (
   CONSTRAINT `compra_ibfk_2` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`usuario_id`),
   CONSTRAINT `compra_ibfk_3` FOREIGN KEY (`id_bodega`) REFERENCES `bodega` (`id`),
   CONSTRAINT `compra_ibfk_4` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Volcando datos para la tabla sistema_pos_v2_desarrollo.compra: ~5 rows (aproximadamente)
+-- Volcando datos para la tabla sistema_pos_v2_desarrollo.compra: ~7 rows (aproximadamente)
 INSERT INTO `compra` (`compra_id`, `proveedor_id`, `id_bodega`, `usuario_id`, `compra_tipo_comprobante`, `compra_serie_comprobante`, `compra_num_comprobante`, `compra_tipo_pago`, `compra_fecha`, `compra_impuesto`, `compra_total`, `compra_estatus`, `compra_porcentaje`, `compra_total_decto`, `fecha_vencimiento`, `idempresa`) VALUES
 	(1, 1, 1, 1, 'FACTURA', 'fc', '78978', 'CONTADO', '0000-00-00', 6897.00, 43197.00, 'CANCELADA', 0.19, 0.00, '0000-00-00', 1),
 	(2, 1, 1, 1, 'TICKET', 'FC', 'ERERER5656456', 'CONTADO', '0000-00-00', 0.00, 17010.00, 'CANCELADA', 0.00, 0.00, '0000-00-00', 1),
 	(5, 1, 1, 1, 'FACTURA', 'fc', '1212313', 'CONTADO', '2023-10-22', 13300.00, 83300.00, 'CANCELADA', 0.19, 0.00, '2023-10-22', 1),
 	(6, 1, 1, 1, 'TICKET', '', '', 'CONTADO', '0000-00-00', 0.00, 7500.00, 'CANCELADA', 0.00, 0.00, '0000-00-00', 1),
-	(9, 4, 1, 1, 'COTIZACION', '', '1245633333', 'CONTADO', '2024-05-16', 0.00, 300.00, 'CANCELADA', 0.00, 0.00, '2024-05-16', 1);
+	(9, 4, 1, 1, 'COTIZACION', '', '1245633333', 'CONTADO', '2024-05-16', 0.00, 300.00, 'CANCELADA', 0.00, 0.00, '2024-05-16', 1),
+	(10, 1, 1, 1, 'TICKET', 'FC', '56456456', 'CONTADO', '2024-05-20', 0.00, 30000.00, 'CANCELADA', 0.00, 0.00, '0000-00-00', 1),
+	(12, 3, 1, 1, 'COTIZACION', 'FC', '567788888', 'CONTADO', '2024-05-20', 0.00, 3000.00, 'CANCELADA', 0.00, 0.00, '2024-05-31', 1);
 
 -- Volcando estructura para tabla sistema_pos_v2_desarrollo.concepto
 CREATE TABLE IF NOT EXISTS `concepto` (
@@ -527,16 +530,18 @@ CREATE TABLE IF NOT EXISTS `detalle_compra` (
   KEY `id_producto` (`id_producto`),
   CONSTRAINT `detalle_compra_ibfk_1` FOREIGN KEY (`id_compra`) REFERENCES `compra` (`compra_id`),
   CONSTRAINT `detalle_compra_ibfk_2` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`producto_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Volcando datos para la tabla sistema_pos_v2_desarrollo.detalle_compra: ~6 rows (aproximadamente)
+-- Volcando datos para la tabla sistema_pos_v2_desarrollo.detalle_compra: ~8 rows (aproximadamente)
 INSERT INTO `detalle_compra` (`detalle_compra_id`, `id_compra`, `id_producto`, `dc_cantidad`, `dc_precio`, `dc_descto`, `dc_estatus`) VALUES
 	(1, 1, 12, 30, 10, 0, 'INGRESADA'),
 	(2, 1, 2, 30, 1200, 0, 'INGRESADA'),
 	(3, 2, 2, 30, 567, 0, 'INGRESADA'),
 	(4, 5, 1, 7, 10000, 0, 'INGRESADA'),
 	(5, 6, 9, 15, 500, 0, 'INGRESADA'),
-	(6, 9, 4, 30, 10, 0, 'INGRESADA');
+	(6, 9, 4, 30, 10, 0, 'INGRESADA'),
+	(7, 10, 3, 30, 1000, 0, 'INGRESADA'),
+	(8, 12, 3, 30, 100, 0, 'INGRESADA');
 
 -- Volcando estructura para tabla sistema_pos_v2_desarrollo.detalle_salida
 CREATE TABLE IF NOT EXISTS `detalle_salida` (
@@ -663,7 +668,7 @@ CREATE TABLE IF NOT EXISTS `empresa` (
 
 -- Volcando datos para la tabla sistema_pos_v2_desarrollo.empresa: ~1 rows (aproximadamente)
 INSERT INTO `empresa` (`ID`, `Nit`, `nombre`, `Representante`, `Direccion`, `Telefono`, `Correo`, `Logo`, `id_tipo_regimen`, `idCiudad`, `fregistro`, `estatus`) VALUES
-	(1, '', '', '', '', '', '', 'controlador/empresa/img/IMG61120239202.png', 2, 1, '2024-03-26 13:03:47', 'ACTIVO');
+	(1, '000001', 'TEST', 'TEST', 'TEST', '1323223', 'tes@gmail.com', 'controlador/empresa/img/IMG61120239202.png', 2, 1, '2024-05-20 23:02:16', 'ACTIVO');
 
 -- Volcando estructura para tabla sistema_pos_v2_desarrollo.eps
 CREATE TABLE IF NOT EXISTS `eps` (
@@ -709,12 +714,13 @@ CREATE TABLE IF NOT EXISTS `gastos` (
   CONSTRAINT `gastos_ibfk_2` FOREIGN KEY (`idusuario`) REFERENCES `usuario` (`usuario_id`),
   CONSTRAINT `gastos_ibfk_3` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`),
   CONSTRAINT `gastos_ibfk_4` FOREIGN KEY (`idcaja`) REFERENCES `caja` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Volcando datos para la tabla sistema_pos_v2_desarrollo.gastos: ~2 rows (aproximadamente)
+-- Volcando datos para la tabla sistema_pos_v2_desarrollo.gastos: ~3 rows (aproximadamente)
 INSERT INTO `gastos` (`idGasto`, `idtipo_gasto`, `fecha_gasto`, `valor`, `recibo`, `idcaja`, `observaciones`, `fregistro`, `estatus`, `idusuario`, `idempresa`, `estado`) VALUES
 	(1, 3, '2023-05-23', 119600, '001', 1, '', '2023-05-23 16:20:03', 'ACTIVO', 1, 1, 'CANCELADA'),
-	(2, 2, '2023-11-07', 121212, '5456', 1, '', '2023-11-06 14:06:06', 'ACTIVO', 1, 1, 'ENTREGADA');
+	(2, 2, '2023-11-07', 121212, '5456', 1, '', '2023-11-06 14:06:06', 'ACTIVO', 1, 1, 'ENTREGADA'),
+	(3, 2, '2024-05-21', 20000, '6867', 1, '', '2024-05-20 23:19:04', 'ACTIVO', 1, 1, 'ENTREGADA');
 
 -- Volcando estructura para tabla sistema_pos_v2_desarrollo.iva
 CREATE TABLE IF NOT EXISTS `iva` (
@@ -819,7 +825,7 @@ CREATE TABLE IF NOT EXISTS `persona` (
 
 -- Volcando datos para la tabla sistema_pos_v2_desarrollo.persona: ~21 rows (aproximadamente)
 INSERT INTO `persona` (`persona_id`, `persona_nombre`, `persona_apepat`, `persona_apemat`, `tipo_contribuyente`, `persona_nrodocumento`, `persona_tipodocumento`, `persona_telefono`, `persona_direccion`, `persona_correo`, `persona_fregistro`, `persona_estatus`, `idempresa`, `id_tipo_tercero`, `estatus`, `fregistro`) VALUES
-	(1, 'JERSON', 'BATISTA', 'VEGA', 'Persona Natural', '1070813753', 'CEDULA', '30045454545', 'el centro', 'ingjerson@gmail.com', '2022-07-13', 'ACTIVO', 1, 1, 'ACTIVO', '2023-03-10 23:56:43'),
+	(1, 'JERSON TEST', 'BATISTA TEST', 'VEGA TEST', 'Persona Natural', '1070813753', 'CEDULA', 'el centro', '2022-07-13', 'ingjerson@gmail.com', '2022-07-13', 'ACTIVO', 1, 1, 'ACTIVO', '2024-05-20 23:29:41'),
 	(2, 'PROVEEDOR', 'DE MOSTRADOR', 'MOSTRADOR', 'Persona Natural', '000000001', 'NIT', '011111111', 'EL CENTRO', 'info@gmail.com', '2022-07-13', 'ACTIVO', 1, 1, 'ACTIVO', '2023-06-14 21:58:42'),
 	(3, 'CLIENTE', 'DE ', 'MOSTRADOR', 'Persona Natural', '000000000001', 'CEDULA', '56456456', 'EL CENTRO', 'DEPRUEBA@GMAIL.COM', '2022-07-13', 'ACTIVO', 1, 3, 'ACTIVO', '2023-03-10 23:57:23'),
 	(4, 'AGROPECUARIA', 'CAÑA ', 'FLECHA', 'Persona Juridica', '900312662', 'NIT', '3013794981', 'EL CARMEN DE BOLIVAR', 'info20221@gmail.com', '2022-08-22', 'ACTIVO', 1, 1, 'ACTIVO', '2023-06-14 20:40:56'),
@@ -839,7 +845,7 @@ INSERT INTO `persona` (`persona_id`, `persona_nombre`, `persona_apepat`, `person
 	(21, 'YAHOO', 'YAHOO', 'DATOS', 'Persona Natural', '34234234', 'NIT', '23423', '2342', '', '2023-09-18', 'ACTIVO', 1, 1, NULL, '2023-09-19 00:38:46'),
 	(22, 'MARK', 'SUKEMBER', 'VEGA', 'Persona Juridica', '5645645', 'NIT', '23423', 'EL CARMEN', 'info2021112@gmail.com', '2023-09-18', 'ACTIVO', 1, 1, NULL, '2023-09-19 00:40:20'),
 	(23, 'UNICARMEN TEST', 'TEST', 'TEST', 'Persona Juridica', '54565656', 'NIT', '3013794981', 'EL CARMEN DE BOLIVAR', 'jamez13333@hotmail.com', '2024-04-21', 'ACTIVO', 1, 4, NULL, '2024-04-21 12:28:29'),
-	(24, 'MI PROVEEDOR', 'MI PROVEEDOR TE PRUEBAS', 'PROVEEDOR', 'Persona Natural', '12132132133', 'NIT', '23423', 'EL CENTRO', 'proveeedor@gmail.com', '2024-05-16', 'ACTIVO', 1, 1, NULL, '2024-05-17 00:11:11');
+	(24, 'MI PROVEEDOR TEST', 'MI PROVEEDOR TE PRUEBAS', 'PROVEEDOR', 'Persona Natural', '12132132133', 'NIT', '23423', 'EL CENTRO', 'proveeedor@gmail.com', '2024-05-16', 'ACTIVO', 1, 1, NULL, '2024-05-20 18:33:51');
 
 -- Volcando estructura para tabla sistema_pos_v2_desarrollo.prestacionsocial
 CREATE TABLE IF NOT EXISTS `prestacionsocial` (
@@ -895,13 +901,13 @@ CREATE TABLE IF NOT EXISTS `producto` (
   CONSTRAINT `producto_ibfk_4` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`ID`),
   CONSTRAINT `producto_ibfk_5` FOREIGN KEY (`idTipoProducto`) REFERENCES `tipo_producto` (`id`),
   CONSTRAINT `producto_ibfk_6` FOREIGN KEY (`id_marca`) REFERENCES `marcas` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Volcando datos para la tabla sistema_pos_v2_desarrollo.producto: ~25 rows (aproximadamente)
+-- Volcando datos para la tabla sistema_pos_v2_desarrollo.producto: ~26 rows (aproximadamente)
 INSERT INTO `producto` (`producto_id`, `producto_codigo`, `producto_nombre`, `producto_descripcion`, `producto_cod_barra`, `producto_presentacion`, `id_bodega`, `cant_minima`, `producto_stock`, `id_categoria`, `id_unidad`, `idTipoProducto`, `id_marca`, `IdIva`, `producto_foto`, `compra`, `producto_precioventa`, `producto_estatus`, `fregistro`, `idempresa`) VALUES
 	(1, '9789588464466', 'AMALIA JOSE MARMOL(1)', 'lorem ipsum', '7854541212', 'ADITORIAL ATENEA', 1, '1', '6', 2, 1, 1, 1, 1, 'controlador/productos/img/default.png', 3000.00, 4500.00, 'ACTIVO', '2023-12-30 12:25:08', 1),
 	(2, '9789589761694', 'ALICIA EN EL PAIS DE LAS MARAVILLAS(2)', 'lorem ipsum', NULL, 'ATENEA', 1, '1', '55', 2, 1, 1, 1, 1, 'controlador/productos/img/default.png', 3000.00, 4500.00, 'ACTIVO', '2023-12-29 23:45:49', 1),
-	(3, '9789587230321', 'APOLOGIA DESOCRATES(3)', 'lorem ipsum', NULL, 'SKLA EDITORIAL', 1, '1', '0', 2, 1, 1, 1, 1, 'controlador/productos/img/default.png', 4000.00, 5000.00, 'ACTIVO', '2023-12-29 23:45:50', 1),
+	(3, '9789587230321', 'APOLOGIA DESOCRATES(3)', 'lorem ipsum', NULL, 'SKLA EDITORIAL', 1, '1', '60', 2, 1, 1, 1, 1, 'controlador/productos/img/default.png', 4000.00, 5000.00, 'ACTIVO', '2024-05-20 23:08:32', 1),
 	(4, '9789589825785', 'AZUL RUBEN DARIO(4)', 'lorem ipsum', NULL, 'ATENEA', 1, '1', '25', 2, 1, 1, 1, 1, 'controlador/productos/img/default.png', 3000.00, 4000.00, 'ACTIVO', '2024-05-17 00:57:42', 1),
 	(5, '9789585783010', 'BAJO LA MISMA ESTRELLA(5)', 'lorem ipsum', NULL, 'NUBE DE TINTA', 1, '1', '1', 2, 1, 1, 1, 1, 'controlador/productos/img/default.png', 14000.00, 17000.00, 'ACTIVO', '2023-12-29 23:45:52', 1),
 	(6, '9789588464282', 'BODAS DE SANGRE(6)', 'lorem ipsum', NULL, 'ATENEA', 1, '1', '4', 2, 1, 1, 1, 1, 'controlador/productos/img/default.png', 3000.00, 4000.00, 'ACTIVO', '2023-12-29 23:45:53', 1),
@@ -923,7 +929,8 @@ INSERT INTO `producto` (`producto_id`, `producto_codigo`, `producto_nombre`, `pr
 	(22, '1245466666', 'LIBRETA DE 100 HOJAS', '0', '147888633333', 'general', 2, '1', '0', 3, 1, 1, 2, 1, 'controlador/productos/img/default.png', 1000.00, 1200.00, 'ACTIVO', '2023-12-30 12:27:43', 1),
 	(23, '32000', 'pruebas', '0', '1478886333338888', 'general', 2, '1', '0', 3, 1, 1, 2, 1, 'controlador/productos/img/default.png', 1000.00, 1200.00, 'ACTIVO', '2023-12-30 12:29:39', 1),
 	(24, '6788', 'CARTULINAS', 'ESTOES UNA PRUEBA probando aaaaaa', '147888638888896', 'general', 2, '1', '0', 3, 1, 1, 2, 1, 'controlador/productos/img/default.png', 1000.00, 1300.00, 'ACTIVO', '2023-12-30 12:33:51', 1),
-	(25, '100003652', 'MINI USB INALAMBRICO', 'USB DE RED', '', 'general', 1, '', '0', 1, 1, 1, 2, 3, 'controlador/productos/img/default.png', 25000.00, 30000.00, 'ACTIVO', '2024-03-26 13:02:07', 1);
+	(25, '100003652', 'MINI USB INALAMBRICO', 'USB DE RED', '', 'general', 1, '', '0', 1, 1, 1, 2, 3, 'controlador/productos/img/default.png', 25000.00, 30000.00, 'ACTIVO', '2024-03-26 13:02:07', 1),
+	(26, '1205897', 'CARTULINAS TEST', 'ESTOES UNA PRUEBA TEST', '14788863333366666', 'general', 1, '1', '5', 6, 1, 1, 2, 3, 'controlador/productos/img/default.png', 1000.00, 1200.00, 'ACTIVO', '2024-05-20 23:17:46', 1);
 
 -- Volcando estructura para tabla sistema_pos_v2_desarrollo.proveedor
 CREATE TABLE IF NOT EXISTS `proveedor` (
@@ -1033,9 +1040,16 @@ CREATE TABLE IF NOT EXISTS `salida` (
 
 -- Volcando estructura para procedimiento sistema_pos_v2_desarrollo.SP_ACTUALIZAR_DATOS_PERSONA
 DELIMITER //
-CREATE PROCEDURE `SP_ACTUALIZAR_DATOS_PERSONA`(IN IDUSUARIO INT, IN NOMBRE VARCHAR(50),IN APEPAT VARCHAR(50),IN APEMAT VARCHAR(50),
-IN NRO_DOCUMENTO VARCHAR(50), IN TIPO_DOC VARCHAR(50), IN SEXO VARCHAR(15),
-IN TELEFONO VARCHAR(50), IN DIRECCION VARCHAR(50))
+CREATE PROCEDURE `SP_ACTUALIZAR_DATOS_PERSONA`(
+	IN `IDUSUARIO` INT,
+	IN `NOMBRE` VARCHAR(50),
+	IN `APEPAT` VARCHAR(50),
+	IN `APEMAT` VARCHAR(50),
+	IN `NRO_DOCUMENTO` VARCHAR(50),
+	IN `TIPO_DOC` VARCHAR(50),
+	IN `TELEFONO` VARCHAR(50),
+	IN `DIRECCION` VARCHAR(50)
+)
 BEGIN
 DECLARE  cantidad INT;
 DECLARE IDPERSONA INT;
@@ -1048,7 +1062,7 @@ persona_nombre=NOMBRE,
 persona_apepat=APEPAT,
 persona_apemat=APEMAT,
 persona_tipodocumento=TIPO_DOC,
-persona_sexo=SEXO,
+
 persona_telefono=TELEFONO,
 persona_direccion=DIRECCION
 WHERE persona_id =@IDPERSONA;
@@ -1062,7 +1076,7 @@ IF @cantidad = 0 THEN
 	persona_apemat=APEMAT,
 	persona_nrodocumento=NRO_DOCUMENTO,
 	persona_tipodocumento=TIPO_DOC,
-	persona_sexo=SEXO,
+
 	persona_telefono=TELEFONO,
 	persona_direccion=DIRECCION
 	WHERE persona_id =@IDPERSONA;
@@ -3131,7 +3145,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 
 -- Volcando datos para la tabla sistema_pos_v2_desarrollo.usuario: ~1 rows (aproximadamente)
 INSERT INTO `usuario` (`usuario_id`, `usuario_nombre`, `usuario_password`, `usuario_email`, `usuario_intento`, `usuario_estatus`, `rol_id`, `usuario_imagen`, `persona_id`, `idempresa`, `idcaja`) VALUES
-	(1, 'admin', '$2y$10$h9K.V8WbN3pebBNwmqn/zOd2ozDzhgcNgyT317cPmJMMTBmyBVYRu', 'ingjerson2014@gmail.com', NULL, 'ACTIVO', 1, 'controlador/usuario/img/IMG317202213118.jpg', 1, 1, 1);
+	(1, 'admin', '$2y$10$h9K.V8WbN3pebBNwmqn/zOd2ozDzhgcNgyT317cPmJMMTBmyBVYRu', 'ingjerson2014@gmail.com', NULL, 'ACTIVO', 1, 'controlador/usuario/img/IMG205202418492.jpg', 1, 1, 1);
 
 -- Volcando estructura para tabla sistema_pos_v2_desarrollo.venta
 CREATE TABLE IF NOT EXISTS `venta` (

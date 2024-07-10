@@ -464,8 +464,7 @@ function Registrar_Venta() {
             idbodega:idbodega,
             idusuario: idusuario,
             tipo_comprobante: tipo_comprobante,
-            serie_comprobante: serie_comprobante,
-           
+            serie_comprobante: serie_comprobante, 
             tipo_pago: tipo_pago,
             impuesto: impuesto,
             total: total,
@@ -535,15 +534,15 @@ function Registrar_Detalle_Venta(id){
               showCancelButton: true,
               confirmButtonColor: '#3085d6',
               cancelButtonColor: '#d33',
-              confirmButtonText: 'Imprimir Reporte'
+              confirmButtonText: 'Imprimir Factura'
             }).then((result) => {
               if (result.value) {
                 let tipo_comprobante = document.getElementById('cmb_tipo_comprobante').value;
                 if(tipo_comprobante =="FACTURA") {
-                    window.open("../mpdf/reporte_ventas.php?codigo="+parseInt(id)+"zoom=100","Reporte de Venta","scrollbards=NO");
+                    window.open("../mpdf/reporte_ventas.php?codigo="+parseInt(id)+"zoom=100","Factura de Venta","scrollbards=NO");
 
                 } else {
-                    window.open("../mpdf/ticket.php?codigo="+parseInt(id)+"zoom=100","Reporte de Venta","scrollbards=NO");
+                    window.open("../mpdf/ticket.php?codigo="+parseInt(id)+"zoom=100","Factura de Venta","scrollbards=NO");
 
                 }
 

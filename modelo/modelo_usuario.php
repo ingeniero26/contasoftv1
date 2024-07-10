@@ -168,8 +168,8 @@ function TraerDatosWidgets($inicio,$fin) {
 
 	
 
-	function Actualizar_Datos_Profile($idusuario,$nombre,$apepat,$apemat,$nrodocumento,$tipo_documento,$sexo,$telefono,$direccion) {
-		$sql = "call  SP_ACTUALIZAR_DATOS_PERSONA('$idusuario','$nombre','$apepat','$apemat','$nrodocumento','$tipo_documento','$sexo','$telefono','$direccion')";
+	function Actualizar_Datos_Profile($idusuario,$nombre,$apepat,$apemat,$nrodocumento,$tipo_documento,$telefono,$direccion) {
+		$sql = "call  SP_ACTUALIZAR_DATOS_PERSONA('$idusuario','$nombre','$apepat','$apemat','$nrodocumento','$tipo_documento','$telefono','$direccion')";
 			if($consulta = $this->conexion->conexion->query($sql)){
 				if($row = mysqli_fetch_array($consulta)) {
 					return	$id =trim($row[0]);

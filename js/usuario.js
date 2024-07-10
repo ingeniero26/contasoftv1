@@ -836,7 +836,7 @@ function Datos_Actualizar() {
 	var apemat =$('#txt_apemat_profile').val();
 	var nrodocumento =$('#txt_nrodocumento_profile').val();
 	var tipo_documento =$('#cmb_tipodocumento_profile').val();
-	var sexo =$('#cmb_sexo_profile').val();
+	// var sexo =$('#cmb_sexo_profile').val();
 	var telefono =$('#txt_telefono_profile').val();
 	var direccion =$('#txt_direccion_profile').val();
 
@@ -854,7 +854,7 @@ function Datos_Actualizar() {
         apemat:apemat,
         nrodocumento:nrodocumento,
         tipo_documento:tipo_documento,
-        sexo:sexo,
+      
         telefono:telefono,
         direccion:direccion
       }
