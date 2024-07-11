@@ -3,9 +3,9 @@ var t_quotes;
 function listar_quotes() {
     var finicio = document.getElementById('txt_finicio').value;
     var ffin = document.getElementById('txt_ffin').value;
-    var idempresa =$("#txt_idempresa").val();
-    var idcaja =$("#cmb_caja").val();
- //   alert(finicio +" " +ffin);
+    var idempresa = $("#txt_idempresa").val();
+    var idcaja = $("#cmb_caja").val();
+    //   alert(finicio +" " +ffin);
     t_ventas = $("#tb_quote").DataTable({
         "ordering": false,
         "pageLength": 10,
@@ -13,9 +13,9 @@ function listar_quotes() {
         "async": false,
         "responsive": true,
         "autoWidth": false,
-         dom: 'Bfrtip',
+        dom: 'Bfrtip',
         buttons: [
-        'excel', 'csv', 'pdf', 'print', 'copy',
+            'excel', 'csv', 'pdf', 'print', 'copy',
         ],
 
         "ajax": {
@@ -23,7 +23,7 @@ function listar_quotes() {
             "url": "../controlador/quotes/control_quotes_list.php",
             data: {
                 finicio: finicio,
-                 ffin: ffin
+                ffin: ffin
                 // idempresa:idempresa,
                 // idcaja:idcaja
             }
@@ -34,12 +34,12 @@ function listar_quotes() {
         ],
         "columns": [
             { "defaultContent": "" },
-         
-            { "data": "quote_no" }, 
+
+            { "data": "quote_no" },
             { "data": "cliente" },
             { "data": "nombre_bodega" },
             { "data": "descripcion" },
-            { "data": "fecha_quote" }, 
+            { "data": "fecha_quote" },
             { "data": "fecha_vencimiento" },
             { "data": "impuesto" },
             { "data": "total" },
@@ -48,7 +48,7 @@ function listar_quotes() {
             { "data": "usuario_nombre" },
             {
                 "data": "estatus",
-                render: function(data, type, row) {
+                render: function (data, type, row) {
                     if (data == 'BORRADOR') {
                         return "<span class='label label-success m-r-5 m-b-5'>" + data + "</span>";
                     } else if (data == 'ANULADA') {
@@ -64,16 +64,16 @@ function listar_quotes() {
             }
 
         ],
-        "fnRowCallback": function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+        "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
             $($(nRow).find("td")[2]).css('text-align', 'center');
 
         },
         "language": idioma_espanol,
         select: true
     });
-    t_quotes.on('draw.dt', function() {
+    t_quotes.on('draw.dt', function () {
         var PageInfo = $('#tb_quote').DataTable().page.info();
-        t_quotes.column(0, { page: 'current' }).nodes().each(function(cell, i) {
+        t_quotes.column(0, { page: 'current' }).nodes().each(function (cell, i) {
             cell.innerHTML = i + 1 + PageInfo.start;
         });
     });
@@ -81,35 +81,131 @@ function listar_quotes() {
 }
 // combos
 function listar_combo_comprobante() {
-    var idempresa =$("#txt_idempresa").val();
-  //  var idusuario = $('#txt_idprincipal').val();
-       $.ajax({
-           url:"../controlador/quotes/control_combo_tipo_comprobante.php",
-            type:'POST',
-            data:{
-               idempresa:idempresa
+    var idempresa = $("#txt_idempresa").val();
+    //  var idusuario = $('#txt_idprincipal').val();
+    $.ajax({
+        url: "../controlador/quotes/control_combo_tipo_comprobante.php",
+        type: 'POST',
+        data: {
+            idempresa: idempresa
+        }
+    }).done(function (resp) {
+        //alert(resp);
+        var data = JSON.parse(resp);
+        //console.log(resp);
+        var cadena = "";
+        if (data.length > 0) {
+            for (var i = 0; i < data.length; i++) {
+                cadena += "<option value='" + data[i][0] + "'>" + data[i][1] + "</option>";
             }
-       }).done(function(resp){
-       //alert(resp);
-           var data = JSON.parse(resp);
-           //console.log(resp);
-           var cadena ="";
-           if(data.length>0) {
-               for (var i = 0; i < data.length; i++) {
-                   cadena+="<option value='"+data[i][0]+"'>"+data[i][1]+"</option>";
-               }
-               $('#cmb_caja').html(cadena);
+            $('#cmb_caja').html(cadena);
             $('#cmb_tipo_comprobante').html(cadena);
-           // $('#cmb_caja_ingreso').html(cadena);
-           
-           } else {
-               cadena+="<option value=''> No Hay datos</option>";
-               $('#cmb_caja').html(cadena);
-           $('#cmb_tipo_comprobante').html(cadena);
-          // $('#cmb_caja_ingreso').html(cadena);
-           }
-        })
-   }
+            // $('#cmb_caja_ingreso').html(cadena);
+
+        } else {
+            cadena += "<option value=''> No Hay datos</option>";
+            $('#cmb_caja').html(cadena);
+            $('#cmb_tipo_comprobante').html(cadena);
+            // $('#cmb_caja_ingreso').html(cadena);
+        }
+    })
+}
+function listar_combo_cliente() {
+    var idempresa = $("#txt_idempresa").val();
+    $.ajax({
+        url: "../controlador/ventas/control_combo_cliente_listar.php",
+        type: 'POST',
+        data: {
+            idempresa: idempresa
+        }
+    }).done(function (resp) {
+        //alert(resp);
+        var data = JSON.parse(resp);
+        //console.log(resp);
+        var cadena = "";
+        if (data.length > 0) {
+            for (var i = 0; i < data.length; i++) {
+                cadena += "<option value='" + data[i][2] + "'>" +
+                    data[i][1] + "-" + data[i][0] + "</option>";
+            }
+            $('#cmb_cliente').html(cadena);
+
+        } else {
+            cadena += "<option value=''> No Hay datos</option>";
+            $('#cmb_cliente').html(cadena);
+
+        }
+    })
+}
+
+function listar_combo_bodega() {
+    var idempresa = $("#txt_idempresa").val();
+    $.ajax({
+        url: "../controlador/bodegas/control_combo_bodegas.php",
+        type: 'POST',
+        data: {
+            idempresa: idempresa
+        }
+    }).done(function (resp) {
+        //alert(resp);
+        var data = JSON.parse(resp);
+        //console.log(resp);
+        var cadena = "";
+        if (data.length > 0) {
+            for (var i = 0; i < data.length; i++) {
+                cadena += "<option value='" + data[i][0] + "'>" + data[i][1] + "</option>";
+            }
+            $('#cmb_bodega').html(cadena);
+            $('#cmb_bodega_ingreso').html(cadena);
+
+        } else {
+            cadena += "<option value=''> No Hay datos</option>";
+            $('#cmb_bodega').html(cadena);
+            $('#cmb_bodega_ingreso').html(cadena);
+        }
+    })
+}
+
+
+function listar_combo_producto() {
+    //  alert('entra aki');
+    var idempresa = $("#txt_idempresa").val();
+    $.ajax({
+        url: "../controlador/ingreso/control_combo_producto_listar.php",
+        type: 'POST',
+        data: {
+            idempresa: idempresa
+        }
+    }).done(function (resp) {
+        //alert(resp);
+        var data = JSON.parse(resp);
+        //console.log(resp);
+        var cadena = "<option value=''>Seleccione...</option>";
+        if (data.length > 0) {
+            for (var i = 0; i < data.length; i++) {
+                cadena += "<option value='" + data[i][0] + "'>" + "-"
+                    + data[i][5] + "-" + data[i][1] + "</option>";
+                arreglo_stock[data[i][0]] = data[i][2];
+                arreglo_precio[data[i][0]] = data[i][3];
+                //arreglo_precio2[data[i][0]]=data[i][4];
+                arreglo_img[data[i][0]] = data[i][4];
+            }
+
+            $('#cmb_producto').html(cadena);
+            document.getElementById('txt_stock').value = data[0][2];
+            document.getElementById('txt_precio').value = data[0][3];
+            // document.getElementById('txt_precio2').value=data[0][4];
+            document.getElementById('txt_foto_producto').src = '../' + data[0][4];
+
+
+        } else {
+            cadena += "<option value=''> No Hay datos</option>";
+            $('#cmb_producto').html(cadena);
+
+        }
+    })
+}
+
 
 // funciones para crear la cotizacion
 var arreglo_stock = new Array();
@@ -140,14 +236,14 @@ function Agregar_Producto_Detalle_Venta() {
     //         return Swal.fire("Mensaje de advertencia", "El % de IVA,  no se puede asignar", "warning");
     //     }
     // }
-   
 
-    if(parseFloat(stock)< parseFloat(cantidad)) {
-          return Swal.fire("Mensaje de advertencia", "El stock del producto es insufiente", "warning");
+
+    if (parseFloat(stock) < parseFloat(cantidad)) {
+        return Swal.fire("Mensaje de advertencia", "El stock del producto es insufiente", "warning");
     }
 
-     if( parseInt(cantidad) < 1) {
-         return Swal.fire("Mensaje de advertencia", "La cantidad del producto debe ser mayor a 0", "warning");
+    if (parseInt(cantidad) < 1) {
+        return Swal.fire("Mensaje de advertencia", "La cantidad del producto debe ser mayor a 0", "warning");
     }
 
 
@@ -155,13 +251,13 @@ function Agregar_Producto_Detalle_Venta() {
         return Swal.fire("Mensaje de advertencia", "El % de IVA,  no se puede asignar", "warning");
     }
 
-   
+
 
     let subtotal = precio * cantidad;
-    let valordcto  = (subtotal *dcto)/100;
+    let valordcto = (subtotal * dcto) / 100;
     let st2 = subtotal - valordcto;
-     let valoriva  = (st2 *impuesto)
-     let neto_total  = st2 + valoriva;
+    let valoriva = (st2 * impuesto)
+    let neto_total = st2 + valoriva;
 
     if (cantidad.length == 0 || precio.length == 0) {
         return Swal.fire("Mensaje de advertencia", "Debe digitar precio y cantidad", "warning");
@@ -222,38 +318,38 @@ function SumarTotalneto() {
     let total = 0;
     let valoriva = 0;
     let subtotal = 0;
-    let valordcto =0;
-    let neto  =0;
+    let valordcto = 0;
+    let neto = 0;
     let impuesto = document.getElementById('txt_impuesto').value;
     let dcto = document.getElementById('txt_descto').value;
-    $("#detalle_venta tbody#tb_detalle_venta tr").each(function() {
+    $("#detalle_venta tbody#tb_detalle_venta tr").each(function () {
         arreglo_total.push($(this).find('td').eq(4).text());
         arreglo_tdcto.push($(this).find('td').eq(5).text());
         arreglo_iva.push($(this).find('td').eq(6).text());
         count++;
-      
+
     })
 
     for (var i = 0; i < count; i++) {
         var suma = arreglo_total[i];
-       var suma_desc = arreglo_tdcto[i];
+        var suma_desc = arreglo_tdcto[i];
 
-       var suma_iva = arreglo_iva[i];
+        var suma_iva = arreglo_iva[i];
         subtotal = (parseFloat(subtotal) + parseFloat(suma)).toFixed(2);
         //  total =(parseFloat(total)+parseFloat(suma)).toFixed(2);
         valordcto = (parseFloat(valordcto) + parseFloat(suma_desc)).toFixed(2);
         valoriva = (parseFloat(valoriva) + parseFloat(suma_iva)).toFixed(2);
-   // alert( valordcto);
-        
+        // alert( valordcto);
+
     };
     total = parseFloat(subtotal - valordcto) + parseFloat(valoriva);
-    
+
     let tipo = document.getElementById('cmb_tipo_comprobante').value;
     if (tipo == "FACTURA") {
         $("#lbl_subtotal").html("<b> Sub total: </b> $/." + subtotal);
         $("#lbl_decto").html("<b> Dcto:" + dcto * 100 + "% </b> $/." + valordcto);
-        $("#lbl_impuesto").html("<b> IVA:" + impuesto * 100 + "% </b> $/." + valoriva );
-        
+        $("#lbl_impuesto").html("<b> IVA:" + impuesto * 100 + "% </b> $/." + valoriva);
+
         $("#lbl_totalneto").html("<b>Total: </b> $/." + total.toFixed(2));
     } else {
         $("#lbl_totalneto").html("<b>Total: </b> $/." + total.toFixed(2));
@@ -270,35 +366,36 @@ function SumarTotalneto() {
 
 function Registrar_Venta() {
     let count = 0;
-    $("#detalle_venta tbody#tb_detalle_venta tr").each(function() {
+    $("#detalle_venta tbody#tb_detalle_venta tr").each(function () {
         count++;
     })
 
     if (count == 0) {
-        return Swal.fire("Mensaje de Error", "El detalle de la compra debe tener por lo menos un producto",
-        "warning");
+        return Swal.fire("Mensaje de Error", "El detalle de la cotizacion debe tener por lo menos un producto",
+            "warning");
     }
 
-    var idempresa =$("#txt_idempresa").val();
+    var idempresa = $("#txt_idempresa").val();
     let idcliente = document.getElementById('cmb_cliente').value;
     let idbodega = document.getElementById('cmb_bodega_ingreso').value;
     let idusuario = document.getElementById('txt_idprincipal').value;
+    let id_tipo_comprobante = document.getElementById('cmb_tipo_comprobante').value;
     let quote_no = document.getElementById('txt_quote_no').value;
     let fecha_vc = document.getElementById('txt_fecha_vc').value;
-   
-   // let serie_comprobante = document.getElementById('txt_serie').value;
-  //  let num_comprobante = document.getElementById('txt_no_comprobante').value;
+
+    // let serie_comprobante = document.getElementById('txt_serie').value;
+    //  let num_comprobante = document.getElementById('txt_no_comprobante').value;
     //let tipo_pago = document.getElementById('cmb_tipo_pago').value;
     //let fecha_venta = document.getElementById('txt_fecha').value;
     let total = document.getElementById('lbl_totalneto').innerHTML.substr(18);
-  //  let estado = document.getElementById('cmb_estado').value;
+    //  let estado = document.getElementById('cmb_estado').value;
     let decto = document.getElementById('lbl_decto').innerHTML.substr(20);
 
     //let dias_pago = document.getElementById('cmb_dias').value;
-    
+
     let impuesto = "";
     let porcentaje = "";
-    if (tipo_comprobante == "FACTURA") {
+    if (id_tipo_comprobante == "Cotizacion") {
         decto = document.getElementById('lbl_decto').innerHTML.substr(22);
         impuesto = document.getElementById('lbl_impuesto').innerHTML.substr(20);
         porcentaje = document.getElementById('txt_impuesto').value;
@@ -310,36 +407,37 @@ function Registrar_Venta() {
         url: '../controlador/quotes/control_quote_registro.php',
         type: 'POST',
         data: {
-            idempresa:idempresa,
+            idempresa: idempresa,
             idcliente: idcliente,
-            idbodega:idbodega,
+            idbodega: idbodega,
             idusuario: idusuario,
+            id_tipo_comprobante: id_tipo_comprobante,
             quote_no: quote_no,
-            fecha_vc:fecha_vc,
+            fecha_vc: fecha_vc,
             impuesto: impuesto,
             total: total,
             porcentaje: porcentaje,
-            decto:decto
+            decto: decto
 
         }
-    }).done(function(resp) {
-      //  alert(resp);
+    }).done(function (resp) {
+        //  alert(resp);
         if (resp > 0) {
             Registrar_Detalle_Venta(parseInt(resp));
         } else {
-            Swal.fire("Mensaje de Error","Numero de factura ya existe","error");
+            Swal.fire("Mensaje de Error", "Error al guardar la Cotización", "error");
         }
     })
 }
 
-function Registrar_Detalle_Venta(id){
-    let count =0;
-      let arreglo_producto = new Array();
-      let arreglo_cantidad = new Array();
-      let arreglo_precio = new Array();
-      let arreglo_dcto = new Array();
+function Registrar_Detalle_Venta(id) {
+    let count = 0;
+    let arreglo_producto = new Array();
+    let arreglo_cantidad = new Array();
+    let arreglo_precio = new Array();
+    let arreglo_dcto = new Array();
 
-       $("#detalle_venta tbody#tb_detalle_venta tr").each(function() {
+    $("#detalle_venta tbody#tb_detalle_venta tr").each(function () {
         arreglo_producto.push($(this).find('td').eq(0).text());
         arreglo_cantidad.push($(this).find('td').eq(2).text());
         arreglo_precio.push($(this).find('td').eq(3).text());
@@ -347,17 +445,17 @@ function Registrar_Detalle_Venta(id){
         count++;
     })
 
-     if (count == 0) {
-        return Swal.fire("Mensaje de Error", "El detalle de la venta debe tener por lo menos un producto",
+    if (count == 0) {
+        return Swal.fire("Mensaje de Error", "El detalle de la cotizacion debe tener por lo menos un producto",
             "warning");
     }
 
-    let producto  = arreglo_producto.toString();
-    let cantidad  = arreglo_cantidad.toString();
-    let precio  = arreglo_precio.toString();
-    let dcto  = arreglo_dcto.toString();
+    let producto = arreglo_producto.toString();
+    let cantidad = arreglo_cantidad.toString();
+    let precio = arreglo_precio.toString();
+    let dcto = arreglo_dcto.toString();
 
-     $.ajax({
+    $.ajax({
         url: '../controlador/quotes/control_quote_registro_detalle.php',
         type: 'POST',
         data: {
@@ -365,39 +463,39 @@ function Registrar_Detalle_Venta(id){
             producto: producto,
             cantidad: cantidad,
             precio: precio,
-            dcto:dcto
-           
+            dcto: dcto
+
 
         }
-    }).done(function(resp) {
-       // alert(resp);
+    }).done(function (resp) {
+        // alert(resp);
         if (resp > 0) {
-           Swal.fire({
-              title: 'Datos de confirmaciòn?',
-              text: "Venta registrada correctamente",
-              icon: 'success',
-              showCancelButton: true,
-              confirmButtonColor: '#3085d6',
-              cancelButtonColor: '#d33',
-              confirmButtonText: 'Imprimir Factura'
+            Swal.fire({
+                title: 'Datos de confirmaciòn?',
+                text: "Cotización registrada correctamente",
+                icon: 'success',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Imprimir Cotización'
             }).then((result) => {
-              if (result.value) {
-                let tipo_comprobante = document.getElementById('cmb_tipo_comprobante').value;
-                if(tipo_comprobante =="FACTURA") {
-                    window.open("../mpdf/reporte_ventas.php?codigo="+parseInt(id)+"zoom=100","Factura de Venta","scrollbards=NO");
+                if (result.value) {
+                    let id_tipo_comprobante = document.getElementById('cmb_tipo_comprobante').value;
+                    if (id_tipo_comprobante == "Cotizacion") {
+                        window.open("../mpdf/reporte_ventas.php?codigo=" + parseInt(id) + "zoom=100", "Factura de Venta", "scrollbards=NO");
 
+                    } else {
+                        window.open("../mpdf/quotes.php?codigo=" + parseInt(id) + "zoom=100", "Factura de Venta", "scrollbards=NO");
+
+                    }
+
+                    $("#contenido_principal").load("../vista/ventas/vista_mantenimiento_ventas.php");
                 } else {
-                    window.open("../mpdf/ticket.php?codigo="+parseInt(id)+"zoom=100","Factura de Venta","scrollbards=NO");
-
+                    $("#contenido_principal").load("../vista/ventas/vista_mantenimiento_ventas.php");
                 }
-
-              $("#contenido_principal").load("../vista/ventas/vista_mantenimiento_ventas.php");
-              } else {
-                 $("#contenido_principal").load("../vista/ventas/vista_mantenimiento_ventas.php");
-              }
             })
         } else {
-            Swal.fire("Mensaje de Error","El registro no se completo","error");
+            Swal.fire("Mensaje de Error", "El registro no se completo", "error");
         }
     })
 

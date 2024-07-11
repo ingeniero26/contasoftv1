@@ -23,7 +23,7 @@ class Modelo_Quotes
 					 quote_no,
                 q.fecha_quote, q.fecha_vencimiento,
                 q.impuesto,q.total,q.estatus,
-                q.porcentaje,q.total_dcto,q.fregistro
+                q.porcentaje,q.total_dcto,q.fecha_quote
                 FROM quotes q
                 INNER JOIN usuario u
                 ON q.usuario_id = u.usuario_id
@@ -102,11 +102,12 @@ class Modelo_Quotes
     }
 
     public function Registrar_Quote($idempresa,$idcliente, $idbodega, 
-    $idusuario,$quote_no,$fecha_vc,$impuesto ,$total,$porcentaje,$decto)
+    $idusuario,$id_tipo_comprobante,
+    $quote_no,$fecha_vc,$impuesto ,$total,$porcentaje,$decto)
     {
         $sql = "call  SP_REGISTRAR_QUOTES('$idempresa','$idcliente','$idbodega', 
-		 '$idusuario','$quote_no','$fecha_vc','$impuesto','$total','$porcentaje','$decto',
-		 '$fecha_vc',)";
+		 '$idusuario','$id_tipo_comprobante',
+         '$quote_no','$fecha_vc','$impuesto','$total','$porcentaje','$decto')";
         if ($consulta = $this->conexion->conexion->query($sql)) {
             if ($row = mysqli_fetch_array($consulta)) {
                 return $id = trim($row[0]);

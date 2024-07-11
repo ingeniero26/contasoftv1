@@ -25,7 +25,8 @@
                     <div class="col-3">
                        <label for=""><b>Comprobante</b> </label>
                         <select class="js-example-basic-single" 
-                        name="state" style="width: 100%;" id="cmb_tipo_comprobante">
+                        name="state" style="width: 100%;"
+                         id="cmb_tipo_comprobante">
 
                          </select> <br> <br>
                     </div>
@@ -34,7 +35,7 @@
                     <div class="col-3">
                         <label for=""><b>No Cotización</b></label>
                         <input type="text" class="form-control"
-                         id="txt_quote_no" value="CT" readonly="">
+                         id="txt_quote_no" >
                     </div>
                     <div class="col-3">
                         <label for=""><b>Fecha Vencimiento  </b></label>
@@ -44,7 +45,7 @@
                     <div class="col-3">
                         <label for=""><b>% IVA (19% - 0.19)</b></label>
                         <input type="text" class="form-control"
-                         id="txt_impuesto" disabled>
+                         id="txt_impuesto">
                     </div>
                   
             
@@ -100,7 +101,8 @@
                         </div>
 
                     <div class="col-12" style="text-align: center;">
-                        <button class="btn btn-primary btn-lg " onclick="Registrar_Venta()">Registrar Venta</button>
+                        <button class="btn btn-primary btn-lg "
+                         onclick="Registrar_Venta()">Registrar Cotización</button>
                     </div>
                     <div class="col-12" style="text-align:left;">
                         <h4 for=""><b>Detalle de Cotizacion</b></h4>
@@ -142,7 +144,7 @@
     </div>
 </div>
 
-<script type="text/javascript" src="../js/ventas.js?rev=<?php echo time(); ?>"></script>
+<script type="text/javascript" src="../js/quotes.js?rev=<?php echo time(); ?>"></script>
 <script>
 $(document).ready(function() {
 
@@ -152,7 +154,6 @@ $(document).ready(function() {
  listar_combo_cliente();
  listar_combo_producto();
  listar_combo_bodega();
- listar_combo_caja();
  listar_combo_comprobante();
 
 });
