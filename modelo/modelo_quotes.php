@@ -18,8 +18,10 @@ class Modelo_Quotes
                 q.bodega_id,
                 b.nombre_bodega,
                 q.usuario_id,
-                u.usuario_nombre,quote_no,
-                q.tipo, q.fecha_quote, q.fecha_vencimiento,
+                u.usuario_nombre,q.tipo_comprobante_id,
+					 tc.descripcion,
+					 quote_no,
+                q.fecha_quote, q.fecha_vencimiento,
                 q.impuesto,q.total,q.estatus,
                 q.porcentaje,q.total_dcto,q.fregistro
                 FROM quotes q
@@ -34,6 +36,8 @@ class Modelo_Quotes
                 INNER JOIN `persona` 
                         ON (`c`.`persona_id`
                         = `persona`.`persona_id`)
+               INNER JOIN tipo_comprobante tc on
+               q.tipo_comprobante_id  =  tc.id
                         WHERE `q`.fecha_quote between '$finicio' AND '$ffin' ";
         $arreglo = array();
         if ($consulta = $this->conexion->conexion->query($sql)) {
@@ -67,7 +71,25 @@ class Modelo_Quotes
     {
         $sql = "SELECT id,caja FROM caja
 		WHERE caja.`estatus` = 'ACTIVO'
-		 AND caja.`idempresa` = 1";
+		 AND caja.`idempresa` ='$idempresa'";
+        $arreglo = array();
+        if ($consulta = $this->conexion->conexion->query($sql)) {
+            while ($consulta_vu = mysqli_fetch_array($consulta)) {
+                $arreglo[] = $consulta_vu;
+
+            }
+            return $arreglo;
+            $this->conexion->cerrar();
+        }
+    }
+    public function listar_combo_tipo_comprobante($idempresa)
+    {
+        $sql = "SELECT tc.id,
+                tc.descripcion
+                FROM tipo_comprobante tc 
+                WHERE tc.estatus = 'ACTIVO'
+                AND tc.idEmpresa = '$idempresa'
+                ";
         $arreglo = array();
         if ($consulta = $this->conexion->conexion->query($sql)) {
             while ($consulta_vu = mysqli_fetch_array($consulta)) {
@@ -79,18 +101,12 @@ class Modelo_Quotes
         }
     }
 
-    public function Registrar_Venta($idcliente, $idbodega, 
-	$idusuario, $tipo_comprobante, 
-	$serie_comprobante, $tipo_pago, 
-	$impuesto, $total, $estado, $porcentaje,
-	 $decto, $fecha_vc,$dias_pago,
-	 $idempresa, $idcaja)
+    public function Registrar_Quote($idempresa,$idcliente, $idbodega, 
+    $idusuario,$quote_no,$fecha_vc,$impuesto ,$total,$porcentaje,$decto)
     {
-        $sql = "call  SP_REGISTRAR_VENTA('$idcliente','$idbodega', 
-		 '$idusuario','$tipo_comprobante','$serie_comprobante',
-		 '$tipo_pago','$impuesto','$total',
-		 '$estado','$porcentaje','$decto',
-		 '$fecha_vc','$dias_pago','$idempresa','$idcaja')";
+        $sql = "call  SP_REGISTRAR_QUOTES('$idempresa','$idcliente','$idbodega', 
+		 '$idusuario','$quote_no','$fecha_vc','$impuesto','$total','$porcentaje','$decto',
+		 '$fecha_vc',)";
         if ($consulta = $this->conexion->conexion->query($sql)) {
             if ($row = mysqli_fetch_array($consulta)) {
                 return $id = trim($row[0]);
@@ -102,7 +118,7 @@ class Modelo_Quotes
 
     public function Registrar_Venta_Detalle($id, $array_producto, $array_cantidad, $array_precio, $array_dcto)
     {
-        $sql = "call  SP_REGISTRAR_VENTA_DETALLE('$id','$array_producto','$array_cantidad','$array_precio','$array_dcto')";
+        $sql = "call  SP_DETAIL_QUOTES_ADD('$id','$array_producto','$array_cantidad','$array_precio','$array_dcto')";
         if ($consulta = $this->conexion->conexion->query($sql)) {
             return 1;
         } else {

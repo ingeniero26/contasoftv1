@@ -4,7 +4,7 @@
             <div class="ibox-head">
                 <div class="ibox-title">MANTENIMIENTO  DE COTIZACIONES</div>
                 <div class="ibox-tools">
-                   <button class="btn btn-primary" style="width: 100%" onclick="cargar_contenido('contenido_principal','ventas/vista_ventas.php')"><i class="fa fa-plus">Nuevo Registro</i></button>
+                   <button class="btn btn-primary" style="width: 100%" onclick="cargar_contenido('contenido_principal','ventas/view_quotes.php')"><i class="fa fa-plus">Nuevo Registro</i></button>
                 </div>
             </div>
             <div class="ibox-body">
@@ -19,7 +19,7 @@
                     </div><br>
                     <div class="col-2">
                         <label for="">&nbsp;</label><br>
-                        <button class="btn btn-success" style="width:100%" onclick="listar_ventas()"><i class="fa fa-search"></i>Buscar</button>
+                        <button class="btn btn-success" style="width:100%" onclick="listar_quotes()"><i class="fa fa-search"></i>Buscar</button>
                     </div>
                 </div> <br>
 
@@ -29,17 +29,17 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Usuario</th>
+                            <th>Número</th>
                             <th>Cliente</th>
                             <th>Bodega</th>
+                            <th>Comprobante</th>
                             <th>Registro</th>
-                            <th>Número</th>
-                            <th>Tipo</th>
-                            <th>Vencimiento</th>
+                            <th>Fecha Vence</th>
                             <th>Impuesto</th>
                             <th>Total</th>
                             <th>%</th>
                             <th>Dcto Total</th>
+                            <th>Usuario</th>
                             <th>Estado</th>
                             <th>Acci&oacute;n</th>
                         </tr>
@@ -78,7 +78,7 @@ if(mes < 10 ) {
  document.getElementById('txt_finicio').value=anio +"-"+mes +"-"+d;
  document.getElementById('txt_ffin').value=anio +"-"+mes +"-"+d;
  listar_quotes();
-   listar_combo_caja();
+//    listar_combo_caja();
 
  $('#modal_registro').on('shown.bs.modal', function () {
     $('#txt_nombre_categoria').trigger('focus')

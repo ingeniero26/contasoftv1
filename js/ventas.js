@@ -225,51 +225,51 @@ function listar_combo_bodega() {
          })
     }
 
-
+    function listar_combo_producto() {
+        //  alert('entra aki');
+          var idempresa =$("#txt_idempresa").val();
+          $.ajax({
+              url: "../controlador/ingreso/control_combo_producto_listar.php",
+              type: 'POST',
+              data:{
+                  idempresa:idempresa
+              }
+          }).done(function(resp) {
+              //alert(resp);
+              var data = JSON.parse(resp);
+              //console.log(resp);
+              var cadena ="<option value=''>Seleccione...</option>";
+              if (data.length > 0) {
+                  for (var i = 0; i < data.length; i++) {
+                      cadena += "<option value='" + data[i][0] + "'>"   + "-" 
+                      + data[i][5] +"-"  + data[i][1] + "</option>";
+                      arreglo_stock[data[i][0]]=data[i][2];
+                      arreglo_precio[data[i][0]]=data[i][3];
+                      //arreglo_precio2[data[i][0]]=data[i][4];
+                      arreglo_img[data[i][0]]=data[i][4];
+                  }
+      
+                  $('#cmb_producto').html(cadena);
+                  document.getElementById('txt_stock').value=data[0][2];
+                  document.getElementById('txt_precio').value=data[0][3];
+                  // document.getElementById('txt_precio2').value=data[0][4];
+                   document.getElementById('txt_foto_producto').src='../'+data[0][4];
+      
+      
+              } else {
+                  cadena += "<option value=''> No Hay datos</option>";
+                  $('#cmb_producto').html(cadena);
+      
+              }
+          })
+      }
 
 var arreglo_stock = new Array();
 var arreglo_precio = new Array();
 var arreglo_precio2 = new Array();
 var arreglo_img = new Array();
 
-function listar_combo_producto() {
-  //  alert('entra aki');
-    var idempresa =$("#txt_idempresa").val();
-    $.ajax({
-        url: "../controlador/ingreso/control_combo_producto_listar.php",
-        type: 'POST',
-        data:{
-            idempresa:idempresa
-        }
-    }).done(function(resp) {
-        //alert(resp);
-        var data = JSON.parse(resp);
-        //console.log(resp);
-        var cadena ="<option value=''>Seleccione...</option>";
-        if (data.length > 0) {
-            for (var i = 0; i < data.length; i++) {
-                cadena += "<option value='" + data[i][0] + "'>"   + "-" 
-                + data[i][5] +"-"  + data[i][1] + "</option>";
-                arreglo_stock[data[i][0]]=data[i][2];
-                arreglo_precio[data[i][0]]=data[i][3];
-                //arreglo_precio2[data[i][0]]=data[i][4];
-                arreglo_img[data[i][0]]=data[i][4];
-            }
 
-            $('#cmb_producto').html(cadena);
-            document.getElementById('txt_stock').value=data[0][2];
-            document.getElementById('txt_precio').value=data[0][3];
-            // document.getElementById('txt_precio2').value=data[0][4];
-             document.getElementById('txt_foto_producto').src='../'+data[0][4];
-
-
-        } else {
-            cadena += "<option value=''> No Hay datos</option>";
-            $('#cmb_producto').html(cadena);
-
-        }
-    })
-}
 
 
 function Agregar_Producto_Detalle_Venta() {
