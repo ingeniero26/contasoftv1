@@ -122,6 +122,33 @@ function listar_combo_comprobante() {
         }
     })
 }
+    setInterval(() => {
+        var idempresa = $("#txt_idempresa").val();
+        $.ajax({
+            url: "../controlador/ventas/control_combo_cliente_listar.php",
+            type: 'POST',
+            data: {
+                idempresa: idempresa
+            }
+        }).done(function (resp) {
+            //alert(resp);
+            var data = JSON.parse(resp);
+            //console.log(resp);
+            var cadena = "";
+            if (data.length > 0) {
+                for (var i = 0; i < data.length; i++) {
+                    cadena += "<option value='" + data[i][2] + "'>" +
+                        data[i][1] + "-" + data[i][0] + "</option>";
+                }
+                $('#cmb_cliente').html(cadena);
+    
+            } else {
+                cadena += "<option value=''> No Hay datos</option>";
+                $('#cmb_cliente').html(cadena);
+    
+            }
+        })
+    }, 10000);
 function listar_combo_cliente() {
     var idempresa = $("#txt_idempresa").val();
     $.ajax({
