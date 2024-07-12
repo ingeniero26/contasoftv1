@@ -6,7 +6,7 @@ function listar_quotes() {
     var idempresa = $("#txt_idempresa").val();
     var idcaja = $("#cmb_caja").val();
     //   alert(finicio +" " +ffin);
-    t_ventas = $("#tb_quote").DataTable({
+    t_quotes = $("#tb_quote").DataTable({
         "ordering": false,
         "pageLength": 10,
         "destroy": true,
@@ -79,6 +79,15 @@ function listar_quotes() {
     });
 
 }
+
+$('#tb_quote').on('click', '.imprimir', function() {
+    var data = t_quotes.row($(this).parents('tr')).data();
+    if (t_quotes.row(this).child.isShown()) {
+        var data = t_quotes.row(this).data();
+    }
+     window.open("../mpdf/quotes.php?codigo="+
+        parseInt(data.venta_id)+"#zoom=100","Cotización","scrollbards=NO");
+})
 // combos
 function listar_combo_comprobante() {
     var idempresa = $("#txt_idempresa").val();
@@ -344,16 +353,22 @@ function SumarTotalneto() {
     };
     total = parseFloat(subtotal - valordcto) + parseFloat(valoriva);
 
-    let tipo = document.getElementById('cmb_tipo_comprobante').value;
-    if (tipo == "FACTURA") {
-        $("#lbl_subtotal").html("<b> Sub total: </b> $/." + subtotal);
-        $("#lbl_decto").html("<b> Dcto:" + dcto * 100 + "% </b> $/." + valordcto);
-        $("#lbl_impuesto").html("<b> IVA:" + impuesto * 100 + "% </b> $/." + valoriva);
+    $("#lbl_subtotal").html("<b> Sub total: </b> $/." + subtotal);
+    $("#lbl_decto").html("<b> Dcto:" + dcto * 100 + "% </b> $/." + valordcto);
+    $("#lbl_impuesto").html("<b> IVA:" + impuesto * 100 + "% </b> $/." + valoriva);
 
-        $("#lbl_totalneto").html("<b>Total: </b> $/." + total.toFixed(2));
-    } else {
-        $("#lbl_totalneto").html("<b>Total: </b> $/." + total.toFixed(2));
-    }
+    $("#lbl_totalneto").html("<b>Total: </b> $/." + total.toFixed(2));
+
+    // let tipo = document.getElementById('cmb_tipo_comprobante').value;
+    // if (tipo == "Cotizacion") {
+    //     $("#lbl_subtotal").html("<b> Sub total: </b> $/." + subtotal);
+    //     $("#lbl_decto").html("<b> Dcto:" + dcto * 100 + "% </b> $/." + valordcto);
+    //     $("#lbl_impuesto").html("<b> IVA:" + impuesto * 100 + "% </b> $/." + valoriva);
+
+    //     $("#lbl_totalneto").html("<b>Total: </b> $/." + total.toFixed(2));
+    // } else {
+    //     $("#lbl_totalneto").html("<b>Total: </b> $/." + total.toFixed(2));
+    // }
 
     //  $("#lbl_subtotal").html("<b> Sub total: </b> $."+subtotal);
     // $("#lbl_impuesto").html("<b> IVA:"+impuesto* 100+"% </b> $."+impuestototal);
@@ -393,16 +408,20 @@ function Registrar_Venta() {
 
     //let dias_pago = document.getElementById('cmb_dias').value;
 
-    let impuesto = "";
-    let porcentaje = "";
-    if (id_tipo_comprobante == "Cotizacion") {
-        decto = document.getElementById('lbl_decto').innerHTML.substr(22);
-        impuesto = document.getElementById('lbl_impuesto').innerHTML.substr(20);
-        porcentaje = document.getElementById('txt_impuesto').value;
-    } else {
-        impuesto = "";
-        porcentaje = "";
-    }
+    decto = document.getElementById('lbl_decto').innerHTML.substr(22);
+    impuesto = document.getElementById('lbl_impuesto').innerHTML.substr(20);
+    porcentaje = document.getElementById('txt_impuesto').value;
+
+    // let impuesto = "";
+    // let porcentaje = "";
+    // if (id_tipo_comprobante == "Cotizacion") {
+    //     decto = document.getElementById('lbl_decto').innerHTML.substr(22);
+    //     impuesto = document.getElementById('lbl_impuesto').innerHTML.substr(20);
+    //     porcentaje = document.getElementById('txt_impuesto').value;
+    // } else {
+    //     impuesto = "";
+    //     porcentaje = "";
+    // }
     $.ajax({
         url: '../controlador/quotes/control_quote_registro.php',
         type: 'POST',
@@ -489,9 +508,9 @@ function Registrar_Detalle_Venta(id) {
 
                     }
 
-                    $("#contenido_principal").load("../vista/ventas/vista_mantenimiento_ventas.php");
+                    $("#contenido_principal").load("../vista/ventas/vista_mantenimiento_cotizacion.php");
                 } else {
-                    $("#contenido_principal").load("../vista/ventas/vista_mantenimiento_ventas.php");
+                    $("#contenido_principal").load("../vista/ventas/vista_mantenimiento_cotizacion.php");
                 }
             })
         } else {

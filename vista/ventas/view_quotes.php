@@ -9,11 +9,14 @@
             </div>
             <div class="ibox-body">
             	<div class="row">
-            	   <div class="col-6">
+            	   <div class="col-4">
                        <label for=""><b>Tercero</b> </label>
                         <select class="js-example-basic-single" name="state" style="width: 100%;" id="cmb_cliente">
 
                          </select> <br> <br>
+                    </div>
+                    <div class="col-2">
+                        <button type="button">Agregar Cliente</button>
                     </div>
 
                     <div class="col-3">
