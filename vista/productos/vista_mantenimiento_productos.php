@@ -120,7 +120,7 @@
         </div>
          <div class="col-lg-4">
       	   <label for=""><b>Categoria</b> </label>
-            <select class="form-control select2_demo_1" 
+            <select class="js-example-basic-single" 
             name="state" style="width: 100%;" id="cmb_categoria"> 
            
              </select> <br> <br>

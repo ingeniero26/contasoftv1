@@ -23,7 +23,11 @@ class Modelo_Quotes
 					 quote_no,
                 q.fecha_quote, q.fecha_vencimiento,
                 q.impuesto,q.total,q.estatus,
-                q.porcentaje,q.total_dcto,q.fecha_quote
+                q.porcentaje,q.total_dcto,q.fecha_quote,
+                qd.cantidad,
+                qd.precio,
+                qd.descuento,
+                qd.cantidad * qd.precio AS subtotal
                 FROM quotes q
                 INNER JOIN usuario u
                 ON q.usuario_id = u.usuario_id
@@ -38,6 +42,8 @@ class Modelo_Quotes
                         = `persona`.`persona_id`)
                INNER JOIN tipo_comprobante tc on
                q.tipo_comprobante_id  =  tc.id
+               left outer JOIN quotation_detail qd
+               ON  qd.quote_id = q.id
                         WHERE `q`.fecha_quote between '$finicio' AND '$ffin' ";
         $arreglo = array();
         if ($consulta = $this->conexion->conexion->query($sql)) {

@@ -41,6 +41,9 @@ function listar_quotes() {
             { "data": "descripcion" },
             { "data": "fecha_quote" },
             { "data": "fecha_vencimiento" },
+            { "data": "cantidad" },
+            { "data": "precio" },
+            { "data": "subtotal" },
             { "data": "impuesto" },
             { "data": "total" },
             { "data": "porcentaje" },
@@ -86,7 +89,7 @@ $('#tb_quote').on('click', '.imprimir', function() {
         var data = t_quotes.row(this).data();
     }
      window.open("../mpdf/quotes.php?codigo="+
-        parseInt(data.venta_id)+"#zoom=100","Cotización","scrollbards=NO");
+        parseInt(data.id)+"#zoom=100","Cotización","scrollbards=NO");
 })
 // combos
 function listar_combo_comprobante() {
@@ -215,6 +218,10 @@ function listar_combo_producto() {
     })
 }
 
+function AbrirModalRegistro() {
+    $("#modal_registro").modal({backdrop:'static',keyboard:false})
+    $('#modal_registro').modal('show');
+}
 
 // funciones para crear la cotizacion
 var arreglo_stock = new Array();

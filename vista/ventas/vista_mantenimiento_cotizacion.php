@@ -35,6 +35,9 @@
                             <th>Comprobante</th>
                             <th>Registro</th>
                             <th>Fecha Vence</th>
+                            <th>Cantidad</th>
+                            <th>Precio</th>
+                            <th>Subtotal</th>
                             <th>Impuesto</th>
                             <th>Total</th>
                             <th>%</th>
