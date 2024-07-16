@@ -17,7 +17,8 @@ $sql ="SELECT
     , CONCAT_WS(' ', `persona`.`persona_nombre`   , `persona`.`persona_apepat`   , `persona`.`persona_apemat` ) AS cliente
     , `persona`.`persona_nrodocumento`,`persona`.`persona_direccion`,`persona`.`persona_telefono`
     , usuario.`usuario_nombre`
-    , empresa.Nit, empresa.nombre, empresa.Representante, empresa.Direccion,empresa.Telefono,empresa.Correo, empresa.Logo
+    , empresa.Nit, empresa.nombre, empresa.Representante,
+     empresa.Direccion,empresa.Telefono,empresa.Correo, empresa.Logo
     FROM
     `venta`
     INNER JOIN `cliente` 
@@ -78,7 +79,8 @@ $html ='<!DOCTYPE html>
         <thead>
           <tr>
             <th class="service" style="color: black; font-size: 5.5em;">ITEM</th>
-            <th class="desc" style="color: black; font-size: 5em;">Descripciòn</th>
+            <th class="desc" style="color: black; font-size: 5em;">Producto</th>
+            <th class="desc" style="color: black; font-size: 5em;">Descripción</th>
             <th style="color: black; font-size: 5em;">Precio</th>
             <th style="color: black; font-size: 5em;">Cantidad</th>
             <th style="color: black; font-size: 5em;">Subtotal</th>
@@ -86,12 +88,15 @@ $html ='<!DOCTYPE html>
           </tr>
         </thead>
         <tbody>';
-        $sql2 = "        SELECT    `producto`.`producto_nombre`
-    , `detalle_venta`.`dv_cantidad`    , `detalle_venta`.`dv_precio`, `detalle_venta`.`dv_descuento`,
-     `detalle_venta`.`dv_cantidad` *  `detalle_venta`.`dv_precio` AS subtotal
-     FROM
-    `detalle_venta`
-    INNER JOIN `producto`      ON (`detalle_venta`.`producto_id` = `producto`.`producto_id`)
+        $sql2 = "  SELECT producto.producto_codigo, `producto`.`producto_nombre`,
+        producto.producto_descripcion,
+        qd.cantidad,
+        qd.precio,qd.descuento,
+        qd.cantidad * qd.precio AS subtotal
+        FROM quotation_detail qd
+        INNER JOIN producto ON 
+        qd.producto_id = producto.producto_id
+        
          where   `detalle_venta`.`venta_id`='".$row1['venta_id']."'";
          $contador =0;
           $resultado2 = $conexion->query($sql2);
@@ -101,6 +106,7 @@ $html ='<!DOCTYPE html>
           <tr>
             <td class="service" style="color: black; font-size: 5em;">'.$contador.'</td>
             <td class="desc" style="color: black; font-size: 5em;">'.$row2['producto_nombre'].'</td>
+            <td class="desc" style="color: black; font-size: 5em;">'.$row2['producto_descripcion'].'</td>
             <td class="unit" style="color: black; font-size: 5em;">'.$row2['dv_precio'].'</td>
             <td class="qty" style="color: black; font-size: 5em;">'.$row2['dv_cantidad'].'</td>
             <td class="total" style="color: black; font-size: 5em;">'.round($row2['subtotal'],2).'</td>

@@ -83,13 +83,13 @@ function listar_quotes() {
 
 }
 
-$('#tb_quote').on('click', '.imprimir', function() {
+$('#tb_quote').on('click', '.imprimir', function () {
     var data = t_quotes.row($(this).parents('tr')).data();
     if (t_quotes.row(this).child.isShown()) {
         var data = t_quotes.row(this).data();
     }
-     window.open("../mpdf/quotes.php?codigo="+
-        parseInt(data.id)+"#zoom=100","Cotización","scrollbards=NO");
+    window.open("../mpdf/quotes.php?codigo=" +
+        parseInt(data.id) + "#zoom=100", "Cotización", "scrollbards=NO");
 })
 // combos
 function listar_combo_comprobante() {
@@ -122,6 +122,7 @@ function listar_combo_comprobante() {
         }
     })
 }
+function listar_combo_cliente() {
     setInterval(() => {
         var idempresa = $("#txt_idempresa").val();
         $.ajax({
@@ -141,41 +142,43 @@ function listar_combo_comprobante() {
                         data[i][1] + "-" + data[i][0] + "</option>";
                 }
                 $('#cmb_cliente').html(cadena);
-    
+
             } else {
                 cadena += "<option value=''> No Hay datos</option>";
                 $('#cmb_cliente').html(cadena);
-    
+
             }
         })
     }, 10000);
-function listar_combo_cliente() {
-    var idempresa = $("#txt_idempresa").val();
-    $.ajax({
-        url: "../controlador/ventas/control_combo_cliente_listar.php",
-        type: 'POST',
-        data: {
-            idempresa: idempresa
-        }
-    }).done(function (resp) {
-        //alert(resp);
-        var data = JSON.parse(resp);
-        //console.log(resp);
-        var cadena = "";
-        if (data.length > 0) {
-            for (var i = 0; i < data.length; i++) {
-                cadena += "<option value='" + data[i][2] + "'>" +
-                    data[i][1] + "-" + data[i][0] + "</option>";
-            }
-            $('#cmb_cliente').html(cadena);
-
-        } else {
-            cadena += "<option value=''> No Hay datos</option>";
-            $('#cmb_cliente').html(cadena);
-
-        }
-    })
 }
+
+// function listar_combo_cliente() {
+//     var idempresa = $("#txt_idempresa").val();
+//     $.ajax({
+//         url: "../controlador/ventas/control_combo_cliente_listar.php",
+//         type: 'POST',
+//         data: {
+//             idempresa: idempresa
+//         }
+//     }).done(function (resp) {
+//         //alert(resp);
+//         var data = JSON.parse(resp);
+//         //console.log(resp);
+//         var cadena = "";
+//         if (data.length > 0) {
+//             for (var i = 0; i < data.length; i++) {
+//                 cadena += "<option value='" + data[i][2] + "'>" +
+//                     data[i][1] + "-" + data[i][0] + "</option>";
+//             }
+//             $('#cmb_cliente').html(cadena);
+
+//         } else {
+//             cadena += "<option value=''> No Hay datos</option>";
+//             $('#cmb_cliente').html(cadena);
+
+//         }
+//     })
+// }
 
 function listar_combo_bodega() {
     var idempresa = $("#txt_idempresa").val();
@@ -246,7 +249,7 @@ function listar_combo_producto() {
 }
 
 function AbrirModalRegistro() {
-    $("#modal_registro").modal({backdrop:'static',keyboard:false})
+    $("#modal_registro").modal({ backdrop: 'static', keyboard: false })
     $('#modal_registro').modal('show');
 }
 
