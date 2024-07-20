@@ -10,8 +10,7 @@
         </div>
         <ul class="side-menu metismenu">
             <li>
-                <a class="active" onclick="cargar_contenido('contenido_principal','index.php')"><i
-                        class="sidebar-item-icon fa fa-th-large"></i>
+                <a class="active" onclick="cargar_contenido('contenido_principal','index.php')"><i class="sidebar-item-icon fa fa-th-large"></i>
                     <span class="nav-label">Inicio</span>
                 </a>
             </li>
@@ -38,9 +37,12 @@
                             <span class="nav-label"><i class="fa   fa-th-list"></i> Ciudades</span></a>
                     </li>
                     <li>
-                        <a
-                            href="javascript:cargar_contenido('contenido_principal','configuracion/vista_impuestos_iva.php')">
+                        <a href="javascript:cargar_contenido('contenido_principal','configuracion/vista_impuestos_iva.php')">
                             <span class="nav-label"><i class="fa   fa-th-list"></i> Impuestos</span></a>
+                    </li>
+                    <li>
+                        <a href="javascript:cargar_contenido('contenido_principal','concepto/vista_concepto_salida.php')">
+                            <span class="nav-label"><i class="fa   fa-th-list"></i> Conceptos</span></a>
                     </li>
 
                 </ul>
@@ -75,8 +77,7 @@
                     <span class="nav-label">Inventario</span><i class="fa fa-angle-left arrow"></i></a>
                 <ul class="nav-2-level collapse">
                     <li>
-                        <a
-                            href="javascript:cargar_contenido('contenido_principal','bodegas/mantenimiento_bodegas.php')">
+                        <a href="javascript:cargar_contenido('contenido_principal','bodegas/mantenimiento_bodegas.php')">
                             <span class="nav-label"><i class="fa   fa-outdent"></i> Bodegas</span></a>
                     </li>
                     <li>
@@ -85,14 +86,12 @@
                     </li>
 
                     <li>
-                        <a
-                            href="javascript:cargar_contenido('contenido_principal','categoria/vista_categoria_listar.php')">
+                        <a href="javascript:cargar_contenido('contenido_principal','categoria/vista_categoria_listar.php')">
                             <span class="nav-label"><i class="fa   fa-outdent"></i> Categorias</span></a>
 
                     </li>
                     <li>
-                        <a
-                            href="javascript:cargar_contenido('contenido_principal','tipo_producto/vista_tipo_producto.php')">
+                        <a href="javascript:cargar_contenido('contenido_principal','tipo_producto/vista_tipo_producto.php')">
                             <span class="nav-label"><i class="fa   fa-outdent"></i> Tipo Producto</span></a>
                     </li>
 
@@ -101,8 +100,7 @@
                             <span class="nav-label"><i class="fa   fa-outdent"></i> Marcas</span></a>
                     </li>
                     <li>
-                        <a
-                            href="javascript:cargar_contenido('contenido_principal','productos/vista_mantenimiento_productos.php')">
+                        <a href="javascript:cargar_contenido('contenido_principal','productos/vista_mantenimiento_productos.php')">
                             <span class="nav-label"><i class="fa   fa-th-list"></i> Listado Productos</span></a>
                     </li>
                     <!-- <li>
@@ -116,13 +114,11 @@
                     <span class="nav-label">Ingresos</span><i class="fa fa-angle-left arrow"></i></a>
                 <ul class="nav-2-level collapse">
                     <li>
-                        <a
-                            href="javascript:cargar_contenido('contenido_principal','proveedores/vista_mantenimiento_proveedores.php')">
+                        <a href="javascript:cargar_contenido('contenido_principal','proveedores/vista_mantenimiento_proveedores.php')">
                             <span class="nav-label"><i class="fa   fa-list-ol"></i> Proveedores</span></a>
                     </li>
                     <li>
-                        <a
-                            href="javascript:cargar_contenido('contenido_principal','ingreso/vista_mantenimiento_ingreso.php')">
+                        <a href="javascript:cargar_contenido('contenido_principal','ingreso/vista_mantenimiento_ingreso.php')">
                             <span class="nav-label"><i class="fa   fa-list-ol"></i> Compras</span></a>
                     </li>
 
@@ -144,18 +140,16 @@
                     <span class="nav-label">Salidas</span><i class="fa fa-angle-left arrow"></i></a>
                 <ul class="nav-2-level collapse">
                     <li>
-                        <a
-                            href="javascript:cargar_contenido('contenido_principal','clientes/vista_mantenimiento_clientes.php')">
+                        <a href="javascript:cargar_contenido('contenido_principal','clientes/vista_mantenimiento_clientes.php')">
                             <span class="nav-label"><i class="fa   fa-list-ul"></i> Clientes</span></a>
                     </li>
-                     <li>
+                    <li>
                         <a href="javascript:cargar_contenido('contenido_principal','ventas/vista_mantenimiento_cotizacion.php')">
                             <span class="nav-label"><i class="fa   fa-list-ul"></i> Cotización</span></a>
-                        </li>
-                          
+                    </li>
+
                     <li>
-                        <a
-                            href="javascript:cargar_contenido('contenido_principal','ventas/vista_mantenimiento_ventas.php')">
+                        <a href="javascript:cargar_contenido('contenido_principal','ventas/vista_mantenimiento_ventas.php')">
                             <span class="nav-label"><i class="fa   fa-list-ol"></i> Ventas</span></a>
                     </li>
                     <li>
@@ -166,6 +160,29 @@
                         <a href="javascript:cargar_contenido('contenido_principal','cuentas/abono_clientes.php')">
                             <span class="nav-label"><i class="fa   fa-list-ol"></i> Abono Clientes</span></a>
                     </li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="javascript:;"><i class="sidebar-item-icon fa fa-edit"></i>
+                    <span class="nav-label">Movimientos</span><i class="fa fa-angle-left arrow"></i></a>
+                <ul class="nav-2-level collapse">
+                   
+                    <li>
+                        <a href="javascript:cargar_contenido('contenido_principal','pagos/listado_gastos.php')">
+                            <span class="nav-label"><i class="fa   fa-outdent"></i> Salidas de Productos</span></a>
+
+                    </li>
+
+                    <li>
+                        <a href="javascript:cargar_contenido('contenido_principal','clientes/vista_mantenimiento_codeudor.php')">
+                            <span class="nav-label"><i class="fa   fa-list-ul"></i> Devolución Clientes</span></a>
+                    </li>
+                    <li>
+                        <a href="javascript:cargar_contenido('contenido_principal','clientes/vista_mantenimiento_codeudor.php')">
+                            <span class="nav-label"><i class="fa   fa-list-ul"></i> Devolución Proveedores</span></a>
+                    </li>
+
                 </ul>
             </li>
 
@@ -194,7 +211,7 @@
             </li>
 
 
-            
+
 
 
             <li>

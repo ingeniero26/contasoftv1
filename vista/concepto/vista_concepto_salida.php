@@ -12,7 +12,7 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Categoria</th>
+                            <th>Descripción</th>
                             <th>Fecha Registro</th>
                             <th>Estatus</th>
                             <th>Acci&oacute;n</th>
@@ -41,7 +41,7 @@
       </div>
       <div class="modal-body">
         <label for="">Descripción</label>
-        <input type="text" id="txt_concepto" class="form-control" placeholder="Nombre categoria">
+        <input type="text" id="txt_concepto" class="form-control" placeholder="Descripción">
       </div>
       <div class="modal-footer">
       	 <button type="button" class="btn btn-primary" onclick="Registrar_Concepto()">Grabar</button>
@@ -58,7 +58,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Registro de Categorias</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">Editar Concepto</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -66,14 +66,15 @@
       <div class="modal-body">
         <div class="row">
           <div class="col-lg-6">
-            <input type="text" id="txt_idcategoria" hidden="">
-              <label for="">Nombre Categoria</label>
-              <input type="text" id="txt_nombre_actual_categoria" hidden="" placeholder="Nombre rol">
-              <input type="text" id="txt_nombre_nuevo_categoria" class="form-control" placeholder="Nombre rol">
+            <input type="text" id="txt_idconcepto" hidden="">
+              <label for="">Descripción</label>
+              <input type="text" id="txt_descripcion_actual" hidden="" placeholder="">
+              <input type="text" id="txt_descripcion_nuevo" class="form-control" placeholder="">
           </div>
           <div class="col-lg-6">
              <label for="estatus">Estatus:</label>
-                  <select class="js-example-basic-single" name="state" style="width: 100%;" id="cmb_estatus">
+                  <select class="js-example-basic-single" name="state" 
+                  style="width: 100%;" id="cmb_estatus_editar">
                   <option value="ACTIVO">ACTIVO</option>
                   <option value="INACTIVO">INACTIVO</option>
                 </select> <br> <br>
@@ -82,7 +83,7 @@
        
       </div>
       <div class="modal-footer">
-         <button type="button" class="btn btn-primary" onclick="Modificar_Categoria()">Grabar</button>
+         <button type="button" class="btn btn-warning" onclick="Modificar_Concepto()">Editar</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
        
       </div>
