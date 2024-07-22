@@ -16,6 +16,7 @@
                             <th>Nombre</th>
                             <th>Representante</th>
                             <th>Règimen</th>
+                            <th>Industria</th>
                             <th>Ciudad</th>
                             <th>Direccion</th>
                             <th>Telefono</th>
@@ -53,7 +54,8 @@
       	<div class="col-lg-6">
 
       	   <label for=""><b>Nit</b> </label>
-           <input type="text" id="txt_NIT" class="form-control" placeholder="nit" > <br>
+           <input type="text" id="txt_NIT_actual" class="form-control" placeholder="nit" > <br>
+           <input type="text" id="txt_NIT_nuevo" class="form-control" placeholder="nit" > <br>
       	</div>
         <div class="col-lg-6">
 
@@ -82,7 +84,8 @@
         </div>
         <div class="col-lg-6">
             <label for=""><b>Ciudad</b> </label>
-                <select class="js-example-basic-single" name="state" style="width: 100%;" id="cmb_ciudad_empresa">
+                <select class="js-example-basic-single" 
+                name="state" style="width: 100%;" id="cmb_ciudad_empresa">
                 </select> <br> <br>
           </div>
           <div class="col-lg-6">
