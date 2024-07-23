@@ -29,17 +29,13 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Usuario</th>
-                            <th>Cliente</th>
-                            <th>Bodega</th>
-                            <th>Comprobante</th>
-                            <th>Serie</th>
-                            <th>No Factura</th>
-                            <th>Pago</th>
                             <th>Fecha</th>
-                            <th>Dcto</th>
-                            <th>IVA</th>
-                            <th>Total</th>
+                            <th>Usuario</th>
+                            <th>Concepto</th>
+                            <th>Bodega</th>
+                            <th>Cod Producto</th>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
                             <th>Estado</th>
                             <th>Acci&oacute;n</th>
                         </tr>
@@ -77,7 +73,7 @@ if(mes < 10 ) {
 }
  document.getElementById('txt_finicio').value=anio +"-"+mes +"-"+d;
  document.getElementById('txt_ffin').value=anio +"-"+mes +"-"+d;
-   listar_ventas();
+ listar_salidas();
 
  $('#modal_registro').on('shown.bs.modal', function () {
     $('#txt_nombre_categoria').trigger('focus')

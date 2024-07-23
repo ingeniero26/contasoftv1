@@ -88,14 +88,16 @@ $html ='<!DOCTYPE html>
           </tr>
         </thead>
         <tbody>';
-        $sql2 = "  SELECT producto.producto_codigo, `producto`.`producto_nombre`,
-        producto.producto_descripcion,
-        qd.cantidad,
-        qd.precio,qd.descuento,
-        qd.cantidad * qd.precio AS subtotal
-        FROM quotation_detail qd
-        INNER JOIN producto ON 
-        qd.producto_id = producto.producto_id
+        $sql2 = " SELECT    `producto`.`producto_nombre`
+    , `detalle_venta`.`dv_cantidad` 
+	 , `detalle_venta`.`dv_precio`,
+	  `detalle_venta`.`dv_descuento`,
+     `detalle_venta`.`dv_cantidad` *  
+	  `detalle_venta`.`dv_precio` AS subtotal
+     FROM
+    `detalle_venta`
+    INNER JOIN `producto`  
+	 ON (`detalle_venta`.`producto_id` = `producto`.`producto_id`)
         
          where   `detalle_venta`.`venta_id`='".$row1['venta_id']."'";
          $contador =0;

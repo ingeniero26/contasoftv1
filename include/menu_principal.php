@@ -169,7 +169,7 @@
                 <ul class="nav-2-level collapse">
                    
                     <li>
-                        <a href="javascript:cargar_contenido('contenido_principal','pagos/listado_gastos.php')">
+                        <a href="javascript:cargar_contenido('contenido_principal','salidas/mantenimiento_salidas.php')">
                             <span class="nav-label"><i class="fa   fa-outdent"></i> Salidas de Productos</span></a>
 
                     </li>

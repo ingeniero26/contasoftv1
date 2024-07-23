@@ -262,11 +262,6 @@ function listar_productos(){
 
 
 
-
-
-
-
-
  // function activar usuario
     $('#tabla_productos').on('click', '.desactivar', function() {
         var data = t_productos.row($(this).parents('tr')).data();
@@ -380,7 +375,7 @@ function listar_productos(){
     }
 
 
-    function listar_combo_unidad() {
+function listar_combo_unidad() {
     var idempresa =$("#txt_idempresa").val();
         $.ajax({
             url:"../controlador/unidad_medida/control_listar_combo_unidad.php",
@@ -407,7 +402,7 @@ function listar_productos(){
          })
     }
 
-    function listar_combo_tipo() {
+function listar_combo_tipo() {
     var idempresa =$("#txt_idempresa").val();
         $.ajax({
             url:"../controlador/productos/control_listar_combo_tipo.php",
@@ -434,7 +429,7 @@ function listar_productos(){
          })
     }
 
-    function listar_combo_iva() {
+function listar_combo_iva() {
     var idempresa =$("#txt_idempresa").val();
         $.ajax({
             url:"../controlador/iva/control_iva_combo_productos.php",
@@ -460,11 +455,6 @@ function listar_productos(){
             }
          })
     }
-
-
-
-
-
 
   function Registrar_Producto() {
     var codigo = $('#txt_codigo').val();
