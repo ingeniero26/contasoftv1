@@ -1011,3 +1011,44 @@ function listar_facturas_credito_vencidas() {
 
 
 }
+
+
+//productos mas  vendidos
+var t_productos_mas_vendidos;
+function listar_productos_mas_vendidos() {
+
+	t_productos_mas_vendidos = $("#tbl_productos_mas_vendidos").DataTable({
+		"ordering": false,
+		"pageLength": 10,
+		"destroy": true,
+		"async": false,
+		"responsive": true,
+		"autoWidth": false,
+		"ajax": {
+			"method": "POST",
+			"url": "../controlador/usuario/productos_mas_vendidos.php",
+			data: {
+
+			}
+		},
+
+
+		"columns": [
+
+			{ "data": "producto_codigo" },
+
+			{ "data": "producto_nombre" },
+			{ "data": "producto_descripcion" },
+			{ "data": "cantidad" },
+			{ "data": "total_venta" }
+
+		],
+		"fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+			$($(nRow).find("td")[2]).css('text-align', 'center');
+			$($(nRow).find("td")[4]).css('text-align', 'center');
+		},
+		"language": idioma_espanol,
+		select: true
+	});
+
+}

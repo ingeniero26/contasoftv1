@@ -135,7 +135,7 @@ if ($_SESSION['S_ROL'] == '1') {
 
                     </div>
                     <div class="row">
-                        <div class="col-lg-6">
+                        <div class="col-lg-8">
                             <div class="card card-info">
                                 <div class="card-header">
                                     <h3 class="card-title">Los 10 productos mas vendidos</h3>
@@ -155,6 +155,7 @@ if ($_SESSION['S_ROL'] == '1') {
                                                 <tr class="text-danger">
                                                     <th>Cod. producto</th>
                                                     <th>Producto</th>
+                                                    <th>Descripción</th>
                                                     <th>Cantidad</th>
                                                     <th>Ventas</th>
                                                 </tr>
@@ -167,7 +168,7 @@ if ($_SESSION['S_ROL'] == '1') {
                                 </div> <!-- ./ end card-body -->
                             </div>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-4">
                             <div class="card card-info">
                                 <div class="card-header">
                                     <h3 class="card-title">Listado de productos con poco stock</h3>
@@ -298,6 +299,7 @@ if ($_SESSION['S_ROL'] == '1') {
     TraerDatosUsuario();
     listar_productos_poco_stock();
     listar_facturas_credito_vencidas();
+    listar_productos_mas_vendidos();
 
     function cargar_contenido(contenedor, contenido) {
         $('#' + contenedor).load(contenido);
