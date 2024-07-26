@@ -198,6 +198,43 @@ if ($_SESSION['S_ROL'] == '1') {
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card card-info">
+                                <div class="card-header">
+                                    <h3 class="card-title">Facturas Vencidas</h3>
+                                    <div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div> <!-- ./ end card-tools -->
+                                </div> <!-- ./ end card-header -->
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table" id="tbl_facturas_vencidas">
+                                            <thead>
+                                                <tr class="text-danger">
+                                                    <th>Cliente</th>
+                                                    <th>Documento</th>
+                                                    <th>Factura</th>
+                                                    <th>F. Vencimiento</th>
+                                                    <th>Fecha Actual</th>
+                                                    <th>Valor</th>
+                                                    <th>Estado</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div> <!-- ./ end card-body -->
+                            </div>
+                        </div>
+                    </div>
 
 
 
@@ -208,7 +245,7 @@ if ($_SESSION['S_ROL'] == '1') {
         </div>
         <!-- END PAGE CONTENT-->
         <footer class="page-footer">
-            <div class="font-13">2021 © <b>CONTASOFT</b> - Derecho reservados.</div>
+            <div class="font-13">2021 © <b>CONTASOFT</b> - Derechos reservados.</div>
             <a class="px-4" href="https://jsystemas-web.000webhostapp.com/" target="_blank">JKSYSTEMAS</a>
             <div class="to-top"><i class="fa fa-angle-double-up"></i></div>
         </footer>
@@ -260,6 +297,7 @@ if ($_SESSION['S_ROL'] == '1') {
     <script type="text/javascript">
     TraerDatosUsuario();
     listar_productos_poco_stock();
+    listar_facturas_credito_vencidas();
 
     function cargar_contenido(contenedor, contenido) {
         $('#' + contenedor).load(contenido);
