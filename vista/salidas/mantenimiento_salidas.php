@@ -4,7 +4,7 @@
             <div class="ibox-head">
                 <div class="ibox-title">MANTENIMIENTO AJUSTE SALIDA DE PRODUCTOS</div>
                 <div class="ibox-tools">
-                   <button class="btn btn-primary" style="width: 100%" onclick="cargar_contenido('contenido_principal','salida/vista_salidas.php')"><i class="fa fa-plus">Nuevo Registro</i></button>
+                   <button class="btn btn-primary" style="width: 100%" onclick="cargar_contenido('contenido_principal','salidas/vista_salidas.php')"><i class="fa fa-plus">Nuevo Registro</i></button>
                 </div>
             </div>
             <div class="ibox-body">

@@ -163,7 +163,7 @@ function listar_combo_proveedor() {
 
 
 function listar_combo_producto() {
-    setInterval(() => {
+   
         var idempresa = $("#txt_idempresa").val();
         $.ajax({
             url: "../controlador/ingreso/control_combo_producto_listar.php",
@@ -189,8 +189,8 @@ function listar_combo_producto() {
 
             }
         })
-    }, 1000);
-}
+    }
+
 
 
 function listar_combo_bodega() {

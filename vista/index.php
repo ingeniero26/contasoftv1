@@ -66,15 +66,12 @@ if (!isset($_SESSION['S_IDUSUARIO'])) {
                             <img src="../plantilla/assets/img/admin-avatar.png" />
                             <span></span>Usuario<i class="fa fa-angle-down m-l-5"></i></a>
                         <ul class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item"
-                                onclick="cargar_contenido('contenido_principal','vista_profile.php')"><i
-                                    class="fa fa-user"></i>Perfil</a>
+                            <a class="dropdown-item" onclick="cargar_contenido('contenido_principal','vista_profile.php')"><i class="fa fa-user"></i>Perfil</a>
 
                             <a class="dropdown-item" href="javascript:;"><i class="fa fa-support"></i>Soporte
                                 Técnico</a>
                             <li class="dropdown-divider"></li>
-                            <a class="dropdown-item" href="../controlador/usuario/cntrlCerrarSesion.php"><i
-                                    class="fa fa-power-off"></i>Cerrar Sesión</a>
+                            <a class="dropdown-item" href="../controlador/usuario/cntrlCerrarSesion.php"><i class="fa fa-power-off"></i>Cerrar Sesión</a>
                         </ul>
                     </li>
                 </ul>
@@ -84,15 +81,15 @@ if (!isset($_SESSION['S_IDUSUARIO'])) {
         <!-- END HEADER-->
         <!-- START SIDEBAR-->
         <?php
-if ($_SESSION['S_ROL'] == '1') {
-    include '../include/menu_principal.php';
-} else if ($_SESSION['S_ROL'] == '4') {
-    include '../include/menu_super.php';
-} else {
-    include '../include/menu_vendedor.php';
-}
+        if ($_SESSION['S_ROL'] == '1') {
+            include '../include/menu_principal.php';
+        } else if ($_SESSION['S_ROL'] == '4') {
+            include '../include/menu_super.php';
+        } else {
+            include '../include/menu_vendedor.php';
+        }
 
-?>
+        ?>
         <!-- END SIDEBAR-->
         <div class="content-wrapper">
             <input type="text" value="<?php echo $_SESSION['S_IDUSUARIO']; ?>" id="txt_idprincipal" hidden>
@@ -112,8 +109,7 @@ if ($_SESSION['S_ROL'] == '1') {
                         </div>
                         <div class="col-2">
                             <label for="">&nbsp;</label><br>
-                            <button class="btn btn-success" style="width:100%" onclick="TraerDatosWidgets()"><i
-                                    class="fa fa-search"></i>Buscar</button><br>
+                            <button class="btn btn-success" style="width:100%" onclick="TraerDatosWidgets()"><i class="fa fa-search"></i>Buscar</button><br>
                         </div>
 
                     </div>
@@ -199,7 +195,7 @@ if ($_SESSION['S_ROL'] == '1') {
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <!-- <div class="row">
                         <div class="col-lg-12">
                             <div class="card card-info">
                                 <div class="card-header">
@@ -211,8 +207,8 @@ if ($_SESSION['S_ROL'] == '1') {
                                         <button type="button" class="btn btn-tool" data-card-widget="remove">
                                             <i class="fas fa-times"></i>
                                         </button>
-                                    </div> <!-- ./ end card-tools -->
-                                </div> <!-- ./ end card-header -->
+                                    </div>
+                                </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
                                         <table class="table" id="tbl_facturas_vencidas">
@@ -232,10 +228,10 @@ if ($_SESSION['S_ROL'] == '1') {
                                             </tbody>
                                         </table>
                                     </div>
-                                </div> <!-- ./ end card-body -->
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
 
 
@@ -296,290 +292,290 @@ if ($_SESSION['S_ROL'] == '1') {
     <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script>
 
     <script type="text/javascript">
-    TraerDatosUsuario();
-    listar_productos_poco_stock();
-    listar_facturas_credito_vencidas();
-    listar_productos_mas_vendidos();
+        TraerDatosUsuario();
+        listar_productos_poco_stock();
+        listar_facturas_credito_vencidas();
+        listar_productos_mas_vendidos();
 
-    function cargar_contenido(contenedor, contenido) {
-        $('#' + contenedor).load(contenido);
-    }
-    var idioma_espanol = {
-        select: {
-            rows: "%d fila seleccionada"
-        },
-        "processing": "Procesando...",
-        "lengthMenu": "Mostrar _MENU_ registros",
-        "zeroRecords": "No se encontraron resultados",
-        "emptyTable": "Ningún dato disponible en esta tabla",
-        "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-        "infoFiltered": "(filtrado de un total de _MAX_ registros)",
-        "search": "Buscar:",
-        "infoThousands": ",",
-        "loadingRecords": "Cargando...",
-        "paginate": {
-            "first": "Primero",
-            "last": "Último",
-            "next": "Siguiente",
-            "previous": "Anterior"
-        },
-        "aria": {
-            "sortAscending": ": Activar para ordenar la columna de manera ascendente",
-            "sortDescending": ": Activar para ordenar la columna de manera descendente"
-        },
-        "buttons": {
-            "copy": "Copiar",
-            "colvis": "Visibilidad",
-            "collection": "Colección",
-            "colvisRestore": "Restaurar visibilidad",
-            "copyKeys": "Presione ctrl o u2318 + C para copiar los datos de la tabla al portapapeles del sistema. <br \/> <br \/> Para cancelar, haga clic en este mensaje o presione escape.",
-            "copySuccess": {
-                "1": "Copiada 1 fila al portapapeles",
-                "_": "Copiadas %d fila al portapapeles"
+        function cargar_contenido(contenedor, contenido) {
+            $('#' + contenedor).load(contenido);
+        }
+        var idioma_espanol = {
+            select: {
+                rows: "%d fila seleccionada"
             },
-            "copyTitle": "Copiar al portapapeles",
-            "csv": "CSV",
-            "excel": "Excel",
-            "pageLength": {
-                "-1": "Mostrar todas las filas",
-                "1": "Mostrar 1 fila",
-                "_": "Mostrar %d filas"
+            "processing": "Procesando...",
+            "lengthMenu": "Mostrar _MENU_ registros",
+            "zeroRecords": "No se encontraron resultados",
+            "emptyTable": "Ningún dato disponible en esta tabla",
+            "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+            "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+            "search": "Buscar:",
+            "infoThousands": ",",
+            "loadingRecords": "Cargando...",
+            "paginate": {
+                "first": "Primero",
+                "last": "Último",
+                "next": "Siguiente",
+                "previous": "Anterior"
             },
-            "pdf": "PDF",
-            "print": "Imprimir"
-        },
-        "autoFill": {
-            "cancel": "Cancelar",
-            "fill": "Rellene todas las celdas con <i>%d<\/i>",
-            "fillHorizontal": "Rellenar celdas horizontalmente",
-            "fillVertical": "Rellenar celdas verticalmentemente"
-        },
-        "decimal": ",",
-        "searchBuilder": {
-            "add": "Añadir condición",
-            "button": {
-                "0": "Constructor de búsqueda",
-                "_": "Constructor de búsqueda (%d)"
+            "aria": {
+                "sortAscending": ": Activar para ordenar la columna de manera ascendente",
+                "sortDescending": ": Activar para ordenar la columna de manera descendente"
             },
-            "clearAll": "Borrar todo",
-            "condition": "Condición",
-            "conditions": {
-                "date": {
-                    "after": "Despues",
-                    "before": "Antes",
-                    "between": "Entre",
-                    "empty": "Vacío",
-                    "equals": "Igual a",
-                    "notBetween": "No entre",
-                    "notEmpty": "No Vacio",
-                    "not": "Diferente de"
+            "buttons": {
+                "copy": "Copiar",
+                "colvis": "Visibilidad",
+                "collection": "Colección",
+                "colvisRestore": "Restaurar visibilidad",
+                "copyKeys": "Presione ctrl o u2318 + C para copiar los datos de la tabla al portapapeles del sistema. <br \/> <br \/> Para cancelar, haga clic en este mensaje o presione escape.",
+                "copySuccess": {
+                    "1": "Copiada 1 fila al portapapeles",
+                    "_": "Copiadas %d fila al portapapeles"
                 },
-                "number": {
-                    "between": "Entre",
-                    "empty": "Vacio",
-                    "equals": "Igual a",
-                    "gt": "Mayor a",
-                    "gte": "Mayor o igual a",
-                    "lt": "Menor que",
-                    "lte": "Menor o igual que",
-                    "notBetween": "No entre",
-                    "notEmpty": "No vacío",
-                    "not": "Diferente de"
+                "copyTitle": "Copiar al portapapeles",
+                "csv": "CSV",
+                "excel": "Excel",
+                "pageLength": {
+                    "-1": "Mostrar todas las filas",
+                    "1": "Mostrar 1 fila",
+                    "_": "Mostrar %d filas"
                 },
-                "string": {
-                    "contains": "Contiene",
-                    "empty": "Vacío",
-                    "endsWith": "Termina en",
-                    "equals": "Igual a",
-                    "notEmpty": "No Vacio",
-                    "startsWith": "Empieza con",
-                    "not": "Diferente de"
+                "pdf": "PDF",
+                "print": "Imprimir"
+            },
+            "autoFill": {
+                "cancel": "Cancelar",
+                "fill": "Rellene todas las celdas con <i>%d<\/i>",
+                "fillHorizontal": "Rellenar celdas horizontalmente",
+                "fillVertical": "Rellenar celdas verticalmentemente"
+            },
+            "decimal": ",",
+            "searchBuilder": {
+                "add": "Añadir condición",
+                "button": {
+                    "0": "Constructor de búsqueda",
+                    "_": "Constructor de búsqueda (%d)"
                 },
-                "array": {
-                    "not": "Diferente de",
-                    "equals": "Igual",
-                    "empty": "Vacío",
-                    "contains": "Contiene",
-                    "notEmpty": "No Vacío",
-                    "without": "Sin"
+                "clearAll": "Borrar todo",
+                "condition": "Condición",
+                "conditions": {
+                    "date": {
+                        "after": "Despues",
+                        "before": "Antes",
+                        "between": "Entre",
+                        "empty": "Vacío",
+                        "equals": "Igual a",
+                        "notBetween": "No entre",
+                        "notEmpty": "No Vacio",
+                        "not": "Diferente de"
+                    },
+                    "number": {
+                        "between": "Entre",
+                        "empty": "Vacio",
+                        "equals": "Igual a",
+                        "gt": "Mayor a",
+                        "gte": "Mayor o igual a",
+                        "lt": "Menor que",
+                        "lte": "Menor o igual que",
+                        "notBetween": "No entre",
+                        "notEmpty": "No vacío",
+                        "not": "Diferente de"
+                    },
+                    "string": {
+                        "contains": "Contiene",
+                        "empty": "Vacío",
+                        "endsWith": "Termina en",
+                        "equals": "Igual a",
+                        "notEmpty": "No Vacio",
+                        "startsWith": "Empieza con",
+                        "not": "Diferente de"
+                    },
+                    "array": {
+                        "not": "Diferente de",
+                        "equals": "Igual",
+                        "empty": "Vacío",
+                        "contains": "Contiene",
+                        "notEmpty": "No Vacío",
+                        "without": "Sin"
+                    }
+                },
+                "data": "Data",
+                "deleteTitle": "Eliminar regla de filtrado",
+                "leftTitle": "Criterios anulados",
+                "logicAnd": "Y",
+                "logicOr": "O",
+                "rightTitle": "Criterios de sangría",
+                "title": {
+                    "0": "Constructor de búsqueda",
+                    "_": "Constructor de búsqueda (%d)"
+                },
+                "value": "Valor"
+            },
+            "searchPanes": {
+                "clearMessage": "Borrar todo",
+                "collapse": {
+                    "0": "Paneles de búsqueda",
+                    "_": "Paneles de búsqueda (%d)"
+                },
+                "count": "{total}",
+                "countFiltered": "{shown} ({total})",
+                "emptyPanes": "Sin paneles de búsqueda",
+                "loadMessage": "Cargando paneles de búsqueda",
+                "title": "Filtros Activos - %d"
+            },
+            "select": {
+                "1": "%d fila seleccionada",
+                "_": "%d filas seleccionadas",
+                "cells": {
+                    "1": "1 celda seleccionada",
+                    "_": "$d celdas seleccionadas"
+                },
+                "columns": {
+                    "1": "1 columna seleccionada",
+                    "_": "%d columnas seleccionadas"
                 }
             },
-            "data": "Data",
-            "deleteTitle": "Eliminar regla de filtrado",
-            "leftTitle": "Criterios anulados",
-            "logicAnd": "Y",
-            "logicOr": "O",
-            "rightTitle": "Criterios de sangría",
-            "title": {
-                "0": "Constructor de búsqueda",
-                "_": "Constructor de búsqueda (%d)"
+            "thousands": ".",
+            "datetime": {
+                "previous": "Anterior",
+                "next": "Proximo",
+                "hours": "Horas",
+                "minutes": "Minutos",
+                "seconds": "Segundos",
+                "unknown": "-",
+                "amPm": [
+                    "am",
+                    "pm"
+                ]
             },
-            "value": "Valor"
-        },
-        "searchPanes": {
-            "clearMessage": "Borrar todo",
-            "collapse": {
-                "0": "Paneles de búsqueda",
-                "_": "Paneles de búsqueda (%d)"
-            },
-            "count": "{total}",
-            "countFiltered": "{shown} ({total})",
-            "emptyPanes": "Sin paneles de búsqueda",
-            "loadMessage": "Cargando paneles de búsqueda",
-            "title": "Filtros Activos - %d"
-        },
-        "select": {
-            "1": "%d fila seleccionada",
-            "_": "%d filas seleccionadas",
-            "cells": {
-                "1": "1 celda seleccionada",
-                "_": "$d celdas seleccionadas"
-            },
-            "columns": {
-                "1": "1 columna seleccionada",
-                "_": "%d columnas seleccionadas"
-            }
-        },
-        "thousands": ".",
-        "datetime": {
-            "previous": "Anterior",
-            "next": "Proximo",
-            "hours": "Horas",
-            "minutes": "Minutos",
-            "seconds": "Segundos",
-            "unknown": "-",
-            "amPm": [
-                "am",
-                "pm"
-            ]
-        },
-        "editor": {
-            "close": "Cerrar",
-            "create": {
-                "button": "Nuevo",
-                "title": "Crear Nuevo Registro",
-                "submit": "Crear"
-            },
-            "edit": {
-                "button": "Editar",
-                "title": "Editar Registro",
-                "submit": "Actualizar"
-            },
-            "remove": {
-                "button": "Eliminar",
-                "title": "Eliminar Registro",
-                "submit": "Eliminar",
-                "confirm": {
-                    "_": "¿Está seguro que desea eliminar %d filas?",
-                    "1": "¿Está seguro que desea eliminar 1 fila?"
+            "editor": {
+                "close": "Cerrar",
+                "create": {
+                    "button": "Nuevo",
+                    "title": "Crear Nuevo Registro",
+                    "submit": "Crear"
+                },
+                "edit": {
+                    "button": "Editar",
+                    "title": "Editar Registro",
+                    "submit": "Actualizar"
+                },
+                "remove": {
+                    "button": "Eliminar",
+                    "title": "Eliminar Registro",
+                    "submit": "Eliminar",
+                    "confirm": {
+                        "_": "¿Está seguro que desea eliminar %d filas?",
+                        "1": "¿Está seguro que desea eliminar 1 fila?"
+                    }
+                },
+                "error": {
+                    "system": "Ha ocurrido un error en el sistema (<a target=\"\\\" rel=\"\\ nofollow\" href=\"\\\">Más información&lt;\\\/a&gt;).<\/a>"
+                },
+                "multi": {
+                    "title": "Múltiples Valores",
+                    "info": "Los elementos seleccionados contienen diferentes valores para este registro. Para editar y establecer todos los elementos de este registro con el mismo valor, hacer click o tap aquí, de lo contrario conservarán sus valores individuales.",
+                    "restore": "Deshacer Cambios",
+                    "noMulti": "Este registro puede ser editado individualmente, pero no como parte de un grupo."
                 }
             },
-            "error": {
-                "system": "Ha ocurrido un error en el sistema (<a target=\"\\\" rel=\"\\ nofollow\" href=\"\\\">Más información&lt;\\\/a&gt;).<\/a>"
-            },
-            "multi": {
-                "title": "Múltiples Valores",
-                "info": "Los elementos seleccionados contienen diferentes valores para este registro. Para editar y establecer todos los elementos de este registro con el mismo valor, hacer click o tap aquí, de lo contrario conservarán sus valores individuales.",
-                "restore": "Deshacer Cambios",
-                "noMulti": "Este registro puede ser editado individualmente, pero no como parte de un grupo."
+            "info": "Mostrando de _START_ a _END_ de _TOTAL_ entradas"
+
+        }
+
+
+
+
+        function sololetras(e) {
+            key = e.keyCode || e.which;
+            teclado = String.fromCharCode(key).toLowerCase();
+            letras = "qwertyuiopasdfghjklñzxcvbnm ";
+            especiales = "8-37-38-46-164";
+            teclado_especial = false;
+            for (var i in especiales) {
+                if (key == especiales[i]) {
+                    teclado_especial = true;
+                    break;
+                }
             }
-        },
-        "info": "Mostrando de _START_ a _END_ de _TOTAL_ entradas"
 
-    }
-
-
-
-
-    function sololetras(e) {
-        key = e.keyCode || e.which;
-        teclado = String.fromCharCode(key).toLowerCase();
-        letras = "qwertyuiopasdfghjklñzxcvbnm ";
-        especiales = "8-37-38-46-164";
-        teclado_especial = false;
-        for (var i in especiales) {
-            if (key == especiales[i]) {
-                teclado_especial = true;
-                break;
-            }
-        }
-
-        if (letras.indexOf(teclado) == -1 && !teclado_especial) {
-            return false;
-        }
-    }
-
-
-    function soloNumeros(e) {
-        tecla = (document.all) ? e.keyCode : e.which;
-        if (tecla == 8) {
-            return true;
-        }
-        // Patron de entrada, en este caso solo acepta numeros
-        patron = /[0-9]/;
-        tecla_final = String.fromCharCode(tecla);
-        return patron.test(tecla_final);
-    }
-
-    function filterfloat(evt, input) {
-        var key = window.Event ? evt.which : evt.keyCode;
-        var chark = String.fromCharCode(key);
-        var tempValue = input.value + chark;
-        if (key >= 48 && key <= 57) {
-            if (filter(tempValue) === false) {
+            if (letras.indexOf(teclado) == -1 && !teclado_especial) {
                 return false;
-            } else {
+            }
+        }
+
+
+        function soloNumeros(e) {
+            tecla = (document.all) ? e.keyCode : e.which;
+            if (tecla == 8) {
                 return true;
             }
-        } else {
-            if (key == 8 || key == 13 || key == 0) {
-                return true;
-            } else if (key == 46) {
+            // Patron de entrada, en este caso solo acepta numeros
+            patron = /[0-9]/;
+            tecla_final = String.fromCharCode(tecla);
+            return patron.test(tecla_final);
+        }
+
+        function filterfloat(evt, input) {
+            var key = window.Event ? evt.which : evt.keyCode;
+            var chark = String.fromCharCode(key);
+            var tempValue = input.value + chark;
+            if (key >= 48 && key <= 57) {
                 if (filter(tempValue) === false) {
+                    return false;
+                } else {
                     return true;
                 }
             } else {
-                return false;
+                if (key == 8 || key == 13 || key == 0) {
+                    return true;
+                } else if (key == 46) {
+                    if (filter(tempValue) === false) {
+                        return true;
+                    }
+                } else {
+                    return false;
+                }
             }
         }
-    }
 
-    function filter(_val_) {
-        var preg = /^([0-9]+\.?[0-9]{0,2})$/;
-        if (preg.test(_val_) === true) {
-            return true;
-        } else {
-            return false;
+        function filter(_val_) {
+            var preg = /^([0-9]+\.?[0-9]{0,2})$/;
+            if (preg.test(_val_) === true) {
+                return true;
+            } else {
+                return false;
+            }
+
         }
 
-    }
+        $(document).ready(function() {
 
-    $(document).ready(function() {
-
-        $('.js-example-basic-single').select2();
+            $('.js-example-basic-single').select2();
 
 
-        var f = new Date();
-        var anio = f.getFullYear();
-        var mes = f.getMonth() + 1;
-        var d = f.getDate();
-        if (d < 10) {
-            d = '0' + d;
-        }
+            var f = new Date();
+            var anio = f.getFullYear();
+            var mes = f.getMonth() + 1;
+            var d = f.getDate();
+            if (d < 10) {
+                d = '0' + d;
+            }
 
-        if (mes < 10) {
-            mes = '0' + mes;
-        }
-        document.getElementById('txt_finicio_d').value = anio + "-" + mes + "-" + d;
-        document.getElementById('txt_ffin_d').value = anio + "-" + mes + "-" + d;
+            if (mes < 10) {
+                mes = '0' + mes;
+            }
+            document.getElementById('txt_finicio_d').value = anio + "-" + mes + "-" + d;
+            document.getElementById('txt_ffin_d').value = anio + "-" + mes + "-" + d;
 
-        TraerDatosWidgets();
+            TraerDatosWidgets();
 
-    });
+        });
 
 
 
-    /*grafico*/
+        /*grafico*/
     </script>
 </body>
 
