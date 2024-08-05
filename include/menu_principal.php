@@ -103,10 +103,10 @@
                         <a href="javascript:cargar_contenido('contenido_principal','productos/vista_mantenimiento_productos.php')">
                             <span class="nav-label"><i class="fa   fa-th-list"></i> Listado Productos</span></a>
                     </li>
-                    <!-- <li>
-                            <a href="javascript:cargar_contenido('contenido_principal','productos/carga_productos.php')">
-                                <span class="nav-label"><i class="fa   fa-th-list"></i> Cargar Productos</span></a>
-                            </li> -->
+                     <li>
+                            <a href="javascript:cargar_contenido('contenido_principal','productos/valor_inventario.php')">
+                                <span class="nav-label"><i class="fa   fa-th-list"></i> Valor Inventario</span></a>
+                            </li> 
                 </ul>
             </li>
             <li>

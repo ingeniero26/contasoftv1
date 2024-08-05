@@ -42,7 +42,7 @@
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Registro de Usuarios</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">Modificar de Empresa</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -50,7 +50,7 @@
       <div class="modal-body">
     <form method="POST" action="#"  enctype="multipart/form-data" onsubmit="return false">
       	<div class="row">
-        <input type="text" id="txt_idempresa" >
+        <input type="text" id="txt_idempresa" hidden>
       	<div class="col-lg-6">
 
       	   <label for=""><b>Nit</b> </label>
@@ -94,6 +94,10 @@
 
              </select>
       	</div>
+        <div class="col-lg-6">
+           <label for=""><b>Industria</b> </label>
+           <input type="text" id="txt_industria" readonly class="form-control" placeholder="" >
+        </div>
 
 	   <div class="col-lg-10">
         <label for="">Subir Imagen</label>

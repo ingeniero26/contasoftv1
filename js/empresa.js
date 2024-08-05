@@ -19,7 +19,7 @@ function listar_empresa() {
         "order": [[1, 'asc']],
         "columns": [
             { "defaultContent": "" },
-            { "data": "ID" },
+           
             { "data": "Nit" },
             { "data": "nombre" },
             { "data": "Representante" },
@@ -84,7 +84,8 @@ $('#tabla_empresa').on('click', '.editar', function () {
     $("#modal_editar").modal({ backdrop: 'static', keyboard: false })
     $("#modal_editar").modal('show');
     $("#txt_idempresa").val(data.ID);
-    $("#txt_NIT").val(data.Nit);
+    $("#txt_NIT_actual").val(data.Nit);
+    $("#txt_NIT_nuevo").val(data.Nit);
     $("#txt_nombre").val(data.nombre);
     $("#txt_representante").val(data.Representante);
     $("#txt_direccion").val(data.Direccion);
@@ -92,7 +93,7 @@ $('#tabla_empresa').on('click', '.editar', function () {
     $("#txt_correo").val(data.Correo);
     $("#cmb_ciudad_empresa").val(data.idCiudad).trigger("change");
     $("#cmb_tipo_regimen").val(data.id_tipo_regimen).trigger("change");
-
+    $("#txt_industria").val(data.Industria);
 });
 
 
@@ -262,8 +263,7 @@ function Modificar_Empresa() {
     var correo = $('#txt_correo').val();
     var ciudad = $('#cmb_ciudad_empresa').val();
     var estatus = $('#cmb_estatus_editar').val();
-    if (nombre.length == 0 || apepat.length == 0 || apemat.length == 0 ||
-        numero_nuevo.length == 0 || tipo_doc.length == 0) {
+    if (NIT_actual.length == 0) {
         return Swal.fire('Mensaje de error', 'Debe digitar los campos vacios', 'warning');
     }
     $.ajax({

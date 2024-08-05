@@ -186,4 +186,23 @@ class Modelo_Productos
         }
     }
 
+        function valor_inventario()
+    {
+        $sql = "SELECT p.producto_id, p.producto_codigo,
+            p.producto_nombre, p.producto_stock, p.producto_precioventa,
+            p.producto_estatus,
+            p.producto_stock * p.producto_precioventa AS total
+
+             FROM producto p
+";
+        $arreglo = array();
+        if ($consulta = $this->conexion->conexion->query($sql)) {
+            while ($consulta_vu = mysqli_fetch_assoc($consulta)) {
+                $arreglo["data"][] = $consulta_vu;
+            }
+            return $arreglo;
+            $this->conexion->cerrar();
+        }
+    }
+
 }

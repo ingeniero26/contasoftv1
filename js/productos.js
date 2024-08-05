@@ -615,8 +615,6 @@ $.ajax({
         }
     })
  
-
-
 }
 
  
@@ -694,6 +692,47 @@ $.ajax({
             }
          })
     }
+
+    var t_valor_inventario;
+function listar_valor_inventario() {
+
+    t_valor_inventario = $("#tabla_valor_producto").DataTable({
+        "ordering": false,
+        "pageLength": 10,
+        "destroy": true,
+        "async": false,
+        "responsive": true,
+        "autoWidth": false,
+        "ajax": {
+            "method": "POST",
+            "url": "../controlador/productos/valor_inventario.php",
+            data: {
+
+            }
+        },
+
+
+        "columns": [
+
+            { "data": "producto_id" },
+            { "data": "producto_codigo" },
+
+            { "data": "producto_nombre" },
+            { "data": "producto_estatus" },
+            { "data": "producto_stock" },
+            { "data": "producto_precioventa" },
+            { "data": "total" },
+
+        ],
+        "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+            $($(nRow).find("td")[2]).css('text-align', 'center');
+            $($(nRow).find("td")[4]).css('text-align', 'center');
+        },
+        "language": idioma_espanol,
+        select: true
+    });
+
+}
 
 
      function LimpiarCampos() {
