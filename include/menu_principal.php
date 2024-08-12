@@ -26,11 +26,11 @@
                             <span class="nav-label"><i class="fa   fa-outdent"></i> EMPRESA</span></a>
 
                     </li>
-                    <!--<li>
-                                <a href="javascript:cargar_contenido('contenido_principal','configuracion/vista_deptos.php')">
-                                    <span class="nav-label"><i class="fa   fa-outdent"></i> Departamentos</span></a>
+                    <li>
+                        <a href="javascript:cargar_contenido('contenido_principal','configuracion/document_type.php')">
+                            <span class="nav-label"><i class="fa   fa-outdent"></i> Tipo Documentos</span></a>
 
-                            </li>-->
+                    </li>
 
                     <li>
                         <a href="javascript:cargar_contenido('contenido_principal','configuracion/vista_ciudades.php')">
@@ -47,30 +47,30 @@
 
                 </ul>
             </li>
-
-            <!--   <li>
-                        <a href="javascript:;"><i class="sidebar-item-icon fa fa-edit"></i>
-                            <span class="nav-label">Acceso</span><i class="fa fa-angle-left arrow"></i></a>
-                        <ul class="nav-2-level collapse">
-
-                            <li>
-                                <a href="javascript:cargar_contenido('contenido_principal','rol/vista_rol_listar.php')">
-                                    <span class="nav-label"><i class="fa  fa-align-justify"></i> Rol</span></a>
-
-                            </li>
-                            <li>
-                                <a href="javascript:cargar_contenido('contenido_principal','usuarios/vista_usuarios_listar.php')">
-                                    <span class="nav-label"><i class="fa   fa-building-o"></i> Usuarios</span></a>
-
-                            </li>
-                        </ul>
-                    </li>-->
-
             <li>
-                <a href="javascript:cargar_contenido('contenido_principal','persona/vista_persona_listar.php')">
-                    <span class="nav-label"><i class="fa   fa-building-o"></i> Terceros</span></a>
+                <a href="javascript:;"><i class="sidebar-item-icon fa fa-edit"></i>
+                    <span class="nav-label">Contactos</span><i class="fa fa-angle-left arrow"></i></a>
+                <ul class="nav-2-level collapse">
 
+                    <li>
+                        <a href="javascript:cargar_contenido('contenido_principal','persona/vista_persona_listar.php')">
+                            <span class="nav-label"><i class="fa   fa-building-o"></i> Terceros</span></a>
+
+                    </li>
+
+                    <li>
+                        <a href="javascript:cargar_contenido('contenido_principal','clientes/vista_mantenimiento_clientes.php')">
+                            <span class="nav-label"><i class="fa   fa-list-ul"></i> Clientes</span></a>
+                    </li>
+                    <li>
+                        <a href="javascript:cargar_contenido('contenido_principal','proveedores/vista_mantenimiento_proveedores.php')">
+                            <span class="nav-label"><i class="fa   fa-list-ol"></i> Proveedores</span></a>
+                    </li>
+
+                </ul>
             </li>
+
+
 
             <li>
                 <a href="javascript:;"><i class="sidebar-item-icon fa fa-edit"></i>
@@ -103,20 +103,17 @@
                         <a href="javascript:cargar_contenido('contenido_principal','productos/vista_mantenimiento_productos.php')">
                             <span class="nav-label"><i class="fa   fa-th-list"></i> Listado Productos</span></a>
                     </li>
-                     <li>
-                            <a href="javascript:cargar_contenido('contenido_principal','productos/valor_inventario.php')">
-                                <span class="nav-label"><i class="fa   fa-th-list"></i> Valor Inventario</span></a>
-                            </li> 
+                    <li>
+                        <a href="javascript:cargar_contenido('contenido_principal','productos/valor_inventario.php')">
+                            <span class="nav-label"><i class="fa   fa-th-list"></i> Valor Inventario</span></a>
+                    </li>
                 </ul>
             </li>
             <li>
                 <a href="javascript:;"><i class="sidebar-item-icon fa fa-edit"></i>
-                    <span class="nav-label">Ingresos</span><i class="fa fa-angle-left arrow"></i></a>
+                    <span class="nav-label">Gastos</span><i class="fa fa-angle-left arrow"></i></a>
                 <ul class="nav-2-level collapse">
-                    <li>
-                        <a href="javascript:cargar_contenido('contenido_principal','proveedores/vista_mantenimiento_proveedores.php')">
-                            <span class="nav-label"><i class="fa   fa-list-ol"></i> Proveedores</span></a>
-                    </li>
+
                     <li>
                         <a href="javascript:cargar_contenido('contenido_principal','ingreso/vista_mantenimiento_ingreso.php')">
                             <span class="nav-label"><i class="fa   fa-list-ol"></i> Compras</span></a>
@@ -127,22 +124,23 @@
                             <span class="nav-label"><i class="fa   fa-outdent"></i> Cuentas x Pagar</span></a>
 
                     </li>
+                    <li>
+                        <a href="javascript:cargar_contenido('contenido_principal','pagos/vista_pagos.php')">
+                            <span class="nav-label"><i class="fa   fa-outdent"></i> Tipo Gastos</span></a>
 
-                    <!--   <li>
-                            <a href="javascript:cargar_contenido('contenido_principal','cuentas/listado_abonos_proveedores.php')">
-                                <span class="nav-label"><i class="fa   fa-th-list"></i> Abonos</span></a>
-                            </li>
-                           -->
+                    </li>
+                    <li>
+                        <a href="javascript:cargar_contenido('contenido_principal','pagos/listado_gastos.php')">
+                            <span class="nav-label"><i class="fa   fa-outdent"></i> Pagos</span></a>
+
+                    </li>
                 </ul>
             </li>
             <li>
                 <a href="javascript:;"><i class="sidebar-item-icon fa fa-edit"></i>
-                    <span class="nav-label">Salidas</span><i class="fa fa-angle-left arrow"></i></a>
+                    <span class="nav-label">Ingresos</span><i class="fa fa-angle-left arrow"></i></a>
                 <ul class="nav-2-level collapse">
-                    <li>
-                        <a href="javascript:cargar_contenido('contenido_principal','clientes/vista_mantenimiento_clientes.php')">
-                            <span class="nav-label"><i class="fa   fa-list-ul"></i> Clientes</span></a>
-                    </li>
+
                     <li>
                         <a href="javascript:cargar_contenido('contenido_principal','ventas/vista_mantenimiento_cotizacion.php')">
                             <span class="nav-label"><i class="fa   fa-list-ul"></i> Cotización</span></a>
@@ -167,50 +165,24 @@
                 <a href="javascript:;"><i class="sidebar-item-icon fa fa-edit"></i>
                     <span class="nav-label">Movimientos</span><i class="fa fa-angle-left arrow"></i></a>
                 <ul class="nav-2-level collapse">
-                   
+
                     <li>
                         <a href="javascript:cargar_contenido('contenido_principal','salidas/mantenimiento_salidas.php')">
-                            <span class="nav-label"><i class="fa   fa-outdent"></i> Salidas de Productos</span></a>
+                            <span class="nav-label"><i class="fa   fa-outdent"></i> Kardex de Productos</span></a>
 
                     </li>
 
                     <li>
                         <a href="javascript:cargar_contenido('contenido_principal','clientes/vista_mantenimiento_codeudor.php')">
-                            <span class="nav-label"><i class="fa   fa-list-ul"></i> Devolución Clientes</span></a>
+                            <span class="nav-label"><i class="fa   fa-list-ul"></i> Ajustes de Inventario</span></a>
                     </li>
                     <li>
                         <a href="javascript:cargar_contenido('contenido_principal','clientes/vista_mantenimiento_codeudor.php')">
-                            <span class="nav-label"><i class="fa   fa-list-ul"></i> Devolución Proveedores</span></a>
+                            <span class="nav-label"><i class="fa   fa-list-ul"></i> Importar</span></a>
                     </li>
 
                 </ul>
             </li>
-
-
-            <li>
-                <a href="javascript:;"><i class="sidebar-item-icon fa fa-edit"></i>
-                    <span class="nav-label">Gastos</span><i class="fa fa-angle-left arrow"></i></a>
-                <ul class="nav-2-level collapse">
-                    <li>
-                        <a href="javascript:cargar_contenido('contenido_principal','pagos/vista_pagos.php')">
-                            <span class="nav-label"><i class="fa   fa-outdent"></i> Tipo Gastos</span></a>
-
-                    </li>
-                    <li>
-                        <a href="javascript:cargar_contenido('contenido_principal','pagos/listado_gastos.php')">
-                            <span class="nav-label"><i class="fa   fa-outdent"></i> Pagos</span></a>
-
-                    </li>
-
-                    <!-- <li>
-                        <a href="javascript:cargar_contenido('contenido_principal','clientes/vista_mantenimiento_codeudor.php')">
-                            <span class="nav-label"><i class="fa   fa-list-ul"></i> Codeudores</span></a>
-                        </li> -->
-
-                </ul>
-            </li>
-
-
 
 
 

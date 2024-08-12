@@ -1,9 +1,9 @@
 <?php 
- include '../../modelo/modelo_usuario.php';
+ include '../../modelo/model_document_type.php';
 
- $Mu = new Modelo_Usuario();
+ $MCT = new Modelo_Arl();
  $idempresa = htmlspecialchars($_POST['idempresa'],ENT_QUOTES,'UTF-8');
- $consulta =$Mu->listar_usuario($idempresa);
+ $consulta =$MCT->listar_arl($idempresa);
 if($consulta) {
 	echo json_encode($consulta);
 } else {

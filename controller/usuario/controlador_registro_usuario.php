@@ -1,6 +1,6 @@
 <?php 
 
- require '../../modelo/modelo_usuario.php';
+ require '../../model/modelo_usuario.php';
  $MU = new Modelo_Usuario();
  $usuario = htmlspecialchars($_POST['usuario'],ENT_QUOTES,'UTF-8');
  $pass =  password_hash($_POST['pass'], PASSWORD_DEFAULT,['cost'=>10]);

@@ -1,5 +1,5 @@
 <?php 
-require '../../modelo/modelo_usuario.php';
+require '../../model/modelo_usuario.php';
 
 $MU = new Modelo_Usuario();
 $usuario_id = htmlspecialchars($_POST['usuario_id'],ENT_QUOTES,'UTF-8');

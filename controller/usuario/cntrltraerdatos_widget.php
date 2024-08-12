@@ -4,7 +4,7 @@
 
 <?php 
 
-require '../../modelo/modelo_usuario.php';
+require '../../model/modelo_usuario.php';
 
 
 $MU = new Modelo_Usuario();

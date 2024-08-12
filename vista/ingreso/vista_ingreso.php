@@ -81,7 +81,7 @@
                         <h1 class="text-center">DATOS DEL PRODUCTO</h1>
                     </div>
                     
-                       <div class="col-4">
+                       <div class="col-6">
                        <label for=""><b>Producto</b> </label>
                         <select class="js-example-basic-single" name="state" style="width: 100%;" id="cmb_producto"> 
                        

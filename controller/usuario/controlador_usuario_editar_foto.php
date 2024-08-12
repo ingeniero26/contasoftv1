@@ -1,6 +1,6 @@
 <?php 
 
- require '../../modelo/modelo_usuario.php';
+ require '../../model/modelo_usuario.php';
  $MU = new Modelo_Usuario();
  $idusuario = htmlspecialchars($_POST['idusuario'],ENT_QUOTES,'UTF-8');
  $nombrearchivo = htmlspecialchars($_POST['nombrearchivo'],ENT_QUOTES,'UTF-8');
