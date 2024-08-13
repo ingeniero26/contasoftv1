@@ -1,5 +1,5 @@
 <?php 
-require '../../modelo/modelo_eps.php';
+require '../../model/modelo_eps.php';
 
 $MEP= new Modelo_Eps();
 $IdEPS = htmlspecialchars($_POST['IdEPS'],ENT_QUOTES,'UTF-8');

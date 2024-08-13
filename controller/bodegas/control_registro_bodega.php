@@ -1,5 +1,5 @@
 <?php 
-require '../../modelo/modelo_bodegas.php';
+require '../../model/modelo_bodegas.php';
 
 $MCT = new Modelo_Bodegas();
 $nombre_bodega = htmlspecialchars($_POST['nombre_bodega'],ENT_QUOTES,'UTF-8');

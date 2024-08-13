@@ -16,7 +16,7 @@ function listar_productos() {
         ],
         "ajax": {
             "method": "POST",
-            "url": "../controlador/productos/control_listar_productos.php",
+            "url": "../controller/productos/control_listar_productos.php",
             data: {
                 id_bodega: id_bodega,
                 id_categoria: id_categoria,
@@ -292,7 +292,7 @@ function Modificar_Estatus(producto_id, estatus) {
         mensaje = "activo";
     }
     $.ajax({
-        url: "../controlador/productos/control_modificar_estatus.php",
+        url: "../controller/productos/control_modificar_estatus.php",
         type: 'POST',
         data: {
             producto_id: producto_id,
@@ -319,7 +319,7 @@ function Modificar_Estatus(producto_id, estatus) {
 function listar_combo_categoria() {
     var idempresa = $("#txt_idempresa").val();
     $.ajax({
-        url: "../controlador/categoria/control_combo_categoria_listar.php",
+        url: "../controller/categoria/control_combo_categoria_listar.php",
         type: 'POST',
         data: {
             idempresa: idempresa
@@ -349,7 +349,7 @@ function listar_combo_categoria() {
 function listar_combo_marcas() {
     var idempresa = $("#txt_idempresa").val();
     $.ajax({
-        url: "../controlador/marcas/control_combo_marcas.php",
+        url: "../controller/marcas/control_combo_marcas.php",
         type: 'POST',
         data: {
             idempresa: idempresa
@@ -379,7 +379,7 @@ function listar_combo_marcas() {
 function listar_combo_unidad() {
     var idempresa = $("#txt_idempresa").val();
     $.ajax({
-        url: "../controlador/unidad_medida/control_listar_combo_unidad.php",
+        url: "../controller/unidad_medida/control_listar_combo_unidad.php",
         type: 'POST',
         data: {
             idempresa: idempresa
@@ -406,7 +406,7 @@ function listar_combo_unidad() {
 function listar_combo_tipo() {
     var idempresa = $("#txt_idempresa").val();
     $.ajax({
-        url: "../controlador/productos/control_listar_combo_tipo.php",
+        url: "../controller/productos/control_listar_combo_tipo.php",
         type: 'POST',
         data: {
             idempresa: idempresa
@@ -433,7 +433,7 @@ function listar_combo_tipo() {
 function listar_combo_iva() {
     var idempresa = $("#txt_idempresa").val();
     $.ajax({
-        url: "../controlador/iva/control_iva_combo_productos.php",
+        url: "../controller/iva/control_iva_combo_productos.php",
         type: 'POST',
         data: {
             idempresa: idempresa
@@ -518,7 +518,7 @@ function Registrar_Producto() {
     formData.append('idempresa', idempresa);
 
     $.ajax({
-        url: '../controlador/productos/controlador_registro_productos.php',
+        url: '../controller/productos/controlador_registro_productos.php',
         type: 'POST',
         data: formData,
         contentType: false,
@@ -582,7 +582,7 @@ function Modificar_Producto() {
     }
 
     $.ajax({
-        url: '../controlador/productos/controlador_modificar_producto.php',
+        url: '../controller/productos/controlador_modificar_producto.php',
         type: 'POST',
         data: {
             id_producto: id_producto, codigo_actual: codigo_actual,
@@ -642,7 +642,7 @@ function Editar_Foto_Producto() {
     formData.append('nombrearchivo', nombrearchivo);
 
     $.ajax({
-        url: '../controlador/productos/controlador_producto_editar_foto.php',
+        url: '../controller/productos/controlador_producto_editar_foto.php',
         type: 'POST',
         data: formData,
         contentType: false,
@@ -669,7 +669,7 @@ function Editar_Foto_Producto() {
 function listar_combo_bodega() {
     var idempresa = $("#txt_idempresa").val();
     $.ajax({
-        url: "../controlador/bodegas/control_combo_bodegas.php",
+        url: "../controller/bodegas/control_combo_bodegas.php",
         type: 'POST',
         data: {
             idempresa: idempresa
@@ -710,7 +710,7 @@ function listar_valor_inventario() {
         ],
         "ajax": {
             "method": "POST",
-            "url": "../controlador/productos/valor_inventario.php",
+            "url": "../controller/productos/valor_inventario.php",
             data: {
 
             }

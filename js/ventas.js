@@ -20,7 +20,7 @@ function listar_ventas() {
 
         "ajax": {
             "method": "POST",
-            "url": "../controlador/ventas/control_ventas_listar.php",
+            "url": "../controller/ventas/control_ventas_listar.php",
             data: {
                 finicio: finicio,
                 ffin: ffin,
@@ -111,7 +111,7 @@ $('#tabla_ventas').on('click', '.anular', function () {
     }).then((result) => {
         if (result.value) {
             $.ajax({
-                url: '../controlador/ventas/control_anular_registro.php',
+                url: '../controller/ventas/control_anular_registro.php',
                 type: 'POST',
                 data: {
                     idventa: data.venta_id
@@ -141,7 +141,7 @@ function AbrirModalRegistro() {
 function listar_combo_cliente() {
     var idempresa = $("#txt_idempresa").val();
     $.ajax({
-        url: "../controlador/ventas/control_combo_cliente_listar.php",
+        url: "../controller/ventas/control_combo_cliente_listar.php",
         type: 'POST',
         data: {
             idempresa: idempresa
@@ -169,7 +169,7 @@ function listar_combo_cliente() {
 function listar_combo_bodega() {
     var idempresa = $("#txt_idempresa").val();
     $.ajax({
-        url: "../controlador/bodegas/control_combo_bodegas.php",
+        url: "../controller/bodegas/control_combo_bodegas.php",
         type: 'POST',
         data: {
             idempresa: idempresa
@@ -198,7 +198,7 @@ function listar_combo_caja() {
     var idempresa = $("#txt_idempresa").val();
     //  var idusuario = $('#txt_idprincipal').val();
     $.ajax({
-        url: "../controlador/ventas/control_combo_caja.php",
+        url: "../controller/ventas/control_combo_caja.php",
         type: 'POST',
         data: {
             idempresa: idempresa
@@ -229,7 +229,7 @@ function listar_combo_producto() {
     //  alert('entra aki');
     var idempresa = $("#txt_idempresa").val();
     $.ajax({
-        url: "../controlador/ingreso/control_combo_producto_listar.php",
+        url: "../controller/ingreso/control_combo_producto_listar.php",
         type: 'POST',
         data: {
             idempresa: idempresa
@@ -457,7 +457,7 @@ function Registrar_Venta() {
         porcentaje = "";
     }
     $.ajax({
-        url: '../controlador/ventas/control_venta_registro.php',
+        url: '../controller/ventas/control_venta_registro.php',
         type: 'POST',
         data: {
             idcliente: idcliente,
@@ -513,7 +513,7 @@ function Registrar_Detalle_Venta(id) {
     let dcto = arreglo_dcto.toString();
 
     $.ajax({
-        url: '../controlador/ventas/control_venta_registro_detalle.php',
+        url: '../controller/ventas/control_venta_registro_detalle.php',
         type: 'POST',
         data: {
             id: id,
@@ -546,9 +546,9 @@ function Registrar_Detalle_Venta(id) {
 
                     }
 
-                    $("#contenido_principal").load("../vista/ventas/vista_mantenimiento_ventas.php");
+                    $("#contenido_principal").load("../views/ventas/vista_mantenimiento_ventas.php");
                 } else {
-                    $("#contenido_principal").load("../vista/ventas/vista_mantenimiento_ventas.php");
+                    $("#contenido_principal").load("../views/ventas/vista_mantenimiento_ventas.php");
                 }
             })
         } else {

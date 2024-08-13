@@ -1,5 +1,5 @@
 <?php 
-require '../../modelo/modelo_ventas.php';
+require '../../model/modelo_ventas.php';
 
 $MCP = new Modelo_Ventas();
 $idcliente = htmlspecialchars($_POST['idcliente'],ENT_QUOTES,'UTF-8');

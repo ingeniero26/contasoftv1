@@ -1,6 +1,6 @@
 var t_deptos;
 function list_document_type() {
-
+    var idempresa =$("#txt_idempresa").val();
     t_deptos = $("#tb_document_type").DataTable({
         "ordering": false,
         "pageLength": 10,
@@ -11,6 +11,9 @@ function list_document_type() {
         "ajax": {
             "method": "POST",
             "url": "../controller/setting/control_list_document_type.php",
+            data: {
+                idempresa:idempresa
+            }
         },
 
         "order": [[1, 'asc']],
@@ -33,9 +36,9 @@ function list_document_type() {
             },
 
             {
-                "data": "estatus",
+                "data": "status",
                 render: function (data, type, row) {
-                    if (data == 'ACTIVO') {
+                    if (data == '1') {
                         return "<button style='font-size:13px;' type='button' class='editar btn btn-primary'><i class='fa fa-edit'></i></button>&nbsp;&nbsp;&nbsp <button style='font-size:13px;' type='button' class='desactivar btn btn-danger' ><i class='fa fa-trash' disabled ></i></button>&nbsp;&nbsp;&nbsp;&nbsp;<button style='font-size:13px;' type='button' class='activar btn btn-success' disabled><i class='fa fa-check'></i></button>";
                     } else {
                         return "<button style='font-size:13px;' type='button' class='editar btn btn-primary'><i class='fa fa-edit'></i></button>&nbsp;&nbsp;&nbsp <button style='font-size:13px;' type='button' class='desactivar btn btn-danger' disabled ><i class='fa fa-trash'  ></i></button>&nbsp;&nbsp;&nbsp;&nbsp;<button style='font-size:13px;' type='button' class='activar btn btn-success' ><i class='fa fa-check'></i></button>";
@@ -52,7 +55,7 @@ function list_document_type() {
         select: true
     });
     t_deptos.on('draw.dt', function () {
-        var PageInfo = $('#tabla_deptos').DataTable().page.info();
+        var PageInfo = $('#tb_document_type').DataTable().page.info();
         t_deptos.column(0, { page: 'current' }).nodes().each(function (cell, i) {
             cell.innerHTML = i + 1 + PageInfo.start;
         });

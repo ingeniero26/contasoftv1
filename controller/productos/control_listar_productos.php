@@ -1,5 +1,5 @@
 <?php
-include '../../modelo/modelo_productos.php';
+include '../../model/modelo_productos.php';
 
 $MP = new Modelo_Productos();
 $id_bodega = htmlspecialchars($_POST['id_bodega'], ENT_QUOTES, 'UTF-8');

@@ -1,8 +1,5 @@
 
 
-
-
-
 function verificar_usuario() {
 	var usuario = document.getElementById('txt_usu').value;
 	var password = document.getElementById('txt_con').value;
@@ -11,7 +8,7 @@ function verificar_usuario() {
 		);
 	}
 	$.ajax({
-		url: "../controlador/usuario/cntlVerificarLogin.php",
+		url: "../controller/usuario/cntlVerificarLogin.php",
 		type: 'POST',
 		data: {
 			usuario: usuario,
@@ -26,7 +23,7 @@ function verificar_usuario() {
 		} else {
 			if (data[0][5] === "ACTIVO") {
 				$.ajax({
-					url: '../controlador/usuario/cntrlCrearSesion.php',
+					url: '../controller/usuario/cntrlCrearSesion.php',
 					type: 'POST',
 					data: {
 						idusuario: data[0][0],
@@ -89,7 +86,7 @@ function listar_usuario() {
 		"autoWidth": false,
 		"ajax": {
 			"method": "POST",
-			"url": "../controlador/usuario/controlador_usuario_listar.php",
+			"url": "../controller/usuario/controlador_usuario_listar.php",
 			data: {
 				idempresa: idempresa
 			}
@@ -215,7 +212,7 @@ function Modificar_Estatus(usuario_id, estatus) {
 		mensaje = "activo";
 	}
 	$.ajax({
-		url: "../controlador/usuario/control_modificar_estatus.php",
+		url: "../controller/usuario/control_modificar_estatus.php",
 		type: 'POST',
 		data: {
 			usuario_id: usuario_id,
@@ -253,7 +250,7 @@ function AbrirModalRegistro() {
 
 function listar_persona_combo() {
 	$.ajax({
-		url: '../controlador/usuario/control_listar_persona_combo.php',
+		url: '../controller/usuario/control_listar_persona_combo.php',
 		type: 'POST',
 	}).done(function (resp) {
 		var data = JSON.parse(resp);
@@ -275,7 +272,7 @@ function listar_persona_combo() {
 
 function listar_combo_rol() {
 	$.ajax({
-		url: "../controlador/usuario/controlador_combo_rol_listar.php",
+		url: "../controller/usuario/controlador_combo_rol_listar.php",
 		type: 'POST'
 	}).done(function (resp) {
 		//alert(resp);
@@ -327,7 +324,7 @@ function Registrar_Usuario() {
 	formData.append('nombrearchivo', nombrearchivo);
 
 	$.ajax({
-		url: '../controlador/usuario/controlador_registro_usuario.php',
+		url: '../controller/usuario/controlador_registro_usuario.php',
 		type: 'POST',
 		data: formData,
 		contentType: false,
@@ -372,7 +369,7 @@ function LimpiarCampos() {
 function TraerDatosUsuario() {
 	var id = $("#txt_idprincipal").val();
 	$.ajax({
-		url: "../controlador/usuario/cntrltraerdatos_usuario.php",
+		url: "../controller/usuario/cntrltraerdatos_usuario.php",
 		type: 'POST',
 		data: {
 			id: id
@@ -397,7 +394,7 @@ function TraerDatosWidgets() {
 	let inicio = $("#txt_finicio_d").val();
 	let fin = $("#txt_ffin_d").val();
 	$.ajax({
-		url: "../controlador/usuario/cntrltraerdatos_widget.php",
+		url: "../controller/usuario/cntrltraerdatos_widget.php",
 		type: 'POST',
 		data: {
 			inicio: inicio,
@@ -494,7 +491,7 @@ function TraerDatosGraficoVentasWidgets() {
 	let inicio = $("#txt_finicio_d").val();
 	let fin = $("#txt_ffin_d").val();
 	$.ajax({
-		url: "../controlador/usuario/cntrltraergrafico_ventas_widget.php",
+		url: "../controller/usuario/cntrltraergrafico_ventas_widget.php",
 		type: 'POST',
 		data: {
 			inicio: inicio,
@@ -575,7 +572,7 @@ function TraerDatosGraficoComprasWidgets() {
 	let inicio = $("#txt_finicio_d").val();
 	let fin = $("#txt_ffin_d").val();
 	$.ajax({
-		url: "../controlador/usuario/cntrltraergrafico_compras_widget.php",
+		url: "../controller/usuario/cntrltraergrafico_compras_widget.php",
 		type: 'POST',
 		data: {
 			inicio: inicio,
@@ -651,12 +648,6 @@ function TraerDatosGraficoComprasWidgets() {
 }
 
 
-
-
-
-
-
-
 function generarNumero(numero) {
 	return (Math.random() * numero).toFixed(0);
 }
@@ -670,7 +661,7 @@ function colorRGB() {
 function TraerDatosPerfil() {
 	var id = $("#txt_idprincipal").val();
 	$.ajax({
-		url: "../controlador/usuario/cntrltraerdatos_usuario.php",
+		url: "../controller/usuario/cntrltraerdatos_usuario.php",
 		type: 'POST',
 		data: {
 			id: id
@@ -711,7 +702,7 @@ function Modificar_Usuario() {
 
 
 	$.ajax({
-		url: '../controlador/usuario/controlador_usuario_modificar.php',
+		url: '../controller/usuario/controlador_usuario_modificar.php',
 		type: 'POST',
 		data: {
 			idusuario: idusuario,
@@ -767,7 +758,7 @@ function Editar_Foto() {
 	formData.append('nombrearchivo', nombrearchivo);
 
 	$.ajax({
-		url: '../controlador/usuario/controlador_usuario_editar_foto.php',
+		url: '../controlador/controller/controlador_usuario_editar_foto.php',
 		type: 'POST',
 		data: formData,
 		contentType: false,
@@ -809,7 +800,7 @@ function Editar_Foto_Profile() {
 	formData.append('nombrearchivo', nombrearchivo);
 
 	$.ajax({
-		url: '../controlador/usuario/controlador_usuario_editar_foto.php',
+		url: '../controller/usuario/controlador_usuario_editar_foto.php',
 		type: 'POST',
 		data: formData,
 		contentType: false,
@@ -846,7 +837,7 @@ function Datos_Actualizar() {
 		return Swal.fire('Mensaje de error', 'Debe digitar los campos vacios', 'warning');
 	}
 	$.ajax({
-		url: '../controlador/usuario/controlador_actualizar_persona_profile.php',
+		url: '../controller/usuario/controlador_actualizar_persona_profile.php',
 		type: 'POST',
 		data: {
 			idusuario: idusuario,
@@ -894,7 +885,7 @@ function Editar_Contrasena() {
 		return Swal.fire('Mensaje de error', 'Las contraseñas no coinciden', 'warning');
 	}
 	$.ajax({
-		url: '../controlador/usuario/control_cambiar_contrasena.php',
+		url: '../controller/usuario/control_cambiar_contrasena.php',
 		type: 'POST',
 		data: {
 			idusuario: idusuario,
@@ -944,7 +935,7 @@ function listar_productos_poco_stock() {
 		"autoWidth": false,
 		"ajax": {
 			"method": "POST",
-			"url": "../controlador/usuario/productos_poco_stock.php",
+			"url": "../controller/usuario/productos_poco_stock.php",
 			data: {
 
 			}
@@ -1026,7 +1017,7 @@ function listar_productos_mas_vendidos() {
 		"autoWidth": false,
 		"ajax": {
 			"method": "POST",
-			"url": "../controlador/usuario/productos_mas_vendidos.php",
+			"url": "../controller/usuario/productos_mas_vendidos.php",
 			data: {
 
 			}

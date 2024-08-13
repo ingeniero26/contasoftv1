@@ -2,7 +2,7 @@
 session_start();
 
 if(isset($_SESSION['S_IDUSUARIO'])){
-	header('location: ../vista/index.php');
+	header('location: ../views/index.php');
 }
 
 

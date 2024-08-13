@@ -1,5 +1,5 @@
 <?php
-include '../../modelo/modelo_tipo_impuestos.php';
+include '../../model/modelo_tipo_impuestos.php';
 
 $MCT = new Modelo_Tipo_Impuestos();
 $id = htmlspecialchars($_POST['id'], ENT_QUOTES, 'UTF-8');

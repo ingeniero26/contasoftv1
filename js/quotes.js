@@ -20,7 +20,7 @@ function listar_quotes() {
 
         "ajax": {
             "method": "POST",
-            "url": "../controlador/quotes/control_quotes_list.php",
+            "url": "../controller/quotes/control_quotes_list.php",
             data: {
                 finicio: finicio,
                 ffin: ffin
@@ -96,7 +96,7 @@ function listar_combo_comprobante() {
     var idempresa = $("#txt_idempresa").val();
     //  var idusuario = $('#txt_idprincipal').val();
     $.ajax({
-        url: "../controlador/quotes/control_combo_tipo_comprobante.php",
+        url: "../controller/quotes/control_combo_tipo_comprobante.php",
         type: 'POST',
         data: {
             idempresa: idempresa
@@ -126,7 +126,7 @@ function listar_combo_cliente() {
     setInterval(() => {
         var idempresa = $("#txt_idempresa").val();
         $.ajax({
-            url: "../controlador/ventas/control_combo_cliente_listar.php",
+            url: "../controller/ventas/control_combo_cliente_listar.php",
             type: 'POST',
             data: {
                 idempresa: idempresa
@@ -183,7 +183,7 @@ function listar_combo_cliente() {
 function listar_combo_bodega() {
     var idempresa = $("#txt_idempresa").val();
     $.ajax({
-        url: "../controlador/bodegas/control_combo_bodegas.php",
+        url: "../controller/bodegas/control_combo_bodegas.php",
         type: 'POST',
         data: {
             idempresa: idempresa
@@ -213,7 +213,7 @@ function listar_combo_producto() {
     //  alert('entra aki');
     var idempresa = $("#txt_idempresa").val();
     $.ajax({
-        url: "../controlador/ingreso/control_combo_producto_listar.php",
+        url: "../controller/ingreso/control_combo_producto_listar.php",
         type: 'POST',
         data: {
             idempresa: idempresa
@@ -460,7 +460,7 @@ function Registrar_Venta() {
     //     porcentaje = "";
     // }
     $.ajax({
-        url: '../controlador/quotes/control_quote_registro.php',
+        url: '../controller/quotes/control_quote_registro.php',
         type: 'POST',
         data: {
             idempresa: idempresa,
@@ -512,7 +512,7 @@ function Registrar_Detalle_Venta(id) {
     let dcto = arreglo_dcto.toString();
 
     $.ajax({
-        url: '../controlador/quotes/control_quote_registro_detalle.php',
+        url: '../controller/quotes/control_quote_registro_detalle.php',
         type: 'POST',
         data: {
             id: id,

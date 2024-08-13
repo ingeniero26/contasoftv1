@@ -1,5 +1,5 @@
 <?php 
-require '../../modelo/modelo_pension.php';
+require '../../model/modelo_pension.php';
 
 $MCT = new Modelo_Pension();
 $nit = htmlspecialchars($_POST['nit'],ENT_QUOTES,'UTF-8');

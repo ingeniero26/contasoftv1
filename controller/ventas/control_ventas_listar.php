@@ -1,5 +1,5 @@
 <?php 
- include '../../modelo/modelo_ventas.php';
+ include '../../model/modelo_ventas.php';
 
  $MCT = new Modelo_Ventas();
  $finicio = htmlspecialchars($_POST['finicio'],ENT_QUOTES,'UTF-8');

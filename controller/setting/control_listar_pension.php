@@ -1,5 +1,5 @@
 <?php 
- include '../../modelo/modelo_pension.php';
+ include '../../model/modelo_pension.php';
 
  $MCT = new Modelo_Pension();
  $idempresa = htmlspecialchars($_POST['idempresa'],ENT_QUOTES,'UTF-8');

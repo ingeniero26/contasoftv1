@@ -15,8 +15,8 @@
                             <th>Nombre</th>
                             <th>Abreviatura</th>
                             <th>Usuario</th>
-                            <th>Estado</th>
                             <th>Fecha Registro</th>
+                            <th>Estado</th>
                             <th>Acci&oacute;n</th>
                         </tr>
                     </thead>

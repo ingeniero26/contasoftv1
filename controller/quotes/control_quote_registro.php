@@ -1,5 +1,5 @@
 <?php 
-require '../../modelo/modelo_quotes.php';
+require '../../model/modelo_quotes.php';
 
 $MCP = new Modelo_Quotes();
 $idempresa = htmlspecialchars($_POST['idempresa'],ENT_QUOTES,'UTF-8');

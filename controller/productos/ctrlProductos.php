@@ -1,5 +1,5 @@
 <?php
-    require('../../modelo/modelo_productos.php');
+    require('../../model/modelo_productos.php');
     $accion = "";
     if(isset($_REQUEST['accion'])){
         $accion = $_REQUEST['accion'];
@@ -8,7 +8,7 @@
     switch ($accion) {
         case 'listarXcategoria':
             $objProductos = new Modelo_Productos();
-            include("../../vista/productos/tarjetaProducto.php");
+            include("../../views/productos/tarjetaProducto.php");
             break;
         case 'cargar':
             echo "Estamos en la accion de cargar categorias";

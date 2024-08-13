@@ -232,21 +232,66 @@ if (!isset($_SESSION['S_IDUSUARIO'])) {
                             </div>
                         </div>
                     </div> -->
+                    <div class="row">
+                    <div class="col-lg-2 col-md-6">
+                        <div class="ibox bg-success color-white widget-stat">
+                            <div class="ibox-body">
+                                <h2 class="m-b-5 font-strong" 
+                                id="totalProductos"></h2>
+                                <div class="m-b-5">Total Productos</div><i class="ti-shopping-cart widget-stat-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-6">
+                        <div class="ibox bg-info color-white widget-stat">
+                            <div class="ibox-body">
+                                <h2 class="m-b-5 font-strong" id="totalCompras" ></h2>
+                                <div class="m-b-5">COMPRAS</div><i class="ti-bar-chart widget-stat-icon"></i>
+                                <div><i class="fa fa-level-up m-r-5"></i><small>17% higher</small></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-6">
+                        <div class="ibox bg-warning color-white widget-stat">
+                            <div class="ibox-body">
+                                <h2 class="m-b-5 font-strong"
+                                 id="totalVentas"></h2>
+                                <div class="m-b-5">TOTAL VENTAS</div><i class="fa fa-money widget-stat-icon"></i>
+                                <div><i class="fa fa-level-up m-r-5"></i><small>22% higher</small></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-6">
+                        <div class="ibox bg-danger color-white widget-stat">
+                            <div class="ibox-body">
+                                <h2 class="m-b-5 font-strong" id="productosPocoStock">108</h2>
+                                <div class="m-b-5">Agotados</div><i class="ti-user widget-stat-icon"></i>
+                                <div><i class="fa fa-level-down m-r-5"></i><small>-12% Lower</small></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-6">
+                        <div class="ibox bg-warning color-white widget-stat">
+                            <div class="ibox-body">
+                                <h2 class="m-b-5 font-strong"
+                                 id="ventasHoy"></h2>
+                                <div class="m-b-5">Ventas HOY</div><i class="fa fa-money widget-stat-icon"></i>
+                                <div><i class="fa fa-level-up m-r-5"></i><small>22% higher</small></div>
+                            </div>
+                        </div>
+                    </div>
 
 
-
-
-
+                    </div>
                 </div>
             </div>
+            <!-- END PAGE CONTENT-->
+            <footer class="page-footer">
+                <div class="font-13">2024 © <b>CONTASOFT</b> - Derechos reservados.</div>
+                <a class="px-4" href="https://jsystemas-web.000webhostapp.com/" target="_blank">JKSYSTEMAS</a>
+                <div class="to-top"><i class="fa fa-angle-double-up"></i></div>
+            </footer>
         </div>
-        <!-- END PAGE CONTENT-->
-        <footer class="page-footer">
-            <div class="font-13">2021 © <b>CONTASOFT</b> - Derechos reservados.</div>
-            <a class="px-4" href="https://jsystemas-web.000webhostapp.com/" target="_blank">JKSYSTEMAS</a>
-            <div class="to-top"><i class="fa fa-angle-double-up"></i></div>
-        </footer>
-    </div>
     </div>
     <!-- BEGIN THEME CONFIG PANEL-->
 
@@ -571,11 +616,50 @@ if (!isset($_SESSION['S_IDUSUARIO'])) {
 
             TraerDatosWidgets();
 
+            /*  SOLICITUD AJAX TARJETAS INFORMATIVAS
+    =======================================================*/
+            $.ajax({
+                url: "../ajax/dashboard.ajax.php",
+                method: 'POST',
+                dataType: 'json',
+                success: function(respuesta) {
+                    console.log("respuesta", respuesta);
+                    $("#totalProductos").html(respuesta[0]['totalProductos']);
+                    $("#totalCompras").html('$./ ' + respuesta[0]['totalCompras'].replace(
+                        /\d(?=(\d{3})+\.)/g, "$&,"))
+                    $("#totalVentas").html('S./ ' + respuesta[0]['totalVentas'].replace(/\d(?=(\d{3})+\.)/g,
+                        "$&,"))
+                
+                    $("#productosPocoStock").html(respuesta[0]['productosPocoStock'])
+                    $("#ventasHoy").html('S./ ' + respuesta[0]['ventasHoy'].replace(
+                        /\d(?=(\d{3})+\.)/g, "$&,"))
+                }
+            });
+
+            setInterval(() => {
+                $.ajax({
+                    url: "../ajax/dashboard.ajax.php",
+                    method: 'POST',
+                    dataType: 'json',
+                    success: function(respuesta) {
+                        // console.log("respuesta", respuesta);
+                        $("#totalProductos").html(respuesta[0]['totalProductos']);
+                        $("#totalCompras").html('S./ ' + respuesta[0]['totalCompras'].replace(
+                            /\d(?=(\d{3})+\.)/g, "$&,"))
+                        $("#totalVentas").html('S./ ' + respuesta[0]['totalVentas'].replace(
+                            /\d(?=(\d{3})+\.)/g,
+                            "$&,"))
+                       
+                        $("#productosPocoStock").html(respuesta[0]['productosPocoStock'])
+                        $("#VentasHoy").html('S./ ' + respuesta[0]['ventasHoy'].replace(
+                            /\d(?=(\d{3})+\.)/g, "$&,"))
+                    }
+                });
+            }, 10000);
+
+            /*grafico*/
+
         });
-
-
-
-        /*grafico*/
     </script>
 </body>
 

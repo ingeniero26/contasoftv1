@@ -1,5 +1,5 @@
 <?php 
-require '../../modelo/modelo_productos.php';
+require '../../model/modelo_productos.php';
 
 $MU = new Modelo_Productos();
 $producto_id = htmlspecialchars($_POST['producto_id'],ENT_QUOTES,'UTF-8');

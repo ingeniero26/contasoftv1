@@ -13,7 +13,7 @@ class Modelo_Arl {
 	}
 
 
-	function listar_arl($idempresa){
+	function list_document_type($idempresa){
 		$sql = "SELECT  dt.id,
                 dt.company_id,dt.`name`, dt.abbreviation,
                 dt.`status`,dt.created_by,u.usuario_nombre,

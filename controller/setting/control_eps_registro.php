@@ -1,5 +1,5 @@
 <?php 
-require '../../modelo/modelo_eps.php';
+require '../../model/modelo_eps.php';
 
 $MCT = new Modelo_Eps();
 $nit = htmlspecialchars($_POST['nit'],ENT_QUOTES,'UTF-8');

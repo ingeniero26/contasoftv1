@@ -1,5 +1,5 @@
 <?php 
-require '../../modelo/modelo_arl.php';
+require '../../model/modelo_arl.php';
 
 $MAR = new Modelo_Arl();
 $IdARL = htmlspecialchars($_POST['IdARL'],ENT_QUOTES,'UTF-8');

@@ -18,7 +18,7 @@ function listar_salidas() {
         ],
         "ajax": {
             "method": "POST",
-            "url": "../controlador/salidas/control_salidas_listar.php",
+            "url": "../controller/salidas/control_salidas_listar.php",
             data: {
                 finicio: finicio,
                 ffin: ffin,
@@ -101,7 +101,7 @@ $('#tabla_ingreso').on('click', '.anular', function () {
     }).then((result) => {
         if (result.value) {
             $.ajax({
-                url: '../controlador/ingreso/control_anular_registro.php',
+                url: '../controller/ingreso/control_anular_registro.php',
                 type: 'POST',
                 data: {
                     idcompra: data.compra_id
@@ -130,7 +130,7 @@ function AbrirModalRegistro() {
 function listar_combo_concepto() {
     var idempresa = $("#txt_idempresa").val();
     $.ajax({
-        url: "../controlador/concepto/control_combo_concepto.php",
+        url: "../controller/concepto/control_combo_concepto.php",
         type: 'POST',
         data: {
             idempresa: idempresa
@@ -347,7 +347,7 @@ function Registrar_Venta() {
         porcentaje = "";
     }
     $.ajax({
-        url: '../controlador/ventas/control_venta_registro.php',
+        url: '../controller/ventas/control_venta_registro.php',
         type: 'POST',
         data: {
             idcliente: idcliente,
@@ -403,7 +403,7 @@ function Registrar_Detalle_Venta(id) {
     let dcto = arreglo_dcto.toString();
 
     $.ajax({
-        url: '../controlador/ventas/control_venta_registro_detalle.php',
+        url: '../controller/ventas/control_venta_registro_detalle.php',
         type: 'POST',
         data: {
             id: id,

@@ -10,7 +10,7 @@ function listar_empresa() {
         "autoWidth": false,
         "ajax": {
             "method": "POST",
-            "url": "../controlador/empresa/controlador_empresa_listar.php",
+            "url": "../controller/empresa/controlador_empresa_listar.php",
             data: {
                 idempresa: idempresa
             }
@@ -146,7 +146,7 @@ function Modificar_Estatus(usuario_id, estatus) {
         mensaje = "activo";
     }
     $.ajax({
-        url: "../controlador/usuario/control_modificar_estatus.php",
+        url: "../controller/usuario/control_modificar_estatus.php",
         type: 'POST',
         data: {
             usuario_id: usuario_id,
@@ -180,7 +180,7 @@ function AbrirModalRegistro() {
 function listar_combo_tipo_regimen() {
     var idempresa = $("#txt_idempresa").val();
     $.ajax({
-        url: "../controlador/configuracion/control_combo_tipo_regimen.php",
+        url: "../controller/configuracion/control_combo_tipo_regimen.php",
         type: 'GET',
         // data:{
         //    idempresa:idempresa
@@ -230,7 +230,7 @@ function Editar_Foto_Empresa() {
     formData.append('nombrearchivo', nombrearchivo);
 
     $.ajax({
-        url: '../controlador/empresa/controlador_empresa_editar_foto.php',
+        url: '../controller/empresa/controlador_empresa_editar_foto.php',
         type: 'POST',
         data: formData,
         contentType: false,
@@ -267,7 +267,7 @@ function Modificar_Empresa() {
         return Swal.fire('Mensaje de error', 'Debe digitar los campos vacios', 'warning');
     }
     $.ajax({
-        url: '../controlador/empresa/controlador_modificar_empresa.php',
+        url: '../controller/empresa/controlador_modificar_empresa.php',
         type: 'POST',
         data: {
             idempresa: idempresa,

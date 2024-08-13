@@ -18,7 +18,7 @@ function listar_ingreso() {
         ],
         "ajax": {
             "method": "POST",
-            "url": "../controlador/ingreso/control_ingreso_listar.php",
+            "url": "../controller/ingreso/control_ingreso_listar.php",
             data: {
                 finicio: finicio,
                 ffin: ffin,
@@ -136,7 +136,7 @@ function AbrirModalRegistro() {
 function listar_combo_proveedor() {
     var idempresa = $("#txt_idempresa").val();
     $.ajax({
-        url: "../controlador/ingreso/control_combo_proveedor_listar.php",
+        url: "../controller/ingreso/control_combo_proveedor_listar.php",
         type: 'POST',
         data: {
             idempresa: idempresa
@@ -163,40 +163,40 @@ function listar_combo_proveedor() {
 
 
 function listar_combo_producto() {
-   
-        var idempresa = $("#txt_idempresa").val();
-        $.ajax({
-            url: "../controlador/ingreso/control_combo_producto_listar.php",
-            type: 'POST',
-            data: {
-                idempresa: idempresa
-            }
-        }).done(function (resp) {
-            //alert(resp);
-            var data = JSON.parse(resp);
-            //console.log(resp);
-            var cadena = "<option value=''>Seleccione...</option>";
-            if (data.length > 0) {
-                for (var i = 0; i < data.length; i++) {
-                    cadena += "<option value='" + data[i][0] + "'>" + "-"
-                        + data[i][5] + "-" + data[i][1] + "</option>";
-                }
-                $('#cmb_producto').html(cadena);
 
-            } else {
-                cadena += "<option value=''> No Hay datos</option>";
-                $('#cmb_producto').html(cadena);
-
+    var idempresa = $("#txt_idempresa").val();
+    $.ajax({
+        url: "../controller/ingreso/control_combo_producto_listar.php",
+        type: 'POST',
+        data: {
+            idempresa: idempresa
+        }
+    }).done(function (resp) {
+        //alert(resp);
+        var data = JSON.parse(resp);
+        //console.log(resp);
+        var cadena = "<option value=''>Seleccione...</option>";
+        if (data.length > 0) {
+            for (var i = 0; i < data.length; i++) {
+                cadena += "<option value='" + data[i][0] + "'>" + "-"
+                    + data[i][5] + "-" + data[i][1] + "</option>";
             }
-        })
-    }
+            $('#cmb_producto').html(cadena);
+
+        } else {
+            cadena += "<option value=''> No Hay datos</option>";
+            $('#cmb_producto').html(cadena);
+
+        }
+    })
+}
 
 
 
 function listar_combo_bodega() {
     var idempresa = $("#txt_idempresa").val();
     $.ajax({
-        url: "../controlador/bodegas/control_combo_bodegas.php",
+        url: "../controller/bodegas/control_combo_bodegas.php",
         type: 'POST',
         data: {
             idempresa: idempresa
@@ -395,7 +395,7 @@ function Registrar_Compra() {
         porcentaje = "";
     }
     $.ajax({
-        url: '../controlador/ingreso/control_ingreso_registro.php',
+        url: '../controller/ingreso/control_ingreso_registro.php',
         type: 'POST',
         data: {
             idproveedor: idproveedor,
@@ -455,7 +455,7 @@ function Registrar_Detalle_Ingreso(id) {
     let dcto = arreglo_dcto.toString();
 
     $.ajax({
-        url: '../controlador/ingreso/control_ingreso_registro_detalle.php',
+        url: '../controller/ingreso/control_ingreso_registro_detalle.php',
         type: 'POST',
         data: {
             id: id,

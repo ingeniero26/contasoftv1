@@ -1,5 +1,5 @@
 <?php 
-require '../../modelo/modelo_arl.php';
+require '../../model/modelo_arl.php';
 
 $MCT = new Modelo_Arl();
 $id = htmlspecialchars($_POST['id'],ENT_QUOTES,'UTF-8');

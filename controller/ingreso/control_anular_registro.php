@@ -1,5 +1,5 @@
 <?php 
-require '../../modelo/modelo_ingreso.php';
+require '../../model/modelo_ingreso.php';
 
 $MCP = new Modelo_Ingreso();
 $idcompra = htmlspecialchars($_POST['idcompra'],ENT_QUOTES,'UTF-8');

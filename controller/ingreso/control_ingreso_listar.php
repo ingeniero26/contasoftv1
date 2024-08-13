@@ -1,5 +1,5 @@
 <?php 
- include '../../modelo/modelo_ingreso.php';
+ include '../../model/modelo_ingreso.php';
 
  $MCT = new Modelo_Ingreso();
  $finicio = htmlspecialchars($_POST['finicio'],ENT_QUOTES,'UTF-8');

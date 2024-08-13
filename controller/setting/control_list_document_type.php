@@ -1,9 +1,9 @@
 <?php 
- include '../../modelo/model_document_type.php';
+ include '../../model/model_document_type.php';
 
  $MCT = new Modelo_Arl();
  $idempresa = htmlspecialchars($_POST['idempresa'],ENT_QUOTES,'UTF-8');
- $consulta =$MCT->listar_arl($idempresa);
+ $consulta =$MCT->list_document_type($idempresa);
 if($consulta) {
 	echo json_encode($consulta);
 } else {

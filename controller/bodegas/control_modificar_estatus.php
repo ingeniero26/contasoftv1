@@ -1,5 +1,5 @@
 <?php 
-require '../../modelo/modelo_bodegas.php';
+require '../../model/modelo_bodegas.php';
 
 $MB = new Modelo_Bodegas();
 $id = htmlspecialchars($_POST['id'],ENT_QUOTES,'UTF-8');
