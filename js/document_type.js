@@ -1,6 +1,6 @@
 var t_deptos;
 function list_document_type() {
-    var idempresa =$("#txt_idempresa").val();
+    var idempresa = $("#txt_idempresa").val();
     t_deptos = $("#tb_document_type").DataTable({
         "ordering": false,
         "pageLength": 10,
@@ -12,7 +12,7 @@ function list_document_type() {
             "method": "POST",
             "url": "../controller/setting/control_list_document_type.php",
             data: {
-                idempresa:idempresa
+                idempresa: idempresa
             }
         },
 
@@ -158,18 +158,25 @@ function AbrirModalRegistro() {
     $('#modal_registro').modal('show');
 }
 
-function Registrar_Depto() {
-    var descripcion = $('#txt_desc').val();
+function RegisterDocumentType() {
+    var name = $('#txt_name').val();
+    var abbreviation = $('#txt_abreviation').val();
+    var company_id = $("#txt_idempresa").val();
+    var idusuario = document.getElementById('txt_idprincipal').value;
+  
 
-    if (descripcion.length == 0) {
+    if (name.length == 0) {
         return Swal.fire('Mensaje de error', 'Digite los campos estan vacios', 'warning'
         );
     }
     $.ajax({
-        url: '../controlador/deptos/control_registro_deptos.php',
+        url: '../controller/setting/add_document_type.php',
         type: 'POST',
         data: {
-            descripcion: descripcion
+            name: name,
+            abbreviation:abbreviation,
+            company_id:company_id,
+            idusuario:idusuario
         }
     }).done(function (resp) {
         if (resp > 0) {
@@ -178,18 +185,18 @@ function Registrar_Depto() {
                 Swal.fire("Mensaje  de confirmaciòn", " Registrado exitosamente",
                     "success")
                     .then((value) => {
-                        listar_deptos();
+                        list_document_type();
                         LimpiarCampos();
                         t_deptos.ajax.reload();
 
                     });
             } else {
                 LimpiarCampos();
-                return Swal.fire('Mensaje de error', 'Departamento existe en el sistema, utilice otro', 'warning'
+                return Swal.fire('Mensaje de error', 'Documento existe en el sistema, utilice otro', 'warning'
                 );
             }
         } else {
-            return Swal.fire('Mensaje de error', 'Departamento no insertado', 'warning');
+            return Swal.fire('Mensaje de error', 'Documento no insertado', 'warning');
         }
     })
 }

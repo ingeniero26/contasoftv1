@@ -10,4 +10,12 @@ class DashboardControlador
 
         return $datos;
     }
+    static public function ctrGetVentasMesActual(){
+
+        $ventasMesActual = DashboardModelo::mdlGetVentasMesActual();
+
+        return $ventasMesActual;
+    }
+
+    
 }

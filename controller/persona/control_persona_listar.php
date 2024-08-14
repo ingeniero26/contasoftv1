@@ -1,5 +1,5 @@
 <?php
-include '../../modelo/modelo_persona.php';
+include '../../model/modelo_persona.php';
 
 $MP = new Modelo_Persona();
 $idempresa = htmlspecialchars($_POST['idempresa'], ENT_QUOTES, 'UTF-8');

@@ -1,5 +1,5 @@
 <?php 
- include '../../modelo/modelo_proveedor.php';
+ include '../../model/modelo_proveedor.php';
 
  $MPV = new Modelo_Proveedor();
   $idempresa = htmlspecialchars($_POST['idempresa'],ENT_QUOTES,'UTF-8');

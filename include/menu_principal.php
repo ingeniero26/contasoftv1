@@ -150,6 +150,10 @@
                         <a href="javascript:cargar_contenido('contenido_principal','ventas/vista_mantenimiento_ventas.php')">
                             <span class="nav-label"><i class="fa   fa-list-ol"></i> Ventas</span></a>
                     </li>
+                    <!-- <li>
+                        <a href="javascript:cargar_contenido('contenido_principal','pos/pos.php')">
+                            <span class="nav-label"><i class="fa   fa-list-ol"></i> POS</span></a>
+                    </li> -->
                     <li>
                         <a href="javascript:cargar_contenido('contenido_principal','cuentas/cuentas_clientes.php')">
                             <span class="nav-label"><i class="fa   fa-list-ol"></i> Cuentas x Cobrar</span></a>

@@ -1,5 +1,5 @@
 <?php 
-require '../../modelo/modelo_proveedor.php';
+require '../../model/modelo_proveedor.php';
 
 $MPV = new Modelo_Proveedor();
 $proveedor_id = htmlspecialchars($_POST['proveedor_id'],ENT_QUOTES,'UTF-8');

@@ -11,6 +11,11 @@ class AjaxDashboard {
 
         echo json_encode($datos);
     }
+    public function getVentasMesActual(){
+        $ventasMesActual = DashboardControlador::ctrGetVentasMesActual();
+        echo json_encode($ventasMesActual);
+    }
+    
 
 }
 
@@ -18,7 +23,7 @@ class AjaxDashboard {
 if(isset($_POST['accion']) && $_POST['accion'] == 1){ //Ejecutar function ventas del mes (Grafico de Barras)
 
     $ventasMesActual = new AjaxDashboard();
-    // $ventasMesActual -> getVentasMesActual();
+    $ventasMesActual -> getVentasMesActual();
 
 }else if(isset($_POST['accion']) && $_POST['accion'] == 2){ //Ejecutar function de productos mas vendidos
 

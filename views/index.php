@@ -233,55 +233,74 @@ if (!isset($_SESSION['S_IDUSUARIO'])) {
                         </div>
                     </div> -->
                     <div class="row">
-                    <div class="col-lg-2 col-md-6">
-                        <div class="ibox bg-success color-white widget-stat">
-                            <div class="ibox-body">
-                                <h2 class="m-b-5 font-strong" 
-                                id="totalProductos"></h2>
-                                <div class="m-b-5">Total Productos</div><i class="ti-shopping-cart widget-stat-icon"></i>
+                        <div class="col-lg-2 col-md-6">
+                            <div class="ibox bg-success color-white widget-stat">
+                                <div class="ibox-body">
+                                    <h2 class="m-b-5 font-strong" 
+                                    id="totalProductos"></h2>
+                                    <div class="m-b-5">Total Productos</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="ibox bg-info color-white widget-stat">
+                                <div class="ibox-body">
+                                    <h2 class="m-b-5 font-strong" id="totalCompras" ></h2>
+                                    <div class="m-b-5">COMPRAS</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="ibox bg-warning color-white widget-stat">
+                                <div class="ibox-body">
+                                    <h2 class="m-b-5 font-strong"
+                                    id="totalVentas"></h2>
+                                    <div class="m-b-5">TOTAL </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-6">
+                            <div class="ibox bg-danger color-white widget-stat">
+                                <div class="ibox-body">
+                                    <h2 class="m-b-5 font-strong" id="productosPocoStock">108</h2>
+                                    <div class="m-b-5">Agotados</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-6">
+                            <div class="ibox bg-warning color-white widget-stat">
+                                <div class="ibox-body">
+                                    <h2 class="m-b-5 font-strong"
+                                    id="ventasHoy"></h2>
+                                    <div class="m-b-5">Ventas HOY</div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-2 col-md-6">
-                        <div class="ibox bg-info color-white widget-stat">
-                            <div class="ibox-body">
-                                <h2 class="m-b-5 font-strong" id="totalCompras" ></h2>
-                                <div class="m-b-5">COMPRAS</div><i class="ti-bar-chart widget-stat-icon"></i>
-                                <div><i class="fa fa-level-up m-r-5"></i><small>17% higher</small></div>
+                    <div class="col-md-12">
+                        <div class="ibox ibox-grey">
+                            <div class="ibox-head">
+                                <div class="ibox-title">Ventas del mes</div>
+                                <div class="ibox-tools">
+                                    <a class="ibox-collapse"><i class="fa fa-minus"></i></a>
+                                    <a class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-ellipsis-v"></i></a>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a class="dropdown-item">option 1</a>
+                                        <a class="dropdown-item">option 2</a>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-md-6">
-                        <div class="ibox bg-warning color-white widget-stat">
                             <div class="ibox-body">
-                                <h2 class="m-b-5 font-strong"
-                                 id="totalVentas"></h2>
-                                <div class="m-b-5">TOTAL VENTAS</div><i class="fa fa-money widget-stat-icon"></i>
-                                <div><i class="fa fa-level-up m-r-5"></i><small>22% higher</small></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-md-6">
-                        <div class="ibox bg-danger color-white widget-stat">
-                            <div class="ibox-body">
-                                <h2 class="m-b-5 font-strong" id="productosPocoStock">108</h2>
-                                <div class="m-b-5">Agotados</div><i class="ti-user widget-stat-icon"></i>
-                                <div><i class="fa fa-level-down m-r-5"></i><small>-12% Lower</small></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-md-6">
-                        <div class="ibox bg-warning color-white widget-stat">
-                            <div class="ibox-body">
-                                <h2 class="m-b-5 font-strong"
-                                 id="ventasHoy"></h2>
-                                <div class="m-b-5">Ventas HOY</div><i class="fa fa-money widget-stat-icon"></i>
-                                <div><i class="fa fa-level-up m-r-5"></i><small>22% higher</small></div>
-                            </div>
-                        </div>
-                    </div>
+                            <div class="chart">
 
+                                    <canvas id="barChart"
+                                        style="min-height: 250px; height: 300px; max-height: 350px; width: 100%;">
 
+                                    </canvas>
+
+                                    </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -335,7 +354,7 @@ if (!isset($_SESSION['S_IDUSUARIO'])) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script>
-
+    <script type="text/javascript" src="../js/dashboard.js"></script>
     <script type="text/javascript">
         TraerDatosUsuario();
         listar_productos_poco_stock();

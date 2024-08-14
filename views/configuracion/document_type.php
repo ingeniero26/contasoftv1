@@ -46,34 +46,22 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12">
-                        <label for=""><b>Codigo</b></label>
-                        <input type="text" id="txt_codigo"
-                            class="form-control" placeholder="Codigo">
+                        <label for=""><b>Nombre</b></label>
+                        <input type="text" id="txt_name"
+                            class="form-control" placeholder="Tipo Documento">
                     </div>
                     <div class="col-md-12">
-                        <label for="">Tarifa</label>
-                        <input type="text" id="txt_tarifa"
-                            class="form-control" placeholder="Tarifa">
+                        <label for="">Avrevitura</label>
+                        <input type="text" id="txt_abreviation"
+                            class="form-control" placeholder="Abreviatura ">
                     </div>
-                    <div class="col-md-12">
-                        <label for="">Descripción</label>
-                        <input type="text" id="txt_descripcion"
-                            class="form-control" placeholder="Descripcion">
-                    </div>
-                    <div class="col-8">
-
-                        <label for=""><b>Seleccione un Tipo Impuesto</b></label>
-                        <select class="js-example-basic-single"
-                            name="state" style="width: 100%;" id="cmb_tipo_iva_producto">
-
-                        </select> <br> <br>
-                    </div>
+                
 
                 </div>
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" onclick="Registrar_Tipo_Impuesto()">Grabar</button>
+                <button type="button" class="btn btn-primary" onclick="RegisterDocumentType()">Grabar</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
 
             </div>

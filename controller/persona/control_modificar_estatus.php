@@ -1,5 +1,5 @@
 <?php 
-require '../../modelo/modelo_persona.php';
+require '../../model/modelo_persona.php';
 
 $MPE = new Modelo_Persona();
 $persona_id = htmlspecialchars($_POST['persona_id'],ENT_QUOTES,'UTF-8');

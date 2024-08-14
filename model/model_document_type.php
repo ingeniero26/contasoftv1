@@ -1,6 +1,6 @@
 <?php 
 
-class Modelo_Arl {
+class Modelo_Document_Type {
 
     private $conexion;
 
@@ -45,8 +45,8 @@ class Modelo_Arl {
 			}
 	}
 
-	function Registrar_Arl($nit,$nombre,$ciudad,$direccion,$telefono,$correo,$idempresa) {
-		$sql = "call  SP_REGISTRAR_ARL('$nit','$nombre','$ciudad','$direccion','$telefono','$correo','$idempresa')";
+	function Add_Document_Type($name,$abbreviation,$company_id,$idusuario) {
+		$sql = "call  sp_add_document_type('$name','$abbreviation','$company_id','$idusuario')";
 			if($consulta = $this->conexion->conexion->query($sql)){
 				if($row = mysqli_fetch_array($consulta)) {
 					return	$id =trim($row[0]);
