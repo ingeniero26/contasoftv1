@@ -1,5 +1,5 @@
 <?php 
-require '../../modelo/modelo_tipo_producto.php';
+require '../../model/modelo_tipo_producto.php';
 
 $MCT = new Modelo_Tipo_Producto();
 $tipo_producto = htmlspecialchars($_POST['tipo_producto'],ENT_QUOTES,'UTF-8');

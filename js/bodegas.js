@@ -10,7 +10,7 @@ var idempresa =$("#txt_idempresa").val();
       	"autoWidth": false,
       "ajax":{
         "method":"POST",
-		    "url":"../controlador/bodegas/control_bodega_listar.php",
+		    "url":"../controller/bodegas/control_bodega_listar.php",
             data:{
                 idempresa:idempresa
             }
@@ -113,7 +113,7 @@ var idempresa =$("#txt_idempresa").val();
             mensaje = "activo";
         }
         $.ajax({
-            url: "../controlador/bodegas/control_modificar_estatus.php",
+            url: "../controller/bodegas/control_modificar_estatus.php",
             type: 'POST',
             data: {
                 id: id,
@@ -143,7 +143,7 @@ var idempresa =$("#txt_idempresa").val();
         );
       }
       $.ajax({
-        url:'../controlador/bodegas/control_registro_bodega.php',
+        url:'../controller/bodegas/control_registro_bodega.php',
         type:'POST',
         data:{
           nombre_bodega:nombre_bodega,

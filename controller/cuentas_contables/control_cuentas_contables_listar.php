@@ -1,5 +1,5 @@
 <?php 
- include '../../modelo/modelo_cuentas_contables.php';
+ include '../../model/modelo_cuentas_contables.php';
 
  $MCT = new Modelo_Cuentas_Contable();
  $idempresa = htmlspecialchars($_POST['idempresa'],ENT_QUOTES,'UTF-8');

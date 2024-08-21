@@ -1,5 +1,5 @@
 <?php 
- include '../../modelo/modelo_arl.php';
+ include '../../model/modelo_arl.php';
 
  $MCT = new Modelo_Arl();
  $idempresa = htmlspecialchars($_POST['idempresa'],ENT_QUOTES,'UTF-8');

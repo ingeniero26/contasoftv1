@@ -1,5 +1,5 @@
 <?php 
-require '../../modelo/modelo_unidad_medida.php';
+require '../../model/modelo_unidad_medida.php';
 
 $MUM = new Unidad_Medida();
 $unidad_id = htmlspecialchars($_POST['unidad_id'],ENT_QUOTES,'UTF-8');

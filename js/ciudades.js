@@ -2,7 +2,7 @@
   function listar_combo_departamentos() {
     
         $.ajax({
-            url:"../controlador/departamentos/control_combo_departamentos.php",
+            url:"../controller/departamentos/control_combo_departamentos.php",
              type:'POST',
              
         }).done(function(resp){

@@ -1,5 +1,5 @@
 <?php 
-require '../../modelo/modelo_rol.php';
+require '../../model/modelo_rol.php';
 
 $MR = new Modelo_Rol();
 $rol = htmlspecialchars($_POST['rol'],ENT_QUOTES,'UTF-8');

@@ -1,5 +1,5 @@
 <?php 
- include '../../modelo/modelo_empleados.php';
+ include '../../model/modelo_empleados.php';
 
  $MEP = new Modelo_Empleado();
 $IdEmp = htmlspecialchars($_POST['IdEmp'],ENT_QUOTES,'UTF-8');

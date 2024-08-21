@@ -10,7 +10,7 @@ function listar_deptos(){
         "autoWidth": false,
       "ajax":{
         "method":"POST",
-            "url":"../controlador/deptos/control_deptos_listar.php",
+            "url":"../controller/deptos/control_deptos_listar.php",
       },
       
       "order":[[1,'asc']],
@@ -124,7 +124,7 @@ function listar_deptos(){
             mensaje = "activo";
         }
         $.ajax({
-            url: "../controlador/deptos/control_modificar_estatus.php",
+            url: "../controller/deptos/control_modificar_estatus.php",
             type: 'POST',
             data: {
                 IdDpto: IdDpto,
@@ -160,7 +160,7 @@ function listar_deptos(){
         );
       }
       $.ajax({
-        url:'../controlador/deptos/control_registro_deptos.php',
+        url:'../controller/deptos/control_registro_deptos.php',
         type:'POST',
         data:{
           descripcion:descripcion
@@ -203,7 +203,7 @@ function listar_deptos(){
         Swal.fire('Mensaje de error','Debe digitar los campos vacios','warning');
       }
       $.ajax({
-        url:'../controlador/deptos/control_modificar_deptos.php',
+        url:'../controller/deptos/control_modificar_deptos.php',
         type:'POST',
         data:{
           id:id,

@@ -1,5 +1,5 @@
 <?php
-include '../../modelo/modelo_centro_costos.php';
+include '../../model/modelo_centro_costos.php';
 
 $MCT = new Modelo_Centro_Costos();
 $idempresa = htmlspecialchars($_POST['idempresa'], ENT_QUOTES, 'UTF-8');

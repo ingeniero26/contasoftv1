@@ -1,5 +1,5 @@
 <?php
-    require('../../modelo/modelo_categoria.php');
+    require('../../model/modelo_categoria.php');
     $accion = "";
     if(isset($_REQUEST['accion'])){
         $accion = $_REQUEST['accion'];

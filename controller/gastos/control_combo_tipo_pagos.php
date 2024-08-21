@@ -1,5 +1,5 @@
 <?php 
-require '../../modelo/modelo_pagos.php';
+require '../../model/modelo_pagos.php';
 
 $MCT = new Modelo_Gastos();
  $idempresa = htmlspecialchars($_POST['idempresa'],ENT_QUOTES,'UTF-8');

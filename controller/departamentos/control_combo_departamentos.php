@@ -1,5 +1,5 @@
 <?php 
-require '../../modelo/modelo_departamentos.php';
+require '../../model/modelo_departamentos.php';
 
 $MCT = new Modelo_Deptos();
 $consulta =$MCT->listar_combo_departamentos();

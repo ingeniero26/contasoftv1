@@ -1,5 +1,5 @@
 <?php 
- include '../../modelo/modelo_tipo_gastos.php';
+ include '../../model/modelo_tipo_gastos.php';
 
  $MCT = new Modelo_Tipo_Gastos();
  $idempresa = htmlspecialchars($_POST['idempresa'],ENT_QUOTES,'UTF-8');

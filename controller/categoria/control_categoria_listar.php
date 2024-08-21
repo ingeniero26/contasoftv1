@@ -1,5 +1,5 @@
 <?php 
- include '../../modelo/modelo_categoria.php';
+ include '../../model/modelo_categoria.php';
 
  $MCT = new Modelo_Categoria();
  $idempresa = htmlspecialchars($_POST['idempresa'],ENT_QUOTES,'UTF-8');

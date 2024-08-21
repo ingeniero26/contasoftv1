@@ -1,5 +1,5 @@
 <?php 
- include '../../modelo/modelo_marcas.php';
+ include '../../model/modelo_marcas.php';
 
  $MCT = new Modelo_Marcas();
  $idempresa = htmlspecialchars($_POST['idempresa'],ENT_QUOTES,'UTF-8');

@@ -10,7 +10,7 @@ function listar_cuentas_x_cobrar(){
         "autoWidth": false,
       "ajax":{
         "method":"POST",
-            "url":"../controlador/cuentas_x_proveedor/control_cuentas_proveedor_listar.php",
+            "url":"../controller/cuentas_x_proveedor/control_cuentas_proveedor_listar.php",
       },
       
       "order":[[1,'asc']],
@@ -84,7 +84,7 @@ function listar_cuentas_x_cobrar(){
 
 function listar_combo_compra() {
     $.ajax({
-        url: "../controlador/cuentas_x_proveedor/control_combo_listar_compra.php",
+        url: "../controller/cuentas_x_proveedor/control_combo_listar_compra.php",
         type: 'POST'
     }).done(function(resp) {
        // alert(resp);
@@ -118,7 +118,7 @@ function listar_combo_compra() {
         );
       }
       $.ajax({
-        url:'../controlador/cuentas_x_proveedor/control_registro_abonos_proveedor.php',
+        url:'../controller/cuentas_x_proveedor/control_registro_abonos_proveedor.php',
         type:'POST',
         data:{
           idcompra:idcompra,

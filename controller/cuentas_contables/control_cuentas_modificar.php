@@ -1,5 +1,5 @@
 <?php
-require '../../modelo/modelo_cuentas_contables.php';
+require '../../model/modelo_cuentas_contables.php';
 
 $MCT = new Modelo_Cuentas_Contable();
 $id = htmlspecialchars($_POST['id'], ENT_QUOTES, 'UTF-8');

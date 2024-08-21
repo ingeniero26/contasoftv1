@@ -1,5 +1,5 @@
 <?php 
-require '../../modelo/modelo_tipo_gastos.php';
+require '../../model/modelo_tipo_gastos.php';
 
 $MCT = new Modelo_Tipo_Gastos();
 $tipo_gasto = htmlspecialchars($_POST['tipo_gasto'],ENT_QUOTES,'UTF-8');

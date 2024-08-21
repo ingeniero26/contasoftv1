@@ -1,5 +1,5 @@
 <?php 
- include '../../modelo/modelo_rol.php';
+ include '../../model/modelo_rol.php';
 
  $MR = new Modelo_Rol();
   $idempresa = htmlspecialchars($_POST['idempresa'],ENT_QUOTES,'UTF-8');

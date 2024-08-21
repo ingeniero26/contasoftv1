@@ -23,7 +23,7 @@ function listar_eps() {
         "autoWidth": false,
         "ajax": {
             "method": "POST",
-            "url": "../controlador/configuracion/control_listar_eps.php",
+            "url": "../controller/configuracion/control_listar_eps.php",
             data : {
                 idempresa : idempresa
             }
@@ -151,7 +151,7 @@ function Modificar_Estatus(IdEPS, estatus) {
         mensaje = "activo";
     }
     $.ajax({
-        url: "../controlador/configuracion/control_modificar_estatus_eps.php",
+        url: "../controller/configuracion/control_modificar_estatus_eps.php",
         type: 'POST',
         data: {
             IdEPS: IdEPS,
@@ -192,7 +192,7 @@ function Registrar_Eps() {
         return Swal.fire('Mensaje de error', 'Digite los campos estan vacios', 'warning');
     }
     $.ajax({
-        url: '../controlador/configuracion/control_eps_registro.php',
+        url: '../controller/configuracion/control_eps_registro.php',
         type: 'POST',
         data: {
             nit: nit,
@@ -242,7 +242,7 @@ function Registrar_Eps() {
         Swal.fire('Mensaje de error','Debe digitar los campos vacios','warning');
       }
       $.ajax({
-        url:'../controlador/configuracion/control_modificar_eps.php',
+        url:'../controller/configuracion/control_modificar_eps.php',
         type:'POST',
         data:{
           id:id,

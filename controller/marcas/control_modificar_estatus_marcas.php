@@ -1,5 +1,5 @@
 <?php 
- include '../../modelo/modelo_marcas.php';
+ include '../../model/modelo_marcas.php';
 
  $MEP = new Modelo_Marcas();
 $id = htmlspecialchars($_POST['id'],ENT_QUOTES,'UTF-8');

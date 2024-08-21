@@ -294,7 +294,7 @@ function  listar_combo_ciudades(iddepartamento) {
       return Swal.fire('Mensaje de error','Debe digitar los campos vacios','warning');
     }
     $.ajax({
-      url:'../controlador/persona/controlador_registro_persona.php',
+      url:'../controller/persona/controlador_registro_persona.php',
       type:'POST',
       data:{
         nombre:nombre,  apepat:apepat, apemat:apemat,tipo_cont:tipo_cont,

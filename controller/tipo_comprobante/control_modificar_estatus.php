@@ -1,5 +1,5 @@
 <?php
-include '../../modelo/modelo_tipo_comprobante.php';
+include '../../model/modelo_tipo_comprobante.php';
 
 $MCT = new Modelo_Tipo_Comprobante();
 $id = htmlspecialchars($_POST['id'], ENT_QUOTES, 'UTF-8');

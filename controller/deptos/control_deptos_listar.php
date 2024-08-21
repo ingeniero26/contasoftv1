@@ -1,5 +1,5 @@
 <?php 
- include '../../modelo/modelo_secciones.php';
+ include '../../model/modelo_secciones.php';
 
  $MEP = new Modelo_Secciones();
  $consulta =$MEP->listar_secciones();

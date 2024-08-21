@@ -1,5 +1,5 @@
 <?php 
-include '../../modelo/modelo_deptos.php';
+include '../../model/modelo_deptos.php';
 
  $MEP = new Modelo_Deptos();
 $id = htmlspecialchars($_POST['id'],ENT_QUOTES,'UTF-8');

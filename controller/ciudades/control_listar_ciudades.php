@@ -1,5 +1,5 @@
 <?php
-include '../../modelo/modelo_ciudades.php';
+include '../../model/modelo_ciudades.php';
 
 $MP = new Modelo_Ciudades();
 

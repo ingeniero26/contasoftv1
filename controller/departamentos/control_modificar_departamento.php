@@ -1,5 +1,5 @@
 <?php 
- include '../../modelo/modelo_departamentos.php';
+ include '../../model/modelo_departamentos.php';
 
  $MCT = new Modelo_Deptos();
 $id = htmlspecialchars($_POST['id'],ENT_QUOTES,'UTF-8');

@@ -1,5 +1,5 @@
 <?php 
-require '../../modelo/modelo_categoria.php';
+require '../../model/modelo_categoria.php';
 
 $MCT = new Modelo_Categoria();
 $categoria = htmlspecialchars($_POST['categoria'],ENT_QUOTES,'UTF-8');

@@ -1,5 +1,5 @@
 <?php 
- include '../../modelo/modelo_tipo_producto.php';
+ include '../../model/modelo_tipo_producto.php';
 
  $MCT = new Modelo_Tipo_Producto();
 $id = htmlspecialchars($_POST['id'],ENT_QUOTES,'UTF-8');

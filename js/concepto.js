@@ -10,7 +10,7 @@ function listar_conceptos() {
         "autoWidth": false,
         "ajax": {
             "method": "POST",
-            "url": "../controlador/concepto/control_concepto_listar.php",
+            "url": "../controller/concepto/control_concepto_listar.php",
             data: {
                 idempresa: idempresa
             }
@@ -128,7 +128,7 @@ function Modificar_Estatus(id, estatus) {
         mensaje = "activo";
     }
     $.ajax({
-        url: "../controlador/concepto/control_modificar_estatus.php",
+        url: "../controller/concepto/control_modificar_estatus.php",
         type: 'POST',
         data: {
             id: id,
@@ -168,7 +168,7 @@ function Registrar_Concepto() {
         );
     }
     $.ajax({
-        url: '../controlador/concepto/control_concepto_registro.php',
+        url: '../controller/concepto/control_concepto_registro.php',
         type: 'POST',
         data: {
             concepto: concepto,
@@ -208,7 +208,7 @@ function Modificar_Concepto() {
         Swal.fire('Mensaje de error', 'Debe digitar los campos vacios', 'warning');
     }
     $.ajax({
-        url: '../controlador/concepto/control_modificar_concepto.php',
+        url: '../controller/concepto/control_modificar_concepto.php',
         type: 'POST',
         data: {
             id: id,

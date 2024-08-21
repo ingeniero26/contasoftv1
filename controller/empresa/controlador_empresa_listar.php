@@ -1,5 +1,5 @@
 <?php 
- include '../../modelo/modelo_empresa.php';
+ include '../../model/modelo_empresa.php';
 
  $Mu = new Modelo_Empresa();
   $idempresa = htmlspecialchars($_POST['idempresa'],ENT_QUOTES,'UTF-8');

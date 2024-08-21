@@ -1,5 +1,5 @@
 <?php 
- include '../../modelo/modelo_unidad_medida.php';
+ include '../../model/modelo_unidad_medida.php';
 
  $MUM = new Unidad_Medida();
  $idempresa = htmlspecialchars($_POST['idempresa'],ENT_QUOTES,'UTF-8');

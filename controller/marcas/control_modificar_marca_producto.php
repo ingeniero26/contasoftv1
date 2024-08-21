@@ -1,5 +1,5 @@
 <?php 
-require '../../modelo/modelo_marcas.php';
+require '../../model/modelo_marcas.php';
 
 $MCT = new Modelo_Marcas();
 $id = htmlspecialchars($_POST['id'],ENT_QUOTES,'UTF-8');

@@ -10,7 +10,7 @@ function listar_departamentos(){
       	"autoWidth": false,
       "ajax":{
         "method":"POST",
-		    "url":"../controlador/departamentos/control_departamentos_listar.php",
+		    "url":"../controller/departamentos/control_departamentos_listar.php",
            
       },
       

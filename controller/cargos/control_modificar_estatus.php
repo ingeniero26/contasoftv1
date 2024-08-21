@@ -1,5 +1,5 @@
 <?php 
- include '../../modelo/modelo_cargos.php';
+ include '../../model/modelo_cargos.php';
 
  $MEP = new Modelo_Cargos();
 $IdCargos = htmlspecialchars($_POST['IdCargos'],ENT_QUOTES,'UTF-8');

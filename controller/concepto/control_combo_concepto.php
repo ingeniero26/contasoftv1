@@ -1,5 +1,5 @@
 <?php 
-require '../../modelo/modelo_concepto.php';
+require '../../model/modelo_concepto.php';
 
 $MCT = new Modelo_Concepto();
 $idempresa = htmlspecialchars($_POST['idempresa'],ENT_QUOTES,'UTF-8');

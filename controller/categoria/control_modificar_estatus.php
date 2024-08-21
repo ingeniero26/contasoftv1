@@ -1,5 +1,5 @@
 <?php 
-require '../../modelo/modelo_categoria.php';
+require '../../model/modelo_categoria.php';
 
 $MU = new Modelo_Categoria();
 $categoria_id = htmlspecialchars($_POST['categoria_id'],ENT_QUOTES,'UTF-8');

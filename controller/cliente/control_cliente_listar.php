@@ -1,5 +1,5 @@
 <?php 
- include '../../modelo/modelo_cliente.php';
+ include '../../model/modelo_cliente.php';
 
  $MCT = new Modelo_Cliente();
  $idempresa = htmlspecialchars($_POST['idempresa'],ENT_QUOTES,'UTF-8');

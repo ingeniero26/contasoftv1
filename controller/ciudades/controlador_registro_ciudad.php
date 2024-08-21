@@ -1,5 +1,5 @@
 <?php 
-require '../../modelo/modelo_ciudades.php';
+require '../../model/modelo_ciudades.php';
 
 $MCT = new Modelo_Ciudades();
 $ciudad = htmlspecialchars($_POST['ciudad'],ENT_QUOTES,'UTF-8');

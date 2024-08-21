@@ -1,5 +1,5 @@
 <?php 
-  include '../../modelo/modelo_pagos.php';
+  include '../../model/modelo_pagos.php';
 
   $MCT = new Modelo_Gastos();
 $idGasto = htmlspecialchars($_POST['idGasto'],ENT_QUOTES,'UTF-8');

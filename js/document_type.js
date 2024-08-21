@@ -130,7 +130,7 @@ function Modificar_Estatus(IdDpto, estatus) {
         mensaje = "activo";
     }
     $.ajax({
-        url: "../controlador/deptos/control_modificar_estatus.php",
+        url: "../controller/deptos/control_modificar_estatus.php",
         type: 'POST',
         data: {
             IdDpto: IdDpto,
@@ -216,7 +216,7 @@ function Modificar_Depto() {
         Swal.fire('Mensaje de error', 'Debe digitar los campos vacios', 'warning');
     }
     $.ajax({
-        url: '../controlador/deptos/control_modificar_deptos.php',
+        url: '../controller/deptos/control_modificar_deptos.php',
         type: 'POST',
         data: {
             id: id,

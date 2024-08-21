@@ -1,5 +1,5 @@
 <?php 
-require '../../modelo/modelo_pagos.php';
+require '../../model/modelo_pagos.php';
 
 $MPV = new Modelo_Gastos();
 $idtipo_gasto = htmlspecialchars($_POST['idtipo_gasto'],ENT_QUOTES,'UTF-8');
