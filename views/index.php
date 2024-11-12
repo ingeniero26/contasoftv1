@@ -231,7 +231,7 @@ if (!isset($_SESSION['S_IDUSUARIO'])) {
                                 </div>
                             </div>
                         </div>
-                    </div> -->
+                    </div> 
                     <div class="row">
                         <div class="col-lg-2 col-md-6">
                             <div class="ibox bg-success color-white widget-stat">
@@ -301,7 +301,7 @@ if (!isset($_SESSION['S_IDUSUARIO'])) {
                                     </div>
                             </div>
                         </div>
-                    </div>
+                    </div>-->
                 </div>
             </div>
             <!-- END PAGE CONTENT-->
@@ -655,26 +655,26 @@ if (!isset($_SESSION['S_IDUSUARIO'])) {
                 }
             });
 
-            setInterval(() => {
-                $.ajax({
-                    url: "../ajax/dashboard.ajax.php",
-                    method: 'POST',
-                    dataType: 'json',
-                    success: function(respuesta) {
-                        // console.log("respuesta", respuesta);
-                        $("#totalProductos").html(respuesta[0]['totalProductos']);
-                        $("#totalCompras").html('S./ ' + respuesta[0]['totalCompras'].replace(
-                            /\d(?=(\d{3})+\.)/g, "$&,"))
-                        $("#totalVentas").html('S./ ' + respuesta[0]['totalVentas'].replace(
-                            /\d(?=(\d{3})+\.)/g,
-                            "$&,"))
+            // setInterval(() => {
+            //     $.ajax({
+            //         url: "../ajax/dashboard.ajax.php",
+            //         method: 'POST',
+            //         dataType: 'json',
+            //         success: function(respuesta) {
+            //             // console.log("respuesta", respuesta);
+            //             $("#totalProductos").html(respuesta[0]['totalProductos']);
+            //             $("#totalCompras").html('S./ ' + respuesta[0]['totalCompras'].replace(
+            //                 /\d(?=(\d{3})+\.)/g, "$&,"))
+            //             $("#totalVentas").html('S./ ' + respuesta[0]['totalVentas'].replace(
+            //                 /\d(?=(\d{3})+\.)/g,
+            //                 "$&,"))
                        
-                        $("#productosPocoStock").html(respuesta[0]['productosPocoStock'])
-                        $("#VentasHoy").html('S./ ' + respuesta[0]['ventasHoy'].replace(
-                            /\d(?=(\d{3})+\.)/g, "$&,"))
-                    }
-                });
-            }, 10000);
+            //             $("#productosPocoStock").html(respuesta[0]['productosPocoStock'])
+            //             $("#VentasHoy").html('S./ ' + respuesta[0]['ventasHoy'].replace(
+            //                 /\d(?=(\d{3})+\.)/g, "$&,"))
+            //         }
+            //     });
+            // }, 10000);
 
             /*grafico*/
 

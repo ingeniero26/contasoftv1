@@ -11,41 +11,53 @@ class Modelo_Productos
         $this->conexion->conectar();
     }
 
-    public function listar_productos($id_bodega, $id_categoria, $idempresa)
-    {
-        $sql = "SELECT
-        `p`.`producto_id`    , `p`.`producto_codigo`
-        , `p`.`producto_nombre`,p.producto_descripcion,p.producto_cod_barra, `p`.`producto_presentacion`
-        , `p`.`id_bodega`    , `b`.`nombre_bodega`
-        , `p`.`cant_minima`    , `p`.`producto_stock`
-        , `p`.`id_categoria`    , `c`.`categoria_nombre`
-        , `p`.`id_unidad`    , `u`.`unidad_nombre`
-        , `p`.`idTipoProducto`    , `tp`.`tipo_producto`
-        , `p`.`id_marca`    , `m`.`descripcion`
-        ,  p.IdIva, i.tarifa, i.nombre
-        , `p`.`producto_foto`    , `p`.`compra`
-        , `p`.`producto_precioventa` , `p`.`producto_estatus`
-        , `p`.`fregistro`    , `p`.`idempresa`
-        ,   p.producto_precioventa - p.`compra` AS ganancia
-    FROM
-        `producto` AS `p`
-         INNER JOIN `bodega` AS `b`    ON (`p`.`id_bodega` = `b`.`id`)
-        INNER JOIN `categoria` AS `c`    ON (`p`.`id_categoria` = `c`.`categoria_id`)
-        INNER JOIN `unidad` AS `u`       ON (`p`.`id_unidad` = `u`.`unidad_id`)
-        INNER JOIN `tipo_producto` AS `tp`     ON (`p`.`idTipoProducto` = `tp`.`id`)
-        INNER JOIN `marcas` AS `m`       ON (`p`.`id_marca` = `m`.`id`)
-        INNER JOIN iva AS i ON p.IdIva = i.id
-       WHERE b.`id` = '$id_bodega'  AND p.`id_categoria` = '$id_categoria' AND p.`idempresa` = '$idempresa'";
-        $arreglo = array();
-        if ($consulta = $this->conexion->conexion->query($sql)) {
-            while ($consulta_vu = mysqli_fetch_assoc($consulta)) {
-                $arreglo["data"][] = $consulta_vu;
+   public function listar_productos($id_bodega = null, $id_categoria = null, $idempresa = null)
+{
+    $sql = "SELECT
+            p.producto_id, p.producto_codigo, p.producto_nombre, p.producto_descripcion,
+            p.producto_cod_barra, p.producto_presentacion, p.id_bodega, b.nombre_bodega,
+            p.cant_minima, p.producto_stock, p.id_categoria, c.categoria_nombre,
+            p.id_unidad, u.unidad_nombre, p.idTipoProducto, tp.tipo_producto,
+            p.id_marca, m.descripcion, p.IdIva, i.tarifa, i.nombre,
+            p.producto_foto, p.compra, p.producto_precioventa, p.producto_estatus,
+            p.fregistro, p.idempresa,
+            p.producto_precioventa - p.compra AS ganancia
+        FROM producto AS p
+        INNER JOIN bodega AS b ON p.id_bodega = b.id
+        INNER JOIN categoria AS c ON p.id_categoria = c.categoria_id
+        INNER JOIN unidad AS u ON p.id_unidad = u.unidad_id
+        INNER JOIN tipo_producto AS tp ON p.idTipoProducto = tp.id
+        INNER JOIN marcas AS m ON p.id_marca = m.id
+        INNER JOIN iva AS i ON p.IdIva = i.id";
 
-            }
-            return $arreglo;
-            $this->conexion->cerrar();
-        }
+    // Arreglo para almacenar los filtros de la consulta
+    $filters = [];
+
+    // Agregar condiciones solo si los parámetros tienen valores
+    if ($id_bodega !== null) {
+        $filters[] = "b.id = '" . mysqli_real_escape_string($this->conexion->conexion, $id_bodega) . "'";
     }
+    if ($id_categoria !== null) {
+        $filters[] = "p.id_categoria = '" . mysqli_real_escape_string($this->conexion->conexion, $id_categoria) . "'";
+    }
+    if ($idempresa !== null) {
+        $filters[] = "p.idempresa = '" . mysqli_real_escape_string($this->conexion->conexion, $idempresa) . "'";
+    }
+
+    // Agregar las condiciones a la consulta si existen
+    if (!empty($filters)) {
+        $sql .= " WHERE " . implode(" AND ", $filters);
+    }
+
+    $arreglo = array();
+    if ($consulta = $this->conexion->conexion->query($sql)) {
+        while ($consulta_vu = mysqli_fetch_assoc($consulta)) {
+            $arreglo["data"][] = $consulta_vu;
+        }
+        $this->conexion->cerrar();  // Mover el cierre de conexión fuera del retorno
+        return $arreglo;
+    }
+}
 
     public function listar_combo_categoria($idempresa)
     {

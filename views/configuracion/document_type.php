@@ -2,7 +2,7 @@
     <div class="col-md-12">
         <div class="ibox ibox-default">
             <div class="ibox-head">
-                <div class="ibox-title">MANTENIMIENTO TIPO DE IMPUESTOS</div>
+                <div class="ibox-title">MANTENIMIENTO TIPO DE DOCUMENTOS</div>
                 <div class="ibox-tools">
                     <button class="btn btn-primary" style="width: 100%" onclick="AbrirModalRegistro()"><i class="fa fa-plus">Nuevo Registro</i></button>
                 </div>
@@ -38,7 +38,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle"><b>Registro de Impuestos</b></h5>
+                <h5 class="modal-title" id="exampleModalLongTitle"><b>Registro de Tipo Documentos</b></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -51,7 +51,7 @@
                             class="form-control" placeholder="Tipo Documento">
                     </div>
                     <div class="col-md-12">
-                        <label for="">Avrevitura</label>
+                        <label for="">Abrevitura</label>
                         <input type="text" id="txt_abreviation"
                             class="form-control" placeholder="Abreviatura ">
                     </div>
