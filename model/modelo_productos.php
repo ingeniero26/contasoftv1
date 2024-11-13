@@ -11,9 +11,9 @@ class Modelo_Productos
         $this->conexion->conectar();
     }
 
-   public function listar_productos($id_bodega = null, $id_categoria = null, $idempresa = null)
-{
-    $sql = "SELECT
+    public function listar_productos($id_bodega = null, $id_categoria = null, $idempresa = null)
+    {
+        $sql = "SELECT
             p.producto_id, p.producto_codigo, p.producto_nombre, p.producto_descripcion,
             p.producto_cod_barra, p.producto_presentacion, p.id_bodega, b.nombre_bodega,
             p.cant_minima, p.producto_stock, p.id_categoria, c.categoria_nombre,
@@ -30,34 +30,34 @@ class Modelo_Productos
         INNER JOIN marcas AS m ON p.id_marca = m.id
         INNER JOIN iva AS i ON p.IdIva = i.id";
 
-    // Arreglo para almacenar los filtros de la consulta
-    $filters = [];
+        // Arreglo para almacenar los filtros de la consulta
+        $filters = [];
 
-    // Agregar condiciones solo si los parámetros tienen valores
-    if ($id_bodega !== null) {
-        $filters[] = "b.id = '" . mysqli_real_escape_string($this->conexion->conexion, $id_bodega) . "'";
-    }
-    if ($id_categoria !== null) {
-        $filters[] = "p.id_categoria = '" . mysqli_real_escape_string($this->conexion->conexion, $id_categoria) . "'";
-    }
-    if ($idempresa !== null) {
-        $filters[] = "p.idempresa = '" . mysqli_real_escape_string($this->conexion->conexion, $idempresa) . "'";
-    }
-
-    // Agregar las condiciones a la consulta si existen
-    if (!empty($filters)) {
-        $sql .= " WHERE " . implode(" AND ", $filters);
-    }
-
-    $arreglo = array();
-    if ($consulta = $this->conexion->conexion->query($sql)) {
-        while ($consulta_vu = mysqli_fetch_assoc($consulta)) {
-            $arreglo["data"][] = $consulta_vu;
+        // Agregar condiciones solo si los parámetros tienen valores
+        if ($id_bodega !== null) {
+            $filters[] = "b.id = '" . mysqli_real_escape_string($this->conexion->conexion, $id_bodega) . "'";
         }
-        $this->conexion->cerrar();  // Mover el cierre de conexión fuera del retorno
-        return $arreglo;
+        if ($id_categoria !== null) {
+            $filters[] = "p.id_categoria = '" . mysqli_real_escape_string($this->conexion->conexion, $id_categoria) . "'";
+        }
+        if ($idempresa !== null) {
+            $filters[] = "p.idempresa = '" . mysqli_real_escape_string($this->conexion->conexion, $idempresa) . "'";
+        }
+
+        // Agregar las condiciones a la consulta si existen
+        if (!empty($filters)) {
+            $sql .= " WHERE " . implode(" AND ", $filters);
+        }
+
+        $arreglo = array();
+        if ($consulta = $this->conexion->conexion->query($sql)) {
+            while ($consulta_vu = mysqli_fetch_assoc($consulta)) {
+                $arreglo["data"][] = $consulta_vu;
+            }
+            $this->conexion->cerrar();  // Mover el cierre de conexión fuera del retorno
+            return $arreglo;
+        }
     }
-}
 
     public function listar_combo_categoria($idempresa)
     {
@@ -67,7 +67,6 @@ class Modelo_Productos
         if ($consulta = $this->conexion->conexion->query($sql)) {
             while ($consulta_vu = mysqli_fetch_array($consulta)) {
                 $arreglo[] = $consulta_vu;
-
             }
             return $arreglo;
             $this->conexion->cerrar();
@@ -82,7 +81,6 @@ class Modelo_Productos
         if ($consulta = $this->conexion->conexion->query($sql)) {
             while ($consulta_vu = mysqli_fetch_array($consulta)) {
                 $arreglo[] = $consulta_vu;
-
             }
             return $arreglo;
             $this->conexion->cerrar();
@@ -98,20 +96,34 @@ class Modelo_Productos
         if ($consulta = $this->conexion->conexion->query($sql)) {
             while ($consulta_vu = mysqli_fetch_array($consulta)) {
                 $arreglo[] = $consulta_vu;
-
             }
             return $arreglo;
             $this->conexion->cerrar();
         }
     }
 
-  
 
 
-    public function Registrar_Producto($codigo, $nombre,
-        $descripcion,$cod_barra, $presentacion, $idbodega, $cant_minima, $cant_inicial,
-        $idcategoria, $idunidad, $tipo_producto, $id_marca,$id_iva,
-         $ruta, $precio_compra, $precio_venta, $idempresa) {
+
+    public function Registrar_Producto(
+        $codigo,
+        $nombre,
+        $descripcion,
+        $cod_barra,
+        $presentacion,
+        $idbodega,
+        $cant_minima,
+        $cant_inicial,
+        $idcategoria,
+        $idunidad,
+        $tipo_producto,
+        $id_marca,
+        $id_iva,
+        $ruta,
+        $precio_compra,
+        $precio_venta,
+        $idempresa
+    ) {
         $sql = "call  SP_REGISTRAR_PRODUCTO('$codigo','$nombre','$descripcion','$cod_barra',
         '$presentacion',  '$idbodega','$cant_minima',
 		'$cant_inicial', '$idcategoria','$idunidad','$tipo_producto', '$id_marca','$id_iva', '$ruta','$precio_compra','$precio_venta','$idempresa')";
@@ -130,7 +142,6 @@ class Modelo_Productos
         if ($consulta = $this->conexion->conexion->query($sql)) {
             //$id_retornado = mysqli_insert_ind($this->conexion->conexion);
             return 1;
-
         } else {
             return 0;
         }
@@ -148,10 +159,20 @@ class Modelo_Productos
         }
     }
 
-    public function Modificar_Producto($id_producto, $codigo_actual,
-        $codigo_nuevo, $nombre_actual, $nombre_nuevo,
-        $presentacion_editar, $cant_minima,
-        $idcategoria, $idunidad, $idtipo_producto, $precio_compra, $precio_venta) {
+    public function Modificar_Producto(
+        $id_producto,
+        $codigo_actual,
+        $codigo_nuevo,
+        $nombre_actual,
+        $nombre_nuevo,
+        $presentacion_editar,
+        $cant_minima,
+        $idcategoria,
+        $idunidad,
+        $idtipo_producto,
+        $precio_compra,
+        $precio_venta
+    ) {
         $sql = "call  SP_MODIFICAR_PRODUCTO2('$id_producto','$codigo_actual',
 		 '$codigo_nuevo',
 		 '$nombre_actual','$nombre_nuevo','$presentacion_editar','$cant_minima',
@@ -191,14 +212,13 @@ class Modelo_Productos
         if ($consulta = $this->conexion->conexion->query($sql)) {
             while ($consulta_vu = mysqli_fetch_assoc($consulta)) {
                 $arreglo[] = $consulta_vu;
-
             }
             return $arreglo;
             $this->conexion->cerrar();
         }
     }
 
-        function valor_inventario()
+    function valor_inventario()
     {
         $sql = "SELECT p.producto_id, p.producto_codigo,
             p.producto_nombre, p.producto_stock, p.producto_precioventa,
@@ -216,5 +236,4 @@ class Modelo_Productos
             $this->conexion->cerrar();
         }
     }
-
 }

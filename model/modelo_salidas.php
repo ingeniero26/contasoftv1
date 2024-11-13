@@ -29,7 +29,6 @@ class Modelo_Salidas
         if ($consulta = $this->conexion->conexion->query($sql)) {
             while ($consulta_vu = mysqli_fetch_assoc($consulta)) {
                 $arreglo["data"][] = $consulta_vu;
-
             }
             return $arreglo;
             $this->conexion->cerrar();
@@ -50,7 +49,6 @@ class Modelo_Salidas
         if ($consulta = $this->conexion->conexion->query($sql)) {
             while ($consulta_vu = mysqli_fetch_array($consulta)) {
                 $arreglo[] = $consulta_vu;
-
             }
             return $arreglo;
             $this->conexion->cerrar();
@@ -67,7 +65,6 @@ class Modelo_Salidas
         if ($consulta = $this->conexion->conexion->query($sql)) {
             while ($consulta_vu = mysqli_fetch_array($consulta)) {
                 $arreglo[] = $consulta_vu;
-
             }
             return $arreglo;
             $this->conexion->cerrar();
@@ -105,7 +102,5 @@ class Modelo_Salidas
             return 0;
         }
         $this->conexion->cerrar();
-
     }
-
 }

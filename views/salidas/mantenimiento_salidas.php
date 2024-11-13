@@ -4,15 +4,15 @@
             <div class="ibox-head">
                 <div class="ibox-title">MANTENIMIENTO AJUSTE SALIDA DE PRODUCTOS</div>
                 <div class="ibox-tools">
-                   <button class="btn btn-primary" style="width: 100%" onclick="cargar_contenido('contenido_principal','salidas/vista_salidas.php')"><i class="fa fa-plus">Nuevo Registro</i></button>
+                    <button class="btn btn-primary" style="width: 100%" onclick="cargar_contenido('contenido_principal','salidas/vista_salidas.php')"><i class="fa fa-plus">Nuevo Registro</i></button>
                 </div>
             </div>
             <div class="ibox-body">
                 <div class="row">
                     <div class="col-5">
-                    <label for=""><b>Fecha Inicio</b></label>
+                        <label for=""><b>Fecha Inicio</b></label>
                         <input type="date" id="txt_finicio" class="form-control">
-                        </div>
+                    </div>
                     <div class="col-5">
                         <label for=""><b>Fecha Fin</b></label>
                         <input type="date" id="txt_ffin" class="form-control">
@@ -22,10 +22,10 @@
                         <button class="btn btn-success" style="width:100%" onclick="listar_salidas()"><i class="fa fa-search"></i>Buscar</button>
                     </div>
                 </div> <br>
-                
-                
-                <table id="tabla_salidas" class="display table-bordered" 
-                style="width:100%">
+
+
+                <table id="tabla_salidas" class="display table-bordered"
+                    style="width:100%">
                     <thead>
                         <tr>
                             <th>#</th>
@@ -42,10 +42,10 @@
                     </thead>
                     <tbody>
                     </tbody>
-                   
+
                 </table>
-                
-               
+
+
             </div>
         </div>
     </div>
@@ -53,33 +53,30 @@
 
 
 
-<script type="text/javascript" src="../js/salidas.js?rev=<?php echo time();?>"></script>
+<script type="text/javascript" src="../js/salidas.js?rev=<?php echo time(); ?>"></script>
 <script>
-$(document).ready(function() {
-   
-  $('.js-example-basic-single').select2();
+    $(document).ready(function() {
+
+        $('.js-example-basic-single').select2();
 
 
-  var f = new Date();
-  var anio = f.getFullYear();
-  var mes = f.getMonth() +1;
-  var d = f.getDate();
-  if(d < 10) {
-    d ='0' +d;
-  }
+        var f = new Date();
+        var anio = f.getFullYear();
+        var mes = f.getMonth() + 1;
+        var d = f.getDate();
+        if (d < 10) {
+            d = '0' + d;
+        }
 
-if(mes < 10 ) {
-    mes = '0' +mes;
-}
- document.getElementById('txt_finicio').value=anio +"-"+mes +"-"+d;
- document.getElementById('txt_ffin').value=anio +"-"+mes +"-"+d;
- listar_salidas();
+        if (mes < 10) {
+            mes = '0' + mes;
+        }
+        document.getElementById('txt_finicio').value = anio + "-" + mes + "-" + d;
+        document.getElementById('txt_ffin').value = anio + "-" + mes + "-" + d;
+        listar_salidas();
 
- $('#modal_registro').on('shown.bs.modal', function () {
-    $('#txt_nombre_categoria').trigger('focus')
-  })
-});
-
- 
-
+        $('#modal_registro').on('shown.bs.modal', function() {
+            $('#txt_nombre_categoria').trigger('focus')
+        })
+    });
 </script>

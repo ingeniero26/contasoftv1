@@ -283,7 +283,7 @@
 <script>
   $(document).ready(function() {
 
-   
+
     $('.js-example-basic-single').select2();
     listar_productos();
     listar_combo_categoria();

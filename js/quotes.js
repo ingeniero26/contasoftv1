@@ -545,9 +545,9 @@ function Registrar_Detalle_Venta(id) {
 
                     }
 
-                    $("#contenido_principal").load("../vista/ventas/vista_mantenimiento_cotizacion.php");
+                    $("#contenido_principal").load("../view/ventas/vista_mantenimiento_cotizacion.php");
                 } else {
-                    $("#contenido_principal").load("../vista/ventas/vista_mantenimiento_cotizacion.php");
+                    $("#contenido_principal").load("../view/ventas/vista_mantenimiento_cotizacion.php");
                 }
             })
         } else {

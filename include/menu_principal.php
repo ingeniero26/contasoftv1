@@ -165,28 +165,25 @@
                 </ul>
             </li>
 
-            <li>
+            <!-- <li>
                 <a href="javascript:;"><i class="sidebar-item-icon fa fa-edit"></i>
                     <span class="nav-label">Movimientos</span><i class="fa fa-angle-left arrow"></i></a>
                 <ul class="nav-2-level collapse">
 
                     <li>
                         <a href="javascript:cargar_contenido('contenido_principal','salidas/mantenimiento_salidas.php')">
-                            <span class="nav-label"><i class="fa   fa-outdent"></i> Kardex de Productos</span></a>
+                            <span class="nav-label"><i class="fa   fa-outdent"></i> Salidas de Productos</span></a>
 
                     </li>
 
                     <li>
-                        <a href="javascript:cargar_contenido('contenido_principal','clientes/vista_mantenimiento_codeudor.php')">
-                            <span class="nav-label"><i class="fa   fa-list-ul"></i> Ajustes de Inventario</span></a>
+                        <a href="javascript:cargar_contenido('contenido_principal','inventory_adjustment/inventory_adjustment.php')">
+                            <span class="nav-label"><i class="fa   fa-list-ul"></i> Kardex</span></a>
                     </li>
-                    <li>
-                        <a href="javascript:cargar_contenido('contenido_principal','clientes/vista_mantenimiento_codeudor.php')">
-                            <span class="nav-label"><i class="fa   fa-list-ul"></i> Importar</span></a>
-                    </li>
+
 
                 </ul>
-            </li>
+            </li> -->
 
 
 

@@ -15,7 +15,7 @@ function listar_cliente(){
         ],
       "ajax":{
         type:"POST",
-		    url:"../controlador/cliente/control_cliente_listar.php",
+		    url:"../controller/cliente/control_cliente_listar.php",
             data:{
                 idempresa:idempresa
             }
@@ -92,7 +92,7 @@ function listar_cliente(){
     function listar_combo_ciudad() {
         var idempresa =$("#txt_idempresa").val();
            $.ajax({
-               url:"../controlador/ciudades/control_combo_ciudad_listar.php",
+               url:"../controller/ciudades/control_combo_ciudad_listar.php",
                 type:'POST',
                 data:{
                    idempresa:idempresa
@@ -142,7 +142,7 @@ function listar_cliente(){
       return Swal.fire('Mensaje de error','Debe digitar los campos vacios','warning');
       }
       $.ajax({
-      url:'../controlador/cliente/controlador_registro_cliente.php',
+      url:'../controller/cliente/controlador_registro_cliente.php',
       type:'POST',
       data:{
         nombre:nombre,
@@ -235,7 +235,7 @@ function listar_cliente(){
             mensaje = "activo";
         }
         $.ajax({
-            url: "../controlador/cliente/control_modificar_estatus.php",
+            url: "../controller/cliente/control_modificar_estatus.php",
             type: 'POST',
             data: {
                 idcliente: idcliente,
