@@ -1,5 +1,5 @@
 <?php 
-require '../../modelo/modelo_cuentas_clientes.php';
+require '../../model/modelo_cuentas_clientes.php';
 
 $MME = new Modelo_Cuentas_Clientes();
 $idempresa = htmlspecialchars($_POST['idempresa'],ENT_QUOTES,'UTF-8');

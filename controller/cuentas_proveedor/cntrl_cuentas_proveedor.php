@@ -1,5 +1,5 @@
 <?php 
-require '../../modelo/modelo_cuentasxproveedor.php';
+require '../../model/modelo_cuentasxproveedor.php';
 
 $MME = new Modelo_Cuentas_Proveedor();
 $consulta =$MME->listar_cuentas_x_proveedor();

@@ -31,12 +31,14 @@
                             <th>#</th>
                             <th>Fecha</th>
                             <th>Usuario</th>
-                            <th>Concepto</th>
                             <th>Bodega</th>
+                            <th>Tipo Salida</th>
+                            <th>Motivo</th>
                             <th>Cod Producto</th>
                             <th>Producto</th>
                             <th>Cantidad</th>
-                            <th>Estado</th>
+                            <th>Precio</th>
+                            <th>Total</th>
                             <th>Acci&oacute;n</th>
                         </tr>
                     </thead>

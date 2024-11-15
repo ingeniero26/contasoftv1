@@ -1,7 +1,8 @@
-<?php 
+<?php
 
- class Modelo_Cuentas_Clientes {
- 	private $conexion;
+class Modelo_Cuentas_Clientes
+{
+	private $conexion;
 
 
 	function __construct()
@@ -11,7 +12,8 @@
 		$this->conexion->conectar();
 	}
 
-	function listar_cuentas_x_cobrar($idempresa){
+	function listar_cuentas_x_cobrar($idempresa)
+	{
 		$sql = "SELECT DISTINCT
     `venta`.`venta_id` AS factura_venta
     , `venta`.`cliente_id`
@@ -35,18 +37,18 @@ FROM
         WHERE venta.`tipo_pago` ='CREDITO' OR `venta`.`tipo_pago` ='CREDICONTADO' AND `venta`.`venta_estatus` ='POR_COBRAR'  AND `venta`.`idempresa` = '$idempresa'
         GROUP BY `cliente`.`idcliente`
         ORDER BY  persona.`persona_nombre`";
-			$arreglo = array();
-			if($consulta = $this->conexion->conexion->query($sql)){
-				while($consulta_vu = mysqli_fetch_assoc($consulta)) {
-						$arreglo["data"][] =$consulta_vu;
-					
-				}
-				return $arreglo;
-				$this->conexion->cerrar();
+		$arreglo = array();
+		if ($consulta = $this->conexion->conexion->query($sql)) {
+			while ($consulta_vu = mysqli_fetch_assoc($consulta)) {
+				$arreglo["data"][] = $consulta_vu;
+			}
+			return $arreglo;
+			$this->conexion->cerrar();
 		}
 	}
 
-	function listar_combo_venta() {
+	function listar_combo_venta()
+	{
 		$sql = " SELECT
     `venta`.`venta_id` ,
     CONCAT_WS(' ','FechaVenta: ', venta.`venta_fecha`
@@ -57,30 +59,30 @@ FROM
     INNER JOIN `persona`          ON (`cliente`.`persona_id` = `persona`.`persona_id`)
     INNER JOIN `venta`         ON (`venta`.`cliente_id` = `cliente`.`idcliente`)
         WHERE venta.`tipo_pago`='CREDITO'  OR  venta.`tipo_pago` ='CREDICONTADO'";
-				$arreglo = array();
-			if($consulta = $this->conexion->conexion->query($sql)){
-				while($consulta_vu = mysqli_fetch_array($consulta)) {
-						$arreglo[] =$consulta_vu;
-					
-				}
-				return $arreglo;
-				$this->conexion->cerrar();
+		$arreglo = array();
+		if ($consulta = $this->conexion->conexion->query($sql)) {
+			while ($consulta_vu = mysqli_fetch_array($consulta)) {
+				$arreglo[] = $consulta_vu;
+			}
+			return $arreglo;
+			$this->conexion->cerrar();
 		}
 	}
 
-function Registrar_Abono_Cliente($idventa,$no_cuota,$no_comprobante, $fecha_pago, $valor_abono) {
+	function Registrar_Abono_Cliente($idventa, $no_cuota, $no_comprobante, $fecha_pago, $valor_abono)
+	{
 		$sql = "call  SP_REGISTRAR_ABONO_CLIENTE('$idventa','$no_cuota','$no_comprobante','$fecha_pago','$valor_abono')";
-			if($consulta = $this->conexion->conexion->query($sql)){
-					return 1;
-				} else {
-					return 0;
-				}
-				$this->conexion->cerrar();
+		if ($consulta = $this->conexion->conexion->query($sql)) {
+			return 1;
+		} else {
+			return 0;
+		}
+		$this->conexion->cerrar();
+	}
 
-  		 }
-
- function listar_abonos_clientes() {
- 	$sql = "SELECT    `cuentas_x_cobrar`.`id`
+	function listar_abonos_clientes()
+	{
+		$sql = "SELECT    `cuentas_x_cobrar`.`id`
       , `venta`.`venta_tipocomprobante` AS comprobante
     , `venta`.`venta_numcomprobante` AS numero
     , `cuentas_x_cobrar`.`idventa`, `cuentas_x_cobrar`.`no_comprobante`
@@ -94,32 +96,27 @@ function Registrar_Abono_Cliente($idventa,$no_cuota,$no_comprobante, $fecha_pago
     FROM     `cuentas_x_cobrar`
     INNER JOIN `venta`    ON (`cuentas_x_cobrar`.`idventa` = `venta`.`venta_id`)
     GROUP BY `idventa`";
-			$arreglo = array();
-			if($consulta = $this->conexion->conexion->query($sql)){
-				while($consulta_vu = mysqli_fetch_assoc($consulta)) {
-						$arreglo["data"][] =$consulta_vu;
-					
-				}
-				return $arreglo;
-				$this->conexion->cerrar();
-		}
- }
-
-
-
-
-function Modificar_Estatus_Venta($venta_id,$estatus) {
-	$sql = "call SP_MODIFICAR_ESTATUS_VENTA('$venta_id','$estatus')";
-			if ($consulta = $this->conexion->conexion->query($sql)) {
-				//$id_retornado = mysqli_insert_ind($this->conexion->conexion);
-				return 1;
-				
-			}else{
-				return 0;
+		$arreglo = array();
+		if ($consulta = $this->conexion->conexion->query($sql)) {
+			while ($consulta_vu = mysqli_fetch_assoc($consulta)) {
+				$arreglo["data"][] = $consulta_vu;
 			}
+			return $arreglo;
+			$this->conexion->cerrar();
+		}
+	}
+
+
+
+
+	function Modificar_Estatus_Venta($venta_id, $estatus)
+	{
+		$sql = "call SP_MODIFICAR_ESTATUS_VENTA('$venta_id','$estatus')";
+		if ($consulta = $this->conexion->conexion->query($sql)) {
+			//$id_retornado = mysqli_insert_ind($this->conexion->conexion);
+			return 1;
+		} else {
+			return 0;
+		}
+	}
 }
-
- }
-
-
- ?>

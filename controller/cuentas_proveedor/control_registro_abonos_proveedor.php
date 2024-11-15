@@ -1,5 +1,5 @@
 <?php 
-require '../../modelo/modelo_cuentasxproveedor.php';
+require '../../model/modelo_cuentasxproveedor.php';
 
 $MCP = new Modelo_Cuentas_Proveedor();
 $idcompra = htmlspecialchars($_POST['idcompra'],ENT_QUOTES,'UTF-8');

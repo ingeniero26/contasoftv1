@@ -1,6 +1,6 @@
 <?php
 // Require composer autoload
-require_once __DIR__ . './vendor/autoload.php';
+require_once __DIR__ . '/vendor/autoload.php';
 require_once '../conexion_global/r_conexion.php';
 
 $html='<!DOCTYPE html>

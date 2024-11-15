@@ -481,9 +481,9 @@ function Registrar_Detalle_Ingreso(id) {
                 LimpiarCampos();
                 if (result.value) {
                     window.open("../mpdf/reporte_compras.php?codigo=" + parseInt(id) + "zoom=100", "Reporte de Compra", "scrollbards=NO");
-                    $("#contenido_principal").load("../view/ingreso/vista_mantenimiento_ingreso.php");
+                    $("#contenido_principal").load("../views/ingreso/vista_mantenimiento_ingreso.php");
                 } else {
-                    $("#contenido_principal").load("../view/ingreso/vista_mantenimiento_ingreso.php");
+                    $("#contenido_principal").load("../views/ingreso/vista_mantenimiento_ingreso.php");
                 }
             })
         } else {

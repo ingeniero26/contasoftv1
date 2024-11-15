@@ -165,7 +165,7 @@
                 </ul>
             </li>
 
-            <!-- <li>
+             <!-- <li>
                 <a href="javascript:;"><i class="sidebar-item-icon fa fa-edit"></i>
                     <span class="nav-label">Movimientos</span><i class="fa fa-angle-left arrow"></i></a>
                 <ul class="nav-2-level collapse">
@@ -176,10 +176,10 @@
 
                     </li>
 
-                    <li>
+                     <li>
                         <a href="javascript:cargar_contenido('contenido_principal','inventory_adjustment/inventory_adjustment.php')">
                             <span class="nav-label"><i class="fa   fa-list-ul"></i> Kardex</span></a>
-                    </li>
+                    </li> 
 
 
                 </ul>
@@ -226,6 +226,10 @@
                     <li>
                         <a href="../mpdf/reporte_medida.php" target="_blank">
                             <span class="nav-label"><i class="fa   fa-th-list"></i> Medidas</span></a>
+                    </li>
+                    <li>
+                        <a href="../mpdf/reporte_marcas.php" target="_blank">
+                            <span class="nav-label"><i class="fa   fa-th-list"></i> Marcas</span></a>
                     </li>
                     <li>
                         <a href="../mpdf/prueba_abonos_proveedor.php" target="_blank">

@@ -1,5 +1,5 @@
 <?php 
-require '../../modelo/modelo_cuentas_clientes.php';
+require '../../model/modelo_cuentas_clientes.php';
 
 $MB = new Modelo_Cuentas_Clientes();
 $venta_id = htmlspecialchars($_POST['venta_id'],ENT_QUOTES,'UTF-8');

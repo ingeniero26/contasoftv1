@@ -1,61 +1,43 @@
 <div class="row">
     <div class="col-md-12">
         <div class="ibox ibox-default">
-            <div class="ibox-head">
-                <div class="ibox-title">SALIDA DE PRODUCTOS</div>
-                <div class="ibox-tools">
 
-                </div>
-            </div>
             <div class="ibox-body">
                 <div class="row">
-                    <div class="col-6">
-                        <label for=""><b>Concepto</b> </label>
-                        <select class="js-example-basic-single" name="state" style="width: 100%;" id="cmb_concepto">
-
-                        </select> <br> <br>
-                    </div>
-
-                    <div class="col-6">
-                        <label for=""><b>Bodega</b> </label>
-                        <select class="js-example-basic-single" name="state" style="width: 100%;" id="cmb_bodega_ingreso">
-
-                        </select> <br> <br>
-                    </div>
-
-                    <div class="col-3">
-                        <label for=""><b>% IVA (19% - 0.19)</b></label>
-                        <input type="text" class="form-control" id="txt_impuesto" disabled>
-                    </div>
-                    <div class="col-3">
-                        <label for=""><b>Tipo Comprobante</b> </label>
-                        <select class="js-example-basic-single" name="state" style="width: 100%;" id="cmb_tipo_comprobante">
-                            <option value="TICKET">TICKET</option>
-                            <option value="COTIZACION">COTIZACION</option>
-                            <option value="FACTURA">FACTURA</option>
-                            <option value="BOLETA">BOLETA</option>
-
-
-                        </select> <br> <br>
-                    </div>
-                
-                    <div class="col-3">
+                <div class="col-3">
                         <label for=""><b>Fecha Salida </b></label>
                         <input type="date" class="form-control" id="txt_fecha">
                     </div>
-                  
-                 
-                   
-                    <div class="col-3">
-                        <label for=""><b>Estado</b> </label>
-                        <select class="js-example-basic-single" name="state" style="width: 100%;" id="cmb_estado">
-                            <option value="CANCELADA">CANCELADA</option>
-                            <option value="POR_PAGAR">POR PAGAR</option>
-                            <option value="POR_COBRAR">POR COBRAR</option>
-
+                    <div class="col-6">
+                        <label for=""><b>Bodega</b> </label>
+                        <select class="js-example-basic-single" name="state"
+                         style="width: 100%;" id="cmb_bodega_ingreso">
 
                         </select> <br> <br>
                     </div>
+                    <div class="col-3">
+                        <label for=""><b>Tipo Salida</b> </label>
+                        <select class="js-example-basic-single" name="state" style="width: 100%;" id="tipo_salida">
+                            <option value="devolucion">Devolución</option>
+                            <option value="transferencia">Auto Consumo</option>
+                            <option value="donacion">Donación</option>
+                            <option value="Otro">Otro</option>
+                        </select> <br> <br>
+                    </div>
+                    <div class="col-12">
+                        <label for=""><b>Motivo</b></label>
+                        <input type="text" class="form-control" id="txt_motivo">
+                    </div>
+                   
+
+                    <!-- <div class="col-6">
+                        <label for=""><b>Tipo Salida</b> </label>
+                        <select class="js-example-basic-single" name="state" style="width: 100%;" id="cmb_concepto">
+
+                        </select> <br> <br>
+                    </div> -->
+
+
                     <div class="col-lg-12">
                         <h1 class="text-center">DATOS DEL PRODUCTO</h1>
                     </div>
@@ -74,18 +56,15 @@
                         <label for=""><b>Cantidad</b></label>
                         <input type="number" class="form-control" onkeypress="return event.charCode >= 48" min="1" id="txt_cantidad">
                     </div><br>
-                    <div class="col-2">
-                        <label for=""><b>% Descuento</b></label>
-                        <input type="text" class="form-control" id="txt_descto">
-                    </div><br>
+
 
 
                     <div class="col-2">
                         <label>&nbsp;</label><br>
-                        <button class="btn btn-success" onclick="Agregar_Producto_Detalle_Ingreso()"><i class="fa fa-plus"></i>Agregar</button>
+                        <button class="btn btn-success" onclick="Agregar_Producto_Detalle_Salida()"><i class="fa fa-plus"></i>Agregar</button>
                     </div>
                     <div class="col-12" style="text-align: center;">
-                        <button class="btn btn-primary btn-lg " onclick="Registrar_Compra()">Registrar Salida</button>
+                        <button class="btn btn-primary btn-lg " onclick="Registrar_Salida()">Registrar Salida</button>
                     </div>
                     <div class="col-12" style="text-align:left;">
                         <h4 for=""><b>Detalle de ingreso</b></h4>
@@ -98,8 +77,7 @@
                                 <th>CANTIDAD</th>
                                 <th>PRECIO</th>
                                 <th>SUB TOTAL</th>
-                                <th>DESCUENTO</th>
-                                <th>IVA</th>
+                               
                                 <th>ACCI&Oacute;N</th>
                             </thead>
                             <tbody id="tb_detalle_ingreso">
@@ -110,7 +88,7 @@
                     </div>
 
 
-
+<!-- 
 
                     <div class="col-12" style="text-align: right;">
                         <label for="" id="lbl_subtotal"></label>
@@ -123,7 +101,7 @@
                     </div>
                     <div class="col-12" style="text-align: right;">
                         <label for="" id="lbl_totalneto"></label>
-                    </div>
+                    </div> -->
                 </div>
 
 
@@ -133,7 +111,7 @@
     </div>
 </div>
 
-<script type="text/javascript" src="../js/compras.js?rev=<?php echo time(); ?>"></script>
+<script type="text/javascript" src="../js/salidas.js?rev=<?php echo time(); ?>"></script>
 <script>
     $(document).ready(function() {
 

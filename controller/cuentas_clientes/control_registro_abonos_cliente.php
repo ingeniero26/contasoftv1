@@ -1,5 +1,5 @@
 <?php 
-require '../../modelo/modelo_cuentas_clientes.php';
+require '../../model/modelo_cuentas_clientes.php';
 
 $MCC = new Modelo_Cuentas_Clientes();
 $idventa = htmlspecialchars($_POST['idventa'],ENT_QUOTES,'UTF-8');
