@@ -101,6 +101,7 @@ class Modelo_Ventas
     {
         $sql = "call  SP_REGISTRAR_VENTA_DETALLE('$id','$array_producto','$array_cantidad','$array_precio','$array_dcto')";
         if ($consulta = $this->conexion->conexion->query($sql)) {
+           
             return 1;
         } else {
             return 0;

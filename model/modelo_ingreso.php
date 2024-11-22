@@ -97,6 +97,7 @@ class Modelo_Ingreso
         }
         $this->conexion->cerrar();
     }
+    
     public function Anular_Compra($idcompra)
     {
         $sql = "call  SP_ANULAR_COMPRA('$idcompra')";

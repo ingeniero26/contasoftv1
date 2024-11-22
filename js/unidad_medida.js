@@ -10,7 +10,7 @@ var idempresa =$("#txt_idempresa").val();
         "autoWidth": false,
       "ajax":{
         "method":"POST",
-            "url":"../controlador/unidad_medida/control_unidad_listar.php",
+            "url":"../controller/unidad_medida/control_unidad_listar.php",
             data:{
                 idempresa:idempresa
             }
@@ -128,7 +128,7 @@ var idempresa =$("#txt_idempresa").val();
             mensaje = "activo";
         }
         $.ajax({
-            url: "../controlador/unidad_medida/control_modificar_estatus.php",
+            url: "../controller/unidad_medida/control_modificar_estatus.php",
             type: 'POST',
             data: {
                 unidad_id: unidad_id,
@@ -165,7 +165,7 @@ var idempresa =$("#txt_idempresa").val();
         );
       }
       $.ajax({
-        url:'../controlador/unidad_medida/control_registro_unidad.php',
+        url:'../controller/unidad_medida/control_registro_unidad.php',
         type:'POST',
         data:{
           unidad:unidad,
@@ -211,7 +211,7 @@ var idempresa =$("#txt_idempresa").val();
         Swal.fire('Mensaje de error','Debe digitar los campos vacios','warning');
       }
       $.ajax({
-        url:'../controlador/unidad_medida/control_modificar_unidad.php',
+        url:'../controller/unidad_medida/control_modificar_unidad.php',
         type:'POST',
         data:{
           id:id,

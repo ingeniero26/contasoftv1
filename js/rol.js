@@ -10,7 +10,7 @@ var idempresa =$("#txt_idempresa").val();
       	"autoWidth": false,
       "ajax":{
         "method":"POST",
-		    "url":"../controlador/rol/controlador_rol_listar.php",
+		    "url":"../controller/rol/controlador_rol_listar.php",
             data:{
                 idempresa:idempresa
             }
@@ -126,7 +126,7 @@ var idempresa =$("#txt_idempresa").val();
             mensaje = "activo";
         }
         $.ajax({
-            url: "../controlador/rol/control_modificar_estatus.php",
+            url: "../controller/rol/control_modificar_estatus.php",
             type: 'POST',
             data: {
                 rol_id: rol_id,
@@ -164,7 +164,7 @@ var idempresa =$("#txt_idempresa").val();
         );
       }
       $.ajax({
-        url:'../controlador/rol/controlador_registro_rol.php',
+        url:'../controller/rol/controlador_registro_rol.php',
         type:'POST',
         data:{
           rol:rol,
@@ -204,7 +204,7 @@ var idempresa =$("#txt_idempresa").val();
         Swal.fire('Mensaje de error','Debe digitar los campos vacios','warning');
       }
       $.ajax({
-        url:'../controlador/rol/controlador_modificar_rol.php',
+        url:'../controller/rol/controlador_modificar_rol.php',
         type:'POST',
         data:{
           id:id,
