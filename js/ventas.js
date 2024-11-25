@@ -185,11 +185,12 @@ function listar_combo_bodega() {
             }
             $('#cmb_bodega').html(cadena);
             $('#cmb_bodega_ingreso').html(cadena);
+            $('#cmb_bodega_iventory').html(cadena);
 
         } else {
             cadena += "<option value=''> No Hay datos</option>";
             $('#cmb_bodega').html(cadena);
-            $('#cmb_bodega_ingreso').html(cadena);
+            $('#cmb_bodega_iventory').html(cadena);
         }
     })
 }

@@ -74,7 +74,7 @@
 
             <li>
                 <a href="javascript:;"><i class="sidebar-item-icon fa fa-edit"></i>
-                    <span class="nav-label">Inventario</span><i class="fa fa-angle-left arrow"></i></a>
+                    <span class="nav-label">Items</span><i class="fa fa-angle-left arrow"></i></a>
                 <ul class="nav-2-level collapse">
                     <li>
                         <a href="javascript:cargar_contenido('contenido_principal','bodegas/mantenimiento_bodegas.php')">
@@ -107,6 +107,22 @@
                         <a href="javascript:cargar_contenido('contenido_principal','productos/valor_inventario.php')">
                             <span class="nav-label"><i class="fa   fa-th-list"></i> Valor Inventario</span></a>
                     </li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:;"><i class="sidebar-item-icon fa fa-edit"></i>
+                    <span class="nav-label">Consulta Productos</span><i class="fa fa-angle-left arrow"></i></a>
+                <ul class="nav-2-level collapse">
+                    <li>
+                        <a href="javascript:cargar_contenido('contenido_principal','bodegas/mantenimiento_bodegas.php')">
+                            <span class="nav-label"><i class="fa   fa-outdent"></i>Stock Bodegas</span></a>
+                    </li>
+                    <li>
+                        <a href="javascript:cargar_contenido('contenido_principal','items/inventory_moviments.php')">
+                            <span class="nav-label"><i class="fa   fa-list-ol"></i> Movimiento Items</span></a>
+                    </li>
+
+                
                 </ul>
             </li>
             <li>

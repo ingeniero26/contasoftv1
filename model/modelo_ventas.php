@@ -36,7 +36,6 @@ class Modelo_Ventas
         if ($consulta = $this->conexion->conexion->query($sql)) {
             while ($consulta_vu = mysqli_fetch_assoc($consulta)) {
                 $arreglo["data"][] = $consulta_vu;
-
             }
             return $arreglo;
             $this->conexion->cerrar();
@@ -53,7 +52,6 @@ class Modelo_Ventas
         if ($consulta = $this->conexion->conexion->query($sql)) {
             while ($consulta_vu = mysqli_fetch_array($consulta)) {
                 $arreglo[] = $consulta_vu;
-
             }
             return $arreglo;
             $this->conexion->cerrar();
@@ -69,20 +67,29 @@ class Modelo_Ventas
         if ($consulta = $this->conexion->conexion->query($sql)) {
             while ($consulta_vu = mysqli_fetch_array($consulta)) {
                 $arreglo[] = $consulta_vu;
-
             }
             return $arreglo;
             $this->conexion->cerrar();
         }
     }
 
-    public function Registrar_Venta($idcliente, $idbodega, 
-	$idusuario, $tipo_comprobante, 
-	$serie_comprobante, $tipo_pago, 
-	$impuesto, $total, $estado, $porcentaje,
-	 $decto, $fecha_vc,$dias_pago,
-	 $idempresa, $idcaja)
-    {
+    public function Registrar_Venta(
+        $idcliente,
+        $idbodega,
+        $idusuario,
+        $tipo_comprobante,
+        $serie_comprobante,
+        $tipo_pago,
+        $impuesto,
+        $total,
+        $estado,
+        $porcentaje,
+        $decto,
+        $fecha_vc,
+        $dias_pago,
+        $idempresa,
+        $idcaja
+    ) {
         $sql = "call  SP_REGISTRAR_VENTA('$idcliente','$idbodega', 
 		 '$idusuario','$tipo_comprobante','$serie_comprobante',
 		 '$tipo_pago','$impuesto','$total',
@@ -101,7 +108,7 @@ class Modelo_Ventas
     {
         $sql = "call  SP_REGISTRAR_VENTA_DETALLE('$id','$array_producto','$array_cantidad','$array_precio','$array_dcto')";
         if ($consulta = $this->conexion->conexion->query($sql)) {
-           
+
             return 1;
         } else {
             return 0;
@@ -118,7 +125,5 @@ class Modelo_Ventas
             return 0;
         }
         $this->conexion->cerrar();
-
     }
-
 }
