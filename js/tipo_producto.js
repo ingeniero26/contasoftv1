@@ -10,7 +10,7 @@ var idempresa =$("#txt_idempresa").val();
         "autoWidth": false,
       "ajax":{
         "method":"POST",
-            "url":"../controlador/tipo_producto/control_tipo_producto_listar.php",
+            "url":"../controller/tipo_producto/control_tipo_producto_listar.php",
             data: {
                 idempresa:idempresa
             }
@@ -127,7 +127,7 @@ var idempresa =$("#txt_idempresa").val();
             mensaje = "activo";
         }
         $.ajax({
-            url: "../controlador/categoria/control_modificar_estatus.php",
+            url: "../controller/categoria/control_modificar_estatus.php",
             type: 'POST',
             data: {
                 id: id,
@@ -166,7 +166,7 @@ var idempresa =$("#txt_idempresa").val();
         );
       }
       $.ajax({
-        url:'../controlador/tipo_producto/control_tipo_producto_registro.php',
+        url:'../controller/tipo_producto/control_tipo_producto_registro.php',
         type:'POST',
         data:{
           tipo_producto:tipo_producto,
@@ -206,7 +206,7 @@ var idempresa =$("#txt_idempresa").val();
         Swal.fire('Mensaje de error','Debe digitar los campos vacios','warning');
       }
       $.ajax({
-        url:'../controlador/tipo_producto/control_modificar_tipo_producto.php',
+        url:'../controller/tipo_producto/control_modificar_tipo_producto.php',
         type:'POST',
         data:{
           id:id,

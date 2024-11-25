@@ -11,7 +11,7 @@ function listar_arl() {
         "autoWidth": false,
         ajax: {
             method: "POST",
-            url: "../controlador/configuracion/control_listar_arl.php",
+            url: "../controller/setting/control_listar_arl.php",
             data: {
                 idempresa:idempresa
             }

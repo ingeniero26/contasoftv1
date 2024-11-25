@@ -10,7 +10,7 @@ function listar_centro_costos() {
     autoWidth: false,
     ajax: {
       method: "POST",
-      url: "../controlador/centro_costos/control_centro_costos_listar.php",
+      url: "../controller/centro_costos/control_centro_costos_listar.php",
       data: {
         idempresa: idempresa,
       },

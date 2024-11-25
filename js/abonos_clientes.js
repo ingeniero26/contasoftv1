@@ -15,7 +15,7 @@ function Listar_Abono_Clientes(){
         'excel', 'csv', 'pdf', 'print', 'copy',
         ],
         ajax:{
-            url:"../controlador/cuentas_clientes/cntrl_listado_abonos.php",
+            url:"../controller/cuentas_clientes/cntrl_listado_abonos.php",
             type:'POST'
         },
         "order":[[1,'asc']],

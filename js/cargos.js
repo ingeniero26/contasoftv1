@@ -11,7 +11,7 @@ function Listar_Cargos(){
         "async": false ,
         "processing": true,
         ajax:{
-            url:"../controlador/cargos/control_listado_cargos.php",
+            url:"../controller/cargos/control_listado_cargos.php",
             type:'POST'
         },
         "order":[[1,'asc']],

@@ -10,7 +10,7 @@ var idempresa =$("#txt_idempresa").val();
         "autoWidth": false,
       "ajax":{
         "method":"POST",
-            "url":"../controlador/gastos/tipo_gastos_listar.php",
+            "url":"../controller/gastos/tipo_gastos_listar.php",
             data: {
                 idempresa:idempresa
             }
@@ -127,7 +127,7 @@ var idempresa =$("#txt_idempresa").val();
             mensaje = "activo";
         }
         $.ajax({
-            url:"../controlador/gastos/tipo_gastos_modificar_estatus.php",
+            url:"../controller/gastos/tipo_gastos_modificar_estatus.php",
             type: 'POST',
             data: {
                 id: id,

@@ -11,7 +11,7 @@ function ListarCuenta_Proveedor(){
         "async": false ,
         "processing": true,
         ajax:{
-            url:"../controlador/cuentas_proveedor/cntrl_cuentas_proveedor.php",
+            url:"../controller/cuentas_proveedor/cntrl_cuentas_proveedor.php",
             type:'POST'
         },
         "order":[[1,'asc']],
@@ -80,7 +80,7 @@ function ListarCuenta_Proveedor(){
 
     function listar_combo_compra() {
     $.ajax({
-        url: "../controlador/cuentas_proveedor/control_combo_listar_compra.php",
+        url: "../controller/cuentas_proveedor/control_combo_listar_compra.php",
         type: 'POST'
     }).done(function(resp) {
        // alert(resp);
@@ -113,7 +113,7 @@ function ListarCuenta_Proveedor(){
         );
       }
       $.ajax({
-        url:'../controlador/cuentas_proveedor/control_registro_abonos_proveedor.php',
+        url:'../controller/cuentas_proveedor/control_registro_abonos_proveedor.php',
         type:'POST',
         data:{
           idcompra:idcompra,

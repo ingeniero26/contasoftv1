@@ -15,7 +15,7 @@ function listar_persona(){
         ],
       "ajax":{
         "method":"POST",
-		    "url":"../controlador/persona/control_persona_listar.php",
+		    "url":"../controller/persona/control_persona_listar.php",
              data:{
               
                 idempresa:idempresa,
@@ -164,7 +164,7 @@ function listar_persona(){
             mensaje = "activo";
         }
         $.ajax({
-            url: "../controlador/persona/control_modificar_estatus.php",
+            url: "../controller/persona/control_modificar_estatus.php",
             type: 'POST',
             data: {
                 persona_id: persona_id,
@@ -187,7 +187,7 @@ function listar_persona(){
     function listar_combo_tipo_tercero_persona() {
         var idempresa =$("#txt_idempresa").val();
            $.ajax({
-               url:"../controlador/proveedor/control_combo_tipo_tercero_persona.php",
+               url:"../controller/proveedor/control_combo_tipo_tercero_persona.php",
                 type:'POST',
                 data:{
                    idempresa:idempresa
@@ -216,7 +216,7 @@ function listar_persona(){
  function listar_combo_departamentos() {
     
         $.ajax({
-            url:"../controlador/departamentos/control_combo_departamentos.php",
+            url:"../controller/departamentos/control_combo_departamentos.php",
              type:'POST',
              
         }).done(function(resp){
@@ -248,7 +248,7 @@ function listar_persona(){
 function  listar_combo_ciudades(iddepartamento) {
     
      $.ajax({
-            url:"../controlador/ciudades/control_combo_ciudad.php",
+            url:"../controller/ciudades/control_combo_ciudad.php",
              type:'POST',
              data:{
                 iddepartamento:iddepartamento
@@ -294,7 +294,7 @@ function  listar_combo_ciudades(iddepartamento) {
       return Swal.fire('Mensaje de error','Debe digitar los campos vacios','warning');
     }
     $.ajax({
-      url:'../controlador/persona/controlador_registro_persona.php',
+      url:'../controller/persona/controlador_registro_persona.php',
       type:'POST',
       data:{
         nombre:nombre,  apepat:apepat, apemat:apemat,tipo_cont:tipo_cont,
@@ -345,7 +345,7 @@ function  listar_combo_ciudades(iddepartamento) {
       return Swal.fire('Mensaje de error','Debe digitar los campos vacios','warning');
     }
     $.ajax({
-      url:'../controlador/persona/controlador_modificar_persona.php',
+      url:'../controller/persona/controlador_modificar_persona.php',
       type:'POST',
       data:{
         id_persona:id_persona,  nombre:nombre, apepat:apepat, apemat:apemat,

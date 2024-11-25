@@ -12,7 +12,7 @@ function listar_pension() {
         "autoWidth": false,
         "ajax": {
             "method": "POST",
-            "url": "../controlador/configuracion/control_listar_pension.php",
+            "url": "../controller/configuracion/control_listar_pension.php",
             data : {
                 idempresa:idempresa
             }
@@ -136,7 +136,7 @@ function Modificar_Estatus(IdEPS, estatus) {
         mensaje = "activo";
     }
     $.ajax({
-        url: "../controlador/configuracion/control_modificar_estatus_eps.php",
+        url: "../controller/configuracion/control_modificar_estatus_eps.php",
         type: 'POST',
         data: {
             IdEPS: IdEPS,
@@ -177,7 +177,7 @@ function Registrar_Pension() {
         return Swal.fire('Mensaje de error', 'Digite los campos estan vacios', 'warning');
     }
     $.ajax({
-        url: '../controlador/configuracion/control_pension_registro.php',
+        url: '../controller/configuracion/control_pension_registro.php',
         type: 'POST',
         data: {
             nit: nit,

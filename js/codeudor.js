@@ -1,7 +1,7 @@
 function listar_combo_cliente() {
     var idempresa =$("#txt_idempresa").val();
    $.ajax({
-       url: "../controlador/ventas/control_combo_cliente_listar.php",
+       url: "../controller/ventas/control_combo_cliente_listar.php",
        type: 'POST',
        data:{
            idempresa:idempresa

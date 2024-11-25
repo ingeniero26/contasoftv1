@@ -1,7 +1,7 @@
 
 function listarCategorias(){
     $.ajax({
-        url:"controlador/categoria/ctrlCategorias.php",
+        url:"controller/categoria/ctrlCategorias.php",
         type:"POST",
         data:{accion:"listar"},
         success:function(response){
@@ -15,7 +15,7 @@ function listarCategorias(){
 
 function cargarProductosCategoria(idCategoria){
     $.ajax({
-        url:"controlador/productos/ctrlProductos.php",
+        url:"controller/productos/ctrlProductos.php",
         type:"POST",
         data:{accion:"listarXcategoria",idCategoria:idCategoria},
         success:function(response){

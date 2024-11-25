@@ -10,7 +10,7 @@ function listar_cuentas_contables() {
     autoWidth: false,
     ajax: {
       method: "POST",
-      url: "../controlador/cuentas_contables/control_cuentas_contables_listar.php",
+      url: "../controller/cuentas_contables/control_cuentas_contables_listar.php",
       data: {
         idempresa: idempresa,
       },
@@ -145,7 +145,7 @@ function Modificar_Estatus(id, estatus) {
     mensaje = "activo";
   }
   $.ajax({
-    url: "../controlador/cuentas_contables/control_modificar_estatus.php",
+    url: "../controller/cuentas_contables/control_modificar_estatus.php",
     type: "POST",
     data: {
       id: id,
@@ -195,7 +195,7 @@ function Registrar_Cuenta() {
     );
   }
   $.ajax({
-    url: "../controlador/cuentas_contables/control_cuentas_contables_registro.php",
+    url: "../controller/cuentas_contables/control_cuentas_contables_registro.php",
     type: "POST",
     data: {
         idempresa: idempresa,
@@ -260,7 +260,7 @@ function Modificar_Cuenta() {
     Swal.fire("Mensaje de error", "Debe digitar los campos vacios", "warning");
   }
   $.ajax({
-    url: "../controlador/cuentas_contables/control_cuentas_modificar.php",
+    url: "../controller/cuentas_contables/control_cuentas_modificar.php",
     type: "POST",
     data: {
       id: id,

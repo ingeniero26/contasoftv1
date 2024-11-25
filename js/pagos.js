@@ -18,7 +18,7 @@ function listar_gastos() {
         ],
         "ajax": {
             "method": "POST",
-            "url": "../controlador/gastos/control_pagos.php",
+            "url": "../controller/gastos/control_pagos.php",
             data: {
                 finicio: finicio,
                 ffin: ffin,
@@ -101,7 +101,7 @@ $('#tabla_listado_pagos').on('click', '.eliminar', function() {
 function Modificar_Estatus(idGasto,) {
   
     $.ajax({
-        url: "../controlador/gastos/control_modificar_estado_pago.php",
+        url: "../controller/gastos/control_modificar_estado_pago.php",
         type: 'POST',
         data: {
             idGasto: idGasto
@@ -127,7 +127,7 @@ function Modificar_Estatus(idGasto,) {
 function listar_combo_tipo_pagos() {
     var idempresa =$("#txt_idempresa").val();
     $.ajax({
-        url: "../controlador/gastos/control_combo_tipo_pagos.php",
+        url: "../controller/gastos/control_combo_tipo_pagos.php",
         type: 'POST', 
         data : {
             idempresa:idempresa
@@ -154,7 +154,7 @@ function listar_combo_tipo_pagos() {
 function listar_combo_bodega() {
     var idempresa =$("#txt_idempresa").val();
        $.ajax({
-           url:"../controlador/bodegas/control_combo_bodegas.php",
+           url:"../controller/bodegas/control_combo_bodegas.php",
             type:'POST',
             data:{
                idempresa:idempresa
@@ -197,7 +197,7 @@ function listar_combo_bodega() {
   return Swal.fire('Mensaje de error','Debe digitar los campos vacios','warning');
   }
   $.ajax({
-  url:'../controlador/gastos/controlador_registro_gastos.php',
+  url:'../controller/gastos/controlador_registro_gastos.php',
   type:'POST',
   data:{
     idtipo_gasto:idtipo_gasto,

@@ -1,6 +1,6 @@
 <?php
 // Require composer autoload
-require_once __DIR__ . './vendor/autoload.php';
+require_once __DIR__ . '/vendor/autoload.php';
 require_once '../conexion_global/r_conexion.php';
 
 $html='<!DOCTYPE html>
@@ -38,7 +38,7 @@ $html='<!DOCTYPE html>
 	}*/
 	$consulta = "SELECT   `usuario`.`usuario_nombre`     , `rol`.`rol_nombre`
     , `usuario`.`usuario_estatus`    FROM     `usuario`
-    INNER JOIN `sistema_pos`.`rol` 
+    INNER JOIN `rol` 
         ON (`usuario`.`rol_id` = `rol`.`rol_id`);";
         $resultado = $conexion->query($consulta);
         $contador = 0;

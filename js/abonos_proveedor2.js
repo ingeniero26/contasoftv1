@@ -11,7 +11,7 @@ function Listar_Abono_Proveedor(){
         "async": false ,
         "processing": true,
         ajax:{
-            url:"../controlador/cuentas_proveedor/listado_abonos.php",
+            url:"../controller/cuentas_proveedor/listado_abonos.php",
             type:'POST'
         },
         "order":[[1,'asc']],

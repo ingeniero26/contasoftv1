@@ -14,7 +14,7 @@ var idempresa =$("#txt_idempresa").val();
         ],
       "ajax":{
         "method":"POST",
-		    "url":"../controlador/proveedor/control_proveedor_listar.php",
+		    "url":"../controller/proveedor/control_proveedor_listar.php",
             data:{
                 idempresa:idempresa
             }
@@ -76,7 +76,7 @@ var idempresa =$("#txt_idempresa").val();
     function listar_combo_ciudad() {
         var idempresa =$("#txt_idempresa").val();
            $.ajax({
-               url:"../controlador/ciudades/control_combo_ciudad_listar.php",
+               url:"../controller/ciudades/control_combo_ciudad_listar.php",
                 type:'POST',
                 data:{
                    idempresa:idempresa
@@ -106,7 +106,7 @@ var idempresa =$("#txt_idempresa").val();
     function listar_combo_tipo_tercero() {
         var idempresa =$("#txt_idempresa").val();
            $.ajax({
-               url:"../controlador/proveedor/control_combo_tipo_tercero_listar.php",
+               url:"../controller/proveedor/control_combo_tipo_tercero_listar.php",
                 type:'POST',
                 data:{
                    idempresa:idempresa
@@ -135,7 +135,7 @@ var idempresa =$("#txt_idempresa").val();
        function listar_combo_tipo_cliente() {
         var idempresa =$("#txt_idempresa").val();
            $.ajax({
-               url:"../controlador/proveedor/control_combo_tercero_cliente.php",
+               url:"../controller/proveedor/control_combo_tercero_cliente.php",
                 type:'POST',
                 data:{
                    idempresa:idempresa
@@ -182,7 +182,7 @@ var idempresa =$("#txt_idempresa").val();
       return Swal.fire('Mensaje de error','Debe digitar los campos vacios','warning');
       }
       $.ajax({
-      url:'../controlador/proveedor/controlador_registro_proveedor.php',
+      url:'../controller/proveedor/controlador_registro_proveedor.php',
       type:'POST',
       data:{
         nombre:nombre,
@@ -274,7 +274,7 @@ var idempresa =$("#txt_idempresa").val();
             mensaje = "activo";
         }
         $.ajax({
-            url: "../controlador/proveedor/control_modificar_estatus.php",
+            url: "../controller/proveedor/control_modificar_estatus.php",
             type: 'POST',
             data: {
                 proveedor_id: proveedor_id,

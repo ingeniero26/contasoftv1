@@ -10,7 +10,7 @@ function listar_empleados(){
       	"autoWidth": false,
       "ajax":{
         "method":"POST",
-		    "url":"../controlador/nomina/control_empleado_listar.php",
+		    "url":"../controller/nomina/control_empleado_listar.php",
             data:{
                 idempresa:idempresa
             }
@@ -119,7 +119,7 @@ function listar_empleados(){
             mensaje = "activo";
         }
         $.ajax({
-            url: "../controlador/nomina/control_modificar_estatus.php",
+            url: "../controller/nomina/control_modificar_estatus.php",
             type: 'POST',
             data: {
                 IdEmp: IdEmp,
@@ -143,7 +143,7 @@ function listar_empleados(){
 
 function listar_combo_arl() {
     $.ajax({
-        url: "../controlador/nomina/control_combo_arl_listar.php",
+        url: "../controller/nomina/control_combo_arl_listar.php",
         type: 'POST'
     }).done(function(resp) {
         //alert(resp);
@@ -166,7 +166,7 @@ function listar_combo_arl() {
 
 function listar_combo_eps() {
     $.ajax({
-        url: "../controlador/nomina/control_combo_eps_listar.php",
+        url: "../controller/nomina/control_combo_eps_listar.php",
         type: 'POST'
     }).done(function(resp) {
         //alert(resp);
@@ -189,7 +189,7 @@ function listar_combo_eps() {
 
 function listar_combo_pension() {
     $.ajax({
-        url: "../controlador/nomina/control_combo_pension_listar.php",
+        url: "../controller/nomina/control_combo_pension_listar.php",
         type: 'POST'
     }).done(function(resp) {
         //alert(resp);
@@ -213,7 +213,7 @@ function listar_combo_pension() {
 
 function listar_combo_rol() {
     $.ajax({
-        url:"../controlador/usuario/controlador_combo_rol_listar.php",
+        url:"../controller/usuario/controlador_combo_rol_listar.php",
          type:'POST'
     }).done(function(resp){
         //alert(resp);
@@ -254,7 +254,7 @@ function Registrar_Empleado() {
       return Swal.fire('Mensaje de error','Debe digitar los campos vacios','warning');
     }
     $.ajax({
-      url:'../controlador/nomina/controlador_registro_empleado.php',
+      url:'../controller/nomina/controlador_registro_empleado.php',
       type:'POST',
       data:{
         numero:numero,

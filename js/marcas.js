@@ -10,7 +10,7 @@ var idempresa =$("#txt_idempresa").val();
         "autoWidth": false,
       "ajax":{
         "method":"POST",
-            "url":"../controlador/marcas/control_marcas_listar.php",
+            "url":"../controller/marcas/control_marcas_listar.php",
             data: {
                 idempresa:idempresa
             }
@@ -127,7 +127,7 @@ var idempresa =$("#txt_idempresa").val();
             mensaje = "activo";
         }
         $.ajax({
-            url: "../controlador/marcas/control_modificar_estatus_marcas.php",
+            url: "../controller/marcas/control_modificar_estatus_marcas.php",
             type: 'POST',
             data: {
                 id: id,
@@ -161,7 +161,7 @@ var idempresa =$("#txt_idempresa").val();
         );
       }
       $.ajax({
-        url:'../controlador/marcas/control_marcas_registro.php',
+        url:'../controller/marcas/control_marcas_registro.php',
         type:'POST',
         data:{
           descripcion:descripcion,
@@ -201,7 +201,7 @@ var idempresa =$("#txt_idempresa").val();
         Swal.fire('Mensaje de error','Debe digitar los campos vacios','warning');
       }
       $.ajax({
-        url:'../controlador/marcas/control_modificar_marca_producto.php',
+        url:'../controller/marcas/control_modificar_marca_producto.php',
         type:'POST',
         data:{
           id:id,

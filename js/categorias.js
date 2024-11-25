@@ -10,7 +10,7 @@ function listar_categoria() {
         "autoWidth": false,
         "ajax": {
             "method": "POST",
-            "url": "../controlador/categoria/control_categoria_listar.php",
+            "url": "../controller/categoria/control_categoria_listar.php",
             data: {
                 idempresa: idempresa
             }
@@ -128,7 +128,7 @@ function Modificar_Estatus(categoria_id, estatus) {
         mensaje = "activo";
     }
     $.ajax({
-        url: "../controlador/categoria/control_modificar_estatus.php",
+        url: "../controller/categoria/control_modificar_estatus.php",
         type: 'POST',
         data: {
             categoria_id: categoria_id,
@@ -163,7 +163,7 @@ function Registrar_Categoria() {
         );
     }
     $.ajax({
-        url: '../controlador/categoria/control_categoria_registro.php',
+        url: '../controller/categoria/control_categoria_registro.php',
         type: 'POST',
         data: {
             categoria: categoria,
@@ -203,7 +203,7 @@ function Modificar_Categoria() {
         Swal.fire('Mensaje de error', 'Debe digitar los campos vacios', 'warning');
     }
     $.ajax({
-        url: '../controlador/categoria/control_modificar_categoria.php',
+        url: '../controller/categoria/control_modificar_categoria.php',
         type: 'POST',
         data: {
             id: id,

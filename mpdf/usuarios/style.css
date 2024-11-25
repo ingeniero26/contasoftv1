@@ -97,6 +97,7 @@ table th {
 table .service,
 table .desc {
   text-align: left;
+  font-size: 2em;
 }
 
 table td {
@@ -112,7 +113,7 @@ table td.desc {
 table td.unit,
 table td.qty,
 table td.total {
-  font-size: 1.2em;
+  font-size: 1.8em;
 }
 
 table td.grand {

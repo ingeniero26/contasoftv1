@@ -13,7 +13,7 @@ function ListarCuenta_Cliente() {
         "async": false,
         "processing": true,
         ajax: {
-            url: "../controlador/cuentas_clientes/cntrol_cuentas_clientes.php",
+            url: "../controller/cuentas_clientes/cntrol_cuentas_clientes.php",
             type: 'POST',
             data: {
                 idempresa: idempresa
@@ -84,7 +84,7 @@ function AbrirModalRegistro() {
 
 function listar_combo_venta() {
     $.ajax({
-        url: "../controlador/cuentas_clientes/control_listar_combo_venta.php",
+        url: "../controller/cuentas_clientes/control_listar_combo_venta.php",
         type: 'POST'
     }).done(function (resp) {
         //alert(resp);
@@ -118,7 +118,7 @@ function Registrar_Abono_Cliente() {
         );
     }
     $.ajax({
-        url: '../controlador/cuentas_clientes/control_registro_abonos_cliente.php',
+        url: '../controller/cuentas_clientes/control_registro_abonos_cliente.php',
         type: 'POST',
         data: {
             idventa: idventa,
