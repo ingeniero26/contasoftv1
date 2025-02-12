@@ -271,12 +271,12 @@
                             <span class="nav-label"><i class="fa   fa-outdent"></i> Tipo Comprobante</span></a>
 
                     </li>
-                    <!-- <li>
-                                <a href="javascript:cargar_contenido('contenido_principal','pagos/listado_gastos.php')" >
-                                    <span class="nav-label"><i class="fa   fa-outdent"></i> IVA</span></a>
+                     <li>
+                                <a href="javascript:cargar_contenido('contenido_principal','contabilidad/listado_entidades_bancarias.php')" >
+                                    <span class="nav-label"><i class="fa   fa-outdent"></i> Entidades Bancarias</span></a>
 
                             </li>
-                               <li>
+                         <!--      <li>
                                 <a href="javascript:cargar_contenido('contenido_principal','pagos/listado_gastos.php')" >
                                     <span class="nav-label"><i class="fa   fa-outdent"></i> Retefuente</span></a>
 
